@@ -7,7 +7,6 @@ function App() {
   return (
   <> 
     {/* <h1 class='font-semibold text-center' >Home</h1> */}
-    <h1>Hello Login</h1>
     <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
@@ -20,12 +19,12 @@ function App() {
         <div class="flex bg-[#141517] relative justify-center items-center h-screen w-full border-0 md:justify-center md:items-center md:max-h-[55rem] xl:max-w-[90%] md:border-white md:border-y-[1px] md:border-opacity-25 lg:max-w-[100%] 2xl:border-[#F29A4B] 2xl:rounded-[47px]">
           {/* <img src={require('../../img/rectangle.png')} class="absolute invisible md:max-w-[700px] md:visible md:w-[80%] md:h-auto"></img> */}
         
-              <img src={require('../../img/login_bg.png')} class=" invisible md:max-w-[700px] md:visible md:w-[80%] md:h-auto  xl:max-w-[900px] xl:min-h-[500px] xl:max-h-full 2xl:max-w-[900px] 2xl:min-h-[500px] 2xl:max-h-full"></img>
+              <img src={require('./img/login_bg.png')} class=" invisible md:max-w-[700px] md:visible md:w-[80%] md:h-auto  xl:max-w-[900px] xl:min-h-[500px] xl:max-h-full 2xl:max-w-[900px] 2xl:min-h-[500px] 2xl:max-h-full"></img>
             
           <div class="flex flex-col absolute w-full h-[80vh] border-[#F29A4B] justify-center md:border md:border-[#F29A4B] md:bg-opacity-50 border-opacity-25 md:rounded-[47px] md:max-w-[60%] md:border-none">
-           <img src={require('../../img/d.png')} class='max-w-[500px] w-fit absolute self-center md:invisible blur-[15px]'></img>
+           <img src={require('./img/d.png')} class='max-w-[500px] w-fit absolute self-center md:invisible blur-[15px]'></img>
             <div class="flex flex-col w-full h-auto px-12 bg-[#0f0f11] bg-opacity-[80%] border-white border-y-[1px] md:max-w-[80%] md:translate-x-[4.5rem] border-opacity-25 justify-center z-10 md:w-full md:h-auto md:rounded-[47px] md:py-0 md:px-7 xl:max-w-[65%] xl:translate-x-[25%] 2xl:max-w-[50%] 2xl:translate-x-[50%] 2xl:border-[#F29A4B] 2xl:px-9">
-              <img src={require('../../img/logo.png')} class='h-auto w-[130px] md:max-w-[30%] self-center z-10 py-3 lg:w-[120px] lg:h-auto'></img>
+              <img src={require('./img/logo.png')} class='h-auto w-[130px] md:max-w-[30%] self-center z-10 py-3 lg:w-[120px] lg:h-auto'></img>
               <h1 class="w-fit self-center py-2 text-[#CBCBCB] text-[1rem] tracking-[0.25rem] font-medium font-['Nunito Sans'] z-10 lg:py-0">SIGN IN TO DJOYOF</h1>
               <form class='flex flex-col'>
                 <div class="mb-4 py-2 z-10">
@@ -54,6 +53,8 @@ function App() {
           </div>
         </div>
       </div>
+
+
 </>
   );
 }
