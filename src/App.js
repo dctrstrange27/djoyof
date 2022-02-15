@@ -7,6 +7,7 @@ function App() {
   return (
   <> 
     {/* <h1 class='font-semibold text-center' >Home</h1> */}
+    <h1>Hello Login</h1>
     <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
