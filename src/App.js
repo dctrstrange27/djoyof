@@ -6,9 +6,6 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 function App() {
   return (
   <> 
-    {/* <h1 class='font-semibold text-center' >Home</h1> */}
-    {/*sample adding comment here*/}
-    {/*sample adding comment here 2*/}
     <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
