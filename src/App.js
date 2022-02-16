@@ -1,37 +1,14 @@
 
 import Login from './Components/Login/Login'
-
-
-import React from 'react'
-
 import Home from './Components/Home/Home'
 import About from './Components/About/About'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom' 
-import { render } from '@testing-library/react';
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={apiResponse:""};
-  }
-CallAPI(){
-  fetch("http://localhost:9000/testAPI")
-  .then(res => res.text())
-  .then(res => res.setState({apiResponse:res}));}
-  componentWillMount(){
-    this.CallAPI();
-  }
-
-render(){
+function App() {
   return (
   <> 
     {/* <h1 class='font-semibold text-center' >Home</h1> */}
-<<<<<<< HEAD
     {/*sample adding comment here*/}
     {/*sample adding comment here 2*/}
-    
-    {/*sample asdfdsf comment here 2*/}
-=======
->>>>>>> e95e3ba175cf64364cae0b407ae69a48e70c13fd
     <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
@@ -39,7 +16,7 @@ render(){
           <Route path='/About' element={<About/>} />
         </Routes>
     </Router>
-    <p>{this.state.apiResponse}</p>
+
     <div class="flex bg-[#24262B] w-full justify-center md:h-screen lg:h-screen xl:h-screen items-center">
         <div class="flex bg-[#141517] relative justify-center items-center h-screen w-full border-0 md:justify-center md:items-center md:max-h-[55rem] xl:max-w-[90%] md:border-white md:border-y-[1px] md:border-opacity-25 lg:max-w-[100%] 2xl:border-[#F29A4B] 2xl:rounded-[47px]">
           {/* <img src={require('../../img/rectangle.png')} class="absolute invisible md:max-w-[700px] md:visible md:w-[80%] md:h-auto"></img> */}
@@ -80,7 +57,6 @@ render(){
       </div>
 </>
   );
-}
 }
 
 export default App;
