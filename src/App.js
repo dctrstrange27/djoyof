@@ -25,6 +25,7 @@ render(){
   return (
   <> 
     {/* <h1 class='font-semibold text-center' >Home</h1> */}
+      {/* hahahaha may apoooy */}
     <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
