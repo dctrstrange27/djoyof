@@ -42,7 +42,7 @@ function App() {
                   <a href="#" class="text-sm text-[#1CADFF] z-10"> Forgot your password? </a>
                 </div>
                 <div class="py-[45px] lg:py-[20px] flex items-center justify-center z-10">
-                  <button class=" text-sm font-['Nunito Sans'] tracking-[0.1rem] w-30 px-4 py-1  bg-[#b18055] self-center border border-transparent rounded-md font-semibold capitalize text-white hover:bg-[#F29A4B] focus:outline-none disabled:opacity-25 transition">Sign In</button>
+                  <button class=" text-sm font-['Nunito Sans'] tracking-[0.1rem] w-30 px-4 py-1  bg-[#5584b1] self-center border border-transparent rounded-md font-semibold capitalize text-white hover:bg-[#F29A4B] focus:outline-none disabled:opacity-25 transition">Sign In</button>
                 </div>
                 <div class="text-center z-10 mt-1 pb-7">
                   <a href="#" class="underline font-['Nunito Sans']  text-sm text-[#CBCBCB]">Sign up for an account</a>
