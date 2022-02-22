@@ -17,8 +17,8 @@ function App() {
     <div class="flex bg-[#24262B] w-full justify-center md:h-screen lg:h-screen xl:h-screen items-center">
         <div class="flex bg-[#141517] relative justify-center items-center h-screen w-full border-0 md:justify-center md:items-center md:max-h-[55rem] xl:max-w-[90%] md:border-white md:border-y-[1px] md:border-opacity-25 lg:max-w-[100%] 2xl:border-[#F29A4B] 2xl:rounded-[47px]">
           {/* <img src={require('../../img/rectangle.png')} class="absolute invisible md:max-w-[700px] md:visible md:w-[80%] md:h-auto"></img> */}
-        
-              <img src={require('./img/login_bg.png')} class=" invisible md:max-w-[700px] md:visible md:w-[80%] md:h-auto xl:max-w-[900px] xl:min-h-[500px] xl:max-h-full 2xl:max-w-[900px] 2xl:min-h-[500px] 2xl:max-h-full"></img>
+          {/*just adding comment*/}
+          <img src={require('./img/login_bg.png')} class=" invisible md:max-w-[700px] md:visible md:w-[80%] md:h-auto xl:max-w-[900px] xl:min-h-[500px] xl:max-h-full 2xl:max-w-[900px] 2xl:min-h-[500px] 2xl:max-h-full"></img>
             
           <div class="flex flex-col absolute w-full h-[80vh] border-[#F29A4B] justify-center md:border md:border-[#F29A4B] md:bg-opacity-50 border-opacity-25 md:rounded-[47px] md:max-w-[60%] md:border-none">
            <img src={require('./img/d.png')} class='max-w-[500px] w-full absolute self-center md:invisible blur-[15px]'></img>
