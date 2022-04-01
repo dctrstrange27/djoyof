@@ -62,16 +62,15 @@ export const Cart = (props) => {
                                     <div className='text-white'>
                                         {cartItems.length === 0 && <div> Cart is Empty...</div>}
                                         {cartItems.map((item)=>
-                                            <div key= {item.id} className="row">
-                                                <div className='col-2' >{item.name}</div>
+                                            <div key= {item._id} className="row">
+                                                <div className='col-2' >{item.product_name}</div>
                                                 <div className='col-2'>
                                                     <button onClick={()=> onAdd(item)} className='add'>+</button>
                                                     <button onClick={()=> onRemove(item)} className='remove'>-</button>
                                                 </div>
                                                 <div className='col-2'>
-                                                    {item.qty} x ${item.price.toFixed(2)}
+                                                    {item.product_qty} x ${item.product_price.toFixed(2)}
                                                 </div>
-                                                
                                             </div>
                                         )}
                                        

@@ -10,6 +10,7 @@ import { IoExitOutline, IoHome } from "react-icons/io5";
 import { BsSearch, BsFillSuitHeartFill } from "react-icons/bs";
 import { ImCart } from "react-icons/im";
 import { GiSlicedBread } from "react-icons/gi";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export const Home = () => {
   let history = useHistory();
@@ -19,6 +20,7 @@ export const Home = () => {
   const { products } = Data;
   const [cartItems, setCartItems] = useState([]);
   const [toggleSide, setToggleSide] = useState(false);
+  const [toggleNav, setToggleNav] = useState(false);
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
@@ -35,6 +37,7 @@ export const Home = () => {
 
   const resetToggle = () => {
     setToggleSide(false);
+    setToggleNav(false)
   };
 
   useEffect(() => {
@@ -57,16 +60,16 @@ export const Home = () => {
     /* border-[#F29A4B] border-[1px] */
   }
   return (
-    <div className="bg-[#24262B] w-full  ">
+    <div className="bg-[#24262B] sm:w-screen ">
       <div className="flex relative h-screen">
         {/**Asside Nav desu */}
         <aside
           className={`z-30 w-[5rem] duration-500 absolute -left-96 ${
             toggleSide && "left-0"
-          } sm:static h-auto bg-transparent border-[#fffff] border-r-[.01px] `}
+          } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
           aria-label="Sidebar"
         >
-          <div className="bg-[#24262B] py-6 px-3 flex justify-center items-center rounded">
+          <div className="bg-[#24262bd9] py-6 px-3 flex justify-center items-center rounded">
             <ul className="space-y-2">
               <li>
                 <a
@@ -132,13 +135,13 @@ export const Home = () => {
         </aside>
 
         <div
-          className="w-full h-screen  overflow-y-auto"
+          className="w-screen overflow-x-hidden h-screen  overflow-y-auto"
           onClick={() => {
             resetToggle();
           }}
         >
-          {/** Top Nav */}
-          <nav className="flex flex-wrap px-8 my-2 space-x-10 uppercase py-8 border-[#fffff] border-b-[.001px]">
+          {/* Burger Nav */}
+          <div className="BurgerNav flex w-screen justify-between items-center py-4 px-4">
             <GiSlicedBread
               onClick={(e) => {
                 e.stopPropagation();
@@ -146,41 +149,56 @@ export const Home = () => {
               }}
               className="block sm:hidden w-9 h-9 text-orange-500"
             />
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Home
-            </a>
-            <a
-              href="/"
-              className="text-sm  px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              About
-            </a>
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Service
-            </a>
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Contact Us
-            </a>
-            <a
-              href="/"
-              className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              <img
-                alt=""
-                src={require("../../img/logo.png")}
-                className="h-auto w-12"
-              ></img>
-            </a>
-          </nav>
+            <GiHamburgerMenu
+              onClick={(e) => {
+                e.stopPropagation();
+                setToggleNav(!toggleNav);
+                console.log(1);
+              }}
+              className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
+            />
+          </div>
+          <div className="relative ">
+            <div className={`absolute max-w-[20%] h-auto z-50 w-[20%] border-[#F29A4B] border-[1px] -right-32 duration-500 ${toggleNav && "-right-0"}  `} >
+              {/** Top Nav */}
+              <nav className="flex flex-wrap flex-col justify-center sm:hidden gap-3 items-center uppercase py-8 border-[#fffff] border-b-[.001px]">
+                <a
+                  href="/"
+                  className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <img
+                    alt=""
+                    src={require("../../img/logo.png")}
+                    className="h-auto w-12"
+                  ></img>
+                </a>
+                <a
+                  href="/"
+                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  Home
+                </a>
+                <a
+                  href="/"
+                  className="text-sm  px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  About
+                </a>
+                <a
+                  href="/"
+                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  Service
+                </a>
+                <a
+                  href="/"
+                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  Contact Us
+                </a>
+              </nav>
+            </div>
+          </div>
 
           <div className="flex flex-wrap py-4 px-4">
             <div className="w-full">
@@ -277,182 +295,3 @@ export const Home = () => {
   );
 };
 export default Home;
-
-// const companies = [
-//   {name: "Company One", category: "Finance", start: 1981, end: 2004 },
-//   {name: "Company Two", category: "Retail", start: 1992, end: 2008 },
-//   {name: "Company Three", category: "Auto", start: 1999, end: 2007 },
-//   {name: "Company Four", category: "Retail", start: 1989, end: 2010 },
-//   {name: "Company Five", category: "Technology", start: 2009, end: 2014 },
-//   {name: "Company Six", category: "Finance", start: 1987, end: 2010 },
-//   {name: "Company Seven", category: "Auto", start: 1986, end: 1996 },
-//   {name: "Company Eight", category: "Technology", start: 2011, end: 2016 },
-//   {name: "Company Nine", category: "Retail", start: 1981, end: 1989 }
-// ];
-
-// const ages = [33, 12, 20, 16, 5, 54, 21, 44, 61, 13, 15, 45, 25, 64, 32];
-// //forEach
-//  for (let i = 0; i < companies.length; i++){
-//    console.log(companies[i]);
-//   }
-
-// companies.forEach(function(company){
-//   console.log(company)
-// });
-
-// companies.forEach((a) => {
-//   console.log(a)
-// })
-
-// companies.forEach(a => console.log(a.name))
-
-// filter
-
-// const b = ages.filter( a  => {
-//     if(a >= 21){
-//       return true;
-//     }
-// })
-// const candrink = ages.filter(function(a){
-//   if(a >= 21){
-//     return true;
-//   }
-// })
-
-// console.log(candrink)
-
-// const x = companies.filter( a => a.category === "Retail")
-// console.log(x)
-// console.log(companies.length)
-// for(let a = 0; a < companies.length; a++){
-//   let b = 0;
-//   if( companies[a].category === "Retail"){
-//     console.log(companies[a])
-//     b += companies[a].end - companies[a].start
-//     console.log("this is the gap between years ",b)
-//   }
-// }
-
-// for (let x = 0; x < companies.length; x++){
-//     if(companies[x].category === "Auto" && companies[x].end - companies[x].start <= 10){
-//       console.log(companies[x])
-//     }
-
-//   }
-
-// const y = companies.filter((a) => (a.start >= 1980 && a.start <= 1990))
-
-// console.log(y)
-
-// let map = new Map;
-
-// let nums = [2,4,5,6,7]
-// let target = 7
-
-// // O(n) - One-pass Hash Table
-// var twoSum = (nums, target)=> {
-//   let map = new Map;
-//     for (var i = 0; i < nums.length; i++) {
-//       let complement = target - nums[i];
-//       if (map.has(complement)) {
-//           return [map.get(complement), i]
-//       }
-//       map.set(nums[i], i);
-//   }
-// }
-
-// console.log(twoSum(nums,target))
-
-// const a = nums.forEach((x)=> {
-//       let y = []
-//       y.push(x % x.length)
-//     console.log(y)
-// })
-
-// for(let x = 0; x < nums.length; x++){
-//     let a = []
-//     a.push(x % x.length)
-//     console.log(a)
-
-// }
-
-// const Totalyears = companies.reduce( (t,c)=> {
-//   return t + (c.end - c.start)
-// })
-
-// let a = 0;
-
-// for(let x = 0; x < ages.length; x++){
-//   a += ages[x]
-// }
-
-//reduce
-
-// const totalYears = companies.reduce((total,comp) => total + (comp.end - comp.start), 0);
-// console.log(totalYears);
-
-// function sing(callback){
-//   console.log("la la la la ")
-//   if(callback){
-//     callback()
-//   }
-// }
-// function meow(){
-//   console.log("meow meow")
-// }
-
-// sing()
-// sing(meow)
-
-// function doubler(x){
-//   return  x * 2;
-// }
-// let x = val.map(x => x * 2)
-
-// const newVal = val.map(x => Math.floor(Math.random() * 10))
-// console.log(newVal)
-
-//  let arr = new Array(50)
-//  arr = arr.fill().map(x => Math.floor(Math.random() * 10)).reduce((x,y) => {
-//     if (y > x) {
-//       x = y
-//     }
-//     return x;
-//   })
-//  console.log(arr)
-
-// function multiplier(factor){
-//     return x => x * factor;
-// }
-
-// function multi(factor){
-//   return function(x){
-//     return x * factor;
-//   }
-// }
-
-// let doubler =  multi(2)
-// let tripler =  multiplier(3)
-
-// console.log(doubler(2));
-// console.log(doubler(4));
-
-// let vals = [
-//   {
-//     x: 5,
-//     y: 10
-//   },
-//   {
-//     x: 5,
-//     y: 2
-//   }
-
-// ]
-
-// function compare(a,b){
-//   return a.y - b.y;
-// }
-
-// console.log(vals)
-// vals.sort(compare)
-// console.log(vals)
