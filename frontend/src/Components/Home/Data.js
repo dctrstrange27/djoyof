@@ -20,9 +20,9 @@ const data = {
         },
         {
             id: '4',
-            name: 'Item-4',
+            name: 'Pan De Negro',
             price: 1410,
-            image: 'https://picsum.photos/id/1/3008/2008'
+            image: 'https://freepngdownload.com/image/thumb/fancy-cut-round-breed-free-png-image-download.png'
         },
         {
             id: '5',
