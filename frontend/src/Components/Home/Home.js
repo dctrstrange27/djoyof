@@ -58,8 +58,10 @@ export const Home = () => {
           rel="stylesheet"
         ></link>
         <div className="flex">
+
+            {/**Asside Nav desu */}
           <aside
-            className="w-16 h-auto bg-transparent border-[#fffff] border-r-[.01px] "
+            className="w-1/12 h-auto bg-transparent border-[#fffff] border-r-[.01px] "
             aria-label="Sidebar"
           >
             <div className="py-6 px-3 flex justify-center items-center rounded">
@@ -148,7 +150,8 @@ export const Home = () => {
           </aside>
 
           <div className="w-full">
-            <nav className="flex px-8 my-2 space-x-10 uppercase py-8 border-[#fffff] border-b-[.01px]">
+              {/** Top Nav */}
+            <nav className="flex flex-wrap px-8 my-2 space-x-10 uppercase py-8 border-[#fffff] border-b-[.001px]">
               <a
                 href="/"
                 className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
@@ -188,15 +191,15 @@ export const Home = () => {
             <div className="flex flex-wrap py-4 px-4">
               <div className="w-full">
                 <ul
-                  className=" flex mb-0 w-1/2 list-none flex-wrap pt-3 flex-row"
+                  className="grid grid-cols-2 md:grid-cols-4 mb-0 w-full md:w-8/12 lg:w-1/2 list-none pt-3"
                   role="tablist"
                 >
                   {["ALL", "FAVORITES", "COMPLETED", "CANCELLED"].map(
                     (tb, idx) => (
-                      <li key={idx} className={`-mb-px mr-2 last:mr-0 flex-auto text-center `}>
+                      <li key={idx} className={` last:mr-0 flex-auto text-center `}>
                         <a
                           className={
-                            "rounded-tl-xl z-10 translate-x-4 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded-sm block leading-normal " +
+                            "rounded-tl-xl z-10 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded-sm block leading-normal " +
                             (openTab === idx+1
                               ? "text-white bg-[#F29A4B] 600"
                               : "text-white bg-[#21201F] -600 bg-transparent")
@@ -222,8 +225,9 @@ export const Home = () => {
                           overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
                   >
                     <div className="tab-content tab-space relative">
+                      {/** Products Container */}
                       <div
-                        className={openTab === 1 ? "block" : "hidden"}
+                        className={`${openTab === 1 && "block"} grid grid-cols-3 m-4 gap-4`}
                         id="link2"
                       >
                         {products.map((product) => (

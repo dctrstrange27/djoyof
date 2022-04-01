@@ -4,7 +4,7 @@ const data = {
             id: '1',
             name: 'Item-1',
             price: 1300,
-            image: 'https://picsum.photos/id/180/2400/1600'
+            image: 'https://i.pinimg.com/originals/fe/65/fe/fe65fe68f5b9e7077d7c6b8beb0d60c0.png'
         },
         {
             id: '2',
