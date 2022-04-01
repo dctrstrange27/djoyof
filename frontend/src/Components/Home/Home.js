@@ -61,7 +61,7 @@ export const Home = () => {
     /* border-[#F29A4B] border-[1px] */
   }
   return (
-    <div className="bg-[#24262B] w-full  ">
+    <div className="bg-[#24262B] sm:w-screen ">
       <div className="flex relative h-screen">
         {/**Asside Nav desu */}
         <aside
