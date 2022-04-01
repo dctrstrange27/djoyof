@@ -12,12 +12,19 @@ module.exports = {
       'xl': '1280px',
       '2xl': '1536px',
     },
-
-
-
     extend: {
-      
+        fontFamily:{
+          dm_mono:  "'DM Mono', monospace",
+          pop:"'Poppins', sans-serif",
+          nuni: "'Nunito', sans-serif"
+        },
+        
       },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
+  variants: {
+    scrollbar: ['rounded']
+}
 }
