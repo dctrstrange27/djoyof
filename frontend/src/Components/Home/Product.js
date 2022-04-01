@@ -7,7 +7,7 @@ const Product = (props) => {
     <>
       <div className=' relative flex flex-col gap-7 px-8 justify-center items-center place-content-evenly h-auto '>
         <div className="bg-[#09090A] h-auto w-full max-w-sm px-5 pl-[60px] py-1 mt-8 relative after:content-[''] after:w-[90%] after:h-[2px]  after:bg-[#F29A4B] after:left-0 after:bottom-0 after:top-[110%] after:absolute">
-          <img src={product.image} className='h-auto max-w-[100%] z-10 w-[90px] absolute -left-11 -top-3'></img>
+          <img alt="" src={product.image} className='h-auto max-w-[100%] z-10 w-[90px] absolute -left-11 -top-3'></img>
           <h1 className='text-[13px]'>{product.name}</h1>
           <div className='flex text-[12px] font-light mt-1 place-content-evenly'>
             <h2 className='text-[13px]'>price: </h2>

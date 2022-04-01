@@ -28,7 +28,7 @@ export const Cart = (props) => {
                                 Cart
                             </a>
                             <div className='flex justify-center items-center '>
-                                <img src={require('../../img/n-cart.png')} className='max-h-[2rem]  border-[0px]'></img>
+                                <img  alt='' src={require('../../img/n-cart.png')} className='max-h-[2rem]  border-[0px]'></img>
                             </div>
                         </li>
                         <li className="-mb-px mr-2 last:mr-0 text-center flex max-h-10 shadow-lg bg-[#24262B]">
@@ -49,7 +49,7 @@ export const Cart = (props) => {
                                 Checkout
                             </a>
                             <div className='flex justify-center items-center '>
-                                <img src={require('../../img/n-check.png')} className='max-h-[2rem]  border-[0px]'></img>
+                                <img  alt='' src={require('../../img/n-check.png')} className='max-h-[2rem]  border-[0px]'></img>
                             </div>
                         </li>
 
@@ -61,7 +61,7 @@ export const Cart = (props) => {
                                 <div className={checkTab === 1 ? "block" : "hidden"} id="link1">
                                     <div className='text-white'>
                                         {cartItems.length === 0 && <div> Cart is Empty...</div>}
-                                        {cartItems.map((item)=>{
+                                        {cartItems.map((item)=>
                                             <div key= {item.id} className="row">
                                                 <div className='col-2' >{item.name}</div>
                                                 <div className='col-2'>
@@ -73,7 +73,7 @@ export const Cart = (props) => {
                                                 </div>
                                                 
                                             </div>
-                                        })}
+                                        )}
                                        
                                     </div>
                                 </div>
