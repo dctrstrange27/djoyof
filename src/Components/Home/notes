@@ -1,0 +1,207 @@
+const companies = [
+  {name: "Company One", category: "Finance", start: 1981, end: 2004 },
+  {name: "Company Two", category: "Retail", start: 1992, end: 2008 },
+  {name: "Company Three", category: "Auto", start: 1999, end: 2007 },
+  {name: "Company Four", category: "Retail", start: 1989, end: 2010 },
+  {name: "Company Five", category: "Technology", start: 2009, end: 2014 },
+  {name: "Company Six", category: "Finance", start: 1987, end: 2010 },
+  {name: "Company Seven", category: "Auto", start: 1986, end: 1996 },
+  {name: "Company Eight", category: "Technology", start: 2011, end: 2016 },
+  {name: "Company Nine", category: "Retail", start: 1981, end: 1989 }
+];
+
+const ages = [33, 12, 20, 16, 5, 54, 21, 44, 61, 13, 15, 45, 25, 64, 32];
+//forEach
+ for (let i = 0; i < companies.length; i++){
+   console.log(companies[i]);
+  }
+
+companies.forEach(function(company){
+  console.log(company)
+});
+
+companies.forEach((a) => {
+  console.log(a)
+})
+
+companies.forEach(a => console.log(a.name))
+
+filter
+
+
+
+const b = ages.filter( a  => {
+    if(a >= 21){
+      return true;
+    }
+})
+const candrink = ages.filter(function(a){
+  if(a >= 21){
+    return true;
+  }
+})
+
+console.log(candrink)
+
+
+
+
+const x = companies.filter( a => a.category === "Retail")
+console.log(x)
+console.log(companies.length)
+for(let a = 0; a < companies.length; a++){
+  let b = 0;
+  if( companies[a].category === "Retail"){
+    console.log(companies[a])
+    b += companies[a].end - companies[a].start
+    console.log("this is the gap between years ",b)
+  }    
+}
+
+for (let x = 0; x < companies.length; x++){
+    if(companies[x].category === "Auto" && companies[x].end - companies[x].start <= 10){
+      console.log(companies[x])
+    }
+
+  }
+
+
+const y = companies.filter((a) => (a.start >= 1980 && a.start <= 1990))
+
+console.log(y)
+
+let map = new Map;
+
+
+let nums = [2,4,5,6,7]
+let target = 7
+
+
+// O(n) - One-pass Hash Table
+var twoSum = (nums, target)=> {
+  let map = new Map;
+    for (var i = 0; i < nums.length; i++) {
+      let complement = target - nums[i];
+      if (map.has(complement)) {
+          return [map.get(complement), i]
+      }
+      map.set(nums[i], i);
+  }
+}
+
+console.log(twoSum(nums,target))
+
+const a = nums.forEach((x)=> {
+      let y = []
+      y.push(x % x.length)
+    console.log(y)
+})
+
+for(let x = 0; x < nums.length; x++){
+    let a = []
+    a.push(x % x.length)
+    console.log(a)
+
+}
+
+
+
+
+
+
+
+
+const Totalyears = companies.reduce( (t,c)=> {
+  return t + (c.end - c.start)
+})
+
+let a = 0;
+
+for(let x = 0; x < ages.length; x++){
+  a += ages[x]
+}
+
+
+reduce
+
+const totalYears = companies.reduce((total,comp) => total + (comp.end - comp.start), 0);
+console.log(totalYears);
+
+
+
+
+function sing(callback){
+  console.log("la la la la ")
+  if(callback){
+    callback()
+  }
+}
+function meow(){
+  console.log("meow meow")
+}
+
+sing() 
+sing(meow)
+
+
+
+function doubler(x){
+  return  x * 2;
+}
+let x = val.map(x => x * 2)
+
+const newVal = val.map(x => Math.floor(Math.random() * 10))
+console.log(newVal)
+
+ let arr = new Array(50)
+ arr = arr.fill().map(x => Math.floor(Math.random() * 10)).reduce((x,y) => {
+    if (y > x) {
+      x = y
+    }
+    return x;
+  })
+ console.log(arr)
+
+
+
+
+
+
+
+function multiplier(factor){
+    return x => x * factor;
+}
+
+function multi(factor){
+  return function(x){
+    return x * factor;
+  }
+}
+
+let doubler =  multi(2)
+let tripler =  multiplier(3)
+
+console.log(doubler(2));
+console.log(doubler(4));
+
+let vals = [
+  {
+    x: 5,
+    y: 10
+  },
+  {
+    x: 5,
+    y: 2
+  }
+
+]
+
+
+
+function compare(a,b){
+  return a.y - b.y;
+}
+
+console.log(vals)
+vals.sort(compare)
+console.log(vals)
