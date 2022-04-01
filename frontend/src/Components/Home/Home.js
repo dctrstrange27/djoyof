@@ -219,7 +219,7 @@ export const Home = () => {
                     <div
                       className={`grid ${
                         openTab !== 1 && "hidden"
-                      }  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:m-4 md:gap-4`}
+                      }  grid grid-cols-1 sm:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-4 md:gap-4`}
                       id="link2"
                     >
                       {products.map((product) => (
