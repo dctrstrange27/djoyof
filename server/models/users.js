@@ -6,7 +6,7 @@ const userSchema=mongoose.Schema({
   customer_address:{type:String, required:true},
   customer_name:{type:String,required:true},
   contact_no:{type:Number, required:true},
-  product_image:{type:String, required:true},
+  product_image:{type:String,required:true},
   cartItems:{ type:[{
     product_name: {type: mongoose.Schema.Types.ObjectID, ref: 'Product'},
     product_qty: {type: Number, default: 1},
