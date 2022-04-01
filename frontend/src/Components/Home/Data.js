@@ -2,21 +2,21 @@ const data = {
     products: [
         {
             id: '1',
-            name: 'Item-1',
+            name: 'Tasty',
             price: 1300,
             image: 'https://i.pinimg.com/originals/fe/65/fe/fe65fe68f5b9e7077d7c6b8beb0d60c0.png'
         },
         {
             id: '2',
-            name: 'Item-2',
+            name: 'Pan De Cocomartin',
             price: 3100,
-            image:"https://picsum.photos/id/111/4400/2656"
+            image:"https://www.juliesbakeshop.com.ph/wp-content/uploads/Pan-de-Coco-1.png"
         },
         {
             id: '3',
-            name: 'Item-3',
+            name: 'Monay',
             price: 1300,
-            image: 'https://picsum.photos/id/21/3008/2008'
+            image: 'https://www.juliesbakeshop.com.ph/wp-content/uploads/Monay.png'
         },
         {
             id: '4',
