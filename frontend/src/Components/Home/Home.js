@@ -57,14 +57,14 @@ export const Home = () => {
     /* border-[#F29A4B] border-[1px] */
   }
   return (
-    <div className="bg-[#24262B] w-full h-screen ">
+    <div className="bg-[#24262B] w-full h-[150vh] max-h-[150vh] ">
       <div className="flex relative">
         {/**Asside Nav desu */}
         <aside
-          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${ toggleSide && 'left-0' } sm:static h-auto bg-transparent border-[#fffff] border-r-[.01px] `}
+          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${toggleSide && 'left-0'} sm:static h-auto bg-transparent border-[#fffff] border-r-[.01px] `}
           aria-label="Sidebar"
         >
-          <div className="bg-[#24262B] py-6 px-3 flex justify-center items-center rounded">
+          <div className="bg-[#24262bd9] py-6 px-3 flex justify-center items-center rounded">
             <ul className="space-y-2">
               <li>
                 <a
@@ -129,50 +129,52 @@ export const Home = () => {
           </div>
         </aside>
 
-        <div className="w-full" onClick={()=> {
-        resetToggle()
-    }}>
+        <div className="w-full" onClick={() => {
+          resetToggle()
+        }}>
           {/** Top Nav */}
-          <nav className="flex flex-wrap px-8 my-2 space-x-10 uppercase py-8 border-[#fffff] border-b-[.001px]">
-            <GiSlicedBread onClick={(e) => {
+          <div className="absolute right-0 max-w-[20%] h-auto w-[20%] border-[#F29A4B] border-[1px] ">
+            <nav className="relative flex flex-wrap flex-col border-[1px] justify-center items-center uppercase border-[#fffff] border-b-[.001px]">
+              <GiSlicedBread onClick={(e) => {
                 e.stopPropagation()
                 setToggleSide(!toggleSide)
-                }} className="block sm:hidden w-9 h-9 text-orange-500" />
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Home
-            </a>
-            <a
-              href="/"
-              className="text-sm  px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              About
-            </a>
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Service
-            </a>
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Contact Us
-            </a>
-            <a
-              href="/"
-              className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              <img
-                alt=""
-                src={require("../../img/logo.png")}
-                className="h-auto w-12"
-              ></img>
-            </a>
-          </nav>
+              }} className="block sm:hidden w-9 h-9 text-orange-500" />
+              <a
+                href="/"
+                className="text-[12px] px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+              >
+                Home
+              </a>
+              <a
+                href="/"
+                className="text-[12px]  px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+              >
+                About
+              </a>
+              <a
+                href="/"
+                className="text-[12px] px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+              >
+                Service
+              </a>
+              <a
+                href="/"
+                className="text-[12px] px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+              >
+                Contact Us
+              </a>
+              <a
+                href="/"
+                className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <img
+                  alt=""
+                  src={require("../../img/logo.png")}
+                  className="h-auto w-12"
+                ></img>
+              </a>
+            </nav>
+          </div>
 
           <div className="flex flex-wrap py-4 px-4">
             <div className="w-full">
@@ -217,9 +219,8 @@ export const Home = () => {
                   <div className="tab-content tab-space relative">
                     {/** Products Container */}
                     <div
-                      className={`grid ${
-                        openTab !== 1 && "hidden"
-                      }  grid grid-cols-1 sm:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-4 md:gap-4`}
+                      className={`grid ${openTab !== 1 && "hidden"
+                        }  grid grid-cols-1 sm:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-4 md:gap-4`}
                       id="link2"
                     >
                       {products.map((product) => (
