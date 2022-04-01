@@ -23,22 +23,66 @@ export const Home = () => {
   const [toggleNav, setToggleNav] = useState(false);
 
   const onAdd = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
+    const exist = cartItems.find((x) => {
+        console.log(x._id, product._id, x._id === product._id)
+        return x._id === product._id
+    });
     if (exist) {
       setCartItems(
-        cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
-        )
+        [...cartItems.filter((i) => i._id !== exist._id), {
+            ...exist, product_qty : exist.product_qty + 1
+        }]
       );
     } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
+      setCartItems([...cartItems, { ...product, product_qty: 1 }]);
     }
   };
 
+  const removeAllCartItems = () => {
+      setCartItems([])
+  }
+
+  const removeItemFromCart= (item) => {
+      setCartItems(cartItems.filter((i) => i._id !== item._id))
+  }
+
+  const increateQty = ( item ) => {
+    var idx = -1
+
+    let copy = [...cartItems]
+
+    copy.find((val,i) => { 
+        if( val._id === item._id) idx = i
+        return val._id === item._id
+    })
+
+    copy[idx].product_qty += 1
+
+    setCartItems(copy)
+  }
+
+  const decreaseQty = ( item ) => {
+    var idx = -1
+
+    let copy = [...cartItems]
+
+    copy.find((val,i) => { 
+        if( val._id === item._id) idx = i
+        return val._id === item._id
+    })
+
+    copy[idx].product_qty -= 1
+
+    if(copy[idx].product_qty === 0) copy = copy.filter((i) => i._id !== item._id)
+
+    setCartItems(copy)
+}
+
   const resetToggle = () => {
     setToggleSide(false);
-    setToggleNav(false)
+    setToggleNav(false);
   };
+
 
   useEffect(() => {
     /**
@@ -52,16 +96,12 @@ export const Home = () => {
      * kapag wala redirect sa login👇
      * */
     const userData = amIloggedIn(history);
-
     setCartItems(userData.cartItems);
   }, [history]);
 
-  {
-    /* border-[#F29A4B] border-[1px] */
-  }
   return (
-    <div className="bg-[#24262B] sm:w-screen ">
-      <div className="flex relative h-screen">
+    <div className="bg-[#24262B] sm:w-screen min-h-screen  ">
+      <div className="flex relative">
         {/**Asside Nav desu */}
         <aside
           className={`z-30 w-[5rem] duration-500 absolute -left-96 ${
@@ -135,7 +175,7 @@ export const Home = () => {
         </aside>
 
         <div
-          className="w-screen overflow-x-hidden h-screen  overflow-y-auto"
+          className="w-screen min-h-screen   overflow-x-hidden overflow-y-auto"
           onClick={() => {
             resetToggle();
           }}
@@ -159,7 +199,11 @@ export const Home = () => {
             />
           </div>
           <div className="relative ">
-            <div className={`absolute max-w-[20%] h-auto z-50 w-[20%] border-[#F29A4B] border-[1px] -right-32 duration-500 ${toggleNav && "-right-0"}  `} >
+            <div
+              className={`absolute max-w-[20%] h-auto z-50 w-[20%] border-[#F29A4B] border-[1px] -right-32 duration-500 ${
+                toggleNav && "-right-0"
+              }  `}
+            >
               {/** Top Nav */}
               <nav className="flex flex-wrap flex-col justify-center sm:hidden gap-3 items-center uppercase py-8 border-[#fffff] border-b-[.001px]">
                 <a
@@ -242,7 +286,7 @@ export const Home = () => {
                     "url('https://cdn.discordapp.com/attachments/955281529481883729/959364059541671966/Frame_13_1.png')"
                   }`,
                 }}
-                className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto max-h-[50vh] w-full"
+                className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto  w-full"
               >
                 <div
                   className="px-4 py-5 pl-10 pb-[8vh] flex-auto scrollbar-thin scrollbar scrollbar scrollbar-thumb-zinc-600 scrollbar-track-black
@@ -258,7 +302,7 @@ export const Home = () => {
                     >
                       {products.map((product) => (
                         <Product
-                          key={product.id}
+                          key={product._id}
                           onAddCart={onAdd}
                           product={product}
                         ></Product>
@@ -288,7 +332,7 @@ export const Home = () => {
               </div>
             </div>
           </div>
-          <Cart onAdd={onAdd} cartItems={cartItems}></Cart>
+          <Cart onAdd={onAdd} onDecrease={decreaseQty} onIncrease={increateQty} cartItems={cartItems} onRemove={ removeItemFromCart } onRemoveAll={removeAllCartItems}></Cart>
         </div>
       </div>
     </div>
