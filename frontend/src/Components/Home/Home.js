@@ -37,6 +37,7 @@ export const Home = () => {
 
   const resetToggle = () => {
     setToggleSide(false);
+    setToggleNav(false)
   };
 
   useEffect(() => {
