@@ -10,6 +10,7 @@ const orderSchema=mongoose.Schema({
   product_name:{type:String, require:true},
   product_qty:{type:Number, default:1},
   product_price:{type:Number, default:0},
+  status:{type:Number,default:0},
   date_ordered:{type:Date, default:Date.now}
 
 })
