@@ -9,7 +9,7 @@ import { amIloggedIn } from "../../Utils";
 import { IoExitOutline, IoHome } from "react-icons/io5";
 import { BsSearch, BsFillSuitHeartFill } from "react-icons/bs";
 import { ImCart } from "react-icons/im";
-import { GiSlicedBread } from "react-icons/gi"
+import { GiSlicedBread } from "react-icons/gi";
 
 export const Home = () => {
   let history = useHistory();
@@ -18,7 +18,7 @@ export const Home = () => {
 
   const { products } = Data;
   const [cartItems, setCartItems] = useState([]);
-  const [toggleSide, setToggleSide] = useState(false)
+  const [toggleSide, setToggleSide] = useState(false);
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
@@ -34,8 +34,8 @@ export const Home = () => {
   };
 
   const resetToggle = () => {
-    setToggleSide(false)
-  }
+    setToggleSide(false);
+  };
 
   useEffect(() => {
     /**
@@ -57,11 +57,13 @@ export const Home = () => {
     /* border-[#F29A4B] border-[1px] */
   }
   return (
-    <div className="bg-[#24262B] w-full h-screen ">
-      <div className="flex relative">
+    <div className="bg-[#24262B] w-full  ">
+      <div className="flex relative h-screen">
         {/**Asside Nav desu */}
         <aside
-          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${ toggleSide && 'left-0' } sm:static h-auto bg-transparent border-[#fffff] border-r-[.01px] `}
+          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${
+            toggleSide && "left-0"
+          } sm:static h-auto bg-transparent border-[#fffff] border-r-[.01px] `}
           aria-label="Sidebar"
         >
           <div className="bg-[#24262B] py-6 px-3 flex justify-center items-center rounded">
@@ -129,15 +131,21 @@ export const Home = () => {
           </div>
         </aside>
 
-        <div className="w-full" onClick={()=> {
-        resetToggle()
-    }}>
+        <div
+          className="w-full h-screen  overflow-y-auto"
+          onClick={() => {
+            resetToggle();
+          }}
+        >
           {/** Top Nav */}
           <nav className="flex flex-wrap px-8 my-2 space-x-10 uppercase py-8 border-[#fffff] border-b-[.001px]">
-            <GiSlicedBread onClick={(e) => {
-                e.stopPropagation()
-                setToggleSide(!toggleSide)
-                }} className="block sm:hidden w-9 h-9 text-orange-500" />
+            <GiSlicedBread
+              onClick={(e) => {
+                e.stopPropagation();
+                setToggleSide(!toggleSide);
+              }}
+              className="block sm:hidden w-9 h-9 text-orange-500"
+            />
             <a
               href="/"
               className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
@@ -209,7 +217,15 @@ export const Home = () => {
                 )}
               </ul>
 
-              <div className="font-pop flex rounded-md text-white   bg-[#141517] h-auto max-h-[50vh] w-full">
+              <div
+                style={{
+                  backgroundImage: `${
+                    openTab === 1 &&
+                    "url('https://cdn.discordapp.com/attachments/955281529481883729/959364059541671966/Frame_13_1.png')"
+                  }`,
+                }}
+                className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto max-h-[50vh] w-full"
+              >
                 <div
                   className="px-4 py-5 pl-10 pb-[8vh] flex-auto scrollbar-thin scrollbar scrollbar scrollbar-thumb-zinc-600 scrollbar-track-black
                           overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
@@ -219,7 +235,7 @@ export const Home = () => {
                     <div
                       className={`grid ${
                         openTab !== 1 && "hidden"
-                      }  grid grid-cols-1 sm:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-4 md:gap-4`}
+                      } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
                       id="link2"
                     >
                       {products.map((product) => (
