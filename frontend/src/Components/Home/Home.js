@@ -9,6 +9,7 @@ import { amIloggedIn } from "../../Utils";
 import { IoExitOutline, IoHome } from "react-icons/io5";
 import { BsSearch, BsFillSuitHeartFill } from "react-icons/bs";
 import { ImCart } from "react-icons/im";
+import { GiSlicedBread } from "react-icons/gi"
 
 export const Home = () => {
   let history = useHistory();
@@ -17,6 +18,7 @@ export const Home = () => {
 
   const { products } = Data;
   const [cartItems, setCartItems] = useState([]);
+  const [toggleSide, setToggleSide] = useState(false)
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
@@ -30,6 +32,10 @@ export const Home = () => {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
   };
+
+  const resetToggle = () => {
+    setToggleSide(false)
+  }
 
   useEffect(() => {
     /**
@@ -52,23 +58,13 @@ export const Home = () => {
   }
   return (
     <div className="bg-[#24262B] w-full h-screen ">
-      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-      ></link>
-      <link
-        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&family=Poppins:wght@100;200;300;400&display=swap"
-        rel="stylesheet"
-      ></link>
-      <div className="flex">
+      <div className="flex relative">
         {/**Asside Nav desu */}
         <aside
-          className="w-[5rem] h-auto bg-transparent border-[#fffff] border-r-[.01px] "
+          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${ toggleSide && 'left-0' } sm:static h-auto bg-transparent border-[#fffff] border-r-[.01px] `}
           aria-label="Sidebar"
         >
-          <div className="py-6 px-3 flex justify-center items-center rounded">
+          <div className="bg-[#24262B] py-6 px-3 flex justify-center items-center rounded">
             <ul className="space-y-2">
               <li>
                 <a
@@ -133,9 +129,15 @@ export const Home = () => {
           </div>
         </aside>
 
-        <div className="w-full">
+        <div className="w-full" onClick={()=> {
+        resetToggle()
+    }}>
           {/** Top Nav */}
           <nav className="flex flex-wrap px-8 my-2 space-x-10 uppercase py-8 border-[#fffff] border-b-[.001px]">
+            <GiSlicedBread onClick={(e) => {
+                e.stopPropagation()
+                setToggleSide(!toggleSide)
+                }} className="block sm:hidden w-9 h-9 text-orange-500" />
             <a
               href="/"
               className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
