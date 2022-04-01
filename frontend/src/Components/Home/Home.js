@@ -22,8 +22,6 @@ export const Home = () => {
   const [toggleSide, setToggleSide] = useState(false);
   const [toggleNav, setToggleNav] = useState(false);
 
-
-
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
@@ -65,7 +63,9 @@ export const Home = () => {
       <div className="flex relative h-screen">
         {/**Asside Nav desu */}
         <aside
-          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${toggleSide && "left-0"} h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
+          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${
+            toggleSide && "left-0"
+          } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
           aria-label="Sidebar"
         >
           <div className="bg-[#24262bd9] py-6 px-3 flex justify-center items-center rounded">
@@ -134,12 +134,11 @@ export const Home = () => {
         </aside>
 
         <div
-          className="w-full h-screen  overflow-y-auto"
+          className="w-screen overflow-x-hidden h-screen  overflow-y-auto"
           onClick={() => {
             resetToggle();
           }}
         >
-
           {/* Burger Nav */}
           <div className="BurgerNav flex w-screen justify-between items-center py-4 px-4">
             <GiSlicedBread
@@ -153,18 +152,15 @@ export const Home = () => {
               onClick={(e) => {
                 e.stopPropagation();
                 setToggleNav(!toggleNav);
-                console.log(1)
+                console.log(1);
               }}
               className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
             />
           </div>
-          <div className="Relative overflow-x-hidden">
-            <div className={`absolute max-w-[20%] z-20 h-auto w-[20%] border-[#F29A4B] border-[1px] -right-32
-               duration-500 ${toggleNav && "-right-0"} 
-          `}>
+          <div className="relative  bg-red-400">
+            <div className={`bg-red-400 absolute max-w-[20%] h-auto z-50 w-[20%] border-[#F29A4B] border-[1px] -right-32 duration-500 ${toggleNav && "-right-0"}  `} >
               {/** Top Nav */}
               <nav className="flex flex-wrap flex-col justify-center sm:hidden gap-3 items-center uppercase py-8 border-[#fffff] border-b-[.001px]">
-
                 <a
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -199,7 +195,6 @@ export const Home = () => {
                 >
                   Contact Us
                 </a>
-
               </nav>
             </div>
           </div>
@@ -241,9 +236,10 @@ export const Home = () => {
 
               <div
                 style={{
-                  backgroundImage: `${openTab === 1 &&
+                  backgroundImage: `${
+                    openTab === 1 &&
                     "url('https://cdn.discordapp.com/attachments/955281529481883729/959364059541671966/Frame_13_1.png')"
-                    }`,
+                  }`,
                 }}
                 className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto max-h-[50vh] w-full"
               >
@@ -254,8 +250,9 @@ export const Home = () => {
                   <div className="tab-content tab-space relative">
                     {/** Products Container */}
                     <div
-                      className={`grid ${openTab !== 1 && "hidden"
-                        } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                      className={`grid ${
+                        openTab !== 1 && "hidden"
+                      } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
                       id="link2"
                     >
                       {products.map((product) => (
@@ -297,4 +294,3 @@ export const Home = () => {
   );
 };
 export default Home;
-
