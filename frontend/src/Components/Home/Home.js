@@ -10,6 +10,7 @@ import { IoExitOutline, IoHome } from "react-icons/io5";
 import { BsSearch, BsFillSuitHeartFill } from "react-icons/bs";
 import { ImCart } from "react-icons/im";
 import { GiSlicedBread } from "react-icons/gi";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export const Home = () => {
   let history = useHistory();
@@ -19,6 +20,9 @@ export const Home = () => {
   const { products } = Data;
   const [cartItems, setCartItems] = useState([]);
   const [toggleSide, setToggleSide] = useState(false);
+  const [toggleNav, setToggleNav] = useState(false);
+
+
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
@@ -61,9 +65,7 @@ export const Home = () => {
       <div className="flex relative h-screen">
         {/**Asside Nav desu */}
         <aside
-          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${
-            toggleSide && "left-0"
-          } sm:static h-auto bg-transparent border-[#fffff] border-r-[.01px] `}
+          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${toggleSide && "left-0"} h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
           aria-label="Sidebar"
         >
           <div className="bg-[#24262bd9] py-6 px-3 flex justify-center items-center rounded">
@@ -137,8 +139,9 @@ export const Home = () => {
             resetToggle();
           }}
         >
-          {/** Top Nav */}
-          <nav className="flex flex-wrap px-8 my-2 space-x-10 uppercase py-8 border-[#fffff] border-b-[.001px]">
+
+          {/* Burger Nav */}
+          <div className="BurgerNav flex w-screen justify-between items-center py-4 px-4">
             <GiSlicedBread
               onClick={(e) => {
                 e.stopPropagation();
@@ -146,41 +149,60 @@ export const Home = () => {
               }}
               className="block sm:hidden w-9 h-9 text-orange-500"
             />
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Home
-            </a>
-            <a
-              href="/"
-              className="text-sm  px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              About
-            </a>
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Service
-            </a>
-            <a
-              href="/"
-              className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
-            >
-              Contact Us
-            </a>
-            <a
-              href="/"
-              className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              <img
-                alt=""
-                src={require("../../img/logo.png")}
-                className="h-auto w-12"
-              ></img>
-            </a>
-          </nav>
+            <GiHamburgerMenu
+              onClick={(e) => {
+                e.stopPropagation();
+                setToggleNav(!toggleNav);
+                console.log(1)
+              }}
+              className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
+            />
+          </div>
+          <div className="Relative overflow-x-hidden">
+            <div className={`absolute max-w-[20%] z-20 h-auto w-[20%] border-[#F29A4B] border-[1px] -right-32
+               duration-500 ${toggleNav && "-right-0"} 
+          `}>
+              {/** Top Nav */}
+              <nav className="flex flex-wrap flex-col justify-center sm:hidden gap-3 items-center uppercase py-8 border-[#fffff] border-b-[.001px]">
+
+                <a
+                  href="/"
+                  className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <img
+                    alt=""
+                    src={require("../../img/logo.png")}
+                    className="h-auto w-12"
+                  ></img>
+                </a>
+                <a
+                  href="/"
+                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  Home
+                </a>
+                <a
+                  href="/"
+                  className="text-sm  px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  About
+                </a>
+                <a
+                  href="/"
+                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  Service
+                </a>
+                <a
+                  href="/"
+                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                >
+                  Contact Us
+                </a>
+
+              </nav>
+            </div>
+          </div>
 
           <div className="flex flex-wrap py-4 px-4">
             <div className="w-full">
@@ -219,10 +241,9 @@ export const Home = () => {
 
               <div
                 style={{
-                  backgroundImage: `${
-                    openTab === 1 &&
+                  backgroundImage: `${openTab === 1 &&
                     "url('https://cdn.discordapp.com/attachments/955281529481883729/959364059541671966/Frame_13_1.png')"
-                  }`,
+                    }`,
                 }}
                 className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto max-h-[50vh] w-full"
               >
@@ -233,9 +254,8 @@ export const Home = () => {
                   <div className="tab-content tab-space relative">
                     {/** Products Container */}
                     <div
-                      className={`grid ${
-                        openTab !== 1 && "hidden"
-                      } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                      className={`grid ${openTab !== 1 && "hidden"
+                        } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
                       id="link2"
                     >
                       {products.map((product) => (
