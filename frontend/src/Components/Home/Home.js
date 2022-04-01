@@ -64,7 +64,7 @@ export const Home = () => {
       <div className="flex relative h-screen">
         {/**Asside Nav desu */}
         <aside
-          className={`z-30 w-[5rem] duration-500 absolute -left-96 ${
+          className={`z-30 w-[5rem] duration-500 sm:static absolute -left-96 ${
             toggleSide && "left-0"
           } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
           aria-label="Sidebar"
@@ -76,7 +76,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <IoExitOutline className="w-4 h-4 text-orange-500" />
+                  <IoExitOutline className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
                 </a>
               </li>
               <li className="py-4">
@@ -84,7 +84,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <BsSearch className="w-4 h-4 text-orange-500" />
+                  <BsSearch className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
               <li className="py-0">
@@ -92,7 +92,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <IoHome className="w-4 h-4 text-orange-500" />
+                  <IoHome className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
               <li className="py-4">
@@ -100,7 +100,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <ImCart className="w-4 h-4 text-orange-500" />
+                  <ImCart className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
               <li className="py-0">
@@ -108,7 +108,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <BsFillSuitHeartFill className="w-4 h-4 text-orange-500" />
+                  <BsFillSuitHeartFill className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
               <div className="py-10">
@@ -119,7 +119,7 @@ export const Home = () => {
                   <img
                     alt=""
                     src={require("../../img/text.png")}
-                    className="h-auto w-[50px] max-w-[40%] m md:max-w-[20%]  "
+                    className="h-auto w-[50px] max-w-[40%]"
                   ></img>
                 </a>
               </div>
@@ -135,7 +135,7 @@ export const Home = () => {
         </aside>
 
         <div
-          className="w-screen overflow-x-hidden h-screen  overflow-y-auto"
+          className="w-screen overflow-x-hidden h-screen overflow-y-auto"
           onClick={() => {
             resetToggle();
           }}
@@ -158,18 +158,23 @@ export const Home = () => {
               className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
             />
           </div>
-          <div className="relative ">
-            <div className={`absolute max-w-[20%] h-auto z-50 w-[20%] border-[#F29A4B] border-[1px] -right-32 duration-500 ${toggleNav && "-right-0"}  `} >
+          <div className="relative flex justify-center items-center lg:w-screen">
+            <div className={`absolute h-auto z-50 w-sm bg- mt-72 -right-32 ${toggleNav && "-right-0"} 
+                            md:relative md:right-0 md:mt-0 md:duration-75 lg:w-screen 
+            `} >
               {/** Top Nav */}
-              <nav className="flex flex-wrap flex-col justify-center sm:hidden gap-3 items-center uppercase py-8 border-[#fffff] border-b-[.001px]">
+              <nav className="flex flex-wrap flex-col bg-[#24262bd9] rounded-xl sm:duration-75 md:flex-row justify-center gap-3 items-center uppercase py-8
+                md:relative lg:justify-evenly lg:border-[#F29A4B] border-[1px]
+              ">
+         
                 <a
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <img
                     alt=""
-                    src={require("../../img/logo.png")}
-                    className="h-auto w-12"
+                    src={require("../../img/me.png")}
+                    className="h-auto w-12 md:hidden"
                   ></img>
                 </a>
                 <a
@@ -195,6 +200,16 @@ export const Home = () => {
                   className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
                 >
                   Contact Us
+                </a>
+                <a
+                  href="/"
+                  className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <img
+                    alt=""
+                    src={require("../../img/logo.png")}
+                    className="md:h-auto md:w-12 h-0  invisible md:visible"
+                  ></img>
                 </a>
               </nav>
             </div>
