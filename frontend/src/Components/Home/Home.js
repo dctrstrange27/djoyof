@@ -157,8 +157,8 @@ export const Home = () => {
               className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
             />
           </div>
-          <div className="relative  bg-red-400">
-            <div className={`bg-red-400 absolute max-w-[20%] h-auto z-50 w-[20%] border-[#F29A4B] border-[1px] -right-32 duration-500 ${toggleNav && "-right-0"}  `} >
+          <div className="relative ">
+            <div className={`absolute max-w-[20%] h-auto z-50 w-[20%] border-[#F29A4B] border-[1px] -right-32 duration-500 ${toggleNav && "-right-0"}  `} >
               {/** Top Nav */}
               <nav className="flex flex-wrap flex-col justify-center sm:hidden gap-3 items-center uppercase py-8 border-[#fffff] border-b-[.001px]">
                 <a
