@@ -71,7 +71,7 @@ router.post('/login',async(req,res)=>{
                 }
             })
             var mailOptions={
-                from:'andreirogie67@gmail.com',
+                from:'yourgmail@gmail.com',
                 to:`${username}`,
                 subject:'Reset password',
                 text:Vcode
