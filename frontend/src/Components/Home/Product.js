@@ -4,7 +4,7 @@ const Product = (props) => {
 
   return (
     <>
-      <div className="group relative flex px-8 items-center place-content-evenly h-auto md:mx-2 lg:mx-4">
+      <div className="group relative flex px-8 items-center place-content-evenly h-auto md:mx-2 lg:mx-4 ">
         <div className=" bg-[#212121] absolute border-[#F29A4B] border-2  -left-3 z-10 -bottom-4 rounded-full ">
           <img className="object-contain h-28 w-28 rounded-full p-2" alt="" src={product.image} />
         </div>

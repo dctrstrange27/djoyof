@@ -18,5 +18,6 @@
         "titleBar.inactiveBackground": "#090a0c99",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#090a0c"
+    "peacock.color": "#090a0c",
+    "editor.fontFamily": "Consolas, 'Courier New', monospace"
 }

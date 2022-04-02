@@ -24,13 +24,13 @@ export const Home = () => {
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => {
-        console.log(x._id, product._id, x._id === product._id)
-        return x._id === product._id
+      console.log(x._id, product._id, x._id === product._id)
+      return x._id === product._id
     });
     if (exist) {
       setCartItems(
         [...cartItems.filter((i) => i._id !== exist._id), {
-            ...exist, product_qty : exist.product_qty + 1
+          ...exist, product_qty: exist.product_qty + 1
         }]
       );
     } else {
@@ -39,21 +39,21 @@ export const Home = () => {
   };
 
   const removeAllCartItems = () => {
-      setCartItems([])
+    setCartItems([])
   }
 
-  const removeItemFromCart= (item) => {
-      setCartItems(cartItems.filter((i) => i._id !== item._id))
+  const removeItemFromCart = (item) => {
+    setCartItems(cartItems.filter((i) => i._id !== item._id))
   }
 
-  const increateQty = ( item ) => {
+  const increateQty = (item) => {
     var idx = -1
 
     let copy = [...cartItems]
 
-    copy.find((val,i) => { 
-        if( val._id === item._id) idx = i
-        return val._id === item._id
+    copy.find((val, i) => {
+      if (val._id === item._id) idx = i
+      return val._id === item._id
     })
 
     copy[idx].product_qty += 1
@@ -61,22 +61,22 @@ export const Home = () => {
     setCartItems(copy)
   }
 
-  const decreaseQty = ( item ) => {
+  const decreaseQty = (item) => {
     var idx = -1
 
     let copy = [...cartItems]
 
-    copy.find((val,i) => { 
-        if( val._id === item._id) idx = i
-        return val._id === item._id
+    copy.find((val, i) => {
+      if (val._id === item._id) idx = i
+      return val._id === item._id
     })
 
     copy[idx].product_qty -= 1
 
-    if(copy[idx].product_qty === 0) copy = copy.filter((i) => i._id !== item._id)
+    if (copy[idx].product_qty === 0) copy = copy.filter((i) => i._id !== item._id)
 
     setCartItems(copy)
-}
+  }
 
   const resetToggle = () => {
     setToggleSide(false);
@@ -100,16 +100,15 @@ export const Home = () => {
   }, [history]);
 
   return (
-    <div className="bg-[#24262B] sm:w-screen min-h-screen  ">
+    <div className="overflow-hidden xl:mx-[8vw] bg-[#1A1B1F] overflow-y-hidden shadow-lg">
       <div className="flex relative">
         {/**Asside Nav desu */}
         <aside
-          className={`z-30 w-[5rem] duration-500 sm:static absolute -left-96 ${
-            toggleSide && "left-0"
-          } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
+          className={`z-30 w-[4rem] duration-500 sm:static absolute -left-96 ${toggleSide && "left-0"
+            } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
           aria-label="Sidebar"
         >
-          <div className="bg-[#24262bd9] py-6 px-3 flex justify-center items-center rounded">
+          <div className="bg-[#24262bd9] h-full py-6 px-3 flex justify-center items-center rounded">
             <ul className="space-y-2">
               <li>
                 <a
@@ -159,7 +158,7 @@ export const Home = () => {
                   <img
                     alt=""
                     src={require("../../img/text.png")}
-                    className="h-auto w-[50px] max-w-[40%]"
+                    className="h-auto w-[50px] max-w-[30%]"
                   ></img>
                 </a>
               </div>
@@ -175,13 +174,13 @@ export const Home = () => {
         </aside>
 
         <div
-          className="w-screen min-h-screen  overflow-x-hidden overflow-y-auto"
+          className="w-screen min-h-screen overflow-x-hidden"
           onClick={() => {
             resetToggle();
           }}
         >
-       
-          <div className="BurgerNav flex w-screen justify-between items-center py-4 px-4">
+
+          <div className="BurgerNav md:hidden z-40 bg-[#1A1B1F] fixed flex border-[1px] w-screen justify-between items-center py-4 px-10">
             <GiSlicedBread
               onClick={(e) => {
                 e.stopPropagation();
@@ -193,25 +192,25 @@ export const Home = () => {
               onClick={(e) => {
                 e.stopPropagation();
                 setToggleNav(!toggleNav);
-                console.log(1);
               }}
               className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
             />
           </div>
-          <div className="relative w-screen overflow-x-hidden ">
+          <div className="relative">
             <div
-              className={`absolute h-auto z-50 w-sm bg- mt-72 -right-32 ${toggleNav && "-right-0"} 
-              md:relative md:right-0 md:mt-0 md:duration-75 lg:w-screen 
+              className={`fixed h-auto z-50 mt-[4.5rem] -right-32 ${toggleNav && "-right-0 fixed "} 
+              md:relative md:right-0 md:mt-0 md:duration-75
               }  `}
             >
               {/** Top Nav */}
-              <nav className="flex flex-wrap flex-col bg-[#24262bd9] rounded-xl sm:duration-75 md:flex-row justify-center gap-3 items-center uppercase py-8
-                md:relative lg:justify-evenly lg:border-[#F29A4B] border-[1px]
+              <nav className="flex flex-wrap flex-col border-[1px] rounded-xl sm:duration-75 md:flex-row justify-center 
+              gap-3 items-center uppercase py-8 md:relative lg:justify-evenly
               ">
-         
+
                 <a
                   href="/"
-                  className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex justify-center items-center font-normal text-gray-900 rounded-lg 
+                  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <img
                     alt=""
@@ -257,7 +256,7 @@ export const Home = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap py-4 px-4 md:w-full md:border-[1px] ">
+          <div className="flex flex-wrap py-5 px-10">
             <div className="w-full">
               {/* ALL tab  */}
               <ul
@@ -294,23 +293,21 @@ export const Home = () => {
 
               <div
                 style={{
-                  backgroundImage: `${
-                    openTab === 1 &&
+                  backgroundImage: `${openTab === 1 &&
                     "url('https://cdn.discordapp.com/attachments/955281529481883729/959364059541671966/Frame_13_1.png')"
-                  }`,
+                    }`,
                 }}
-                className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto  w-full"
+                className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto"
               >
                 <div
-                  className="px-4 py-5 pl-10 pb-[8vh] flex-auto scrollbar-thin scrollbar scrollbar scrollbar-thumb-zinc-600 scrollbar-track-black
-                          overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
+                  className="px-4 py-5 pb-[8vh] max-h-[40vh] overflow-scroll overflow-x-hidden flex-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-black
+                          scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
                 >
                   <div className="tab-content tab-space relative">
                     {/** Products Container */}
                     <div
-                      className={`grid ${
-                        openTab !== 1 && "hidden"
-                      } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                      className={`grid ${openTab !== 1 && "hidden"
+                        } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
                       id="link2"
                     >
                       {products.map((product) => (
@@ -345,7 +342,9 @@ export const Home = () => {
               </div>
             </div>
           </div>
-          <Cart onAdd={onAdd} onDecrease={decreaseQty} onIncrease={increateQty} cartItems={cartItems} onRemove={ removeItemFromCart } onRemoveAll={removeAllCartItems}></Cart>
+          <div className="overflow-hidden ">
+            <Cart onAdd={onAdd} onDecrease={decreaseQty} onIncrease={increateQty} cartItems={cartItems} onRemove={removeItemFromCart} onRemoveAll={removeAllCartItems}></Cart>
+          </div>
         </div>
       </div>
     </div>
