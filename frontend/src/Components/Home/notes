@@ -10,6 +10,30 @@ const companies = [
   {name: "Company Nine", category: "Retail", start: 1981, end: 1989 }
 ];
 
+
+{
+    _id: '921bnjngiuahs8g9agaks1',
+    product_name : 'Tasty',
+    product_qty: 1,
+    product_price: 1300,
+    image: 'https://i.pinimg.com/originals/fe/65/fe/fe65fe68f5b9e7077d7c6b8beb0d60c0.png'
+},
+{
+    _id: '921bnjngiuahs8g9agaks2',
+    product_name : 'Pan De Cocomartin',
+    product_qty: 2,
+    product_price: 3100,
+    image:"https://www.juliesbakeshop.com.ph/wp-content/uploads/Pan-de-Coco-1.png"
+},
+{
+    _id: '921bnjngiuahs8g9agaks3',
+    product_name : 'Monay',
+    product_qty: 3,
+    product_price: 1300,
+    image: 'https://www.juliesbakeshop.com.ph/wp-content/uploads/Monay.png'
+}
+
+
 const ages = [33, 12, 20, 16, 5, 54, 21, 44, 61, 13, 15, 45, 25, 64, 32];
 //forEach
  for (let i = 0; i < companies.length; i++){

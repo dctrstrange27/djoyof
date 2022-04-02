@@ -3,10 +3,17 @@ export const saveUser = (response) => {
      * Para naman to sa pag save ng data ng user na nag login
      * ngayon
      */
-    localStorage.setItem('User', response.data.userData)
+    localStorage.setItem('userData', response.data.userData)
 
     // tapos return lang yung data nayun
     return response.data.userData
+}
+
+export const updateUser = (userData) => {
+    localStorage.setItem('userData', userData)
+
+    // tapos return lang yung data nayun
+    return userData
 }
 
 export const getUser = () => {
