@@ -66,8 +66,8 @@ router.post('/login',async(req,res)=>{
             var mail=nodemailer.createTransport({
                 service:'gmail',
                 auth:{
-                    user:'andreirogie67@gmail.com',
-                    pass:'helloworld1982017790'
+                    user:'yourgmail@gmail.com',
+                    pass:'yourpassword'
                 }
             })
             var mailOptions={
