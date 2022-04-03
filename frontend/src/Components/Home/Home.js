@@ -21,6 +21,7 @@ export const Home = () => {
   const [cartItems, setCartItems] = useState([]);
   const [toggleSide, setToggleSide] = useState(false);
   const [toggleNav, setToggleNav] = useState(false);
+  const [userData, setUserData] = useState()
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => {
@@ -86,11 +87,13 @@ export const Home = () => {
 
   useEffect(() => {
     const userData = amIloggedIn(history);
+    setUserData(userData)
     //setCartItems(userData.cartItems);
   }, [history]);
 
   return (
-    <div className="overflow-hidden xl:mx-[8vw] bg-[#1A1B1F] overflow-y-hidden shadow-lg">
+    <>
+        {userData && <div className="overflow-hidden xl:mx-[8vw] bg-[#1A1B1F] overflow-y-hidden shadow-lg">
       <div className="flex relative">
         {/**Asside Nav desu */}
         <aside
@@ -199,13 +202,13 @@ export const Home = () => {
 
                 <a
                   href="/"
-                  className="flex justify-center items-center font-normal text-gray-900 rounded-lg 
-                  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="flex justify-center items-center font-normal text-gray-900 rounded-full
+                  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700  border-2 border-orange-500"
                 >
                   <img
                     alt=""
-                    src={require("../../img/me.png")}
-                    className="h-auto w-12 md:hidden"
+                    src={userData.profile_picture}
+                    className="h-12 w-12 p-1 md:hidden rounded-full object-cover"
                   ></img>
                 </a>
                 <a
@@ -337,7 +340,8 @@ export const Home = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>}
+    </>
   );
 };
 export default Home;
