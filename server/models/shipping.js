@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt-nodejs')
 const shippingSchema=mongoose.Schema({
   order_id:{type:String, required:true},
   customer_id:{type:String, required:true},
