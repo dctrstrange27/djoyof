@@ -85,18 +85,8 @@ export const Home = () => {
 
 
   useEffect(() => {
-    /**
-     *
-     * USEFFECT GUMAGANA SYA LAGI KAPAG MAY NAGBAGO SA STATE OR NAG MOUNT OR ITONG MISMONG
-     * HOME IS MAMAMOUNT (REMEMVER EVERYTIME NA MAG BABAGO YUNG MGA VALUE NG USE STATES, OR KAPAG NAKA MOUNT)
-     *
-     * So everytime itong home component is mounting need icheck kung may
-     * nakalogin ba na user via sa ginawa kong utility anIloggedIn which is localstorage lang
-     *
-     * kapag wala redirect sa login👇
-     * */
     const userData = amIloggedIn(history);
-    setCartItems(userData.cartItems);
+    //setCartItems(userData.cartItems);
   }, [history]);
 
   return (

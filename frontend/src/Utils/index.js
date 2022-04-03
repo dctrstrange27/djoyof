@@ -1,10 +1,11 @@
+import axios from 'axios'
+
 export const saveUser = (response) => {
     /**
      * Para naman to sa pag save ng data ng user na nag login
      * ngayon
      */
-    localStorage.setItem('userData', response.data.userData)
-
+    localStorage.setItem('userData', JSON.stringify(response.data.userData))
     // tapos return lang yung data nayun
     return response.data.userData
 }
@@ -20,6 +21,7 @@ export const getUser = () => {
     /**
      * Para to sa pagkuha ng data ng user na naka logedin
      */
+    console.log("GET", JSON.parse(localStorage.getItem("userData")))
     return JSON.parse(localStorage.getItem("userData"));
 }
 
@@ -33,3 +35,5 @@ export const amIloggedIn = (history) => {
     if(!loggedInUser) history.push('/login')
     return loggedInUser // if meron, return yung data para magamit sa kung sino nag request
 }
+
+export const API = axios.create({ baseURL : 'http://localhost:3001/api' })
