@@ -36,7 +36,7 @@ router.post('/login',async(req,res)=>{
 
 
     router.post('/signup',async(req,res)=>{
-        const {username,password,address} = req.body
+        const {username,password,address,customer_name,contact_no,product_image} = req.body
         User.findOne({emailaddress:`${username}`}, function(err,user){
             if(err){return res.status(200).json({message:err})}
             if(user){return res.status(200).json({message:"the user is already taken",theUser:user})}
@@ -45,7 +45,7 @@ router.post('/login',async(req,res)=>{
                 newUser.username = `${username}`
                 newUser.password = newUser.generateHash(`${password}`);
                 newUser.save(function(err){
-                    User.create({'emailaddress':`${username}`,'password':`${password}`,'address':`${address}`})
+                    User.create({'emailaddress':`${username}`,'password':`${password}`,'customer_address':`${address}`,'customer_name':`${customer_name}`,'contact_no':`${contact_no}`,'product_image':`${product_image}`})
                     return res.status(200).json({
                         message:newUser
                     })

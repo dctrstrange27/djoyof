@@ -20,4 +20,4 @@ userSchema.methods.generateHash = function (password) {
 userSchema.methods.validPassword = password => {
     return bcrypt.compareSync(password, this.local.password);
   };
-module.exports=mongoose.model('loginPractice',userSchema)
+module.exports=mongoose.model('Login',userSchema)
