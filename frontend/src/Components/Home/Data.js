@@ -8,7 +8,7 @@ const data = {
         },
         {
             _id: '2',
-            product_name: 'Pan De Cocomartin',
+            product_name: 'Pan De Coco',
             product_price: 3100,
             image:"https://www.juliesbakeshop.com.ph/wp-content/uploads/Pan-de-Coco-1.png"
         },
