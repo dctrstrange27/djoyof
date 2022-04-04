@@ -27,8 +27,7 @@ export const getUser = () => {
 
 export const signOut = (history) => {
     // delete lang ng userData which means matatanggal lang yun
-    localStorage.clear()
-    history.push('/login')
+    localStorage.removeItem('userData')
 }
 
 export const amIloggedIn = (history) => {
@@ -36,5 +35,13 @@ export const amIloggedIn = (history) => {
     if(!loggedInUser) history.push('/login')
     return loggedInUser // if meron, return yung data para magamit sa kung sino nag request
 }
+
+export const rememberMe = (email_address,password) => {
+    localStorage.setItem("remembered",JSON.stringify({
+        email_address, password
+    }))
+}
+
+export const getRemembered = () => { return JSON.parse(localStorage.getItem('remembered')) }
 
 export const API = axios.create({ baseURL : 'http://localhost:3001/api' })

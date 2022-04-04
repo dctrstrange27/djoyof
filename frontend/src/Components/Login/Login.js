@@ -1,22 +1,41 @@
-import React, { useState } from "react";
-import { API, saveUser } from "../../Utils";
+import React, { useState, useEffect } from "react";
+import { API, saveUser, rememberMe, getRemembered } from "../../Utils";
 import { useHistory } from "react-router-dom";
+import { AiOutlineLoading } from "react-icons/ai"
 
 export const Login = () => {
   const [email_address, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   let history = useHistory();
 
   const signIn = async () => {
+      setLoading(true)
     try {
+      setError('')
       const response = await API.post("/login", { email_address, password });
       saveUser(response);
+      if(remember)
+        rememberMe(email_address, password)
       history.push("/home");
     } catch (e) {
       console.log(e);
+      if(e.response.data) setError(e.response.data.description)
+      else setError("Sorry but we can't reach the server")
+      setLoading(false)
     }
   };
+
+  useEffect(()=>{
+      const remembered = getRemembered()
+      if(remembered){
+         setEmail(remembered.email_address)
+         setPassword(remembered.password)
+      }
+  }, [])
 
   return (
     <>
@@ -98,6 +117,8 @@ export const Login = () => {
                     <input
                       id="remember_me"
                       type="checkbox"
+                      value={remember}
+                      onChange={(e)=>{setRemember(e.target.value)}}
                       className="border border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
                     />
                     <label
@@ -113,9 +134,14 @@ export const Login = () => {
                     Forgot your password?{" "}
                   </a>
                 </div>
+                <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
+                    <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 animate-spin ${loading ? 'block' : 'hidden'}`}/>
+                    <p className={`text-center text-xs text-gray-600  ${loading ? 'block' : 'hidden'}`}>Wait loading puking ina...</p>
+                    <p className="text-xs my-4 text-rose-400 text-center">{error}</p>
+                </div>
                 <div className="py-[45px] lg:py-[20px] flex items-center justify-center z-10">
                   <button
-                    disabled={email_address.length === 0 && password.length === 0}
+                    disabled={email_address.length === 0 || password.length === 0 || loading}
                     onClick={(e) => {
                         e.preventDefault()
                         signIn()
