@@ -1,3 +1,18 @@
+#Note DjoyofBakign69Devs HAHAHA
+Before Coding :
+    1: check what branch you are pulling
+        1.1: if wrong branch use git checkout <desired_branch_name>
+    2: git pull
+
+After Coding : 
+    1: check what branch you are pushing
+        1.1: If wrong branch use git checkout <desired_branch_name>
+    2: add changes
+    3: commit changes
+    4: push changes
+    5: (Optional) Merge to Master if ur confident that the code is completely done
+
+
 const companies = [
   {name: "Company One", category: "Finance", start: 1981, end: 2004 },
   {name: "Company Two", category: "Retail", start: 1992, end: 2008 },
