@@ -19,16 +19,16 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
 
   return (
     <>
-      <div className="flex px-10 pb-20 h-auto overflow-hidden">
+      <div className="flex md:px-10 pb-20  h-auto overflow-hidden">
         <div className="flex flex-col w-full">
           <ul
-            className="flex mb-0 list-none border-[1px] overflow-hidden   overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
+            className="flex mb-0 list-none  overflow-hidden   overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
             role="tablist"
           >
-            <li className="-mb-px mr-2 last:mr-0 text-center items-center flex max-h-10 bg-[#24262B]">
+            <li className="w-[90px] -mb-px mr-2 last:mr-0 text-center items-center flex max-h-10 bg-[#24262B]">
               <a
                 className={
-                  "duration-200 font-bold tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
+                  "duration-200 font-bold text-[15px] md:text-sm tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
                   (checkTab === 1
                     ? "text-[#F29A4B]"
                     : "text-white -600 bg-transparent")
@@ -50,7 +50,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
             <li className="-mb-px mr-2 last:mr-0 text-center items-center flex max-h-10 bg-[#24262B]">
               <a
                 className={
-                  " duration-200 font-bold tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
+                  " duration-200 font-bold text-[15px] md:text-sm  tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
                   (checkTab === 2
                     ? "text-[#F29A4B]"
                     : "text-white -600 bg-transparent")
@@ -76,7 +76,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
                           scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
               <div className={checkTab === 1 ? "block" : "hidden"} id="link1">
                 <div className="flex justify-between items-center border-b-[0.1rem] my-8">
-                  <p className="text-lg font-semibold py-2">Current Order</p>
+                  <p className="text-[15px] md:text-sm  font-semibold py-2">Current Order</p>
                   <button
                     onClick={() => {
                       // kunwari lang to di pa final HAHA
@@ -95,47 +95,54 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
                   </p>
                 ) : (
                   <>
-                    <div className="font-NunitoSans md:flex justify-between mx-8 mb-9">
-                      <div className="flex justify-between space-x-16">
+                    <div className="bg-green-500  text-[14px]  md:text-[15px] flex justify-between font-NunitoSans md:flex md:justify-between md:mx-3 mb-9">
+                      <div className="flex gap-3 md:justify-between md:space-x-16">
                         <p className="">item</p>
                         <p>name</p>
                       </div>
-                      <div className="flex space-x-32">
+                      <div className="bg-blue-500 flex justify-center gap-2 md:space-x-32">
                         <p>quantity</p>
                         <p>remove</p>
                         <p>price</p>
                       </div>
                     </div>
-                    <div className=" space-y-4 mt-4">
+                    {/* //current item */}
+                    <div className="md:space-y-4 md:mt-4 border-[1px] border-cyan-400">
                       {cartItems.map((i, idx) => (
                         <div
                           key={idx}
-                          className=" bg-[#0E0F10] flex rounded-sm items-center justify-between"
+                          className=" bg-[#0E0F10] text-[14px]  justify-between md:text-[15px] flex rounded-sm items-center md:justify-between"
                         >
-                          <div className="flex  items-center space-x-4 w-1/2">
-                            <div className="h-24 w-24 bg-[#1F1F1F] p-2">
+                          <div className=" flex h-auto items-center gap-2 justify-evenly  border-[1px]  border-pink-400  text-[13px]  md:text-[15px] w-[50%]  bg-[#1F1F1F]  md:p-2">
+                            <div className="relative flex items-center bg-gray-500 h-[50px] w-[50px]">
                               <img
                                 alt=""
                                 src={i.image}
                                 className="object-contain"
                               />
                             </div>
-                            <p>{i.product_name}</p>
-                          </div>
-                          <div className="flex justify-between items-center w-5/12 space-x-4 mr-5 ">
-                            <p className="text-sm font-thin cursor-pointer">
+                            <div className="flex items-center md:space-x-4 md:w-1/2">
+
+                              <p className=" ">{i.product_name}</p>
+                            </div>
+                            <p className="font-thin cursor-pointer">
                               review
                             </p>
-                            <div className="grid grid-cols-3 gap-4">
+
+                          </div>
+
+                          <div className=" border-[1px] gap-3 flex justify-evenly items-center md:justify-between md:w-5/12 md:space-x-4 md;mr-5 ">
+
+                            <div className="grid grid-cols-3 gap-2 md:gap-4">
                               <button onClick={() => onDecrease(i)}>
-                                <BiMinus className="col-span-1 h-6 w-6 text-orange-600" />
+                                <BiMinus className="col-span-1  h-4  w-4  md:h-6 md:w-6 text-orange-600" />
                               </button>
                               <p>{i.product_qty}</p>
                               <button onClick={() => onIncrease(i)}>
-                                <IoAddSharp className="col-span-1 h-6 w-6 text-orange-600" />
+                                <IoAddSharp className="col-span-1 h-4  w-4 md:h-6 md:w-6 text-orange-600" />
                               </button>
                             </div>
-                            <button onClick={() => onRemove(i)} className="bg-red-500 p-2 rounded-md">
+                            <button onClick={() => onRemove(i)} className="bg-red-500 p-1  md:p-2 rounded-md">
                               <FaTrashAlt className="text-neutral-50" />
                             </button>
                             <p>${i.product_price}</p>

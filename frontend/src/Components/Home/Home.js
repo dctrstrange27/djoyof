@@ -100,7 +100,7 @@ export const Home = () => {
           <div className="flex relative ">
             {/**Asside Nav desu */}
             <aside
-              className={`z-30 w-[4rem] duration-500 h-screen   fixed -left-96 ${
+              className={`z-30 w-[4rem] duration-500 h-screen md:lef fixed -left-96 ${
                 toggleSide && "left-0 fixed"
               } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
               aria-label="Sidebar"
@@ -182,19 +182,19 @@ export const Home = () => {
                     e.stopPropagation();
                     setToggleSide(!toggleSide);
                   }}
-                  className="block sm:hidden w-9 h-9 text-orange-500"
+                  className="block sm:hidden w-7 h-7 text-orange-500"
                 />
                 <GiHamburgerMenu
                   onClick={(e) => {
                     e.stopPropagation();
                     setToggleNav(!toggleNav);
                   }}
-                  className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
+                  className="block sm:hidden w-7 h-7 text-[#D98743] hover:text-text-orange-500"
                 />
               </div>
               <div className="relative">
                 <div
-                  className={`fixed h-auto z-50 mt-[4.5rem] -right-32 ${
+                  className={`fixed h-auto z-50  duration-500 mt-[4.5rem] -right-32 ${
                     toggleNav && "-right-0 fixed "
                   } 
               md:relative md:right-0 md:mt-0 md:duration-75
@@ -202,14 +202,14 @@ export const Home = () => {
                 >
                   {/** Top Nav */}
                   <nav
-                    className="flex flex-wrap flex-col border-[1px] rounded-xl sm:duration-75 md:flex-row justify-center 
-              gap-3 items-center uppercase py-8 md:relative lg:justify-evenly
+                    className="flex flex-wrap flex-col rounded-xl  md:flex-row justify-center  
+              gap-3 items-center uppercase py-8 md:relative lg:justify-evenly bg-[#1A1B1F]
               "
                   >
                     <a
                       href="/"
-                      className="flex justify-center items-center font-normal text-gray-900 rounded-full
-                  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700  border-2 border-orange-500"
+                      className="  flex justify-center items-center font-normal text-gray-900 rounded-full
+                  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 "
                     >
                       <img
                         alt=""
@@ -255,7 +255,7 @@ export const Home = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap py-5 px-10 bg-green-500 mt-11 md:mt-0">
+              <div className="flex flex-wrap py-5 md:px-10 mt-11 md:mt-0">
                 <div className="w-full">
                   {/* ALL tab  */}
                   <ul
