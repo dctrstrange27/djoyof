@@ -97,16 +97,16 @@ export const Home = () => {
     <>
       {userData && (
         <div className="overflow-hidden xl:mx-[8vw] bg-[#1A1B1F] overflow-y-hidden shadow-lg">
-          <div className="flex relative">
+          <div className="flex relative ">
             {/**Asside Nav desu */}
             <aside
-              className={`z-30 w-[4rem] duration-500 sm:static absolute -left-96 ${
-                toggleSide && "left-0"
+              className={`z-30 w-[4rem] duration-500 h-screen   fixed -left-96 ${
+                toggleSide && "left-0 fixed"
               } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
               aria-label="Sidebar"
             >
-              <div className="bg-[#24262bd9] h-full py-6 px-3 flex justify-center items-center rounded">
-                <ul className="space-y-2">
+              <div className="bg-[#24262bd9] h-full py-10 px-3 flex justify-center items-center rounded">
+                <ul className="flex flex-col gap-4">
                   <li>
                     <a
                       href="/"
@@ -115,7 +115,7 @@ export const Home = () => {
                       <IoExitOutline className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
                     </a>
                   </li>
-                  <li className="py-4">
+                  <li className="">
                     <a
                       href="/"
                       className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -123,7 +123,7 @@ export const Home = () => {
                       <BsSearch className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                     </a>
                   </li>
-                  <li className="py-0">
+                  <li className="">
                     <a
                       href="/"
                       className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -131,7 +131,7 @@ export const Home = () => {
                       <IoHome className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                     </a>
                   </li>
-                  <li className="py-4">
+                  <li className="">
                     <a
                       href="/"
                       className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -139,7 +139,7 @@ export const Home = () => {
                       <ImCart className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                     </a>
                   </li>
-                  <li className="py-0">
+                  <li className="">
                     <a
                       href="/"
                       className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -147,7 +147,7 @@ export const Home = () => {
                       <BsFillSuitHeartFill className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                     </a>
                   </li>
-                  <div className="py-10">
+                  <div className="">
                     <a
                       href="/"
                       className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -255,7 +255,7 @@ export const Home = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap py-5 px-10">
+              <div className="flex flex-wrap py-5 px-10 bg-green-500 mt-11 md:mt-0">
                 <div className="w-full">
                   {/* ALL tab  */}
                   <ul
