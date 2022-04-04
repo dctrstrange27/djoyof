@@ -25,9 +25,10 @@ export const getUser = () => {
     return JSON.parse(localStorage.getItem("userData"));
 }
 
-export const signOut = () => {
+export const signOut = (history) => {
     // delete lang ng userData which means matatanggal lang yun
     localStorage.clear()
+    history.push('/login')
 }
 
 export const amIloggedIn = (history) => {

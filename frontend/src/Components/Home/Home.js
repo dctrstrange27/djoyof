@@ -4,7 +4,7 @@ import Data from "../Home/Data";
 import { useHistory } from "react-router-dom";
 import Product from "./Product";
 import Cart from "./Cart";
-import { amIloggedIn } from "../../Utils";
+import { amIloggedIn, signOut } from "../../Utils";
 
 import { IoExitOutline, IoHome } from "react-icons/io5";
 import { BsSearch, BsFillSuitHeartFill } from "react-icons/bs";
