@@ -19,7 +19,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
 
   return (
     <>
-      <div className="flex px-10 pb-20 h-auto overflow-hidden">
+      <div className="flex  h-auto overflow-hidden">
         <div className="flex flex-col w-full">
           <ul
             className="flex mb-0 list-none border-[1px] overflow-hidden   overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"

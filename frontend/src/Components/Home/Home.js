@@ -100,22 +100,22 @@ export const Home = () => {
   }, [history]);
 
   return (
-    <div className="overflow-hidden xl:mx-[8vw] bg-[#1A1B1F] overflow-y-hidden shadow-lg">
-      <div className="flex relative">
+    <div className="flex relative justify-center items-center overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-lg">
+      <div className="relative w-[1200px] max-w-[1100px] border-[1px] h-auto">
         {/**Asside Nav desu */}
         <aside
-          className={`z-30 w-[4rem] duration-500 sm:static absolute -left-96 ${toggleSide && "left-0"
-            } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
+          className={`z-30 max-w-[3rem] md:mx-[0vw] lg:mx-[5vw] duration-500 fixed h-full md:left-0 md:border-[1px] 
+                    -left-96 ${toggleSide && "left-0 mt-4" } h-auto bg-transparent `}
           aria-label="Sidebar"
         >
-          <div className="bg-[#24262bd9] h-full py-6 px-3 flex justify-center items-center rounded">
-            <ul className="space-y-2">
+          <div className="bg-[#24262bd9] h-full py-3 px-3 flex justify-center items-center rounded">
+            <ul className="space-y-1">
               <li>
                 <a
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <IoExitOutline className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
+                  <IoExitOutline className="w-[14px] h-[14px] md:h-6 md:w-6 text-orange-500" />
                 </a>
               </li>
               <li className="py-4">
@@ -123,7 +123,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <BsSearch className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
+                  <BsSearch className="w-[14px] h-[14px] md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
               <li className="py-0">
@@ -131,7 +131,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <IoHome className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
+                  <IoHome className="w-[14px] h-[14px]  md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
               <li className="py-4">
@@ -139,7 +139,7 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <ImCart className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
+                  <ImCart className="w-[14px] h-[14px]  md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
               <li className="py-0">
@@ -147,10 +147,10 @@ export const Home = () => {
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                  <BsFillSuitHeartFill className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
+                  <BsFillSuitHeartFill className="w-[14px] h-[14px]  md:h-5 md:w-5 text-orange-500" />
                 </a>
               </li>
-              <div className="py-10">
+              <div className="py-2">
                 <a
                   href="/"
                   className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -180,31 +180,32 @@ export const Home = () => {
           }}
         >
 
-          <div className="BurgerNav md:hidden z-40 bg-[#1A1B1F] fixed flex border-[1px] w-screen justify-between items-center py-4 px-10">
+          <div className="BurgerNav md:hidden z-40 bg-[#1A1B1F] fixed flex w-screen justify-between items-center py-4 px-10">
             <GiSlicedBread
               onClick={(e) => {
                 e.stopPropagation();
                 setToggleSide(!toggleSide);
               }}
-              className="block sm:hidden w-9 h-9 text-orange-500"
+              className="block sm:hidden w-6 h-6  text-orange-500"
             />
+            <h1 className="text-white tracking-widest text-[11px] font-pop">DJOYOF</h1>
             <GiHamburgerMenu
               onClick={(e) => {
                 e.stopPropagation();
                 setToggleNav(!toggleNav);
               }}
-              className="block sm:hidden w-9 h-9 text-[#D98743] hover:text-text-orange-500"
+              className="block sm:hidden w-5 h-5 text-[#F29A4B] "
             />
           </div>
           <div className="relative">
             <div
-              className={`fixed h-auto z-50 mt-[4.5rem] -right-32 ${toggleNav && "-right-0 fixed "} 
-              md:relative md:right-0 md:mt-0 md:duration-75
+              className={`fixed h-auto z-50 right-0 -top-80  duration-500 ${toggleNav && "top-11 rounded-lg bg-[#1a1b1fe8]"} 
+               md:top-0 md:fixed md:left-0
               }  `}
             >
               {/** Top Nav */}
-              <nav className="flex flex-wrap flex-col border-[1px] rounded-xl sm:duration-75 md:flex-row justify-center 
-              gap-3 items-center uppercase py-8 md:relative lg:justify-evenly
+              <nav className="flex text-[.7rem] flex-wrap flex-col rounded-xl sm:duration-500 md:flex-row justify-center 
+              gap-3 md:gap-0 items-center uppercase py-2 md:relative lg:justify-evenly bg-transparent
               ">
 
                 <a
@@ -220,25 +221,25 @@ export const Home = () => {
                 </a>
                 <a
                   href="/"
-                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                  className=" px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
                 >
                   Home
                 </a>
                 <a
                   href="/"
-                  className="text-sm  px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                  className=" px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
                 >
                   About
                 </a>
                 <a
                   href="/"
-                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                  className=" px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
                 >
                   Service
                 </a>
                 <a
                   href="/"
-                  className="text-sm px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
+                  className="px-3 py-2 text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"
                 >
                   Contact Us
                 </a>
@@ -249,29 +250,29 @@ export const Home = () => {
                   <img
                     alt=""
                     src={require("../../img/logo.png")}
-                    className="md:h-auto md:w-12 h-0  invisible md:visible"
+                    className="md:h-auto md:w-12 h-0 invisible md:visible"
                   ></img>
                 </a>
               </nav>
             </div>
           </div>
 
-          <div className="flex flex-wrap py-5 px-10">
-            <div className="w-full">
+          <div className="flex flex-wrap py-2 mt-11">
+            <div className="w-screen ">
               {/* ALL tab  */}
               <ul
-                className="grid grid-cols-2 md:grid-cols-4 mb-0 w-full md:w-8/12 lg:w-1/2 list-none pt-3"
+                className="px-1 flex gap-1 w-[220px]"
                 role="tablist"
               >
-                {["ALL", "FAVORITES", "COMPLETED", "CANCELLED"].map(
+                {["ALL", "FAVORITES", "COMPLETED","TO_RECEIVE", "CANCELLED"].map(
                   (tb, idx) => (
                     <li
                       key={idx}
-                      className={` last:mr-0 flex-auto text-center `}
+                      className={` last:mr-0 flex-auto text-center`}
                     >
                       <a
                         className={
-                          "rounded-tl-xl duration-200 ease-in z-10 text-xs font-bold uppercase px-5 py-3 shadow-lg rounded-sm block leading-normal " +
+                          "rounded-tl-xl duration-200  ease-in z-10 font-pop text-[10px] tracking-wider font-regular uppercase px-1 py-2 shadow-lg rounded-sm block leading-normal " +
                           (openTab === idx + 1
                             ? "text-white bg-[#F29A4B] 600"
                             : "text-white bg-[#21201F] -600 bg-transparent")
@@ -297,10 +298,10 @@ export const Home = () => {
                     "url('https://cdn.discordapp.com/attachments/955281529481883729/959364059541671966/Frame_13_1.png')"
                     }`,
                 }}
-                className="font-pop flex rounded-md text-white bg-no-repeat bg-cover bg-fixed  bg-[#141517] h-auto"
+                className="font-pop w-fit flex ss:px-2 ss:w-screen xl:max-w-5xl xl:min-w-[1024px] rounded-md text-white bg-no-repeat bg-fix bg-fixed  bg-[#141517] h-auto"
               >
                 <div
-                  className="px-4 py-5 pb-[8vh] max-h-[40vh] overflow-scroll overflow-x-hidden flex-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-black
+                  className="px-2 py-5 pb-[8vh] max-h-[40vh] overflow-scroll overflow-x-hidden flex-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-black
                           scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
                 >
                   <div className="tab-content tab-space relative">

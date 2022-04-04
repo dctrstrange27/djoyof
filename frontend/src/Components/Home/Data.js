@@ -36,6 +36,25 @@ const data = {
             product_price: 1000,
             image: 'https://picsum.photos/id/76/3008/2008',
           },
+          {
+            _id: '7',
+            product_name: 'Tinapay',
+            product_price: 1000,
+            image: 'https://picsum.photos/id/11/3008/2008',
+          },
+          {
+            _id: '8',
+            product_name: 'masarap',
+            product_price: 1000,
+            image: 'https://picsum.photos/id/54/3008/2008',
+          },
+          {
+            _id: '9',
+            product_name: 'Putok',
+            product_price: 1000,
+            image: 'https://picsum.photos/id/34/3008/2008',
+          },
+          
     ]
 }
 export default data

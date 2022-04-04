@@ -22,17 +22,17 @@ export const Login = () => {
               <h1 className="w-fit self-center py-2 text-[#CBCBCB] text-[1rem] tracking-[0.25rem] font-medium font-['Nunito Sans'] z-10 lg:py-0">SIGN IN TO DJOYOF</h1>
               <form className='flex flex-col'>
                 <div className="mb-4 py-2 z-10">
-                  <label className="block mb-1 text-sm text-[#CBCBCB] font-['Nunito Sans'] tracking-[0.1rem] z-10" for="email">username</label>
+                  <label className="block mb-1 text-sm text-[#CBCBCB] font-['Nunito Sans'] tracking-[0.1rem] z-10" >username</label>
                   <input id="email" type="text" name="email" className="text-[#CBCBCB] font-['Nunito Sans'] py-2 px-3 w-full h-[37px] bg-[#1A1B1E] border-[#1A1B1E] focus:outline-none border border-b-[#F29A4B] border-opacity-50" />
                 </div>
                 <div className="mb-4 z-10">
-                  <label className="block mb-1  text-sm text-[#CBCBCB] tracking-[0.1rem]" for="password">Password</label>
+                  <label className="block mb-1  text-sm text-[#CBCBCB] tracking-[0.1rem">Password</label>
                   <input id="password" type="password" name="password" className="text-[#CBCBCB] py-2 px-3 w-full h-[37px] bg-[#1A1B1E] border-[#1A1B1E] focus:outline-none border border-b-[#F29A4B] border-opacity-50 " />
                 </div>
                 <div className="mt-6 flex items-center justify-between">
                   <div className="flex items-center z-10">
                     <input id="remember_me" type="checkbox" className="border border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50" />
-                    <label for="remember_me" className="ml-2 block text-sm leading-5 text-[#a3a3a3]"> Remember me </label>
+                    <label className="ml-2 block text-sm leading-5 text-[#a3a3a3]"> Remember me </label>
                   </div>
                   <a href="/" className="text-sm text-[#1CADFF] z-10"> Forgot your password? </a>
                 </div>
