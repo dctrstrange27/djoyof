@@ -19,16 +19,17 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
 
   return (
     <>
-      <div className="flex md:px-10 pb-20  h-auto overflow-hidden">
-        <div className="flex flex-col w-full">
-          <ul
-            className="flex mb-0 list-none  overflow-hidden   overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
+      <div className="relative flex md:px-10 pb-20  bg-pink-40 h-auto overflow-hidden w-full">
+        <div className="flex flex-col relative  md:px-0 w-[100%]">
+    {/* tab  */}
+          <ul className="flex mb-0 list-none  overflow-hidden  overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
+
             role="tablist"
           >
             <li className="w-[90px] -mb-px mr-2 last:mr-0 text-center items-center flex max-h-10 bg-[#24262B]">
               <a
                 className={
-                  "duration-200 font-bold text-[15px] md:text-sm tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
+                  "duration-200 font-bold text-[.9rem] md:text-sm tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
                   (checkTab === 1
                     ? "text-[#F29A4B]"
                     : "text-white -600 bg-transparent")
@@ -50,7 +51,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
             <li className="-mb-px mr-2 last:mr-0 text-center items-center flex max-h-10 bg-[#24262B]">
               <a
                 className={
-                  " duration-200 font-bold text-[15px] md:text-sm  tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
+                  " duration-200 font-bold  text-[.9rem] md:text-sm  tracking-[0.1em] font-NunitoSans text-lg px-3 py-3 " +
                   (checkTab === 2
                     ? "text-[#F29A4B]"
                     : "text-white -600 bg-transparent")
@@ -70,13 +71,13 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
               </div>
             </li>
           </ul>
-          <div className="relative font-pop flex justify-center items-center text-white">
+          <div className="bg-[#141517] md:rounded-2xl md:px-5 font-pop flex justify-center items-center text-white">
             <div
-              className="rounded-md bg-[#141714] px-5 max-h-[40vh] overflow-x-scroll  flex-auto scrollbar-thin scrollbar scrollbar scrollbar-thumb-zinc-600 scrollbar-track-black
+              className="rounded-md  px-5 max-h-[40vh] overflow-x-scroll  flex-auto scrollbar-thin scrollbar scrollbar scrollbar-thumb-zinc-600 scrollbar-track-black
                           scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
               <div className={checkTab === 1 ? "block" : "hidden"} id="link1">
                 <div className="flex justify-between items-center border-b-[0.1rem] my-8">
-                  <p className="text-[15px] md:text-sm  font-semibold py-2">Current Order</p>
+                  <p className="text-[15px] md:text-sm font-semibold py-2">Current Order</p>
                   <button
                     onClick={() => {
                       // kunwari lang to di pa final HAHA
@@ -95,25 +96,26 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
                   </p>
                 ) : (
                   <>
-                    <div className="bg-green-500  text-[14px]  md:text-[15px] flex justify-between font-NunitoSans md:flex md:justify-between md:mx-3 mb-9">
-                      <div className="flex gap-3 md:justify-between md:space-x-16">
+                    {/* fields */}
+                    <div className=" text-[14px]  md:text-[15px] flex justify-between font-NunitoSans md:flex md:justify-between md:mx-3 mb-9">
+                      <div className="flex gap-3 md:px-3  md:justify-evenly md:space-x-16">
                         <p className="">item</p>
                         <p>name</p>
                       </div>
-                      <div className="bg-blue-500 flex justify-center gap-2 md:space-x-32">
+                      <div className=" flex justify-center gap-2 md:space-x-32 ">
                         <p>quantity</p>
                         <p>remove</p>
                         <p>price</p>
                       </div>
                     </div>
                     {/* //current item */}
-                    <div className="md:space-y-4 md:mt-4 border-[1px] border-cyan-400">
+                    <div className="md:space-y-4 md:mt-4 ">
                       {cartItems.map((i, idx) => (
                         <div
                           key={idx}
-                          className=" bg-[#0E0F10] text-[14px]  justify-between md:text-[15px] flex rounded-sm items-center md:justify-between"
+                          className=" bg-[#0E0F10] text-[14px] justify-between md:text-[15px] flex rounded-sm items-center md:justify-between"
                         >
-                          <div className=" flex h-auto items-center gap-2 justify-evenly  border-[1px]  border-pink-400  text-[13px]  md:text-[15px] w-[50%]  bg-[#1F1F1F]  md:p-2">
+                          <div className=" flex gap-3 md:px-3 md:justify-evenly  md:space-x-16  text-[13px]  md:text-[15px]  bg-[#1F1F1F]  md:p-2">
                             <div className="relative flex items-center bg-gray-500 h-[50px] w-[50px]">
                               <img
                                 alt=""
@@ -125,13 +127,13 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
 
                               <p className=" ">{i.product_name}</p>
                             </div>
-                            <p className="font-thin cursor-pointer">
-                              review
-                            </p>
+
 
                           </div>
-
-                          <div className=" border-[1px] gap-3 flex justify-evenly items-center md:justify-between md:w-5/12 md:space-x-4 md;mr-5 ">
+                          <p className="font-thin cursor-pointer">
+                            review
+                          </p>
+                          <div className=" flex justify-center gap-2 md:space-x-32">
 
                             <div className="grid grid-cols-3 gap-2 md:gap-4">
                               <button onClick={() => onDecrease(i)}>

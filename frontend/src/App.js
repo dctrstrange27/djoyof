@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Switch  } from "react-router-dom";
 function App() {
   return (
     <>
-      <div className="bg-[#24262B] overflow-hidden">
+      <div className="bg-[#323439] overflow-hidden">
         <Router>
           <Switch>
             <Route path="/" exact component={Home} />

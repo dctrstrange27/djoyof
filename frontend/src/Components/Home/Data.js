@@ -35,6 +35,24 @@ const data = {
             product_name: 'W Shoes',
             product_price: 1000,
             image: 'https://picsum.photos/id/76/3008/2008',
+          },   
+          {
+            _id: '6',
+            product_name: 'W Shoes',
+            product_price: 1000,
+            image: 'https://picsum.photos/id/96/3008/2008',
+          },
+          {
+            _id: '6',
+            product_name: 'W Shoes',
+            product_price: 1000,
+            image: 'https://picsum.photos/id/26/3008/2008',
+          },
+          {
+            _id: '6',
+            product_name: 'W Shoes',
+            product_price: 1000,
+            image: 'https://picsum.photos/id/46/3008/2008',
           },
     ]
 }
