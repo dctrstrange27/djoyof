@@ -9,8 +9,11 @@ const orderSchema=mongoose.Schema({
   product_name:{type:String, require:true},
   product_qty:{type:Number, default:1},
   product_price:{type:Number, default:0},
-  status:{type:Number,default:0},
-  date_ordered:{type:Date, default:Date.now}
+  total:{type:Number, default:0},
+  orderStatus:{type:Number,default:null},
+  date_ordered:{type:Date, default:Date.now},
+  date_cancelled:{type:Date, default: null},
+  date_dilivered:{type:Date, default: null}
 
 })
 
