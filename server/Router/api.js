@@ -10,7 +10,12 @@ const users = require("../models/users");
 //global variable
 let Vcode = " ";
 let email = " ";
-//---------------
+//--------------
+
+const ehandler = (e,res) => {
+    console.log(e)
+    return res.status(500).json({  description: "Sorry but theres an error in the server. try again later", err : e }); 
+}
 
 router.get("/", (req, res) => {
   res.send("From API router");
@@ -23,7 +28,6 @@ function between(min, max) {
 router.post("/login", async (req, res) => { 
     try { 
       const { email_address, password } = req.body; 
-      await snooze(500) 
       if(!(email_address, password)) return res.status(403).json({ description : 'Please provide all information required, email & password' }) 
    
       const doesExist = await User.findOne({ email_address }); 
@@ -33,9 +37,9 @@ router.post("/login", async (req, res) => {
    
       return res.json({ userData : doesExist }) 
     } catch (e) { 
-        return res.status(500).json({  description: "Sorry but theres an error in the server. try again later", err : e }); 
+        ehandler(e,res)
     } 
-  });
+});
 
 router.post("/signup", async (req, res) => {
   const {
@@ -72,6 +76,7 @@ router.post("/signup", async (req, res) => {
     }
   });
 });
+
 router.post("/sendCode", async (req, res) => {
   const { username } = req.body;
   fd = between(0, 10).toString();
@@ -110,6 +115,7 @@ router.post("/sendCode", async (req, res) => {
     return res.status(401).json({ message: Vcode });
   });
 });
+
 router.post("/changePassword", async (req, res) => {
   const { newpassword, userCode, confirmpassword } = req.body;
   if (Vcode.length == 0) {
@@ -149,6 +155,7 @@ router.post("/newProduct", async (req, res) => {
     }
   });
 });
+
 router.post("/updateProduct", async (req, res) => {
   const { product_name, product_price, image, description } = req.body;
   Product.findOne({ product_name: `${product_name}` }, function (err, user) {
@@ -167,6 +174,7 @@ router.post("/updateProduct", async (req, res) => {
   });
   return res.status(200).json({ message: "Item updated" });
 });
+
 router.post("/deleteProduct", async (req, res) => {
   const { product_name, product_price, image, description } = req.body;
   Product.findOne({ product_name: `${product_name}` }, function (err, user) {
@@ -186,5 +194,36 @@ router.post("/deleteProduct", async (req, res) => {
   });
   return res.status(200).json({ message: "1 documnent deleted" });
 });
+
+
+// user actions
+router.post("/getUserDetails", async(req,res)=>{
+    try{
+        const { _id } = req.body
+        if(!_id) return res.status(401).json({ description : "Missing payload, please probide user id"})
+        const userData = await User.findOne({_id})
+        return res.status(200).json({ userData })
+    }catch(e){
+        ehandler(e,res)
+    }
+})
+
+router.post("/updateCart", async(req,res) => {
+    try{
+        const { _id , cartItems } = req.body
+
+        if(!(_id, cartItems)) return res.status(401).json({ description : "Missing payloads"})
+        
+        const update = await User.updateOne({ _id }, {
+            $set : {
+                cartItems
+            }
+        })
+
+        res.status(200).json({ message : "update, oks👌!" })
+    }catch(e){
+        ehandler(e,res)
+    }
+})
 
 module.exports = router;
