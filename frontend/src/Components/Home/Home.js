@@ -4,7 +4,7 @@ import Data from "../Home/Data";
 import { useHistory } from "react-router-dom";
 import Product from "./Product";
 import Cart from "./Cart";
-import { amIloggedIn, signOut } from "../../Utils";
+import { amIloggedIn, API, saveUser, signOut } from "../../Utils";
 
 import { IoExitOutline, IoHome } from "react-icons/io5";
 import { BsSearch, BsFillSuitHeartFill } from "react-icons/bs";
@@ -87,10 +87,27 @@ export const Home = () => {
     setToggleNav(false);
   };
 
-  useEffect(() => {
+  const loadUserData = async() => {
     const userData = amIloggedIn(history);
-    setUserData(userData);
-    //setCartItems(userData.cartItems);
+    const userNewInfo = await API.post("/getUserDetails", { _id : userData._id })
+    saveUser(userNewInfo)
+    setUserData(userNewInfo.data.userData);
+    setCartItems(userNewInfo.data.userData.cartItems);
+  }
+
+  useEffect(()=>{
+    const updateCart = async () =>{
+        if(!userData) return;
+        await API.post("/updateCart", { _id : userData._id , cartItems})
+        const userNewInfo = await API.post("/getUserDetails", { _id : userData._id })
+        saveUser(userNewInfo)
+        console.log("Cart Updated")
+    }
+    updateCart()
+  }, [cartItems])
+
+  useEffect(() => {
+    loadUserData()
   }, [history]);
 
   return (
