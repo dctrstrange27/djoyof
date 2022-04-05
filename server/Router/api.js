@@ -195,6 +195,19 @@ router.post("/deleteProduct", async (req, res) => {
   return res.status(200).json({ message: "1 documnent deleted" });
 });
 
+//for browsing
+router.get("/getAllProducts",async(req,res)=>{
+    try{
+        const products = await Product.find({})
+
+        res.status(200).json({
+            products
+        })
+    }catch(e){
+        console.log(e)
+        res.status(500).json({message : "The server has an error"})
+    }
+})
 
 // user actions
 router.post("/getUserDetails", async(req,res)=>{
