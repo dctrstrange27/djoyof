@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import Data from "../Home/Data";
 import { useHistory } from "react-router-dom";
 import Product from "./Product";
 import Cart from "./Cart";
-import { amIloggedIn, signOut } from "../../Utils";
+import { amIloggedIn, API, saveUser, signOut } from "../../Utils";
 
 import { IoExitOutline, IoHome } from "react-icons/io5";
 import { BsSearch, BsFillSuitHeartFill } from "react-icons/bs";
@@ -17,7 +16,7 @@ export const Home = () => {
 
   const [openTab, setOpenTab] = React.useState(1);
 
-  const { products } = Data;
+  const [products, setProduct] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [toggleSide, setToggleSide] = useState(false);
   const [toggleNav, setToggleNav] = useState(false);
@@ -87,10 +86,37 @@ export const Home = () => {
     setToggleNav(false);
   };
 
-  useEffect(() => {
+  const loadUserData = async() => {
     const userData = amIloggedIn(history);
-    setUserData(userData);
-    //setCartItems(userData.cartItems);
+    const userNewInfo = await API.post("/getUserDetails", { _id : userData._id })
+    saveUser(userNewInfo)
+    setUserData(userNewInfo.data.userData);
+    setCartItems(userNewInfo.data.userData.cartItems);
+  }
+
+  const loadProducts = async() => {
+    try{
+      const response = await API.get("/getAllProducts")
+      setProduct(response.data.products)
+    }catch(e){
+        console.log(e)
+    }
+}
+
+  useEffect(()=>{
+    const updateCart = async () =>{
+        if(!userData) return;
+        await API.post("/updateCart", { _id : userData._id , cartItems})
+        const userNewInfo = await API.post("/getUserDetails", { _id : userData._id })
+        saveUser(userNewInfo)
+        console.log("Cart Updated")
+    }
+    updateCart()
+  }, [cartItems])
+
+  useEffect(() => {
+    loadUserData()
+    loadProducts()
   }, [history]);
 
   return (

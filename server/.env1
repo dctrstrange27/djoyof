@@ -1,0 +1,2 @@
+PORT=3001
+MONGO_URI="mongodb+srv://helloworld:helloworld123@djoyofbaking.g0nzi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"

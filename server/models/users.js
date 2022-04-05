@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   profile_picture : { type: String, default : 'https://cdn.discordapp.com/attachments/955281529481883729/960149662831087626/morty.png'},
   cartItems: {type: [{}], default: []},
-  orders : {type : [], default : []}
+  orders : {type : [], default : []},
+  favourites : {type : [], default : []}
 });
 
 module.exports = mongoose.model("users", userSchema);
