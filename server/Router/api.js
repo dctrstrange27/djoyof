@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/users");
 const Product = require("../models/products");
 const bcrypt = require("bcrypt-nodejs");
+const bcryptjs = require("bcryptjs")
 const nodemailer = require("nodemailer");
 const users = require("../models/users");
 
@@ -28,7 +29,7 @@ router.post("/login", async (req, res) => {
       const doesExist = await User.findOne({ email_address }); 
    
       if (!doesExist) return res.status(404).json({ description: "Sorry but this user doesn't exist" }); 
-      if(!(await bcrypt.compare(password, doesExist.password))) return res.status(403).json({ description : "wrong credential"}) 
+      if(!(await bcryptjs.compare(password, doesExist.password))) return res.status(403).json({ description : "wrong credential"}) 
    
       return res.json({ userData : doesExist }) 
     } catch (e) { 
