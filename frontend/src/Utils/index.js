@@ -21,7 +21,6 @@ export const getUser = () => {
     /**
      * Para to sa pagkuha ng data ng user na naka logedin
      */
-    console.log("GET", JSON.parse(localStorage.getItem("userData")))
     return JSON.parse(localStorage.getItem("userData"));
 }
 

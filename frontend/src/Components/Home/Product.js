@@ -1,7 +1,7 @@
 import React from "react";
-const Product = (props) => {
-  const { product, onAddCart } = props;
+import { FaHeart } from "react-icons/fa"
 
+const Product = ({ product, onAddCart, onAddFav, liked, onRemoveFav, clickableAgain }) => {
   return (
     <>
       <div className="group relative flex px-20 ss:flex-wrap md:px-2 xl:px-8 flex-col justify-evenly  border-[1px items-center border-pink-70  border-[1px place-content-evenly h-auto md:mx-2 lg:mx-4 ">
@@ -32,6 +32,12 @@ const Product = (props) => {
               </button>
             </div>
           </div>
+          <FaHeart onClick={()=> {
+              if(!clickableAgain) return
+              if(liked) onRemoveFav(product._id)
+              else onAddFav(product._id)
+          }} className={`w-5 h-5 ${liked ? 'text-rose-500' : 'text-neutral-600'}`}/>
+          <p>{product.total_likes}</p>
         </div>
       </div>
 
