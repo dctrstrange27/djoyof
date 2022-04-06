@@ -3,19 +3,26 @@ const router = express.Router();
 const User = require("../models/users");
 const Product = require("../models/products");
 const bcrypt = require("bcrypt-nodejs");
-const bcryptjs = require("bcryptjs")
+const bcryptjs = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const users = require("../models/users");
+let ObjectId = require("mongoose").Types.ObjectId;
+
 
 //global variable
 let Vcode = " ";
 let email = " ";
 //--------------
 
-const ehandler = (e,res) => {
-    console.log(e)
-    return res.status(500).json({  description: "Sorry but theres an error in the server. try again later", err : e }); 
-}
+const ehandler = (e, res) => {
+  console.log(e);
+  return res
+    .status(500)
+    .json({
+      description: "Sorry but theres an error in the server. try again later",
+      err: e,
+    });
+};
 
 router.get("/", (req, res) => {
   res.send("From API router");
@@ -25,20 +32,30 @@ function between(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-router.post("/login", async (req, res) => { 
-    try { 
-      const { email_address, password } = req.body; 
-      if(!(email_address, password)) return res.status(403).json({ description : 'Please provide all information required, email & password' }) 
-   
-      const doesExist = await User.findOne({ email_address }); 
-   
-      if (!doesExist) return res.status(404).json({ description: "Sorry but this user doesn't exist" }); 
-      if(!(await bcryptjs.compare(password, doesExist.password))) return res.status(403).json({ description : "wrong credential"}) 
-   
-      return res.json({ userData : doesExist }) 
-    } catch (e) { 
-        ehandler(e,res)
-    } 
+router.post("/login", async (req, res) => {
+  try {
+    const { email_address, password } = req.body;
+    if (!(email_address, password))
+      return res
+        .status(403)
+        .json({
+          description:
+            "Please provide all information required, email & password",
+        });
+
+    const doesExist = await User.findOne({ email_address });
+
+    if (!doesExist)
+      return res
+        .status(404)
+        .json({ description: "Sorry but this user doesn't exist" });
+    if (!(await bcryptjs.compare(password, doesExist.password)))
+      return res.status(403).json({ description: "wrong credential" });
+
+    return res.json({ userData: doesExist });
+  } catch (e) {
+    ehandler(e, res);
+  }
 });
 
 router.post("/signup", async (req, res) => {
@@ -196,47 +213,91 @@ router.post("/deleteProduct", async (req, res) => {
 });
 
 //for browsing
-router.get("/getAllProducts",async(req,res)=>{
-    try{
-        const products = await Product.find({})
+router.get("/getAllProducts", async (req, res) => {
+  try {
+    const products = await Product.find({});
 
-        res.status(200).json({
-            products
-        })
-    }catch(e){
-        console.log(e)
-        res.status(500).json({message : "The server has an error"})
-    }
+    res.status(200).json({
+      products,
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "The server has an error" });
+  }
+});
+
+// don't use this. just for postman
+router.post("/createUsrPostman", async(req,res) => {
+    const hashed = await bcryptjs.hash(req.body.password, 10)
+    const userData = await User.create({...req.body, password : hashed})
+    res.status(201).json({ message : "User Created 👌", userData })
 })
 
 // user actions
-router.post("/getUserDetails", async(req,res)=>{
-    try{
-        const { _id } = req.body
-        if(!_id) return res.status(401).json({ description : "Missing payload, please probide user id"})
-        const userData = await User.findOne({_id})
-        return res.status(200).json({ userData })
-    }catch(e){
-        ehandler(e,res)
+router.post("/getUserDetails", async (req, res) => {
+  try {
+    const { _id } = req.body;
+    if (!_id)
+      return res
+        .status(401)
+        .json({ description: "Missing payload, please probide user id" });
+    const userData = await User.findOne({ _id });
+    return res.status(200).json({ userData });
+  } catch (e) {
+    ehandler(e, res);
+  }
+});
+
+router.post("/updateMyFavorites", async (req, res) => {
+  try {
+    // 0 - Add
+    // -1 - Remove
+    // 1 - Get all favorites
+    const { favorites, mode, product_id, _id } = req.body;
+
+    if (mode === 0) {
+      const updateUser = await User.updateOne({ _id : new ObjectId(_id) },{ $push : { favorites : new ObjectId(product_id) } })
+      const updateProduct = await Product.updateOne({ _id : product_id }, { $inc : { total_likes : 1 } })
+      return res.status(200).json({ message : "Added 👌" })
+    } else if (mode === 1) {
+      if(favorites.length <= 0) return res.status(400).json({ description : "You have 0 favorites"})
+      let prodIds = favorites.map((i) => { return new ObjectId(i) } )
+      const favs = await Product.find({ _id: { $in: prodIds } });
+      return res.status(200).json({ favourites : favs, });
+    } else if (mode === -1) {
+        const updateUser = await User.updateOne({_id}, { $pull : { favorites : new ObjectId(product_id) }})
+        const updateProduct = await Product.updateOne({ _id : product_id }, { $inc : { total_likes : -1 } })
+        return res.status(200).json({ message : "Removed 👌" })
     }
-})
 
-router.post("/updateCart", async(req,res) => {
-    try{
-        const { _id , cartItems } = req.body
+    res.status(400).json({
+        description : "No mode provided, 1 add, -1 remove, 1 get all",
+      });
+  } catch (e) {
+    ehandler(e, res);
+  }
+});
 
-        if(!(_id, cartItems)) return res.status(401).json({ description : "Missing payloads"})
-        
-        const update = await User.updateOne({ _id }, {
-            $set : {
-                cartItems
-            }
-        })
+router.post("/updateCart", async (req, res) => {
+  try {
+    const { _id, cartItems } = req.body;
 
-        res.status(200).json({ message : "update, oks👌!" })
-    }catch(e){
-        ehandler(e,res)
-    }
-})
+    if (!(_id, cartItems))
+      return res.status(401).json({ description: "Missing payloads" });
+
+    const update = await User.updateOne(
+      { _id },
+      {
+        $set: {
+          cartItems,
+        },
+      }
+    );
+
+    res.status(200).json({ message: "update, oks👌!" });
+  } catch (e) {
+    ehandler(e, res);
+  }
+});
 
 module.exports = router;
