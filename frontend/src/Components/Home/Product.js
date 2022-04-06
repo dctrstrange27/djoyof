@@ -4,7 +4,7 @@ import { FaHeart } from "react-icons/fa"
 const Product = ({ product, onAddCart, onAddFav, liked, onRemoveFav, clickableAgain }) => {
   return (
     <>
-      <div className="group relative flex px-20 ss:flex-wrap md:px-2 xl:px-8 flex-col justify-evenly  border-[1px items-center border-pink-70  border-[1px place-content-evenly h-auto md:mx-2 lg:mx-4 ">
+      <div className="group relative flex px-20 ss:flex-wrap md:px-2 xl:px-8 flex-col justify-evenly  border-[1px] items-center border-pink-70  border-[1px place-content-evenly h-auto md:mx-2 lg:mx-4 ">
         <div className="w-[240px] bg-blu-500 relative">
           <div className=" bg-[#212121] absolute md:ml-0 ml-5 border-[#F29A4B] border-[1px] -translate-x-7 -left-3 z-10  -bottom-3 md:-bottom-4 rounded-full ">
             <img className="object-contain h-[4.5rem] w-[4.5rem] md:h-20 md:w-20 lg:h-20 lg:w-20 rounded-full p-2" alt="" src={product.image} />
