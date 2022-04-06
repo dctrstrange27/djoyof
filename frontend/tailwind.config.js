@@ -17,7 +17,8 @@ module.exports = {
         fontFamily:{
           dm_mono:  "'DM Mono', monospace",
           pop:"'Poppins', sans-serif",
-          nuni: "'Nunito', sans-serif"
+          nuni: "'Nunito', sans-serif",
+          nsans:"'Nunito Sans', sans-serif"
         },
         
       },
