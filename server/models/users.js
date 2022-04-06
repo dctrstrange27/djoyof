@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
   profile_picture : { type: String, default : 'https://cdn.discordapp.com/attachments/955281529481883729/960149662831087626/morty.png'},
   cartItems: {type: [{}], default: []},
   orders : {type : [], default : []},
-  favourites : {type : [], default : []}
+  favorites : {type : [], default : []} // objectId's of products
 });
 
 module.exports = mongoose.model("users", userSchema);

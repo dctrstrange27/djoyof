@@ -21,10 +21,11 @@ export const Home = () => {
   const [toggleSide, setToggleSide] = useState(false);
   const [toggleNav, setToggleNav] = useState(false);
   const [userData, setUserData] = useState();
+  const [favorites, setFavorites] = useState([]);
+  const [clickableAgain, setClickableAgain] = useState(true)
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => {
-      console.log(x._id, product._id, x._id === product._id);
       return x._id === product._id;
     });
     if (exist) {
@@ -86,37 +87,70 @@ export const Home = () => {
     setToggleNav(false);
   };
 
-  const loadUserData = async() => {
+  const loadUserData = async () => {
     const userData = amIloggedIn(history);
-    const userNewInfo = await API.post("/getUserDetails", { _id : userData._id })
-    saveUser(userNewInfo)
+    const userNewInfo = await API.post("/getUserDetails", {
+      _id: userData._id,
+    });
+    saveUser(userNewInfo);
     setUserData(userNewInfo.data.userData);
     setCartItems(userNewInfo.data.userData.cartItems);
-  }
+    setFavorites(userNewInfo.data.userData.favorites);
+  };
 
-  const loadProducts = async() => {
-    try{
-      const response = await API.get("/getAllProducts")
-      setProduct(response.data.products)
-    }catch(e){
-        console.log(e)
+  const loadProducts = async () => {
+    try {
+      const response = await API.get("/getAllProducts");
+      setProduct(response.data.products);
+    } catch (e) {
+      console.log(e);
     }
-}
+  };
 
-  useEffect(()=>{
-    const updateCart = async () =>{
-        if(!userData) return;
-        await API.post("/updateCart", { _id : userData._id , cartItems})
-        const userNewInfo = await API.post("/getUserDetails", { _id : userData._id })
-        saveUser(userNewInfo)
-        console.log("Cart Updated")
-    }
-    updateCart()
-  }, [cartItems])
+  const isMyFavorite = (id) => {
+    const arr = favorites.filter((prod) => id === prod);
+    return arr.length > 0;
+  };
+
+  const addFavorite = async (product_id) => {
+    setClickableAgain(false)
+    const update = await API.post("/updateMyFavorites", {
+      mode: 0,
+      _id: userData._id,
+      product_id,
+    });
+    loadProducts()
+    loadUserData()
+    setClickableAgain(true)
+  };
+
+  const removeFavorite = async (product_id) => {
+    setClickableAgain(false)
+    const favs = await API.post("/updateMyFavorites", {
+      mode: -1,
+      _id: userData._id,
+      product_id,
+    });
+    loadProducts()
+    loadUserData()
+    setClickableAgain(true)
+  };
 
   useEffect(() => {
-    loadUserData()
-    loadProducts()
+    const updateCart = async () => {
+      if (!userData) return;
+      await API.post("/updateCart", { _id: userData._id, cartItems });
+      const userNewInfo = await API.post("/getUserDetails", {
+        _id: userData._id,
+      });
+      saveUser(userNewInfo);
+    };
+    updateCart();
+  }, [cartItems]);
+
+  useEffect(() => {
+    loadUserData();
+    loadProducts();
   }, [history]);
 
   return (
@@ -342,6 +376,10 @@ export const Home = () => {
                               key={product._id}
                               onAddCart={onAdd}
                               product={product}
+                              onAddFav={addFavorite}
+                              onRemoveFav={removeFavorite}
+                              liked={isMyFavorite(product._id)}
+                              clickableAgain={clickableAgain}
                             ></Product>
                           ))}
                         </div>
