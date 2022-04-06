@@ -132,7 +132,7 @@ export const Home = () => {
                 aria-label="Sidebar"
               >
                 <div className="bg-[#24262bd9] h-full py-10 px-3 flex justify-center items-center rounded">
-                  <ul className="flex flex-col gap-4 md:gap-1 lg:gap-3 xl:gap-7 ">
+                  <ul className="flex flex-col gap-4 md:gap-4 lg:gap-3 xl:gap-7 ">
                     <li>
                       <a
                         href="/"
@@ -228,7 +228,7 @@ export const Home = () => {
                       className={`fixed h-auto z-50  duration-500 mt-[4.5rem] -right-32 ${toggleNav && "-right-0 fixed "
                         } md:relative md:right-0 md:mt-0 md:duration-75`}>
                       {/** Top Nav */}
-                      <nav className="flex  flex-wrap flex-col md:flex-row justify-center gap-3 items-center uppercase py-8 md:relative lg:justify-evenly bg-[#1A1B1F]">
+                      <nav className="flex md:border-[1px md:justify-evenly flex-wrap flex-col md:flex-row justify-center gap-3 items-center uppercase py-8 md:relative lg:justify-evenly bg-[#1A1B1F]">
                         <a
                           href="/"
                           className="  flex justify-center items-center font-normal text-gray-900 rounded-full
@@ -268,17 +268,18 @@ export const Home = () => {
                           href="/"
                           className="flex justify-center items-center font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
-                          <img
+                          {/* <img
                             alt=""
                             src={require("../../img/logo.png")}
                             className="md:h-auto md:w-12 h-0  invisible md:visible"
-                          ></img>
+                          ></img> */}
                         </a>
                       </nav>
                     </div>
                   </div>
-
-                  <div className="flex font-pop border-green-500 border-[5px md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
+                  <img alt="" src={require("../../img/line_logo.png")} className="w-0 h-0 md:border-[1px md:h-auto md:w-[95%]"
+                          ></img>
+                  <div className="flex font-pop border-green-500 border-[5px 2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
                     <div className="w-full lg:px-3">
                       {/* ALL tab  */}
                       <ul role="tablist" className="grid md:grid-cols-5 grid-cols-5 mb-0 w-full list-none pt-3
@@ -312,10 +313,10 @@ export const Home = () => {
                         )}
                       </ul>
 
-                      <div className="relative font-pop z-0 flex rounded-2xl text-white bg-no-repeat  bg-[#141517] h-auto"
+                      <div className="relative font-pop z-0 flex rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
                         style={{
                           backgroundImage: `${openTab === 1 &&
-                            "url('https://cdn.discordapp.com/attachments/955281529481883729/959364059541671966/Frame_13_1.png')"
+                            "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"
                             }`,
                         }}
                         
@@ -329,7 +330,7 @@ export const Home = () => {
                             {/** Products Container */}
                             <div
                               className={`grid  ${openTab !== 1 && "hidden"
-                                } grid grid-cols-1  ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                                } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
                               id="link2"
                             >
                               {products.map((product) => (
