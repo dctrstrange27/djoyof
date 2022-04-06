@@ -19,7 +19,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
 
   return (
     <>
-      <div className="relative flex md:px-10 2xl:px-20  pb-20  bg-pink-40 h-auto overflow-hidden w-full">
+      <div className="relative flex md:px-10 2xl:px-20 border-[1px  pb-20  bg-pink-40 h-auto overflow-hidden w-full">
         <div className="flex flex-col relative  md:px-0 w-[100%]">
     {/* tab  */}
           <ul className="flex mb-0 list-none  overflow-hidden  overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"

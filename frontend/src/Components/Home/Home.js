@@ -233,7 +233,8 @@ export const Home = () => {
             {/* body */}
             <div className="flex xl:w-full xl:ml-[8rem] lg:ml-[8rem] md:ml-[4rem] justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-lg">
               <div className="flex bg-[#1A1B1F]  w-screen  ">
-                <div className="border-pink-70 w-full border-[3px] min-h-screen overflow-x-hidden"
+                {/* whole page */}
+                <div className="border-pink-70 w-full flex-col border-pink-400 border-[3px min-h-screen overflow-x-hidden"
                   onClick={() => {
                     resetToggle();
                   }}
@@ -257,6 +258,7 @@ export const Home = () => {
                       />
                     </div>
                   </div>
+                  {/* nav part */}
                   <div className="relative border-cyan-700 border-[6px ">
                     <div
                       className={`fixed h-auto z-50  duration-500 mt-[4.5rem] -right-32 ${toggleNav && "-right-0 fixed "
@@ -313,7 +315,8 @@ export const Home = () => {
                   </div>
                   <img alt="" src={require("../../img/line_logo.png")} className="w-0 h-0 md:border-[1px md:h-auto md:w-[95%]"
                           ></img>
-                  <div className="flex font-pop border-green-500 border-[5px 2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
+                   {/* product part        */}
+                  <div className="flex font-pop  2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
                     <div className="w-full lg:px-3">
                       {/* ALL tab  */}
                       <ul role="tablist" className="grid md:grid-cols-5 grid-cols-5 mb-0 w-full list-none pt-3
@@ -346,20 +349,9 @@ export const Home = () => {
                           )
                         )}
                       </ul>
-                          {products.map((product) => (
-                            <Product
-                              key={product._id}
-                              onAddCart={onAdd}
-                              product={product}
-                              onAddFav={addFavorite}
-                              onRemoveFav={removeFavorite}
-                              liked={isMyFavorite(product._id)}
-                              clickableAgain={clickableAgain}
-                            ></Product>
-                          ))}
                         </div>
 
-                      <div className="relative font-pop z-0 flex rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
+                      <div className="relative font-pop z-0 w-full border-green-500 border-[5px  rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
                         style={{
                           backgroundImage: `${openTab === 1 &&
                             "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"
@@ -379,20 +371,29 @@ export const Home = () => {
                                 } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
                               id="link2"
                             >
-                              {products.map((product) => (
-                                <Product
-                                  key={product._id}
-                                  onAddCart={onAdd}
-                                  product={product}
-                                ></Product>
-                              ))}
+                               {products.map((product) => (
+                            <Product
+                              key={product._id}
+                              onAddCart={onAdd}
+                              product={product}
+                              onAddFav={addFavorite}
+                              onRemoveFav={removeFavorite}
+                              liked={isMyFavorite(product._id)}
+                              clickableAgain={clickableAgain}
+                            ></Product>
+                          ))}
                             </div>
 
                             <div
                               className={openTab === 2 ? "block" : "hidden"}
                               id="link2"
                             >
-                              <p>Favorites..</p>
+                                <div
+                              className={`grid  ${openTab !== 2 && "hidden"
+                                } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                              id="link2"
+                            >
+                            </div>
                             </div>
                             <div
                               className={openTab === 3 ? "block" : "hidden"}
@@ -410,8 +411,7 @@ export const Home = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="overflow-hidden ">
+                    <div className="overflow-hidden border-[6px ">
                     <Cart
                       onAdd={onAdd}
                       onDecrease={decreaseQty}
@@ -420,13 +420,13 @@ export const Home = () => {
                       onRemove={removeItemFromCart}
                       onRemoveAll={removeAllCartItems}
                     ></Cart>
-                  </div>
+                    </div>
+                  </div>  
                 </div>
               </div>
             </div>
           </div>
         
-
       )}
     </>
   );

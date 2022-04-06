@@ -5,9 +5,9 @@ const Product = ({ product, onAddCart, onAddFav, liked, onRemoveFav, clickableAg
   return (
     <>
       <div className="group relative flex px-20 ss:flex-wrap md:px-2 xl:px-8 flex-col justify-evenly  border-[1px] items-center border-pink-70  border-[1px place-content-evenly h-auto md:mx-2 lg:mx-4 ">
-        <div className="w-[240px] bg-blu-500 relative">
-          <div className=" bg-[#212121] absolute md:ml-0 ml-5 border-[#F29A4B] border-[1px] -translate-x-7 -left-3 z-10  -bottom-3 md:-bottom-4 rounded-full ">
-            <img className="object-contain h-[4.5rem] w-[4.5rem] md:h-20 md:w-20 lg:h-20 lg:w-20 rounded-full p-2" alt="" src={product.image} />
+        <div className="w-[240px] bg-blue-500 relative ">
+          <div className=" bg-[#212121] absolute md:ml-0 ml-5 border-[#F29A4B] border-[1px] -translate-x-10 -left-3 z-10  -bottom-3 md:bottom-9 rounded-full ">
+      
           </div>
           <div className="bg-[#1e1e21]/90 bg-gren-500 border-[1px translate-x-5 duration-150 hover:bg-transparent col-span-3 h-[60px] h-max-[100px]
                         w-[200px] max-w-[200px]  pl-10 after:content-[''] after:w-[90%] after:h-[2px] after:bg-[#F29A4B] after:left-0 after:bottom-0 after:top-[110%] after:absolute
@@ -36,7 +36,7 @@ const Product = ({ product, onAddCart, onAddFav, liked, onRemoveFav, clickableAg
               if(!clickableAgain) return
               if(liked) onRemoveFav(product._id)
               else onAddFav(product._id)
-          }} className={`w-5 h-5 ${liked ? 'text-rose-500' : 'text-neutral-600'}`}/>
+          }} className={`w-10 h-10 ${liked ? 'text-rose-500' : 'text-neutral-600'}`}/>
           <p>{product.total_likes}</p>
         </div>
       </div>
