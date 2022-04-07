@@ -9,7 +9,7 @@ const Product = ({ product, onAddCart, onAddFav, liked, onRemoveFav, clickableAg
           <div className=" bg-[#212121] absolute md:m76 xl-0 ml-5 border-[#F29A4B] border-[1px] -translate-x-16  top-5 z-30 rounded-full ">
             <img src={product.image} className="h-20 w-20"></img>
           </div>
-          <div className="bg-[#1e1e21]/90 bg-gren-500 border-[1px translate-x-5 duration-150 hover:bg-transparent col-span-3 h-[60px] h-max-[100px]
+          <div className="bg-[#1e1e21]/90 bg-gren-500 border-[1px translate-x-5 duration-150 col-span-3 h-[60px] h-max-[100px]
                         w-[200px] max-w-[200px]  pl-10 after:content-[''] after:w-[90%] after:h-[2px] after:bg-[#F29A4B] after:left-0 after:bottom-0 after:top-[110%] after:absolute
                         md:py-4 mt-10 md:mt-8 md:translate-x-3 md:w-[230px] md:max-w-[280px] md:max-h-[90px]">
             {/* name and price*/}

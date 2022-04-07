@@ -15,11 +15,12 @@ export const Signup = () => {
             <div className="bg-[#323439] flex justify-center items-center w-screen h-screen overflow-auto  lg:px-10 xl:px-20">
            
                 <div className="relative bg-[#141517] lg:border-[.2px] lg:border-[#D2A781] flex justify-center bg-center bg-no-repeat bg-[length:750px_900px]
-                                 items-center w-full h-[80vh] lg:rounded-[1.7rem] lg:px-20 xl:rounded-[3.7rem] rounded-2xl  xl:px-32 md:px-2 py-10 2xl:px-[20rem] "
+                                 items-center w-full h-[80vh] lg:rounded-[1.7rem] lg:px-20 xl:rounded-[3.7rem] rounded-2xl  xl:px-32 md:px-2 py-10 2xl:px-[15rem] 3xl:px-[25rem]"
                     style={{ backgroundImage: `${openTab === 1 && "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, }}>
-                    {/* center div */}
+
                     <img className="absolute lg:left-6 invisible lg:visible xl:left-16 2xl:left-20 lg:h-70 lg:w-auto "
                                 src={require("../../img/text.png")} ></img>
+                     {/* center div */}
                     <div className="bg-[#101010d6] rounded-2xl lg:border-[.2px] lg:border-[#ffab5dc1] xl:rounded-[3rem] text-white flex flex-col md:flex-row w-full h-auto xl:h-[60vh] justify-center items-center">
                         {/* left side */}
                         <div className=" h-full rounded-l-2xl xl:rounded-l-[3rem] bg-[#131518] border-[1px flex flex-col justify-center md:gap-5 xl:gap-4 gap-3 items-center md:px-10 lg:px-20 px-5 py-5">
@@ -83,8 +84,8 @@ export const Signup = () => {
                             <button className="px-3 py-1 lg:my-4  w-32 h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">Sign In</button>
                         </div>
                     </div>
-                    {/* <img className="absolute lg:left-6 xl:left-16 2xl:left-20  lg:h-70 lg:w-auto"
-                                src={require("../../img/foot.png")} ></img> */}
+                    <img className="absolute invisible lg:visible xl:right-16 xl:bottom-0  lg:h-70 lg:w-auto"
+                                src={require("../../img/foot.png")} ></img>
                 </div>
             </div>
 
