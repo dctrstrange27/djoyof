@@ -51,7 +51,7 @@ export const Login = () => {
             <h1 className="w-fit self-center py-2 text-[#CBCBCB] text-[1rem] tracking-[0.25rem] font-medium z-10 lg:py-0">
               SIGN IN TO DJOYOF
             </h1>
-            <form className="flex flex-col border-[1px font-nsans md:text-sm lg:text-[0.99rem] border-green-500">
+            <form className="flex flex-col border-[1px font-nsans text-sm lg:text-[0.99rem] border-green-500">
               <div className="mb-4 py-2 z-10">
                 <label
                   className="block mb-1  text-[#CBCBCB]  tracking-[0.1rem] z-10"
