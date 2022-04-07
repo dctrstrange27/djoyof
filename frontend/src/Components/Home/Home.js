@@ -323,7 +323,7 @@ export const Home = () => {
                       <ul role="tablist" className="grid md:grid-cols-5 grid-cols-5 mb-0 w-full list-none pt-3
                            md:w-[80%]   lg:w-[70%]
                       ">
-                        {["ALL ITEMS", "FAVORITES", "COMPLETED", "ON DELIVERY", "CANCELLED"].map(
+                        {["ALL ITEMS", "FAVORITES", "COMPLETED", "ON SHIPMENT", "CANCELLED"].map(
                           (tb, idx) => (
                             <li
                               key={idx}
