@@ -27,8 +27,8 @@ export const Signup = () => {
                             <img className="h-auto w-28"
                                 src={require("../../img/logo.png")} ></img>
                             <div className="md:w-[350px] lg:w-[400px]">
-                                <h2 className="text-[#F29A4B] font-nsans text-2xl xl:text-[3rem] italic font-extrabold lg:tracking-[.4rem] text-left w-[250px] lg:w-[340px] xl:w-[340px] border-[1px]">DJOYOF</h2>
-                                <h1 className="font-nsans font-black text-[#CFCFCF] tracking-[.2em] xl:tracking-[1rem] lg:tracking-[1.5rem] text-5xl xl:text-[4rem] border-[1px] ">BAKING</h1>
+                                <h2 className="text-[#F29A4B] font-nsans text-2xl xl:text-[3rem] italic font-extrabold lg:tracking-[.4rem] text-left w-[250px] lg:w-[340px] xl:w-[340px] border-[1px">DJOYOF</h2>
+                                <h1 className="font-nsans font-black text-[#CFCFCF] tracking-[.2em] xl:tracking-[1rem] lg:tracking-[1.5rem] text-5xl xl:text-[4rem] border-[1px ">BAKING</h1>
                             </div>
                             <p className="text-justify font-pop text-sm ">
                                 DJOYOFBAKING is founded by Ms. Dimple Cuevas.
