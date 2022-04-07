@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import Product from "./Product";
 import Cart from "./Cart";
 
+import SendProof from "../Modal/SendProof";
+
 import { amIloggedIn, API, saveUser, signOut } from "../../Utils";
 
 import { IoExitOutline, IoHome } from "react-icons/io5";
@@ -12,7 +14,7 @@ import { ImCart } from "react-icons/im";
 import { GiSlicedBread } from "react-icons/gi";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-export const Home = () => {
+const Home = () => {
   let history = useHistory();
 
   const [openTab, setOpenTab] = React.useState(1);
@@ -23,7 +25,12 @@ export const Home = () => {
   const [toggleNav, setToggleNav] = useState(false);
   const [userData, setUserData] = useState();
   const [favorites, setFavorites] = useState([]);
-  const [clickableAgain, setClickableAgain] = useState(true)
+  const [clickableAgain, setClickableAgain] = useState(true);
+
+  const [proof, setProofFile] = useState();
+  const [proofView, setProofView] = useState();
+
+  const [show, setShow] = useState(false);
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => {
@@ -114,27 +121,27 @@ export const Home = () => {
   };
 
   const addFavorite = async (product_id) => {
-    setClickableAgain(false)
+    setClickableAgain(false);
     const update = await API.post("/updateMyFavorites", {
       mode: 0,
       _id: userData._id,
       product_id,
     });
-    loadProducts()
-    loadUserData()
-    setClickableAgain(true)
+    loadProducts();
+    loadUserData();
+    setClickableAgain(true);
   };
 
   const removeFavorite = async (product_id) => {
-    setClickableAgain(false)
+    setClickableAgain(false);
     const favs = await API.post("/updateMyFavorites", {
       mode: -1,
       _id: userData._id,
       product_id,
     });
-    loadProducts()
-    loadUserData()
-    setClickableAgain(true)
+    loadProducts();
+    loadUserData();
+    setClickableAgain(true);
   };
 
   useEffect(() => {
@@ -156,14 +163,29 @@ export const Home = () => {
 
   return (
     <>
+      {show && (
+        <div
+          onClick={() => {setShow(false) }}
+          className="fixed top-0 flex justify-center items-center left-0 h-screen w-full z-[9999]"
+        >
+          <div className="w-1/2">
+            <SendProof
+              proofView={proofView}
+              setProofFile={setProofFile}
+              setProofView={setProofView}
+            />
+          </div>
+        </div>
+      )}
       {userData && (
         <div className="relative ss:w-full border-8] justify-center flex">
           {/* aside nav */}
           <div className="flex justify-center border-green-40 xl:px-32 xl:min-w-full w-screen">
             <div className="md:bg-red-30 xl:h-full xl:ml-[8rem] md:fixed md:h-full lg:fixed lg:h-full xl:fixed left-0  z-40">
               <aside
-                className={`z-30 xl:h-full lg:w-32 md:w-16 w-[4rem] duration-500 md:h-full h-screen md:lef-0 md:static absolute -left-96 ${toggleSide && "left-0"
-                  } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
+                className={`z-30 xl:h-full lg:w-32 md:w-16 w-[4rem] duration-500 md:h-full h-screen md:lef-0 md:static absolute -left-96 ${
+                  toggleSide && "left-0"
+                } h-auto bg-transparent border-[#fffff] border-r-[.01px]`}
                 aria-label="Sidebar"
               >
                 <div className="bg-[#24262bd9] h-full py-10 px-3 flex justify-center items-center rounded">
@@ -173,7 +195,10 @@ export const Home = () => {
                         href="/"
                         className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
-                        <IoExitOutline  onClick={signOut} className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
+                        <IoExitOutline
+                          onClick={signOut}
+                          className="w-4 h-4 md:h-6 md:w-6 text-orange-500"
+                        />
                       </a>
                     </li>
                     <li className="">
@@ -235,7 +260,8 @@ export const Home = () => {
             <div className="flex xl:w-full xl:ml-[8rem] lg:ml-[8rem] md:ml-[4rem] justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-lg">
               <div className="flex bg-[#1A1B1F]  w-screen  ">
                 {/* whole page */}
-                <div className="border-pink-70 w-full flex-col border-pink-400 border-[3px min-h-screen overflow-x-hidden"
+                <div
+                  className="border-pink-70 w-full flex-col border-pink-400 border-[3px min-h-screen overflow-x-hidden"
                   onClick={() => {
                     resetToggle();
                   }}
@@ -249,7 +275,9 @@ export const Home = () => {
                         }}
                         className="block md:hidden w-7 h-7 text-orange-500"
                       />
-                      <h1 className="text-pop text-[#919193] text-[16px] font-semibold ">DJOYOF</h1>
+                      <h1 className="text-pop text-[#919193] text-[16px] font-semibold ">
+                        DJOYOF
+                      </h1>
                       <GiHamburgerMenu
                         onClick={(e) => {
                           e.stopPropagation();
@@ -262,8 +290,10 @@ export const Home = () => {
                   {/* nav part */}
                   <div className="relative border-cyan-700 border-[6px ">
                     <div
-                      className={`fixed h-auto z-50  duration-500 mt-[4.5rem] -right-32 ${toggleNav && "-right-0 fixed "
-                        } md:relative md:right-0 md:mt-0 md:duration-75`}>
+                      className={`fixed h-auto z-50  duration-500 mt-[4.5rem] -right-32 ${
+                        toggleNav && "-right-0 fixed "
+                      } md:relative md:right-0 md:mt-0 md:duration-75`}
+                    >
                       {/** Top Nav */}
                       <nav className="flex md:border-[1px md:justify-evenly flex-wrap flex-col md:flex-row justify-center gap-3 items-center uppercase py-8 md:relative lg:justify-evenly bg-[#1A1B1F]">
                         <a
@@ -314,62 +344,75 @@ export const Home = () => {
                       </nav>
                     </div>
                   </div>
-                  <img alt="" src={require("../../img/line_logo.png")} className="w-0 h-0 md:border-[1px md:h-auto md:w-[95%]"
+                  <img
+                    alt=""
+                    src={require("../../img/line_logo.png")}
+                    className="w-0 h-0 md:border-[1px md:h-auto md:w-[95%]"
                   ></img>
                   {/* product part        */}
                   <div className="flex font-pop border-[x] 2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
                     <div className="w-full lg:px-3">
                       {/* ALL tab  */}
-                      <ul role="tablist" className="grid md:grid-cols-5 grid-cols-5 mb-0 w-full list-none pt-3
+                      <ul
+                        role="tablist"
+                        className="grid md:grid-cols-5 grid-cols-5 mb-0 w-full list-none pt-3
                            md:w-[80%]   lg:w-[70%]
-                      ">
-                        {["ALL ITEMS", "FAVORITES", "COMPLETED", "ON SHIPMENT", "CANCELLED"].map(
-                          (tb, idx) => (
-                            <li
-                              key={idx}
-                              className={` last:mr-0 flex-auto  -z-1 text-center`}
+                      "
+                      >
+                        {[
+                          "ALL ITEMS",
+                          "FAVORITES",
+                          "COMPLETED",
+                          "ON SHIPMENT",
+                          "CANCELLED",
+                        ].map((tb, idx) => (
+                          <li
+                            key={idx}
+                            className={` last:mr-0 flex-auto  -z-1 text-center`}
+                          >
+                            <a
+                              className={
+                                "relative rounded-tl-xl duration-200 -z-1 ease-in-out md:translate-y-3 text-[.6rem] md:text-[.8rem] font-semibold lowercase  px-1 md:px-5 py-3 md:pb-5 shadow-lg rounded-sm block leading-normal " +
+                                (openTab === idx + 1
+                                  ? "text-[#353535] bg-[#F29A4B] origin-bottom text-[14px] md:translate-y-0"
+                                  : "text-white bg-[#21201F] border-[.5px] border-[#515151] -600 ")
+                              }
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setOpenTab(idx + 1);
+                              }}
+                              data-toggle="tab"
+                              href="#link1"
+                              role="tablist"
                             >
-                              <a
-                                className={
-                                  "relative rounded-tl-xl duration-200 -z-1 ease-in-out md:translate-y-3 text-[.6rem] md:text-[.8rem] font-semibold lowercase  px-1 md:px-5 py-3 md:pb-5 shadow-lg rounded-sm block leading-normal " +
-                                  (openTab === idx + 1
-                                    ? "text-[#353535] bg-[#F29A4B] origin-bottom text-[14px] md:translate-y-0"
-                                    : "text-white bg-[#21201F] border-[.5px] border-[#515151] -600 ")
-                                }
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setOpenTab(idx + 1);
-                                }}
-                                data-toggle="tab"
-                                href="#link1"
-                                role="tablist"
-                              >
-                                {tb}
-                              </a>
-                            </li>
-                          )
-                        )}
+                              {tb}
+                            </a>
+                          </li>
+                        ))}
                       </ul>
                     </div>
 
-                    <div className="relative font-pop z-0 w-full border-green-500 border-[5px  rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
+                    <div
+                      className="relative font-pop z-0 w-full border-green-500 border-[5px  rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
                       style={{
-                        backgroundImage: `${openTab === 1 &&
+                        backgroundImage: `${
+                          openTab === 1 &&
                           "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"
-                          }`,
+                        }`,
                       }}
-
                     >
                       <div
                         className="px-4 py-5 pb-[8vh] h-[40vh] overflow-scroll overflow-x-hidden flex-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-black
                           scrollbar-thumb-rounded-full scrollbar-track-rounded-full
                           md:max-h-[50vh]  md:rounded-lg 
-                          ">
+                          "
+                      >
                         <div className="tab-content tab-space relative">
                           {/** Products Container */}
                           <div
-                            className={`grid  ${openTab !== 1 && "hidden"
-                              } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                            className={`grid  ${
+                              openTab !== 1 && "hidden"
+                            } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
                             id="link2"
                           >
                             {products.map((product) => (
@@ -385,8 +428,11 @@ export const Home = () => {
                             ))}
                           </div>
 
-                          <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                          <p>Favorites Items..</p>
+                          <div
+                            className={openTab === 2 ? "block" : "hidden"}
+                            id="link2"
+                          >
+                            <p>Favorites Items..</p>
                           </div>
                           <div
                             className={openTab === 3 ? "block" : "hidden"}
@@ -413,18 +459,18 @@ export const Home = () => {
                       onRemove={removeItemFromCart}
                       onRemoveAll={removeAllCartItems}
                       products={products}
+                      showProofModal={() => {
+                        setShow(true);
+                      }}
                     ></Cart>
                   </div>
-                 
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       )}
     </>
   );
 };
 export default Home;
-
