@@ -41,24 +41,21 @@ export const Login = () => {
   return (
     <>
       <div className="bg-[#323439] flex justify-center items-center w-screen h-screen overflow-auto lg:px-10 xl:border-[1px xl:px-[7rem] 2xl:px-[6rem] 3xl:px-[7rem] md:py-18 lg:py-20">
+        {/* first box */}
         <div className="flex bg-[#141517 bg-[#141517] relative justify-center items-center w-full border-0 h-full md:border-y-[1px] xl:rounded-[2.9rem] md:border-opacity-25 2xl:border-[#F29A4B] 
                      2xl:rounded-[47px]  bg-center bg-no-repeat xl:bg-[length:750px_auto] 2xl:bg-[length:1000px_auto] md:px-28 lg:px-[16rem] "
           style={{ backgroundImage: `${openTab === 1 && "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, }}>
           <img className="absolute lg:left-10 invisible lg:visible xl:left-16 2xl:left-20 lg:h-70 lg:w-auto "
             src={require("../../img/text.png")} ></img>
-          <div className="flex flex-col w-full h-auto px-12  bg-[#0f0f11] bg-opacity-[80%] md:rounded-[1rem] xl:max-w-xl border-[#ed852bd5] border-y-[.5px]  ">
+            {/* center sec */}
+          <div className="flex flex-col w-full h-auto px-12  bg-[#0f0f11] bg-opacity-[80%] md:rounded-[3rem] xl:max-w-lg border-[#ed852bd5] border-y-[.5px]  ">
             <img alt="" src={require("../../img/logo.png")} className="h-auto w-[130px] md:max-w-[30%] self-center z-10 py-3 lg:w-[120px] lg:h-auto"></img>
             <h1 className="w-fit self-center py-2 text-[#CBCBCB] text-[1rem] tracking-[0.25rem] font-medium z-10 lg:py-0">
               SIGN IN TO DJOYOF
             </h1>
-            <form className="flex flex-col border-[1px font-nsans text-sm lg:text-[0.99rem] border-green-500">
+            <form className="flex flex-col border-[1px font-nsans text-sm lg:text-[0.8rem] border-green-500">
               <div className="mb-4 py-2 z-10">
-                <label
-                  className="block mb-1  text-[#CBCBCB]  tracking-[0.1rem] z-10"
-                  for="email"
-                >
-                  Email
-                </label>
+                <label className="block mb-1  text-[#CBCBCB]  tracking-[0.1rem] z-10" for="email">Email</label>
                 <input
                   id="email"
                   value={email_address}
