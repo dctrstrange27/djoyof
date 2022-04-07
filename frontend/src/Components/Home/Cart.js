@@ -7,7 +7,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { ImCart } from "react-icons/im";
 import { GoCheck } from "react-icons/go";
 
-export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRemoveAll }) => {
+export const Cart = ({ products, cartItems, onAdd, onIncrease, onDecrease, onRemove, onRemoveAll }) => {
   const [checkTab, setCheckTab] = React.useState(1);
   const [totalCost, setTotalCost] = useState(0.0);
 
@@ -170,7 +170,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
                 )}
               </div>
               <div className={checkTab === 2 ? "block" : "hidden"} id="link1">
-              <Checkout></Checkout>
+              <Checkout products={products} ></Checkout>
               </div>
             </div>
           </div>

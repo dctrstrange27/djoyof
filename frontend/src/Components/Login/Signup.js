@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { API, saveUser, rememberMe, getRemembered } from "../../Utils";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai"
 import { HiOutlineMail } from "react-icons/hi";
 import { FaRegAddressBook } from "react-icons/fa"
 import { MdContactPhone } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
 import { GiConfirmed } from "react-icons/gi"
+import {ImCart} from "react-icons/im"
+
 export const Signup = () => {
     const [openTab, setOpenTab] = React.useState(1)
 
@@ -37,7 +39,14 @@ export const Signup = () => {
                                 <br></br>
                                 <br></br>
                                 The DJOYOFBAKING bakery is located at Blk 12 Lot 39 Birmingham Village Brgy Pulo Cabuyao Laguna.</p>
-                            <button className="px-3 lg:my-4 py-2 w-32 h-auto rounded-2xl text-[#302C2C] font-nsans font-bold lowercase bg-[#FFAA5E] hover:bg-[#f48422] hover:text-[1.1rem] ">ORDER NOW</button>
+                             <div className="flex justify-center items-center">
+                               <Link to="/Login" className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300
+                                font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-800 ">
+                                  <ImCart className="h-4 w-4 mr-3"></ImCart>
+                                ORDER NOW
+                                </Link>
+                              
+                             </div>
                         </div>
                         {/* right side */}
                         <div className="w-full h-full border-[1px xl:rounded-r-3xl rounded-r-2xl  px-10 flex flex-col gap-5 md:gap-2 justify-center xl:py-7 py-6 items-center border-[1px">
@@ -84,9 +93,13 @@ export const Signup = () => {
                                     </div>
                                     <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" type="" name="" value='' />
                                 </div>
-                                <div className="flex justify-center">
-                                    <button className="px-3 py-1 lg:my-4  w-32 h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">Sign In</button>
+                                <div className="flex flex-col justify-center items-center">
+                                    <button className="px-3 py-1 lg:my-4  w-full h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">Sign In</button>
+                                    <div className="flex justify-center items-center">
+                                  <Link to="/Login" className="px-7 py-1 rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem]">Log in</Link>
                                 </div>
+                                </div>
+                              
                             </div>
                         </div>
                     </div>

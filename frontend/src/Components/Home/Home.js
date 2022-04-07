@@ -173,7 +173,7 @@ export const Home = () => {
                         href="/"
                         className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
-                        <IoExitOutline className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
+                        <IoExitOutline  onClick={signOut} className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
                       </a>
                     </li>
                     <li className="">
@@ -235,7 +235,7 @@ export const Home = () => {
             <div className="flex xl:w-full xl:ml-[8rem] lg:ml-[8rem] md:ml-[4rem] justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-lg">
               <div className="flex bg-[#1A1B1F]  w-screen  ">
                 {/* whole page */}
-                <div className="border-pink-70 w-full flex-col border-pink-400 border-[3px] min-h-screen overflow-x-hidden"
+                <div className="border-pink-70 w-full flex-col border-pink-400 border-[3px min-h-screen overflow-x-hidden"
                   onClick={() => {
                     resetToggle();
                   }}
@@ -412,6 +412,7 @@ export const Home = () => {
                       cartItems={cartItems}
                       onRemove={removeItemFromCart}
                       onRemoveAll={removeAllCartItems}
+                      products={products}
                     ></Cart>
                   </div>
                  
