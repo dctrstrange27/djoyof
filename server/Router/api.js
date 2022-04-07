@@ -182,7 +182,7 @@ router.post("/updateProduct", async (req, res) => {
     if (err) {
       return res.status(200).json({ message: err });
     }
-    if (!user) {
+    if (!(user)) {
       return res.status(200).json({ message: "item not found" });
     } // nag error sa bandang part na to
   });
