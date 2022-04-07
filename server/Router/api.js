@@ -60,14 +60,14 @@ router.post("/login", async (req, res) => {
 
 router.post("/signup", async (req, res) => {
   const {
-    username,
-    password,
-    address,
+    email_address,
     customer_name,
+    password,
+    confirm_password,
+    address,
     contact_no,
-    product_image,
   } = req.body;
-  User.findOne({ emailaddress: `${username}` }, function (err, user) {
+  User.findOne({ email_address: `${email_address}` }, function (err, user) {
     if (err) {
       return res.status(200).json({ message: err });
     }
@@ -76,32 +76,35 @@ router.post("/signup", async (req, res) => {
         .status(200)
         .json({ message: "the user is already taken", theUser: user });
     } else {
-      var newUser = new User();
-      newUser.username = `${username}`;
-      newUser.password = newUser.generateHash(`${password}`);
-      newUser.save(function (err) {
-        User.create({
-          emailaddress: `${username}`,
-          password: `${password}`,
-          customer_address: `${address}`,
-          customer_name: `${customer_name}`,
-          contact_no: `${contact_no}`,
-          product_image: `${product_image}`,
+      if(`${password}`==`${confirm_password}`){
+        var newUser = new User();
+        newUser.email_address = `${email_address}`;
+        newUser.password = newUser.generateHash(`${password}`);
+        newUser.save(function (err) {
+          User.create({
+            customer_name: `${customer_name}`,
+            email_address: `${email_address}`,
+            password: newUser.password,
+            customer_address: `${address}`,
+            contact_no: `${contact_no}`
+          });
+          return res.status(200).json({ message: newUser });
         });
-        return res.status(200).json({ message: newUser });
-      });
+    }else{
+      return res.status(200).json({ message: "password did not match" });
     }
+  }
   });
 });
 
 router.post("/sendCode", async (req, res) => {
-  const { username } = req.body;
+  const { email_address } = req.body;
   fd = between(0, 10).toString();
   sd = between(0, 10).toString();
   td = between(0, 10).toString();
   pd = between(0, 10).toString();
   Vcode = `${fd}${sd}${td}${pd}`;
-  User.findOne({ emailaddress: `${username}` }, function (err, user) {
+  User.findOne({ email_address: `${email_address}` }, function (err, user) {
     if (err) {
       return res.status(200).json({ message: err });
     }
@@ -117,7 +120,7 @@ router.post("/sendCode", async (req, res) => {
     });
     var mailOptions = {
       from: "yourgmail@gmail.com",
-      to: `${username}`,
+      to: `${email_address}`,
       subject: "Reset password",
       text: Vcode,
     };
@@ -125,7 +128,7 @@ router.post("/sendCode", async (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        email = `${username}`;
+        email = `${email_address}`;
         console.log("Email sent: " + info.response);
       }
     });
@@ -140,7 +143,7 @@ router.post("/changePassword", async (req, res) => {
   }
   if (Vcode == `${userCode}`) {
     if (`${newpassword}` == `${confirmpassword}`) {
-      const filter = { username: email };
+      const filter = { email_address: email };
       const update = { password: `${newpassword}` };
       await User.updateOne(filter, { password: `${newpassword}` });
       return res.status(201).json({ message: "Password changed", user: email });
