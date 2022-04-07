@@ -23,11 +23,13 @@ export const Signup = () => {
                     {/* center div */}
                     <div className="bg-[#101010d6] rounded-2xl lg:border-[.2px] lg:border-[#ffab5dc1] xl:rounded-[3rem] text-white flex flex-col md:flex-row w-full h-auto xl:h-[55vh] justify-center items-center">
                         {/* left side */}
-                        <div className=" h-full rounded-l-2xl xl:rounded-l-[3rem] bg-[#131518] border-[1px flex flex-col justify-center md:gap-5 xl:gap-4 gap-3 items-center md:px-10 lg:px-20 px-5 py-5">
+                        <div className=" h-full rounded-l-2xl xl:rounded-l-[3rem] bg-[#131518] border-[1px flex flex-col justify-center  md:gap-5 xl:gap-4 gap-3 items-center md:px-10 lg:px-14 px-5 py-5">
                             <img className="h-auto w-28"
                                 src={require("../../img/logo.png")} ></img>
-                            <h2 className="text-[#F29A4B] font-nsans text-2xl xl:text-[3rem]  italic font-extrabold text-left w-[250px] xl:w-[340px] border-[1px">DJOYOF</h2>
-                            <h1 className="font-nsans font-black text-[#CFCFCF] tracking-[.2em] xl:tracking-[1rem] text-5xl xl:text-[4rem]  ">BAKING</h1>
+                            <div className="md:w-[350px] lg:w-[400px]">
+                                <h2 className="text-[#F29A4B] font-nsans text-2xl xl:text-[3rem] italic font-extrabold lg:tracking-[.4rem] text-left w-[250px] lg:w-[340px] xl:w-[340px] border-[1px]">DJOYOF</h2>
+                                <h1 className="font-nsans font-black text-[#CFCFCF] tracking-[.2em] xl:tracking-[1rem] lg:tracking-[1.5rem] text-5xl xl:text-[4rem] border-[1px] ">BAKING</h1>
+                            </div>
                             <p className="text-justify font-pop text-sm ">
                                 DJOYOFBAKING is founded by Ms. Dimple Cuevas.
                                 <br></br>
