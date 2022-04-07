@@ -173,7 +173,7 @@ export const Home = () => {
                         href="/"
                         className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-4 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
-                        <IoExitOutline  onClick={signOut} className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
+                        <IoExitOutline className="w-4 h-4 md:h-6 md:w-6 text-orange-500" />
                       </a>
                     </li>
                     <li className="">
@@ -323,7 +323,7 @@ export const Home = () => {
                       <ul role="tablist" className="grid md:grid-cols-5 grid-cols-5 mb-0 w-full list-none pt-3
                            md:w-[80%]   lg:w-[70%]
                       ">
-                        {["ALL ITEMS", "FAVORITES", "COMPLETED", "ON SHIPMENT", "CANCELLED"].map(
+                        {["ALL ITEMS", "FAVORITES", "COMPLETED", "ON DELIVERY", "CANCELLED"].map(
                           (tb, idx) => (
                             <li
                               key={idx}

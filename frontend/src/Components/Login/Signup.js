@@ -8,9 +8,11 @@ import { MdContactPhone } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
 import { GiConfirmed } from "react-icons/gi"
 import {ImCart} from "react-icons/im"
-
+import {AiOutlineUserAdd} from "react-icons/ai"
 export const Signup = () => {
     const [openTab, setOpenTab] = React.useState(1)
+    const [userInput, getUserInput] =React.useState([])
+
 
     return (
         <>
@@ -59,7 +61,19 @@ export const Signup = () => {
                                         <HiOutlineMail className="w-7 h-5">
                                         </HiOutlineMail>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" type="" name="" value='' />
+                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="email" 
+                                
+                                     />
+                                </div>
+                                <div className="border-[1px  ">
+                                    <div className="flex">
+                                        <label className=" block mb-1 font-nsans  text-[#CBCBCB] tracking-[0.1rem]" for="password"> Username </label>
+                                        <AiOutlineUserAdd className="w-7 h-5">
+                                        </AiOutlineUserAdd>
+                                    </div>
+                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="username" 
+                                
+                                     />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -67,7 +81,7 @@ export const Signup = () => {
                                         <FaRegAddressBook className="w-7 h-5">
                                         </FaRegAddressBook>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" type="" name="" value='' />
+                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="address" />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -75,7 +89,8 @@ export const Signup = () => {
                                         <MdContactPhone className="w-7 h-5">
                                         </MdContactPhone>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" type="" name="" value='' />
+                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="username" 
+                                    />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -83,7 +98,7 @@ export const Signup = () => {
                                         <RiLockPasswordLine className="w-7 h-5">
                                         </RiLockPasswordLine>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" type="" name="" value='' />
+                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id=""  defaultValue="" type="password" name="password" />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -91,7 +106,7 @@ export const Signup = () => {
                                         <GiConfirmed className="w-7 h-5">
                                         </GiConfirmed>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" type="" name="" value='' />
+                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="password" name="username" />
                                 </div>
                                 <div className="flex flex-col justify-center items-center">
                                     <button className="px-3 py-1 lg:my-4  w-full h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">Sign In</button>
