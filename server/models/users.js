@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt-nodejs");
 const userSchema = mongoose.Schema({
   email_address: { type: String, required: true, unique : true },
   customer_address: { type: String, required: true },
@@ -10,5 +11,7 @@ const userSchema = mongoose.Schema({
   orders : {type : [], default : []},
   favorites : {type : [], default : []} // objectId's of products
 });
-
+userSchema.methods.generateHash = function (password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 module.exports = mongoose.model("users", userSchema);
