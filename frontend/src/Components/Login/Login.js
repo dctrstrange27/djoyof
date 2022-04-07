@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { API, saveUser, rememberMe, getRemembered } from "../../Utils";
 import { useHistory } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai"
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [email_address, setEmail] = useState("");
@@ -122,12 +123,12 @@ export const Login = () => {
                 </button>
               </div>
               <div className="text-center z-10 mt-1 pb-7">
-                <a
-                  href="/"
+                <Link exact to ="/Signup"
+
                   className=" underline font-['Nunito Sans']  text-sm lg:text-[0.90rem]  text-[#CBCBCB]"
                 >
                   Sign up for an account
-                </a>
+                </Link>
               </div>
             </form>
           </div>

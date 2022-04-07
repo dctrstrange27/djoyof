@@ -3,6 +3,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import Product from "./Product";
 import Cart from "./Cart";
+
 import { amIloggedIn, API, saveUser, signOut } from "../../Utils";
 
 import { IoExitOutline, IoHome } from "react-icons/io5";
@@ -234,7 +235,7 @@ export const Home = () => {
             <div className="flex xl:w-full xl:ml-[8rem] lg:ml-[8rem] md:ml-[4rem] justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-lg">
               <div className="flex bg-[#1A1B1F]  w-screen  ">
                 {/* whole page */}
-                <div className="border-pink-70 w-full flex-col border-pink-400 border-[3px min-h-screen overflow-x-hidden"
+                <div className="border-pink-70 w-full flex-col border-pink-400 border-[3px] min-h-screen overflow-x-hidden"
                   onClick={() => {
                     resetToggle();
                   }}
@@ -314,9 +315,9 @@ export const Home = () => {
                     </div>
                   </div>
                   <img alt="" src={require("../../img/line_logo.png")} className="w-0 h-0 md:border-[1px md:h-auto md:w-[95%]"
-                          ></img>
-                   {/* product part        */}
-                  <div className="flex font-pop  2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
+                  ></img>
+                  {/* product part        */}
+                  <div className="flex font-pop border-[x] 2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
                     <div className="w-full lg:px-3">
                       {/* ALL tab  */}
                       <ul role="tablist" className="grid md:grid-cols-5 grid-cols-5 mb-0 w-full list-none pt-3
@@ -349,69 +350,61 @@ export const Home = () => {
                           )
                         )}
                       </ul>
-                        </div>
+                    </div>
 
-                      <div className="relative font-pop z-0 w-full border-green-500 border-[5px  rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
-                        style={{
-                          backgroundImage: `${openTab === 1 &&
-                            "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"
-                            }`,
-                        }}
-                        
-                      >
-                        <div
-                          className="px-4 py-5 pb-[8vh] h-[40vh] overflow-scroll overflow-x-hidden flex-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-black
+                    <div className="relative font-pop z-0 w-full border-green-500 border-[5px  rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
+                      style={{
+                        backgroundImage: `${openTab === 1 &&
+                          "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"
+                          }`,
+                      }}
+
+                    >
+                      <div
+                        className="px-4 py-5 pb-[8vh] h-[40vh] overflow-scroll overflow-x-hidden flex-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-black
                           scrollbar-thumb-rounded-full scrollbar-track-rounded-full
                           md:max-h-[50vh]  md:rounded-lg 
                           ">
-                          <div className="tab-content tab-space relative">
-                            {/** Products Container */}
-                            <div
-                              className={`grid  ${openTab !== 1 && "hidden"
-                                } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
-                              id="link2"
-                            >
-                               {products.map((product) => (
-                            <Product
-                              key={product._id}
-                              onAddCart={onAdd}
-                              product={product}
-                              onAddFav={addFavorite}
-                              onRemoveFav={removeFavorite}
-                              liked={isMyFavorite(product._id)}
-                              clickableAgain={clickableAgain}
-                            ></Product>
-                          ))}
-                            </div>
+                        <div className="tab-content tab-space relative">
+                          {/** Products Container */}
+                          <div
+                            className={`grid  ${openTab !== 1 && "hidden"
+                              } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                            id="link2"
+                          >
+                            {products.map((product) => (
+                              <Product
+                                key={product._id}
+                                onAddCart={onAdd}
+                                product={product}
+                                onAddFav={addFavorite}
+                                onRemoveFav={removeFavorite}
+                                liked={isMyFavorite(product._id)}
+                                clickableAgain={clickableAgain}
+                              ></Product>
+                            ))}
+                          </div>
 
-                            <div
-                              className={openTab === 2 ? "block" : "hidden"}
-                              id="link2"
-                            >
-                                <div
-                              className={`grid  ${openTab !== 2 && "hidden"
-                                } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
-                              id="link2"
-                            >
-                            </div>
-                            </div>
-                            <div
-                              className={openTab === 3 ? "block" : "hidden"}
-                              id="link3"
-                            >
-                              <p>Completed Items..</p>
-                            </div>
-                            <div
-                              className={openTab === 4 ? "block" : "hidden"}
-                              id="link3"
-                            >
-                              <p>Cancelled Items..</p>
-                            </div>
+                          <div className={openTab === 2 ? "block" : "hidden"} id="link2">
+                          <p>Favorites Items..</p>
+                          </div>
+                          <div
+                            className={openTab === 3 ? "block" : "hidden"}
+                            id="link3"
+                          >
+                            <p>Completed Items..</p>
+                          </div>
+                          <div
+                            className={openTab === 4 ? "block" : "hidden"}
+                            id="link3"
+                          >
+                            <p>Cancelled Items..</p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="overflow-hidden border-[6px ">
+                  </div>
+                  <div className="overflow-hidden border-[6px ">
                     <Cart
                       onAdd={onAdd}
                       onDecrease={decreaseQty}
@@ -420,13 +413,14 @@ export const Home = () => {
                       onRemove={removeItemFromCart}
                       onRemoveAll={removeAllCartItems}
                     ></Cart>
-                    </div>
-                  </div>  
+                  </div>
+                 
                 </div>
               </div>
             </div>
           </div>
-        
+        </div>
+
       )}
     </>
   );

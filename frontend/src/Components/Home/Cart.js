@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Checkout from "./Checkout";
 
 import { IoAddSharp } from "react-icons/io5";
 import { BiMinus } from "react-icons/bi";
@@ -72,8 +73,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
             </li>
           </ul>
           <div className="bg-[#141517] md:rounded-2xl md:px-5 font-pop flex justify-center items-center text-white">
-            <div
-              className="rounded-md  px-5 max-h-[40vh] overflow-x-scroll  flex-auto scrollbar-thin scrollbar scrollbar scrollbar-thumb-zinc-600 scrollbar-track-black
+            <div className="rounded-md  px-5 max-h-[100vh] overflow-x-scroll  flex-auto scrollbar-thin scrollbar scrollbar scrollbar-thumb-zinc-600 scrollbar-track-black
                           scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
               <div className={checkTab === 1 ? "block" : "hidden"} id="link1">
                 <div className="flex justify-between items-center border-b-[0.1rem] my-8">
@@ -170,7 +170,7 @@ export const Cart = ({ cartItems, onAdd, onIncrease, onDecrease, onRemove, onRem
                 )}
               </div>
               <div className={checkTab === 2 ? "block" : "hidden"} id="link1">
-                checkout..
+              <Checkout></Checkout>
               </div>
             </div>
           </div>
