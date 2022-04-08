@@ -7,12 +7,33 @@ import { FaRegAddressBook } from "react-icons/fa"
 import { MdContactPhone } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
 import { GiConfirmed } from "react-icons/gi"
-import {ImCart} from "react-icons/im"
-import {AiOutlineUserAdd} from "react-icons/ai"
+import { ImCart } from "react-icons/im"
+import { AiOutlineUserAdd } from "react-icons/ai"
 export const Signup = () => {
     const [openTab, setOpenTab] = React.useState(1)
-    const [userInput, getUserInput] =React.useState([])
+    const [userInput, getUserInput] = React.useState([])
+    const [email_address, setEmail] = useState("");
+    const [customer_name, setusername] = useState("");
+    const [customer_address, setAddress] = useState("");
+    const [password, setPassword] = useState("");
+    const [contact_no, setcontact] = useState("");
+    const [confirm_password, setconfirmpassword] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+    const signUp = async () => {
+        setLoading(true)
+        try {
+            setError('')
+            const response = await API.post("/signup", { email_address, password, customer_name, customer_address, confirm_password });
+            saveUser(response);
 
+        } catch (e) {
+            console.log(e);
+            if (e.response.data) setError(e.response.data.description)
+            else setError("Sorry but we can't reach the server")
+            setLoading(false)
+        }
+    };
 
     return (
         <>
@@ -41,14 +62,14 @@ export const Signup = () => {
                                 <br></br>
                                 <br></br>
                                 The DJOYOFBAKING bakery is located at Blk 12 Lot 39 Birmingham Village Brgy Pulo Cabuyao Laguna.</p>
-                             <div className="flex justify-center items-center">
-                               <Link to="/Login" className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300
+                            <div className="flex justify-center items-center">
+                                <Link to="/Login" className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300
                                 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-800 ">
-                                  <ImCart className="h-4 w-4 mr-3"></ImCart>
-                                ORDER NOW
+                                    <ImCart className="h-4 w-4 mr-3"></ImCart>
+                                    ORDER NOW
                                 </Link>
-                              
-                             </div>
+
+                            </div>
                         </div>
                         {/* right side */}
                         <div className="w-full h-full border-[1px xl:rounded-r-3xl rounded-r-2xl  px-10 flex flex-col gap-5 md:gap-0 justify-center xl:py-4 py-6 items-center border-[1px">
@@ -61,9 +82,11 @@ export const Signup = () => {
                                         <HiOutlineMail className="w-7 h-5">
                                         </HiOutlineMail>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="email" 
-                                
-                                     />
+                                    <input
+                                        className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="email" value={email_address}
+                                        onChange={(e) => setEmail(e.target.value)}
+
+                                    />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -71,9 +94,11 @@ export const Signup = () => {
                                         <AiOutlineUserAdd className="w-7 h-5">
                                         </AiOutlineUserAdd>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="username" 
-                                
-                                     />
+                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="username"
+                                        value={customer_name}
+                                        onChange={(e) => setusername(e.target.value)}
+
+                                    />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -81,7 +106,9 @@ export const Signup = () => {
                                         <FaRegAddressBook className="w-7 h-5">
                                         </FaRegAddressBook>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="address" />
+                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="address"
+                                        value={customer_address}
+                                        onChange={(e) => setAddress(e.target.value)} />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -89,7 +116,9 @@ export const Signup = () => {
                                         <MdContactPhone className="w-7 h-5">
                                         </MdContactPhone>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="username" 
+                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="username"
+                                        value={contact_no}
+                                        onChange={(e) => setcontact(e.target.value)}
                                     />
                                 </div>
                                 <div className="border-[1px  ">
@@ -98,7 +127,9 @@ export const Signup = () => {
                                         <RiLockPasswordLine className="w-7 h-5">
                                         </RiLockPasswordLine>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id=""  defaultValue="" type="password" name="password" />
+                                    <input className="text-[#CBCBCB] w-full h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="password" name="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                                 <div className="border-[1px  ">
                                     <div className="flex">
@@ -106,14 +137,20 @@ export const Signup = () => {
                                         <GiConfirmed className="w-7 h-5">
                                         </GiConfirmed>
                                     </div>
-                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="password" name="username" />
+                                    <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="password" name="username"
+                                        value={confirm_password}
+                                        onChange={(e) => setconfirmpassword(e.target.value)} />
                                 </div>
                                 <div className="flex flex-col justify-center items-center">
-                                    <button className="px-3 py-1 lg:my-0  w-full h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">Sign In</button>
-                                    <button className="border-[1px w-full px-3 py-1 my-2 lg:my-4 rounded-md text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">
-                                    <Link to="/Login" className="">Log in</Link></button>
+                                   <button className="border-[1px w-full px-3 py-1 my-2 lg:my-4 rounded-md text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem]"
+                                            ><Link onClick={(e) => {
+                                            e.preventDefault()
+                                            signUp()}}  to="/login" className="">Sign in</Link></button>
+                                    <button className="border-[1px w-full px-3 py-1 my-1 rounded-md text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem]"> <Link to="/Login" className="">Log in</Link></button>
+
                                 </div>
-                              
+
+
                             </div>
                         </div>
                     </div>
@@ -121,6 +158,7 @@ export const Signup = () => {
                         src={require("../../img/foot.png")} ></img>
                 </div>
             </div>
+
 
 
         </>
