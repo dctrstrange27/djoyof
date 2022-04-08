@@ -106,7 +106,7 @@ export const Login = () => {
               </div>
               <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
                 <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 animate-spin ${loading ? 'block' : 'hidden'}`} />
-                <p className={`text-center text-xs text-gray-600  ${loading ? 'block' : 'hidden'}`}>Wait loading puking ina...</p>
+                <p className={`text-center text-xs text-gray-600  ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
                 <p className="text-xs my-4 text-rose-400 text-center">{error}</p>
               </div>
               <div className="py-[45px] lg:py-[20px] flex items-center justify-center z-10">

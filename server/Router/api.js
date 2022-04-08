@@ -145,7 +145,7 @@ router.post("/changePassword", async (req, res) => {
     if (`${newpassword}` == `${confirmpassword}`) {
       const filter = { email_address: email };
       const update = { password: `${newpassword}` };
-      await User.updateOne(filter, { password: `${newpassword}` });
+      await User.updateOne(filter, { password: User.generateHash(`${newpassword}`) });
       return res.status(201).json({ message: "Password changed", user: email });
     }
   }
