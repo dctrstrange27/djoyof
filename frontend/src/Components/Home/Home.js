@@ -26,11 +26,15 @@ const Home = () => {
   const [userData, setUserData] = useState();
   const [favorites, setFavorites] = useState([]);
   const [clickableAgain, setClickableAgain] = useState(true);
-
   const [proof, setProofFile] = useState();
   const [proofView, setProofView] = useState();
-
   const [show, setShow] = useState(false);
+
+  const [currentItems,setCurrentITems] = useState();
+  
+
+
+
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => {

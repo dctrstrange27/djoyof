@@ -13,7 +13,6 @@ function CheckDetails({ product }) {
             <div className='bg-[#CD434C] flex justify-center h-full items-center'>
                 <RiDeleteBin6Line className='w-5 h-5 text-white'></RiDeleteBin6Line>
             </div>
-
         </div>
     )
 }

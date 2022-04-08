@@ -24,7 +24,7 @@ export const Signup = () => {
                     <img className="absolute lg:left-6 invisible lg:visible xl:left-16 2xl:left-20 lg:h-70 lg:w-auto "
                         src={require("../../img/text.png")} ></img>
                     {/* center div */}
-                    <div className="bg-[#101010d6] rounded-2xl lg:border-[.2px] xl:max-w-[52rem] lg:border-[#ffab5dc1] xl:rounded-[3rem] text-white flex flex-col md:flex-row w-full h-auto xl:h-[55vh] justify-center items-center">
+                    <div className="bg-[#101010d6] rounded-2xl lg:border-[.2px]  xl:max-w-[54rem] lg:border-[#ffab5dc1] xl:rounded-[3rem] text-white flex flex-col md:flex-row w-full h-auto  justify-center items-center">
                         {/* left side */}
                         <div className=" h-full rounded-l-2xl xl:rounded-l-[3rem] lg:max-w-[50%] bg-[#131518] border-[1px flex flex-col justify-center md:gap-5 xl:gap-2 gap-3 items-center md:px-10 lg:px-10 px-5 py-5">
                             <img className="h-auto w-28"
@@ -51,7 +51,7 @@ export const Signup = () => {
                              </div>
                         </div>
                         {/* right side */}
-                        <div className="w-full h-full border-[1px xl:rounded-r-3xl rounded-r-2xl  px-10 flex flex-col gap-5 md:gap-2 justify-center xl:py-7 py-6 items-center border-[1px">
+                        <div className="w-full h-full border-[1px xl:rounded-r-3xl rounded-r-2xl  px-10 flex flex-col gap-5 md:gap-0 justify-center xl:py-4 py-6 items-center border-[1px">
                             <h2 className="uppercase font-nsan border-[1px font-semibold md:text-[1.1rem] tracking-widest " >Sign up to DJOYOF</h2>
                             {/* input */}
                             <div className="w-full border-[1px text-sm md:text-[.7rem] lg:text-[.8rem] gap py-4 flex flex-col gap-4">
@@ -109,10 +109,9 @@ export const Signup = () => {
                                     <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="password" name="username" />
                                 </div>
                                 <div className="flex flex-col justify-center items-center">
-                                    <button className="px-3 py-1 lg:my-4  w-full h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">Sign In</button>
-                                    <div className="flex justify-center items-center">
-                                  <Link to="/Login" className="px-7 py-1 rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem]">Log in</Link>
-                                </div>
+                                    <button className="px-3 py-1 lg:my-0  w-full h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">Sign In</button>
+                                    <button className="border-[1px w-full px-3 py-1 my-2 lg:my-4 rounded-md text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] ">
+                                    <Link to="/Login" className="">Log in</Link></button>
                                 </div>
                               
                             </div>
