@@ -14,7 +14,7 @@ export const Signup = () => {
     const [userInput, getUserInput] =React.useState([])
     const [email_address, setEmail] = useState("");
     const [customer_name,setusername] = useState("");
-    const [customer_address,setAddress] = useState("");
+    const [address,setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [contact_no, setcontact] = useState("");
     const [confirm_password,setconfirmpassword] = useState("")
@@ -24,7 +24,7 @@ export const Signup = () => {
         setLoading(true)
         try {
           setError('')
-          const response = await API.post("/signup", { email_address, password,customer_name,customer_address,confirm_password});
+          const response = await API.post("/signup", { email_address, password,customer_name,address,confirm_password, contact_no});
           saveUser(response);
           
         } catch (e) {
@@ -107,7 +107,7 @@ export const Signup = () => {
                                         </FaRegAddressBook>
                                     </div>
                                     <input className="text-[#CBCBCB] w-full  h-[30px] bg-[#1a1b1ed4] border-[#1a1b1ed4] focus:outline-none border border-b-[#FFFFFF] border-opacity-50" id="" defaultValue="" type="text" name="address"
-                                    value={customer_address}
+                                    value={address}
                                     onChange={(e) => setAddress(e.target.value)} />
                                 </div>
                                 <div className="border-[1px  ">
@@ -142,16 +142,26 @@ export const Signup = () => {
                                      onChange={(e) => setconfirmpassword(e.target.value)} />
                                 </div>
                                 <div className="flex flex-col justify-center items-center">
-                                    <button className="px-3 py-1 lg:my-4  w-full h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] "
+                                    <button 
+                                     disabled={email_address.length === 0 || customer_name.length === 0 || address.length===0 || password.length===0 || contact_no.length===0 || confirm_password.length===0 || loading}
                                      onClick={(e) => {
                                         e.preventDefault()
                                         signUp()
-                                      }}>Sign In</button>
+                                      }}
+                                      className={`${email_address.length==0 && customer_name.length==0 && address.length==0 && password.length==0 && contact_no.length==0 && confirm_password.length==0 && 'disabled'}
+                                          px-3 py-1 lg:my-4  w-full h-auto rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem] `}
+                                      >Sign In</button>
                                     <div className="flex justify-center items-center">
                                   <Link to="/Login" className="px-7 py-1 rounded-md text-[15px] text-[#302C2C] font-nsans font-bold lowercase bg-[#F29A4B] hover:bg-[#f48422] hover:text-[1.1rem]">Log in</Link>
                                 </div>
                                 </div>
                               
+                                <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
+                                    <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 animate-spin ${loading ? 'block' : 'hidden'}`} />
+                                    <p className={`text-center text-xs text-gray-600  ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
+                                    <p className="text-xs my-4 text-rose-400 text-center">{error}</p>
+                                </div>
+
                             </div>
                         </div>
                     </div>
