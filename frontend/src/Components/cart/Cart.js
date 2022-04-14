@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Checkout from "./Checkout";
 
+
 import { IoAddSharp } from "react-icons/io5";
 import { BiMinus } from "react-icons/bi";
 import { FaTrashAlt } from "react-icons/fa";
 import { ImCart } from "react-icons/im";
 import { GoCheck } from "react-icons/go";
-
+import { RiDeleteBin6Line } from 'react-icons/ri'
 export const Cart = ({ products, cartItems, onAdd, onIncrease, onDecrease, onRemove, onRemoveAll, showProofModal }) => {
   const [checkTab, setCheckTab] = React.useState(1);
   const [totalCost, setTotalCost] = useState(0.0);
@@ -20,9 +21,11 @@ export const Cart = ({ products, cartItems, onAdd, onIncrease, onDecrease, onRem
 
   return (
     <>
-      <div className="relative flex md:px-10 2xl:px-20 border-[1px  pb-20  bg-pink-40 h-auto overflow-hidden w-full">
+
+
+      <div className="relative flex md:px-10 2xl:px-20 border-[1px pb-20  bg-pink-40 h-auto overflow-hidden w-full">
         <div className="flex flex-col relative  md:px-0 w-[100%]">
-    {/* tab  */}
+          {/* tab  */}
           <ul className="flex mb-0 list-none  overflow-hidden  overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
 
             role="tablist"
@@ -97,80 +100,59 @@ export const Cart = ({ products, cartItems, onAdd, onIncrease, onDecrease, onRem
                 ) : (
                   <>
                     {/* fields */}
-                    <div className=" text-[14px]  md:text-[15px] flex justify-between font-NunitoSans md:flex md:justify-between md:mx-3 mb-9">
-                      <div className="flex gap-3 md:px-3  md:justify-evenly md:space-x-16">
-                        <p className="">item</p>
-                        <p>name</p>
+                    <div className="cart text-xs  font-nsans">
+                      <div className=" md:text-sm py-2 grid grid-cols-8 w-full justify-items-center text-center items-center">
+                        <div className="Items">Items</div>
+                        <div className="name col-span-2">Name</div>
+                        <div className="review">review</div>
+                        <div className="quantity w-[50px] col-span-2">quantity</div>
+                        <div className="delete">delete</div>
+                        <div className="price">price</div>
                       </div>
-                      <div className=" flex justify-center gap-2 md:space-x-32 ">
-                        <p>quantity</p>
-                        <p>remove</p>
-                        <p>price</p>
-                      </div>
-                    </div>
-                    {/* //current item */}
-                    <div className="md:space-y-4 md:mt-4 ">
-                      {cartItems.map((i, idx) => (
-                        <div
-                          key={idx}
-                          className=" bg-[#0E0F10] text-[14px] justify-between md:text-[15px] flex rounded-sm items-center md:justify-between"
-                        >
-                          <div className=" flex gap-3 md:px-3 md:justify-evenly  md:space-x-16  text-[13px]  md:text-[15px]  bg-[#1F1F1F]  md:p-2">
-                            <div className="relative flex items-center bg-gray-500 h-[50px] w-[50px]">
-                              <img
-                                alt=""
-                                src={i.image}
-                                className="object-contain"
-                              />
-                            </div>
-                            <div className="flex items-center md:space-x-4 md:w-1/2">
-
-                              <p className=" ">{i.product_name}</p>
-                            </div>
-
-
-                          </div>
-                          <p className="font-thin cursor-pointer">
-                            review
-                          </p>
-                          <div className=" flex justify-center gap-2 md:space-x-32">
-
-                            <div className="grid grid-cols-3 gap-2 md:gap-4">
+                      <div className="items">
+                        {cartItems.map((i, idx) => (
+                          <div key={idx} className="grid mt-2 bg-[#101010] grid-cols-8 text-xs text-center items-center justify-items-center">
+                            <img src={i.image} className="bg-[#202020] h-auto min-w-10 w-12 max-w-12"></img>
+                            <h3 className="col-span-2">{i.product_name}</h3>
+                            <p>review</p>
+                            <div className="quantity flex col-span-2 gap-4">
                               <button onClick={() => onDecrease(i)}>
-                                <BiMinus className="col-span-1  h-4  w-4  md:h-6 md:w-6 text-orange-600" />
+                                <BiMinus className="col-span-1  h-auto w-3  md:h-6 md:w-[1rem] text-orange-600" />
                               </button>
                               <p>{i.product_qty}</p>
                               <button onClick={() => onIncrease(i)}>
-                                <IoAddSharp className="col-span-1 h-4  w-4 md:h-6 md:w-6 text-orange-600" />
+                                <IoAddSharp className="col-span-1 h-auto w-3 md:h-6 md:w-[1rem] text-orange-600" />
                               </button>
                             </div>
-                            <button onClick={() => onRemove(i)} className="bg-red-500 p-1  md:p-2 rounded-md">
+                            <button onClick={() => onRemove(i)} className="bg-[#C90915] p-1  md:p-2 rounded-md">
                               <FaTrashAlt className="text-neutral-50" />
                             </button>
                             <p>${i.product_price}</p>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
+                      <div className="py-2 grid grid-cols-8 border-[1px text-center">
+                        <div >Total: </div>
+                        <div className="total col-span-6"></div>
+                        <div className="">${totalCost}</div>
+                      </div>
+                      <div className="py-2 grid grid-cols-8 border-[1px text-center">
+                        <div className="total col-span-6 md:col-span-6 lg:col-span-7"></div>
+                        <button className={"text-sm col-span-2 lg:col-span-1  group-hover:animate-pulse font-medium text-[#000000] rounded-[8px] py-1 bg-[#FFCB9D]"}>
+                          Confirm Orders
+                        </button>
+                      </div>
                     </div>
+                    {/* //current item */}
+
                     <div className="mt-4 flex items-center justify-between">
-                      <div></div>
-                      <p>${totalCost}</p>
-                    </div>
-                    <div className="mt-4 flex items-center justify-between">
-                      <div></div>
-                      <button
-                        className={
-                          "text-sm group-hover:animate-pulse font-medium text-[#000000] rounded-[8px] py-2 px-3.5 bg-[#FFCB9D]"
-                        }
-                      >
-                        Confirm Orders
-                      </button>
+
                     </div>
                   </>
                 )}
               </div>
               <div className={checkTab === 2 ? "block" : "hidden"} id="link1">
-              <Checkout products={products} showProofModal={showProofModal}></Checkout>
+                <Checkout products={products} showProofModal={showProofModal}></Checkout>
               </div>
             </div>
           </div>

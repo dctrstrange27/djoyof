@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div className="bg-[#323439] overflow-hidden relative">
+      <div className="bg-[#1c1c20] overflow-hidden relative box-border">
         <Router>
           <Switch>
             <Route path="/" exact component={Home} />
