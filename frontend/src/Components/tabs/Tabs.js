@@ -7,8 +7,8 @@ import { MdOutlineDownloadDone } from "react-icons/md"
 import { MdLocalShipping } from "react-icons/md"
 import { MdCancel } from "react-icons/md"
 import Tab from './Tab';
-
-const Tabs =({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain })=> {
+import InTab from './InTab';
+const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain }) => {
     const [hideTabs, setHideTabs] = useState(false)
     const [checkTab, setCheckTab] = useState(1);
 
@@ -25,46 +25,57 @@ const Tabs =({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorite
             window.removeEventListener('resize', handleResize)
         }
     })
+    const icon = [
+        FaBreadSlice,
+        BsFillSuitHeartFill,
+        MdOutlineDownloadDone,
+        MdLocalShipping,
+        MdCancel,
+    ]
+    const Tabs = [
+        {
+            id: 1,
+            name: "All items",
+
+        },
+        {
+            id: 2,
+            name: "Favorites",
+
+        },
+        {
+            id: 3,
+            name: "Completed",
+
+        },
+        {
+            id: 4,
+            name: "To Receive",
+
+        },
+        {
+            id: 5,
+            name: "Cancelled",
+
+        },
+    ]
 
     return (
         <>
             <div className="flex font-pop border-[1px 2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
-                <div className="w-full lg:px-3">
-                    {/* ALL tab  */}
-                    {/* <Tab setOpenTab={setOpenTab} setCheckTab={setCheckTab} hideTabs={hideTabs} checkTab={checkTab} ></Tab> */}
-                    <ul role="tablist" className={`flex w-full text-white text-sm list-none pt-3  text-center justify-items-center py-0 `}>
-                        <div onClick={(e) => { e.preventDefault(); setOpenTab(1); setCheckTab(1); }} className={`all items`}>
-                            <FaBreadSlice className={`w-5 text-[#d38341] h-auto ${!hideTabs && "hidden"} `}></FaBreadSlice>
-                            <div className={`w-full h-auto px-7 py-2 rounded-tl-[15px] ${checkTab === 1 ? "bg-[#d38341]" : "bg-[#21201F]"} `}>
-                                <a className={`  ${hideTabs && "hidden"} ` + (checkTab === 1 ? "text-black" : "text-white")}>all Items</a>
-                            </div>
-                        </div>
-                        <div onClick={(e) => { e.preventDefault(); setOpenTab(2); setCheckTab(2); }} className='Favorites'>
-                            <BsFillSuitHeartFill className={`w-5 text-[#d38341] h-auto ${!hideTabs && "hidden"} `}></BsFillSuitHeartFill >
-                            <div className={`w-full h-auto px-7 py-2 rounded-tl-[15px] ${checkTab === 2 ? "bg-[#d38341]" : "bg-[#21201F]"} `}>
-                                <a className={`  ${hideTabs && "hidden"} ` + (checkTab === 2 ? "text-black" : "text-white")}>Favorites</a>
-                            </div>
-                        </div>
-                        <div onClick={(e) => { e.preventDefault(); setOpenTab(3); setCheckTab(3); }} className='Completed'>
-                            <MdOutlineDownloadDone className={`w-5 text-[#d38341] h-auto ${!hideTabs && "hidden"} `}></MdOutlineDownloadDone >
-                            <div className={`w-full h-auto px-7 py-2 rounded-tl-[15px] ${checkTab === 3 ? "bg-[#d38341]" : "bg-[#21201F]"} `}>
-                                <a className={`  ${hideTabs && "hidden"} ` + (checkTab === 3 ? "text-black" : "text-white")}>Completed</a>
-                            </div>
-                        </div>
-                        <div onClick={(e) => { e.preventDefault(); setOpenTab(4); setCheckTab(4); }} className='To Receive'>
-                            <MdLocalShipping className={`w-5 text-[#d38341] h-auto ${!hideTabs && "hidden"} `}></MdLocalShipping>
-                            <div className={`w-full h-auto px-7 py-2 rounded-tl-[15px] ${checkTab === 4 ? "bg-[#d38341]" : "bg-[#21201F]"} `}>
-                                <a className={`  ${hideTabs && "hidden"} ` + (checkTab === 4 ? "text-black" : "text-white")}>To Receive</a>
-                            </div>
-                        </div>
-                        <div onClick={(e) => { e.preventDefault(); setOpenTab(5); setCheckTab(5); }} className='Cancelled'>
-                            <MdCancel  className={`w-5 text-[#d38341] h-auto ${!hideTabs && "hidden"} `}></MdCancel >
-                            <div className={`w-full h-auto px-7 py-2 rounded-tl-[15px] ${checkTab === 5 ? "bg-[#d38341]" : "bg-[#21201F]"} `}>
-                                <a className={`  ${hideTabs && "hidden"} ` + (checkTab === 5 ? "text-black" : "text-white")}>Cancelled</a>
-                            </div>
-                        </div>
-
-                    </ul>
+                <div className="flex w-full lg:px-3 translate-y-2 mt-5">
+                    {
+                        Tabs.map((tab,index) => (
+                            <InTab
+                                tab={tab}
+                                Icon={icon[index]}
+                                setOpenTab={setOpenTab}
+                                setCheckTab={setCheckTab}
+                                hideTabs={hideTabs}
+                                checkTab={checkTab}>
+                            </InTab>
+                        ))
+                    }
                 </div>
                 <div
                     className="relative font-pop z-0 w-full border-green-500 border-[5px  rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
