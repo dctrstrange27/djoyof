@@ -9,23 +9,23 @@ import { MdCancel } from "react-icons/md"
 const Tab = ({ setCheckTab, hideTabs, checkTab, setOpenTab }) => {
     const Tabs = [
         {
-            indx: 1,
+            id: 1,
             name: "All items"
         },
         {
-            indx: 2,
+             id: 2,
             name: "Favorites"
         },
         {
-            indx: 3,
+            id: 3,
             name: "Completed"
         },
         {
-            indx: 4,
+            id:4,
             name: "To Receive"
         },
         {
-            indx: 5,
+            id: 5,
             name: "Cancelled"
         },
     ]
@@ -36,19 +36,14 @@ const Tab = ({ setCheckTab, hideTabs, checkTab, setOpenTab }) => {
         MdLocalShipping,
         MdCancel,
     ]    
-    const [clicked,setClicked] = useState(1)     
-
-   
-
+    const click =(id)=>{
+        console.log(id)
+    }
 
     return (
         <>
             <ul role="tablist" className={`flex w-full flex-row text-white text-sm list-none pt-3  text-center justify-items-center py-0 `}>
-                <div onClick={(e) => {
-                    e.preventDefault()
-                    setCheckTab(clicked)
-                    setOpenTab(clicked)
-                }}
+                <div key='' onClick={()=> click(Tabs.id)}
                     className={`all items`}>
                     <div>
                         {icon.map((X) => {
