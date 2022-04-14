@@ -73,8 +73,8 @@ router.post("/signup", async (req, res) => {
     }
     if (user) {
       return res
-        .status(200)
-        .json({ message: "the user is already taken", theUser: user });
+        .status(403)
+        .json({ description: "the user is already taken", theUser: user });
     } else {
       if(`${password}`==`${confirm_password}`){
         var newUser = new User();
@@ -91,7 +91,7 @@ router.post("/signup", async (req, res) => {
           return res.status(200).json({ message: newUser });
         });
     }else{
-      return res.status(200).json({ message: "password did not match" });
+      return res.status(403).json({ description: "password did not match" });
     }
   }
   });
