@@ -161,7 +161,6 @@ const Home = () => {
     setToggleNav(false);
   };
 
-
   return (
     <>
       {show && (
@@ -181,24 +180,20 @@ const Home = () => {
       {userData && (
         <div onClick={() => {
           resetToggle();
-        }} className="relative ss:w-full borde-8 justify-center flex">
+        }} className="relative ss:w-full borde-8  justify-center flex">
           {/* aside nav */}
           <Nav className="" toggleNav={toggleNav} setToggleNav={setToggleNav} toggleAside={toggleAside} setToggleAside={setToggleAside} ></Nav>
-          <div className="flex justify-center border-green-400 border-[50px xl:px-[0rem] 2xl:px-[10rem] xl:min-w-full w-screen">
-            <div className="md:bg-red-30 xl:h-full xl:ml-[2rem] 2xl:ml-[14rem] md:fixed md:h-full lg:fixed lg:h-full xl:fixed left-0 z-40">
+          <div className="flex justify-center bg-reen-500/20 xl:px-[-2rem] 2xl:px-[8rem] 3xl:px-[15rem] xl:min-w-full w-screen">
+            <div className="md:bg-red-30 lg:z-50 lg:mix-blend-lighten xl:h-full xl:ml-[2rem] 2xl:ml-[10%] md:fixed md:h-full lg:fixed lg:h-full xl:fixed left-0 z-40">
               <Aside toggleAside={toggleAside} setToggleAside={setToggleAside} ></Aside>
             </div>
             {/* body */}
-            <div className="py-10 flex xl:w-full xl:ml-[8rem] lg:ml-[8rem] md:ml-[4rem] justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-xl">
-
-              <div className="flex bg-[#1A1B1F]  w-screen  ">
+            <div className=" py-1 md:py-10 flex xl:w-full xl:ml-[8rem] lg:ml-[8rem] md:ml-[4rem] justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-xl">
+              <div className="flex bg-[#1A1B1F] border-[1px  w-screen  ">
                 {/* whole page */}
-                <div
-                  className="border-pink-70 w-full flex-col border-pink-400 border-[3px min-h-screen overflow-x-hidden"
-
+                <div className="border-pink-70 w-full flex flex-col border-pink-400 border-[1px
+                                justify-center items-center min-h-screen overflow-x-hidden"
                 >
-
-                  {/* <img alt="" src={require("../../img/line_logo.png")}className="w-0 h-0 md:border-[1px md:h-auto md:w-[95%]"></img> */}
                   {/* product part        */}
                   <Tabs openTab={openTab}
                     products={products}
@@ -209,20 +204,19 @@ const Home = () => {
                     isMyFavorite={isMyFavorite}
                     clickableAgain={clickableAgain}>
                   </Tabs>
-                  <div className="overflow-hidden border-[6px ">
-                    <Cart
-                      onAdd={onAdd}
-                      onDecrease={decreaseQty}
-                      onIncrease={increateQty}
-                      cartItems={cartItems}
-                      onRemove={removeItemFromCart}
-                      onRemoveAll={removeAllCartItems}
-                      products={products}
-                      showProofModal={() => {
-                        setShow(true);
-                      }}
-                    ></Cart>
-                  </div>
+                  <Cart
+                    onAdd={onAdd}
+                    onDecrease={decreaseQty}
+                    onIncrease={increateQty}
+                    cartItems={cartItems}
+                    onRemove={removeItemFromCart}
+                    onRemoveAll={removeAllCartItems}
+                    products={products}
+                    showProofModal={() => {
+                      setShow(true);
+                    }}
+                  ></Cart>
+
                 </div>
               </div>
             </div>

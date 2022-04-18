@@ -36,14 +36,18 @@ function Nav({ toggleAside, setToggleAside, toggleNav, setToggleNav }) {
                 toggleAside={toggleAside} setToggleAside={setToggleAside}
             />
         </div>
-        <div className={`border-[#e6761b98] border-b-[.1px -translate-y-7 md:bg-green-00 md:-translate-y-0 w-full py-3 md:px-0  drop-shadow-2xl bg-[#17181be0] fixed z-50 xl:px-[10rem]`
+        <div className={`w-full py bg-[#141518d3] drop-shadow-2xl fixed z-50 border-[1px border-green-500  py-3 flex justify-center`
 
         }>
-            <div className={`fixed flex-col md:h-auto 2xl:px-[10rem] bg-whit  md:border-[0px] md:py-0 z-50 flex md:flex-row md:justify-center md:items-center bg-whie  mt-[4.5rem] -right-32 
+            <div className={`fixed flex-col z-50 flex md:flex-row md:justify-center md:items-center -right-32 border-[1px border-cyan-500
+                             md:w-[650px]
+                             lg:w-[850px] lg:translate-x-10
+                             xl:w-[1150px] xl:translate-x-0
                             ${toggleNav && " px-5 py-4 -right-0 fixed border-[1px] bg-[#1a1b1fe0]"} md:relative md:right-0 md:mt-0 md:duration-75`}>
                 {/** Top Nav */}
                 {/* <img to="/" src={require("../../img/small_logo.png")} className={`bg-green-40 w-fit md:px-3 ${toggleNav && 'hidden'}`}></img> */}
-                <nav className={`relative md:grow md:pl-16 md:flex md:text-sm font-pop font-light tracking-wide md:flex-row md:gap-5 md:py-1  md:items-center md:border-[1px 
+                <nav className={`relative md:grow bg-green-30 md:flex md:text-sm font-pop font-light tracking-wide 
+                                md:flex-row md:justify-evenly md:gap-5 md:py-1 md:items-center md:border-[1px 
                                 ${toggleNav && "flex flex-col"}
                      `}>
                     <div className='flex'>
@@ -59,13 +63,13 @@ function Nav({ toggleAside, setToggleAside, toggleNav, setToggleNav }) {
                         <AiTwotonePhone className='w-5 h-5 mr-2  text-[#D98743]'></AiTwotonePhone>
                         <Link to="/" className="  text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"> Contact us</Link>
                     </div>
-
-                </nav>
-                <div className='flex xl:translate-x-[8rem]'>
+                    <div className='flex xl:translate-x-[8rem]'>
                         <VscSignIn className='w-5 h-5 mr-2  text-[#f43f5e]'></VscSignIn>
                         <Link onClick={signOut} to="/Signup" className="  text-white rounded-lg hover:bg-slate-100 hover:text-slate-900"> Sign-in</Link>
                     </div>
-                <img to="/" src={require("../../img/small_logo.png")} className={`bg-green-40 xl:translate-x-[8rem] px-10 ${toggleNav && 'hidden'} ` }></img>
+                    <img to="/" src={require("../../img/small_logo.png")} className={`bg-green-40 xl:translate-x-[8rem] px-10 ${toggleNav && 'hidden'} ` }></img>
+                </nav>
+               
             </div>
         </div>
     </>

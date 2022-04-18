@@ -11,9 +11,9 @@ function MobileNav({Toggle,toggleNav,setToggleNav,toggleAside,setToggleAside}) {
                     // console.log(toggleAside)
                     setToggleAside(!toggleAside);
                 }}
-                className="block md:hidden w-7 h-7 text-orange-500"
+                className="block md:hidden w-5 h-5 text-orange-500"
             />
-            <h1 className="text-pop text-[#919193] text-[16px] font-semibold ">
+            <h1 className="text-pop text-[#919193] text-[13px] tracking-wide font-semibold ">
                 DJOYOF
             </h1>
             <GiHamburgerMenu
@@ -22,7 +22,7 @@ function MobileNav({Toggle,toggleNav,setToggleNav,toggleAside,setToggleAside}) {
                    
                     setToggleNav(!toggleNav);
                 }}
-                className="block md:hidden w-7 h-7 text-[#D98743] hover:text-text-orange-500"
+                className="block md:hidden w-5 h-5 text-[#D98743] hover:text-text-orange-500"
             />
         </div>
     )

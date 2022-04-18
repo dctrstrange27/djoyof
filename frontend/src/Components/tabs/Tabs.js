@@ -6,7 +6,7 @@ import { BsFillSuitHeartFill } from "react-icons/bs"
 import { MdOutlineDownloadDone } from "react-icons/md"
 import { MdLocalShipping } from "react-icons/md"
 import { MdCancel } from "react-icons/md"
-import Tab from './Tab';
+
 import InTab from './InTab';
 const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain }) => {
     const [hideTabs, setHideTabs] = useState(false)
@@ -59,84 +59,89 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
 
         },
     ]
-
     return (
         <>
-            <div className="flex font-pop border-[1px 2xl:px-20 md:px-8 bg-[#141517i] justify-center flex-wrap py-5  mt-11 md:mt-0">
-                <div className="flex w-full lg:px-3 translate-y-2 mt-5">
-                    {
-                        Tabs.map((tab,index) => (
-                            <InTab
-                                tab={tab}
-                                Icon={icon[index]}
-                                setOpenTab={setOpenTab}
-                                setCheckTab={setCheckTab}
-                                hideTabs={hideTabs}
-                                checkTab={checkTab}>
-                            </InTab>
-                        ))
-                    }
-                </div>
-                <div
-                    className="relative font-pop z-0 w-full border-green-500 border-[5px  rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
-                    style={{
-                        backgroundImage: `${openTab === 1 &&
-                            "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"
-                            }`,
-                    }}
-                >
+            <div className="flex font-pop w border-[1px bg-[#141517i] justify-center w-full mt-10
+                        
+                            ">
+                <div className='px-2 
+                               w-full max-w-[500px]
+                               md:w-[700px] md:max-w-[700px]
+                               lg:w-[860px] lg:max-w-[900px]
+                               xl:w-[1100px] xl:max-w-[1200px]
+                '>
+                    <div className={` 
+                                ${hideTabs && 'justify-evenly py-5'}
+                                flex w-full lg:px-3 translate-y-2 md:mt-5 border-[1px 
+                `}>
+                        {
+                            Tabs.map((tab, index) => (
+                                <InTab
+                                    tab={tab}
+                                    Icon={icon[index]}
+                                    setOpenTab={setOpenTab}
+                                    setCheckTab={setCheckTab}
+                                    hideTabs={hideTabs}
+                                    checkTab={checkTab}>
+                                </InTab>
+                            ))
+                        }
+                    </div>
                     <div
-                        className="px-4 py-5 pb-[8vh] h-[40vh] overflow-scroll overflow-x-hidden flex-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-black
-                          scrollbar-thumb-rounded-full scrollbar-track-rounded-full
-                          md:max-h-[50vh]  md:rounded-lg 
-                          "
+                        className="relative font-pop z-0 w-full shadow-lg shadow-[#00000069]  border-green-500 border-[2px rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
+                        style={{ backgroundImage: `${openTab === 1 && "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, }}
                     >
-                        <div className="tab-content tab-space relative">
-                            {/** Products Container */}
-                            <div
-                                className={`grid  ${openTab !== 1 && "hidden"
-                                    } grid grid-cols-1 ss:grid-cols-2 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
-                                id="link2"
-                            >
-                                {products.map((product) => (
-                                    <Product
-                                        key={product._id}
-                                        onAddCart={onAdd}
-                                        product={product}
-                                        onAddFav={addFavorite}
-                                        onRemoveFav={removeFavorite}
-                                        liked={isMyFavorite(product._id)}
-                                        clickableAgain={clickableAgain}
-                                    ></Product>
-                                ))}
-                            </div>
+                        <div
+                            className="px-4 border-[1px  py-5 pb-[8vh] h-[40vh] overflow-scroll flex-auto scrollbar-none md:max-h-[50vh]  md:rounded-lg ">
+                            <div className="text-sm">
+                                {/** Products Container */}
+                                <div
+                                    className={`grid  ${openTab !== 1 && "hidden"
+                                        } grid grid-cols-1 md:grid-cols-2 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`}
+                                    id="link2"
+                                >
+                                    {products.map((product) => (
+                                        <Product
+                                            key={product._id}
+                                            onAddCart={onAdd}
+                                            product={product}
+                                            onAddFav={addFavorite}
+                                            onRemoveFav={removeFavorite}
+                                            liked={isMyFavorite(product._id)}
+                                            clickableAgain={clickableAgain}
+                                        ></Product>
+                                    ))}
+                                </div>
 
-                            <div
-                                className={openTab === 2 ? "block" : "hidden"}
-                                id="link2"
-                            >
-                                <p>Favorites Items..</p>
-                            </div>
-                            <div
-                                className={openTab === 3 ? "block" : "hidden"}
-                                id="link3"
-                            >
-                                <p>Completed Items..</p>
-                            </div>
-                            <div
-                                className={openTab === 4 ? "block" : "hidden"}
-                                id="link3"
-                            >
-                                <p>To Receive..</p>
-                            </div>
-                            <div
-                                className={openTab === 5 ? "block" : "hidden"}
-                                id="link3"
-                            >
-                                <p>Cancelled Items..</p>
+                                <div
+                                    className={openTab === 2 ? "block" : "hidden"}
+                                    id="link2"
+                                >
+                                    <p>Favorites Items..</p>
+                                </div>
+                                <div
+                                    className={openTab === 3 ? "block" : "hidden"}
+                                    id="link3"
+                                >
+                                    <p>Completed Items..</p>
+                                </div>
+                                <div
+                                    className={openTab === 4 ? "block" : "hidden"}
+                                    id="link3"
+                                >
+                                    <p>To Receive..</p>
+                                </div>
+                                <div
+                                    className={openTab === 5 ? "block" : "hidden"}
+                                    id="link3"
+                                >
+                                    <p>Cancelled Items..</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </>
