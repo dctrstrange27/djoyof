@@ -184,11 +184,11 @@ const Home = () => {
           {/* aside nav */}
           <Nav className="" toggleNav={toggleNav} setToggleNav={setToggleNav} toggleAside={toggleAside} setToggleAside={setToggleAside} ></Nav>
           <div className="flex justify-center bg-reen-500/20 xl:px-[-2rem] 2xl:px-[8rem] 3xl:px-[15rem] xl:min-w-full w-screen">
-            <div className="md:bg-red-30 lg:z-50 lg:mix-blend-lighten xl:h-full xl:ml-[2rem] 2xl:ml-[10%] md:fixed md:h-full lg:fixed lg:h-full xl:fixed left-0 z-40">
+            <div className="">
               <Aside toggleAside={toggleAside} setToggleAside={setToggleAside} ></Aside>
             </div>
             {/* body */}
-            <div className=" py-1 md:py-10 flex xl:w-full xl:ml-[8rem] lg:ml-[8rem] md:ml-[4rem] justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-xl">
+            <div className=" py-1 md:py-10 flex max-w-7xl mx-auto sm:px-20 lg:px-21 justify-center border-[1px overflow-hidden bg-[#1A1B1F] overflow-y-hidden shadow-xl">
               <div className="flex bg-[#1A1B1F] border-[1px  w-screen  ">
                 {/* whole page */}
                 <div className="border-pink-70 w-full flex flex-col border-pink-400 border-[1px

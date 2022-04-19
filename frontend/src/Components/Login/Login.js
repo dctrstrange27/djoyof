@@ -41,7 +41,7 @@ export const Login = () => {
 
   return (
     <>
-      <div className="bg-[#323439] flex justify-center items-center w-screen h-screen overflow-auto lg:px-10 xl:border-[1px xl:px-[7rem] 2xl:px-[6rem] 3xl:px-[7rem] md:py-18 lg:py-20">
+      <div className="flex justify-center items-center w-screen h-screen overflow-auto lg:px-10 xl:border-[1px xl:px-[7rem] 2xl:px-[6rem] 3xl:px-[7rem] md:py-18 lg:py-20">
         {/* first box */}
         <div className="flex bg-[#141517 bg-[#141517] relative justify-center items-center w-full border-0 h-full md:border-y-[1px] xl:rounded-[2.9rem] md:border-opacity-25 2xl:border-[#F29A4B] 
                      2xl:rounded-[47px]  bg-center bg-no-repeat xl:bg-[length:750px_auto] 2xl:bg-[length:1000px_auto] md:px-28 lg:px-[16rem] "

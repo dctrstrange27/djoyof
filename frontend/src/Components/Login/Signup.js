@@ -37,9 +37,9 @@ export const Signup = () => {
 
     return (
         <>
-            <div className="bg-[#323439] flex justify-center items-center w-screen h-screen overflow-auto lg:px-10 xl:px-[5rem] 2xl:px-[6rem] 3xl:px-[7rem]">
+            <div className=" flex justify-center items-center w-screen h-screen overflow-auto lg:px-10 xl:px-[5rem] 2xl:px-[6rem] 3xl:px-[7rem]">
 
-                <div className="relative bg-[#141517] lg:border-[.2px] lg:border-[#D2A781] flex justify-center bg-center bg-no-repeat bg-[length:750px_900px]
+                <div className="relative bg-[#141517] lg:border-[.2px] lg:border-[#d2a78175] flex justify-center bg-center bg-no-repeat bg-[length:750px_900px]
                                  items-center w-full h-[80vh] lg:rounded-[1.7rem] lg:px-20 xl:rounded-[3.7rem] rounded-2xl  md:px-2 py-10 2xl:px-[15rem] 3xl:px-[25rem]"
                     style={{ backgroundImage: `${openTab === 1 && "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, }}>
                     <img className="absolute lg:left-6 invisible lg:visible xl:left-16 2xl:left-20 lg:h-70 lg:w-auto "

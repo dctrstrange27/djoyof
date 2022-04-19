@@ -21,7 +21,8 @@ function Checkout({ products, showProofModal }) {
           <h1 className="font-bold tracking-wide">PAYMENT METHOD</h1>
           <div className="COD flex justify-between">
             <p>Cash on Delivery</p>
-            <MdCheckBox className="h-5 w-4"></MdCheckBox>
+            
+            <input type='checkbox'  onChange='' className=" h-4 w-4 border border-gray-300 rounded-sm bg-white appearance-none  " />
           </div>
           <div className="Gcash flex justify-between">
             <p>Online payment/Gcash</p>
