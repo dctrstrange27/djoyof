@@ -24,20 +24,11 @@ return (
               >
                 <div className="bg-[#141518d3] border-[1px shadow-xl h-full px-3 flex justify-center items-center rounded">
                   <ul className="flex flex-col gap-4 md:gap-3 lg:gap-2 xl:gap-7 ">
-                    <li className>
-                      <Link
-                        to="/"
-                        className="flex justify-center items-center font-normal border-[1px translate-x-1 text-gray-900 rounded-lg py-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <IoExitOutline
-                          onClick={signOut}
-                          className="w-6 h-auto  text-orange-500"
-                        />
-                      </Link>
-                    </li>
+                
                     <li className="">
                       <Link
                         to="/"
-                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg py-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <BsSearch className="w-4 h-4 text-orange-500" />
                       </Link>
@@ -45,7 +36,7 @@ return (
                     <li className="">
                       <Link
                         to="/"
-                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg py-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <IoHome className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                       </Link>
@@ -53,7 +44,7 @@ return (
                     <li className="">
                       <Link
                         to="/"
-                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg py-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg p-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <ImCart className="w-4 h-4  text-orange-500" />
                       </Link>
@@ -61,7 +52,7 @@ return (
                     <li className="">
                       <Link
                         href="/"
-                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg  py-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex justify-center items-center font-normal text-gray-900 rounded-lg  p-2 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <BsFillSuitHeartFill className="w-4 h-4 md:h-5 md:w-5 text-orange-500" />
                       </Link>
