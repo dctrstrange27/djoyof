@@ -61,19 +61,13 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
     ]
     return (
         <>
-            <div className="flex font-pop w border-[1px bg-[#141517i] justify-center w-full mt-10
-                        
+            <div className="flex font-pop w border-[1px bg-[#141517i] justify-center w-full 
                             ">
-                <div className='px-2 
-                               w-full max-w-[500px]
-                               md:w-[700px] md:max-w-[700px]
-                               lg:w-[860px] lg:max-w-[900px]
-                               xl:w-[1100px] xl:max-w-[1200px]
-                '>
+                <div className=' w-full '>
                     <div className={` 
                                 ${hideTabs && 'justify-evenly py-5'}
                                 flex w-full lg:px-3 translate-y-2 md:mt-5 border-[1px 
-                `}>
+                                `}>
                         {
                             Tabs.map((tab, index) => (
                                 <InTab
@@ -82,7 +76,10 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                     setOpenTab={setOpenTab}
                                     setCheckTab={setCheckTab}
                                     hideTabs={hideTabs}
-                                    checkTab={checkTab}>
+                                    checkTab={checkTab}
+                                    key={index}
+                                >
+
                                 </InTab>
                             ))
                         }

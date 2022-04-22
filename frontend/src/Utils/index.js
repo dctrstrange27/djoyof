@@ -24,14 +24,14 @@ export const getUser = () => {
     return JSON.parse(localStorage.getItem("userData"));
 }
 
-export const signOut = (history) => {
+export const signOut = (navigate) => {
     // delete lang ng userData which means matatanggal lang yun
     localStorage.removeItem('userData')
 }
 
-export const amIloggedIn = (history) => {
+export const amIloggedIn = (navigate) => {
     const loggedInUser = getUser()
-    if(!loggedInUser) history.push('/login')
+    if(!loggedInUser) navigate('/login')
     return loggedInUser // if meron, return yung data para magamit sa kung sino nag request
 }
 
