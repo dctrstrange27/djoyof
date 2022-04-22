@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API, saveUser, rememberMe, getRemembered } from "../../Utils";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai"
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export const Login = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const signIn = async () => {
     setLoading(true)
@@ -21,7 +21,7 @@ export const Login = () => {
       saveUser(response);
       if (remember)
         rememberMe(email_address, password)
-      history.push("/home");
+      navigate("/Main");
     } catch (e) {
       console.log(e);
       if (e.response.data) setError(e.response.data.description)

@@ -23,20 +23,11 @@ export const Cart = ({ products, cartItems, onAdd, onIncrease, onDecrease, onRem
     <>
 
 
-      <div className="flex w-full border-[1px pb-20 flex-wrap justify-center 
-                      ">
-
-          <div className="flex flex-col border-[1px border-red-500 px-2
-                           w-full max-w-[500px]
-                           md:w-[700px] md:max-w-[700px]
-                           lg:w-[860px] lg:max-w-[900px]
-                           xl:w-[1100px] xl:max-w-[1200px]
-                      ">
+      <div className="flex w-full border-[1px pb-20 flex-wrap justify-center">
+          <div className="flex flex-col border-[1px border-red-500 px-2 w-full ">
             {/* tab  */}
             <ul className="flex mb-0 list-none  overflow-hidden  overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
-
-              role="tablist"
-            >
+              role="tablist">
               <li className="w-[90px] -mb-px mr-2 text-sm  last:mr-0 text-center items-center flex max-h-10 rounded-xl bg-[#24262B]">
                 <a
                   className={

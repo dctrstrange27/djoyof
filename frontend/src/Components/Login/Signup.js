@@ -63,7 +63,7 @@ export const Signup = () => {
                                 <br></br>
                                 The DJOYOFBAKING bakery is located at Blk 12 Lot 39 Birmingham Village Brgy Pulo Cabuyao Laguna.</p>
                             <div className="flex justify-center items-center">
-                                <Link to="/Login" className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300
+                                <Link to='/signup' className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300
                                 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-800 ">
                                     <ImCart className="h-4 w-4 mr-3"></ImCart>
                                     ORDER NOW

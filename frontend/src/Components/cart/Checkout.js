@@ -22,7 +22,7 @@ function Checkout({ products, showProofModal }) {
           <div className="COD flex justify-between">
             <p>Cash on Delivery</p>
             
-            <input type='checkbox'  onChange='' className=" h-4 w-4 border border-gray-300 rounded-sm bg-white appearance-none  " />
+            <input type='checkbox' className=" h-4 w-4 border border-gray-300 rounded-sm bg-white appearance-none  " />
           </div>
           <div className="Gcash flex justify-between">
             <p>Online payment/Gcash</p>
@@ -50,8 +50,8 @@ function Checkout({ products, showProofModal }) {
             <h1>Current Items</h1>
             <BsFillBackspaceFill className="h-6 w-7 text-[#088074]"></BsFillBackspaceFill>
           </div>
-          {products.map((product) => (
-            <CheckDetails product={product}></CheckDetails>
+          {products.map((product,index) => (
+            <CheckDetails key={index} product={product}></CheckDetails>
           ))}
         </div>
       </div>

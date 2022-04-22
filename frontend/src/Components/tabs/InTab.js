@@ -15,7 +15,6 @@ function InTab({ tab,Icon,setCheckTab, hideTabs, checkTab, setOpenTab  }) {
                     <Icon className={`w-[1rem] h-auto 
                                     ${checkTab === tab.id ? "w-[1.25rem] ease-linear duration-400 text-[#fc812f] " : "w-5 text-[#5b5b5c] "} 
                                     ${!hideTabs && "hidden"} 
-                                
                                     `}>
 
                     </Icon>
