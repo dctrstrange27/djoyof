@@ -77,15 +77,13 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                     setCheckTab={setCheckTab}
                                     hideTabs={hideTabs}
                                     checkTab={checkTab}
-                                    key={index}
-                                >
-
+                                    key={index}>
                                 </InTab>
                             ))
                         }
                     </div>
                     <div
-                        className="relative font-pop z-0 w-full shadow-lg shadow-[#00000069]  border-green-500 border-[2px rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
+                        className="font-pop z-0 w-full shadow-lg shadow-[#00000069]  border-green-500 border-[2px rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
                         style={{ backgroundImage: `${openTab === 1 && "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, }}
                     >
                         <div

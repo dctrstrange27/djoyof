@@ -3,7 +3,7 @@ import Tabs from '../tabs/Tabs'
 import Cart from '../cart/Cart';
 import { useEffect } from 'react';
 import { useState } from 'react';
-const Content = ({ onRemoveAll, openTab, products, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain, cartItems, decreaseQty, increateQty, removeItemFromCart, removeAllCartItems, setShow, showProofModal,onRemove,onDecrease,onIncrease }) => {
+const Content = ({ setShow,proofView,check,setCheck,check2,setCheck2,deleteNewCartItems,deleteOrder, getAllCarts,newCartItems,setOnConfirm, onRemoveAll, openTab, products, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain, cartItems,showProofModal,onRemove,onDecrease,onIncrease }) => {
 
   return (
     <>
@@ -25,14 +25,25 @@ const Content = ({ onRemoveAll, openTab, products, setOpenTab, onAdd, addFavorit
           clickableAgain={clickableAgain}
         />
         <Cart
+          proofView={proofView}
+          check={check}
+          setCheck={setCheck}
+          check2={check2}
+          setCheck2={setCheck2}
+          deleteNewCartItems={deleteNewCartItems}
+          deleteOrder={deleteOrder}
+          getAllCarts={getAllCarts}
+          newCartItems={newCartItems}
+          setOnConfirm={setOnConfirm}
           onAdd={onAdd}
-          onDecrease={onIncrease}
+          onDecrease={onDecrease}
           onIncrease={onIncrease}
           cartItems={cartItems}
           onRemove={onRemove}
           onRemoveAll={onRemoveAll}
           products={products}
           showProofModal={showProofModal}
+          setShow={setShow}
           >
         </Cart>
        
