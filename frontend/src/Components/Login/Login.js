@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { API, saveUser, rememberMe, getRemembered } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai"
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import Visibility from "@material-ui/icons/Visibility";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Input from "@material-ui/core/Input";
 import { Link } from "react-router-dom";
 
 export const Login = () => {
@@ -39,19 +45,46 @@ export const Login = () => {
   }, [])
   const [openTab, setOpenTab] = React.useState(1)
 
+
+  const [values, setValues] = React.useState({password: "", showPassword: false,});
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handlePasswordChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
   return (
     <>
-      <div className="flex justify-center items-center w-screen h-screen overflow-auto lg:px-10 xl:border-[1px xl:px-[7rem] 2xl:px-[6rem] 3xl:px-[7rem] md:py-18 lg:py-20">
+      <div className="flex justify-center items-center border-[3px border-pink-500 overflow-auto h-screen
+                    
+                     ">
         {/* first box */}
-        <div className="flex bg-[#141517 bg-[#141517] relative justify-center items-center w-full border-0 h-full md:border-y-[1px] xl:rounded-[2.9rem] md:border-opacity-25 2xl:border-[#F29A4B] 
-                     2xl:rounded-[47px]  bg-center bg-no-repeat xl:bg-[length:750px_auto] 2xl:bg-[length:1000px_auto] md:px-28 lg:px-[16rem] "
-          style={{ backgroundImage: `${openTab === 1 && "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, }}>
-          <img className="absolute lg:left-10 invisible lg:visible xl:left-16 2xl:left-20 lg:h-70 lg:w-auto "
-            src={require("../../img/text.png")} ></img>
-            {/* center sec */}
-          <div className="flex flex-col w-full h-auto px-12  bg-[#0f0f11] bg-opacity-[80%] md:rounded-[3rem] xl:max-w-lg border-[#ed852bd5] border-y-[.5px]  ">
-            <img alt="" src={require("../../img/logo.png")} className="h-auto w-[130px] md:max-w-[30%] self-center z-10 py-3 lg:w-[120px] lg:h-auto"></img>
-            <h1 className="w-fit self-center py-2 text-[#CBCBCB] text-[1rem] tracking-[0.25rem] font-medium z-10 lg:py-0">
+        <div
+          className="  flex border-[0px px-4 lg:border-[1px] border-[#ed852b9a]  md:rounded-[4.5rem] border-[1px
+                        bg-center bg-auto bg-no-repeat lg:bg-[#101010d6] flex-1 max-w-[90rem] mx-auto h-[47rem] max-h-[47rem] min-h-[30rem]
+                        justify-center items-center lg:bg-none
+                        relative
+                        "
+        >
+          <img className="absolute invisible lg:visible inset-y-0 h-[46.5rem] border-[1px"
+            src={require("../../img/loginbg.png")} >
+          </img>
+          <img className="absolute invisible lg:visible left-20 "
+            src={require("../../img/text.png")} >
+          </img>
+          {/* center sec */}
+          <div className="relative flex flex-1 h-[50vh max-w-lg flex-col w-full px-10 shadow-2xl shadow-[#00000069] bg-[#0f0f11] bg-opacity-[80%]  rounded-[3rem] border-[#ed852bd5] border-y-[.5px]
+                          
+            ">
+            <img alt="" src={require("../../img/logo.png")} className="h-auto w-[90px] md:max-w-[30%] self-center z-10 py-3 lg:w-[120px] lg:h-auto"></img>
+            <h1 className="w-fit self-center py-2 font-bold text-[#CBCBCB] text-[1rem]  tracking-[0.25rem]  z-10 lg:py-0">
               SIGN IN TO DJOYOF
             </h1>
             <form className="flex flex-col border-[1px font-nsans text-sm lg:text-[0.8rem] border-green-500">
@@ -63,7 +96,7 @@ export const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   type="text"
                   name="email"
-                  className="text-[#CBCBCB]  py-2 px-3 w-full h-[37px] bg-[#1A1B1E] border-[#1A1B1E] focus:outline-none border border-b-[#F29A4B] border-opacity-50"
+                  className="text-[#CBCBCB]  py-2 px-3 w-full h-[37px] bg-[#1A1B1E] border-[#1A1B1E] focus:outline-none border  border-b-[#F29A4B] border-opacity-50"
                 />
               </div>
               <div className="mb-4 z-10">
@@ -73,15 +106,34 @@ export const Login = () => {
                 >
                   Password
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="text-[#CBCBCB] py-2 px-3 w-full h-[37px] bg-[#1A1B1E] border-[#1A1B1E] focus:outline-none border border-b-[#F29A4B] border-opacity-50 "
-                />
+              
               </div>
+              
+              <Input
+                inputProps={{ style: { color: "white", fontWeight:"normal", fontSize: "14px", fontFamily:"poppins", letterSpacing:"1.2px"} }}
+                className={`text-[white] py-2 px-3 w-full h-[37px] font-sm bg-[#1A1B1E] border-[#1A1B1E]  border  border-b-[#F29A4B] border-opacity-50 `}
+                type={values.showPassword ? "text" : "password"}
+             
+                onChange={(e) =>{
+                  handlePasswordChange("password")
+                  setPassword(e.target.value)}
+                  
+                }
+                value={password}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                     
+                    >
+                      {values.showPassword ? <Visibility className='h-4 w-4 text-white'  /> : <VisibilityOff className='h-4 w-4 text-[#868686] ' />}
+                    </IconButton>
+                  </InputAdornment>
+                }  
+              />
+
+             
               <div className="mt-6 flex items-center justify-between">
                 <div className="flex items-center z-10">
                   <input
@@ -109,7 +161,7 @@ export const Login = () => {
                 <p className={`text-center text-xs text-gray-600  ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
                 <p className="text-xs my-4 text-rose-400 text-center">{error}</p>
               </div>
-              <div className="py-[45px] lg:py-[20px] flex items-center justify-center z-10">
+              <div className="py-3 lg:py-[20px] flex items-center justify-center z-10">
                 <button
                   disabled={email_address.length === 0 || password.length === 0 || loading}
                   onClick={(e) => {
@@ -123,17 +175,18 @@ export const Login = () => {
                 </button>
               </div>
               <div className="text-center z-10 mt-1 pb-7">
-                <Link exact to ="/Signup"
-
+                <Link exact to="/Signup"
                   className=" underline font-['Nunito Sans']  text-sm lg:text-[0.90rem]  text-[#CBCBCB]"
                 >
                   Sign up for an account
                 </Link>
               </div>
             </form>
+
           </div>
           <img className="absolute invisible lg:visible lg:right-16 lg:bottom-0 h-full lg:h-70 lg:w-auto"
-            src={require("../../img/foot.png")} ></img>
+            src={require("../../img/foot.png")} >
+          </img>
         </div>
       </div>
     </>

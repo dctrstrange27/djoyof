@@ -1,7 +1,8 @@
-const SendProof = ({ proofView, setProofView, setProofFile }) => {
-  return (
+const SendProof = ({ updateSetShow, proofView, setProofView, setProofFile }) => {
+
+return (
     <div
-      className="bg-[#161616] p-8 rounded-md filter shadow-2xl border border-neutral-800 "
+      className="bg-[#0e0d0d] p-8 rounded-md filter shadow-2xl border border-neutral-800 "
       onClick={(e) => {
         e.stopPropagation();
       }}
@@ -10,7 +11,7 @@ const SendProof = ({ proofView, setProofView, setProofFile }) => {
       <div className="m-12 flex flex-col items-center">
         {!proofView ? (
           <>
-            <p className="text-xs text-gray-500 mb-8">
+            <p className="text-xs font-pop text-gray-500 mb-8">
               Please upload a proof of payment (screenshot)
             </p>
             <label className="block">
@@ -26,7 +27,10 @@ const SendProof = ({ proofView, setProofView, setProofFile }) => {
             </label>
           </>
         ) : (
-          <img className="" src={proofView} alt="proof"></img>
+          <>
+            <img className="" src={proofView} alt="proof"></img>
+          </>
+
         )}
       </div>
       {proofView && (
@@ -35,18 +39,20 @@ const SendProof = ({ proofView, setProofView, setProofFile }) => {
             setProofFile(null);
             setProofView(null);
           }}
-          className={`$ px-4 py-2 bg-amber-200 text-neutral-800 rounded-md`}
+          className={`$ mr-1 px-4 py-2 bg-[#d98743] text-neutral-800 rounded-md`}
         >
           Replace Proof
         </button>
       )}
       <button
-        disabled={!proofView}
-        className={`${
-          !proofView && "cursor-not-allowed"
-        } px-4 py-2 bg-amber-200 text-neutral-800 rounded-md`}
+        onClick={() => {
+          updateSetShow()
+          console.log(1)
+        }}
+        className={`${!proofView && "cursor-not-allowed"
+          } px-4 py-2 bg-[#d98743] text-neutral-800 rounded-md`}
       >
-        Send
+        Done
       </button>
     </div>
   );
