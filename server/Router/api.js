@@ -32,6 +32,74 @@ function between(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
+function SendConfirmOrders(userEmail,items,price,totalprice,userName,DateNow,DateArrived,qty){
+  var mail = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "bakingdjoyof@gmail.com",
+      pass: "Siaa69mobztaz",
+    },
+  });
+  var mailOptions = {
+    from: "bakingdjoyof@gmail.com",
+    to: userEmail,
+    subject: "DJOYOFBAKING",
+    text:"Hello "+ userName +"\n"+"Thank you for your order and  is estimated to arrive around "+DateNow +" - "+ DateArrived
+    +"\nItems \n"+items +"Quantity " +qty+ "price "+price +"totalprice "+totalprice,
+    /*
+      Hello CustomerName
+        Thank you for your order and is estimated to arrive around (1 - 3 days bago ma receive yung order) 
+        Items         Quantity       Price
+        Item1           1              30
+        Item2           1              39
+
+        Total Price: 69
+    */
+  };
+  mail.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      email = `${email_address}`;
+      console.log("Email sent: " + info.response);
+    }
+  });
+  return res.status(401).json({ message: "order Success" });
+}
+
+function SendCancelOrder(userEmail,items,userName,DateNow){
+  var mail = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "bakingdjoyof@gmail.com",
+      pass: "Siaa69mobztaz",
+    },
+  });
+  var mailOptions = {
+    from: "bakingdjoyof@gmail.com",
+    to: userEmail,
+    subject: "DJOYOFBAKING",
+    text:"Hello "+ userName +"\n"+"Your Order has been cancelled shown below "+DateNow 
+    +"\n"+items
+    /*
+      Hello CustomerName
+        Hello CustomerName Your Order has been cancelled shown below. Date Canccelled Date.now()
+        Item1
+        item2
+        Item3
+    */
+  };
+  mail.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      email = `${email_address}`;
+      console.log("Email sent: " + info.response);
+    }
+  });
+  return res.status(401).json({ message: "order Success" });
+}
+
 router.post("/login", async (req, res) => {
   try {
     const { email_address, password } = req.body;
@@ -114,12 +182,12 @@ router.post("/sendCode", async (req, res) => {
     var mail = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "yourgmail@gmail.com",
-        pass: "yourpassword",
+        user: "bakingdjoyof@gmail.com",
+        pass: "Siaa69mobztaz",
       },
     });
     var mailOptions = {
-      from: "yourgmail@gmail.com",
+      from: "bakingdjoyof@gmail.com",
       to: `${email_address}`,
       subject: "Reset password",
       text: Vcode,

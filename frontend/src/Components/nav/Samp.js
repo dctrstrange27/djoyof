@@ -60,7 +60,7 @@ const Samp = ({ userData, togs, setTogs, hide, setHide }) => {
                                 after:bg-[#f97f2ec2] after:right-0 after:bottom-0
                                 ${hide && 'after:bg-zinc-500 after:w-[95%]'}
                                 `}>
-                        {/* {userData.customer_name} */}Rohan
+                        {userData.customer_name}
                     </h1>
                     <img src={require("../../img/profile.png")}
                         onClick={() => {

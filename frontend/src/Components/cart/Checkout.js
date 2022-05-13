@@ -33,6 +33,7 @@ function Checkout({ proofView,check,setCheck,check2,setCheck2,shippingFee, total
             />
           
           </div>
+          
           <div className="Gcash flex justify-between">
             <p>Online payment/Gcash</p>
             <input
@@ -53,6 +54,14 @@ function Checkout({ proofView,check,setCheck,check2,setCheck2,shippingFee, total
                  onClick={() => { showProofModal() }}
               className={`h-7 w-24 text-sm font-bold rounded-md text-[#323232] bg-[#D98743] ${!check2 && "hidden absolute right-0"} `}>
              Send Proof
+            </button>
+
+          </div>
+          <div className={`button border-[1px flex justify-end`}>
+            <button
+               
+              className={`h-7 w-24 text-sm font-bold rounded-md text-[#323232] bg-[#D98743] ${!check && "hidden absolute right-0"} `}>
+                Place Order
             </button>
 
           </div>
