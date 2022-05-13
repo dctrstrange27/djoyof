@@ -3,7 +3,7 @@ import Tabs from '../tabs/Tabs'
 import Cart from '../cart/Cart';
 import { useEffect } from 'react';
 import { useState } from 'react';
-const Content = ({ setShow,proofView,check,setCheck,check2,setCheck2,deleteNewCartItems,deleteOrder, getAllCarts,newCartItems,setOnConfirm, onRemoveAll, openTab, products, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain, cartItems,showProofModal,onRemove,onDecrease,onIncrease }) => {
+const Content = ({proof,onPlaceOrder,setShow,proofView,check,setCheck,check2,setCheck2,deleteNewCartItems,deleteOrder, getAllCarts,newCartItems,setOnConfirm, onRemoveAll, openTab, products, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain, cartItems,showProofModal,onRemove,onDecrease,onIncrease }) => {
 
   return (
     <>
@@ -25,6 +25,8 @@ const Content = ({ setShow,proofView,check,setCheck,check2,setCheck2,deleteNewCa
           clickableAgain={clickableAgain}
         />
         <Cart
+          proof={proof}
+          onPlaceOrder={onPlaceOrder}
           proofView={proofView}
           check={check}
           setCheck={setCheck}

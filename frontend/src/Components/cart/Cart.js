@@ -8,7 +8,7 @@ import { GoCheck } from "react-icons/go";
 import { BsFillBackspaceFill } from 'react-icons/bs'
 
 
-export const Cart = ({proofView,check,setCheck,check2,setCheck2,deleteOrder, deleteNewCartItems, newOrders, newCartItems, getAllCarts, products, cartItems, onIncrease, onDecrease, onRemove, onRemoveAll, showProofModal }) => {
+export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setCheck2,deleteOrder, deleteNewCartItems, newOrders, newCartItems, getAllCarts, products, cartItems, onIncrease, onDecrease, onRemove, onRemoveAll, showProofModal }) => {
   const [checkTab, setCheckTab] = React.useState(1);
   const [totalCost, setTotalCost] = useState(0.0);
   const [totalPay, setTotalPay] = useState(0.0);
@@ -164,6 +164,8 @@ export const Cart = ({proofView,check,setCheck,check2,setCheck2,deleteOrder, del
                 </div>
 
                 <Checkout 
+                    proof={proof}
+                    onPlaceOrder={onPlaceOrder}
                     proofView={proofView} 
                     check={check}
                     setCheck={setCheck}
