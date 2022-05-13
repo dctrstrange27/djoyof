@@ -33,6 +33,172 @@ function between(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+function SendConfirmOrders(userEmail, orderId, items, totalprice, userName, DateNow, DateArrived) {
+    var mail = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "bakingdjoyof@gmail.com",
+            pass: "Siaa69mobztaz",
+        },
+    });
+    var mailOptions = {
+        from: "bakingdjoyof@gmail.com",
+        to: userEmail,
+        subject: "Order Placed Successfuly",
+        html: `<!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Document</title>
+          </head>
+          <body style="background-color: rgb(248, 248, 248);">
+            <center>
+              <table
+                cellpadding="0"
+                cellspacing="0"
+                border="0"
+                width="100%"
+                style="
+                  width: calc(600px);
+                  border-radius: 1%;
+                  border-collapse: collapse;
+                  margin: 0 auto;
+                  background-color: white;
+                  padding: 0;
+                "
+              >
+                <tbody>
+                  <tr style="border-collapse: collapse; margin: 0; padding: 0">
+                    <td
+                      width="100%"
+                      style="border-collapse: collapse; margin: 0; padding: 0"
+                    >
+                      <table
+                        width="100%"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        style="
+                          min-width: 100%;
+                          border-collapse: collapse;
+                          margin: 0;
+                          padding: 0;
+                        "
+                      >
+                        <tbody>
+                          <tr style="border-collapse: collapse; margin: 0; padding: 0">
+                            <td
+                              height="64"
+                              style="border-collapse: collapse; margin: 0; padding: 0"
+                            >
+                              &nbsp;
+                            </td>
+                          </tr>
+                          <tr
+                            style="border-collapse: collapse; margin: 0; padding: 0"
+                            align="center"
+                          >
+                            <td
+                              style="border-collapse: collapse; margin: 0; padding: 0"
+                            >
+                              
+                            </td>
+                          </tr>
+                          <tr style="font-family: helvetica, sans-serif;
+                          font-weight: 100;
+                          text-decoration: none;
+                          color: #333333;
+                          font-size: 24px;
+                          border-collapse: collapse; margin: 0; padding: 0">
+                            <td
+                              width="100%"
+                              style="
+                                min-width: 100%;
+                                border-collapse: collapse;
+                                margin: 0;
+                                padding: 0;
+                              "
+                            >
+                              <center>
+                                <div style="margin: 20px 8px 30px 8px">
+                                    <p style="font-weight: 100;">Hello ${userName}</p>
+                                    <p style="font-size: 11px; ">Thank you for your order and is estimated to arrive around ${DateNow.toLocaleString()} - ${DateArrived.toLocaleString()}</p>
+                                    <p style="font-size: 16px; ">Your order ID</p>
+                                    <h6 style="letter-spacing: 4px; font-weight: bold; padding: 5px 25px ; ">
+                                        ${orderId}
+                                    </h6>
+                                </div>
+                              </center>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </center>
+          </body>
+        </html>
+        `
+        /* 
+        text: "Hello " + userName + "\n" + "Thank you for your order and  is estimated to arrive around " + DateNow + " - " + DateArrived
+            + "\nItems \n" + items + "Quantity " + qty + "price " + price + "totalprice " + totalprice,
+          
+          Hello CustomerName
+            Thank you for your order and is estimated to arrive around (1 - 3 days bago ma receive yung order) 
+            Items         Quantity       Price
+            Item1           1              30
+            Item2           1              39
+    
+            Total Price: 69
+        */
+    };
+    mail.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            email = `${email_address}`;
+            console.log("Email sent: " + info.response);
+        }
+    });
+}
+
+function SendCancelOrder(userEmail, items, userName, DateNow) {
+    var mail = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "bakingdjoyof@gmail.com",
+            pass: "Siaa69mobztaz",
+        },
+    });
+    var mailOptions = {
+        from: "bakingdjoyof@gmail.com",
+        to: userEmail,
+        subject: "DJOYOFBAKING",
+        text: "Hello " + userName + "\n" + "Your Order has been cancelled shown below " + DateNow
+            + "\n" + items
+        /*
+          Hello CustomerName
+            Hello CustomerName Your Order has been cancelled shown below. Date Canccelled Date.now()
+            Item1
+            item2
+            Item3
+        */
+    };
+    mail.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            email = `${email_address}`;
+            console.log("Email sent: " + info.response);
+        }
+    });
+    return res.status(401).json({ message: "order Success" });
+}
+
 router.post("/placeOrder", async (req, res) => {
     try {
         const { orders, email_address } = req.body
@@ -54,15 +220,14 @@ router.post("/placeOrder", async (req, res) => {
             total
         */
         if (!orders) return res.status(400).json({ message: "No orders specified" })
-        const customer_id = new ObjectId(orders.customer_id) 
+        const customer_id = new ObjectId(orders.customer_id)
         const placedOrder = await Orders.create({ ...orders, customer_id })
-        
-        // add the order id to user information & delete all cart items
-        const updateCustomer = await users.updateOne({ _id : customer_id }, {  $push : { orders : new ObjectId(placedOrder._id) }, $set : { cartItems : [] } })
 
-        // TODO DREI: Call the function you made for emailing customer example bellow 👇
-        // sendEmailToUser(email_address)
-        res.status(200).json({ message: "Order Placed 👌"})
+        // add the order id to user information & delete all cart items
+        const updateCustomer = await users.updateOne({ _id: customer_id }, { $push: { orders: new ObjectId(placedOrder._id) }, $set: { cartItems: [] } })
+
+        SendConfirmOrders(email_address, placedOrder._id, orders.items, orders.total, orders.customer_name, new Date(), new Date() + 3)
+        res.status(200).json({ message: "Order Placed 👌" })
     } catch (e) {
         ehandler(e)
     }
@@ -150,12 +315,12 @@ router.post("/sendCode", async (req, res) => {
         var mail = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "yourgmail@gmail.com",
-                pass: "yourpassword",
+                user: "bakingdjoyof@gmail.com",
+                pass: "Siaa69mobztaz",
             },
         });
         var mailOptions = {
-            from: "yourgmail@gmail.com",
+            from: "bakingdjoyof@gmail.com",
             to: `${email_address}`,
             subject: "Reset password",
             text: Vcode,
@@ -168,9 +333,8 @@ router.post("/sendCode", async (req, res) => {
                 console.log("Email sent: " + info.response);
             }
         });
-        return res.status(401).json({ message: Vcode });
     });
-});
+})
 
 router.post("/changePassword", async (req, res) => {
     const { newpassword, userCode, confirmpassword } = req.body;
