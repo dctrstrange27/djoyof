@@ -30,26 +30,26 @@ const Samp = ({ userData, togs, setTogs, hide, setHide }) => {
                         setCheckNav(1)
                         setTogs(!togs)
                         console.log(togs)
-                    }} to='Main' className={`md:hidden text-white text-sm flex hover:text-[#ec8f42] ${checkNav == 1 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `}>
+                    }} to='Main' className={`md:hidden text-white text-sm flex hover:text-[#ec8f42] ${checkNav === 1 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `}>
                         <GiHamburgerMenu className='w-[1rem] translate-y-[1px] h-auto mr-2'></ GiHamburgerMenu>
                     </Link>
-                    <Link onClick={(e) => { setCheckNav(2) }} to='Main' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav == 2 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `}>
+                    <Link onClick={(e) => { setCheckNav(2) }} to='Main' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav === 2 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `}>
                         <IoHome className='w-[1rem] translate-y-[1px] h-auto mr-2'></ IoHome>
                         <h1 className='hidden md:block duration-200 ease-linear'>Home</h1>
                     </Link>
-                    <Link onClick={(e) => { setCheckNav(3) }} to='Service' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav == 3 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `} >
+                    <Link onClick={(e) => { setCheckNav(3) }} to='Service' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav === 3 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `} >
                         <MdHomeRepairService className='w-[1rem] translate-y-[2px] h-auto mr-2'></ MdHomeRepairService>
                         <h1 className='hidden md:block duration-200 ease-linear'>Service</h1>
                     </Link>
-                    <Link onClick={(e) => { setCheckNav(4) }} to='About' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav == 4 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `}>
+                    <Link onClick={(e) => { setCheckNav(4) }} to='About' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav === 4 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `}>
                         <BsInfoCircleFill className='w-[1rem] translate-y-[2px] h-auto mr-2'></BsInfoCircleFill>
                         <h1 className='hidden md:block duration-200 ease-linear'>About</h1>
                     </Link>
-                    <Link onClick={(e) => { setCheckNav(5) }} to='Contact' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav == 5 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `} >
+                    <Link onClick={(e) => { setCheckNav(5) }} to='Contact' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav === 5 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `} >
                         <AiTwotonePhone className='w-[1rem] translate-y-[2px] h-auto mr-2'></ AiTwotonePhone>
                         <h1 className='hidden md:block duration-200 ease-linear'>Contact Us</h1>
                     </Link>
-                    <Link onClick={(e) => { setCheckNav(6) }} to='Help' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav == 6 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `} >
+                    <Link onClick={(e) => { setCheckNav(6) }} to='Help' className={`text-white text-sm flex hover:text-[#ec8f42] ${checkNav === 6 ? "text-[#ec8f42]" : "text-[#c7c5c5]"} `} >
                         <IoIosHelpCircle className='w-[1.2rem] translate-y-[2px] h-auto mr-2'></ IoIosHelpCircle>
                         <h1 className='hidden md:block duration-200 ease-linear'>Help</h1>
                     </Link>

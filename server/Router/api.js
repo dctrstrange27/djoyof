@@ -224,7 +224,12 @@ router.post("/placeOrder", async (req, res) => {
         const placedOrder = await Orders.create({ ...orders, customer_id })
 
         // add the order id to user information & delete all cart items
-        const updateCustomer = await users.updateOne({ _id: customer_id }, { $push: { orders: new ObjectId(placedOrder._id) }, $set: { cartItems: [] } })
+        const updateCustomer = await users.updateOne({
+            _id: new ObjectId(orders.customer_id)
+        }, {
+            $push : { orders: new ObjectId(placedOrder._id) }, 
+            $set : { cartItems: [] }
+        })
 
         SendConfirmOrders(email_address, placedOrder._id, orders.items, orders.total, orders.customer_name, new Date(), new Date() + 3)
         res.status(200).json({ message: "Order Placed 👌" })
@@ -277,7 +282,7 @@ router.post("/signup", async (req, res) => {
                 .status(403)
                 .json({ description: "the user is already taken", theUser: user });
         } else {
-            if (`${password}` == `${confirm_password}`) {
+            if (`${password}` === `${confirm_password}`) {
                 var newUser = new User();
                 newUser.email_address = `${email_address}`;
                 newUser.password = newUser.generateHash(`${password}`);
@@ -338,11 +343,11 @@ router.post("/sendCode", async (req, res) => {
 
 router.post("/changePassword", async (req, res) => {
     const { newpassword, userCode, confirmpassword } = req.body;
-    if (Vcode.length == 0) {
+    if (Vcode.length === 0) {
         return res.status(201).json({ message: "Null" });
     }
-    if (Vcode == `${userCode}`) {
-        if (`${newpassword}` == `${confirmpassword}`) {
+    if (Vcode === `${userCode}`) {
+        if (`${newpassword}` === `${confirmpassword}`) {
             const filter = { email_address: email };
             const update = { password: `${newpassword}` };
             await User.updateOne(filter, { password: User.generateHash(`${newpassword}`) });

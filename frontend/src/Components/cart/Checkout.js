@@ -8,6 +8,9 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2, setCheck2, shippingFee, totalPay, TotalPayment, deleteOrder, deleteNewCartItems, newCartItems, cartItems, products, showProofModal, onRemove }) {
 
     const isDisabled = ( ) => {
+        if(!cartItems) return true
+        else if(cartItems.length === 0) return true
+
         if(!check && !check2) return true
         if(check2)
             if(!proof) return true

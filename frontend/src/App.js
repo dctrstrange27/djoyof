@@ -156,6 +156,7 @@ function SomeotherComponent() {
         saveUser(userNewInfo);
         setUserData(userNewInfo.data.userData);
         setCartItems(userNewInfo.data.userData.cartItems);
+        setNewCartItems(userNewInfo.data.userData.cartItems);
         setFavorites(userNewInfo.data.userData.favorites);
     };
 
@@ -168,11 +169,12 @@ function SomeotherComponent() {
         }
     };
 
-    const placeOrder = () => {
+    const placeOrder = async() => {
         try {
-            const response = API.post("/placeOrder", {
+            const response = await API.post("/placeOrder", {
                 email_address : userData.email_address,
                 orders : {
+                    customer_id : userData._id,
                     customer_name : userData.customer_name,
                     customer_address : userData.customer_address,
                     contact_no : userData.contact_no,
@@ -181,7 +183,7 @@ function SomeotherComponent() {
                     transactionType : check? "COD" : "GCash"
                 }
             })
-
+            loadUserData()
             console.log(response.data)
         } catch (e) {
             console.log(e)
