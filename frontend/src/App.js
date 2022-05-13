@@ -171,6 +171,7 @@ function SomeotherComponent() {
 
     const placeOrder = async() => {
         try {
+            
             const response = await API.post("/placeOrder", {
                 email_address : userData.email_address,
                 orders : {
@@ -178,8 +179,8 @@ function SomeotherComponent() {
                     customer_name : userData.customer_name,
                     customer_address : userData.customer_address,
                     contact_no : userData.contact_no,
-                    items : userData.cartItems,
-                    total : computeCartTotal(userData.cartItems),
+                    items : newCartItems,
+                    total : computeCartTotal(newCartItems),
                     transactionType : check? "COD" : "GCash"
                 }
             })

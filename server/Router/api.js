@@ -508,4 +508,36 @@ router.post("/updateCart", async (req, res) => {
     }
 });
 
+router.post("/getMyOrders", async(req, res) => {
+    try{
+        const { _id, orderStatus } = req.body
+        const listOfMyOrders = await Orders.find({ customer_id : _id, orderStatus })
+
+        res.status(200).json({
+            orders : listOfMyOrders
+        })
+    }catch(e){
+        ehandler(e)
+    }
+})
+
+router.post("/updateOrder", async(req,res)=>{
+    try{
+        const { _id, orderStatus  } = req.body
+        const updateOrderStatus = await Orders.updateOne( { _id }, { $set : {orderStatus} })
+    
+        if( orderStatus === 0 ){ // ORDER AGAIN
+            // call mo dito SendConfirmOrders
+        }else if( orderStatus === -1 ){ // CANCEL AN ORDER
+            // call mo dito yung SendCancelOrder
+        }
+
+        res.status(200).json({
+            message : "Successfuly update order status"
+        })
+    }catch(e){
+        ehandler(e)
+    }
+})
+
 module.exports = router;

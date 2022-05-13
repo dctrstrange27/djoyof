@@ -6,7 +6,7 @@ function InTab({ tab,Icon,setCheckTab, hideTabs, checkTab, setOpenTab  }) {
             <div className=''>
                 <div onClick={(e) => { e.preventDefault(); setOpenTab(tab.id); setCheckTab(tab.id);}}
                     className={` 
-                              h-auto text-[.8em] px-[1rem] py-2 rounded-tl-[15px] 
+                              h-auto text-[.8em] px-[1rem] py-2 rounded-tl-[15px] cursor-pointer
                              ${checkTab === tab.id ? "  -translate-y-2 ease-in duration-300 h-10" : ""}
                              ${checkTab === tab.id  || hideTabs ? "bg-[#ff9853]" :"bg-[#21201F] "}
                              ${checkTab === tab.id  && hideTabs ? 'bg-[#3a3939] rounded-tl-lg rounded-lg px-0' : ''}
