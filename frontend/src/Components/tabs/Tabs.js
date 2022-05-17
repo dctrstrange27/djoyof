@@ -258,19 +258,8 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                                     <div className='mt-8'>
                                                         <p>Payment Method : {order.transactionType} </p>
                                                     </div>
-
-                                                    <button
-                                                        onClick={async () => {
-                                                            //const { _id, orderStatus  } = req.body
-                                                            const update = await API.post("/updateOrder", {
-                                                                _id: order._id,
-                                                                orderStatus: 0
-                                                            })
-                                                            setHadUpdate(!hadUpdate)
-                                                        }}
-                                                        className={`rounded-lg bg-rose-600 text-gray-100 flex justify-evenly items-center w-1/2 mx-auto mt-8 p-2`}>
-                                                        <p className="text-sm">Reorder Again</p>
-                                                    </button>
+                                                    
+                                                   
                                                 </div>)
                                         }
                                     </div>

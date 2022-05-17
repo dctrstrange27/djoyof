@@ -125,10 +125,18 @@ function SendConfirmOrders(userEmail, orderId, items, totalprice, userName, Date
                                 <div style="margin: 20px 8px 30px 8px">
                                     <p style="font-weight: 100;">Hello ${userName}</p>
                                     <p style="font-size: 11px; ">Thank you for your order and is estimated to arrive around ${DateNow.toLocaleString()} - ${DateArrived.toLocaleString()}</p>
-                                    <p style="font-size: 16px; ">Your order ID</p>
+                                    <p style="font-size: 16px; ">Total Price: </p>
+                                    
                                     <h6 style="letter-spacing: 4px; font-weight: bold; padding: 5px 25px ; ">
-                                        ${orderId}
+                                        ${totalprice} 
                                     </h6>
+                                    <p style="font-size: 16px; ">Your order ID</p>
+                                    
+                                    <h6 style="letter-spacing: 4px; font-weight: bold; padding: 5px 25px ; ">
+                                    ${orderId} 
+                                    </h6>
+
+
                                 </div>
                               </center>
                             </td>
@@ -166,7 +174,7 @@ function SendConfirmOrders(userEmail, orderId, items, totalprice, userName, Date
     });
 }
 
-function SendCancelOrder(userEmail, items, userName, DateNow) {
+function SendCancelOrder(userEmail, items, userName, DateNow,orderId) {
     var mail = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -178,9 +186,9 @@ function SendCancelOrder(userEmail, items, userName, DateNow) {
         from: "bakingdjoyof@gmail.com",
         to: userEmail,
         subject: "DJOYOFBAKING",
-        text: "Hello " + userName + "\n" + "Your Order has been cancelled shown below " + DateNow
-            + "\n" + items
-        /*
+        text: "Hello " + userName + "\n" + "Your Order has been cancelled \n Product ID: " + orderId
+            
+        /*m
           Hello CustomerName
             Hello CustomerName Your Order has been cancelled shown below. Date Canccelled Date.now()
             Item1
@@ -231,8 +239,8 @@ router.post("/placeOrder", async (req, res) => {
             $set : { cartItems: [] }
         })
 
-        SendConfirmOrders(email_address, placedOrder._id, orders.items, orders.total, orders.customer_name, new Date(), new Date() + 3)
-        res.status(200).json({ message: "Order Placed 👌" })
+        SendConfirmOrders(email_address, placedOrder._id, placedOrder.items, placedOrder.total, orders.customer_name, new Date(), new Date() + 3)
+        res.status(200).json({ message: "Order Placed 👌" ,orders:placedOrder,cart:orders})
     } catch (e) {
         ehandler(e)
     }
@@ -527,11 +535,10 @@ router.post("/updateOrder", async(req,res)=>{
         const updateOrderStatus = await Orders.updateOne( { _id }, { $set : {orderStatus} })
     
         if( orderStatus === 0 ){ // ORDER AGAIN
-            // call mo dito SendConfirmOrders
+            SendConfirmOrders()
         }else if( orderStatus === -1 ){ // CANCEL AN ORDER
-            // call mo dito yung SendCancelOrder
+            
         }
-
         res.status(200).json({
             message : "Successfuly update order status"
         })
