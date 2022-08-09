@@ -3,6 +3,7 @@ import Home from "../src/Components/Home/Home";
 import Login from "../src/Components/Login/Login";
 import About from "./Components/About/About";
 import Signup from "./Components/Login/Signup";
+import DarkMode from "./Components/DarkMode/DarkMode";
 import NotFound from "./Components/error/NotFound";
 import Service from "./Components/Service/Service";
 import Contact from "./Components/ContactUs/Contact";
@@ -48,10 +49,11 @@ function SomeotherComponent() {
         cartItems.forEach((prod, idx) => {
             total += (prod.product_price * prod.product_qty)
         })
-
+        console.log(total)
         return total
+        
     }
-
+    
     const updateSetShow = () => {
         setShow(false)
     };
@@ -165,7 +167,7 @@ function SomeotherComponent() {
             const response = await API.get("/getAllProducts");
             setProduct(response.data.products);
         } catch (e) {
-            console.log(e);
+          
         }
     };
 
@@ -187,7 +189,7 @@ function SomeotherComponent() {
             loadUserData()
             console.log(response.data)
         } catch (e) {
-            console.log(e)
+           
         }
     }
 
@@ -210,7 +212,7 @@ function SomeotherComponent() {
 
     return (
         <>
-            <div className="bg-[#18181d] overflow-hidden ">
+            <div className="dark:bg-[#18181d] duration-500 bg-P_bg overflow-hidden invert-0">
 
                 <Routes>
                     <Route path="/" element={
@@ -267,6 +269,7 @@ function SomeotherComponent() {
                     </Route>
                     <Route path="Login" element={<Login />} />
                     <Route path="Signup" element={<Signup />} />
+                    <Route path="DarkMode" element={<DarkMode />} />
                 </Routes>
 
                 <Outlet />

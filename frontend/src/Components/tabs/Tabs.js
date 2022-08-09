@@ -6,8 +6,9 @@ import { BsFillSuitHeartFill } from "react-icons/bs"
 import { MdOutlineDownloadDone } from "react-icons/md"
 import { MdLocalShipping } from "react-icons/md"
 import { MdCancel } from "react-icons/md"
-
+import UseDarkMode from '../DarkMode/UseDarkMode';
 import { API, getUser } from '../../Utils';
+import { FaTrashAlt } from 'react-icons/fa';
 
 import InTab from './InTab';
 const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain }) => {
@@ -22,6 +23,9 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
 
     const [hadUpdate, setHadUpdate] = useState(false)
 
+    const [colorTheme, setTheme] = UseDarkMode()
+
+
     const handleResize = () => {
         setWinWidth(window.innerWidth)
         winWidth <= 768 ? setHideTabs(true) : setHideTabs(false)
@@ -34,6 +38,12 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
         }
     })
 
+    const deleteCancelOrder =(id)=>{
+        setCancelled(cancelled.filter((x) => x.id !== id  ))
+        console.log(id)
+      
+    }
+ 
     const loadData = async () => {
         try {
             const res = await API.post("/getMyOrders", {
@@ -108,7 +118,7 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                 <div className=' w-full '>
                     <div className={` 
                                 ${hideTabs && 'justify-evenly py-5'}
-                                flex w-full lg:px-3 translate-y-2 md:mt-5 border-[1px 
+                                flex w-full lg:px-0 z-0 translate-y-3 md:mt-5 border-[1px
                                 `}>
                         {
                             Tabs.map((tab, index) => (
@@ -125,11 +135,12 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                         }
                     </div>
                     <div
-                        className="font-pop z-0 w-full shadow-lg shadow-[#00000069]  border-green-500 border-[2px rounded-2xl bg-center bg-auto text-white bg-no-repeat bg-[#141517] h-auto"
-                        style={{ backgroundImage: `${openTab === 1 && "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, }}
+                        className="font-pop z-[999] w-full shadow-lg shadow-Light_shadow dark:shadow-lg duration-500 dark:shadow-[#00000069] bg-Tabs_bg border-green-500  border-[2px
+                                    rounded-2xl rounded-tl-none bg-center bg-auto text-white bg-no-repeat dark:bg-[#141517] h-auto]"
+                        style={{ backgroundImage: `${colorTheme == 'dark' ? "url('https://cdn.discordapp.com/attachments/755283323110293547/994837890574073907/Light_first_sec_bg.png')" : "url('https://cdn.discordapp.com/attachments/755283323110293547/961084398848057374/bg.png')"}`, backdropFilter: "blur(100px)" }}
                     >
                         <div
-                            className="px-4 border-[1px  py-5 pb-[8vh] h-[40vh] overflow-scroll flex-auto scrollbar-none md:max-h-[50vh]  md:rounded-lg ">
+                            className="px-4 border-[1px z-[999]  bg-[#ffffff58] dark:bg-[#ffffff00]  py-5 pb-[8vh] h-[40vh] overflow-scroll flex-auto scrollbar-none md:max-h-[50vh]  md:rounded-lg ">
                             <div className="text-sm">
                                 {/** Products Container */}
                                 <div
@@ -142,7 +153,7 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                             key={product._id}
                                             onAddCart={onAdd}
                                             product={product}
-                                            onAddFav={addFavorite}
+                                            onAfddFav={addFavorite}
                                             onRemoveFav={removeFavorite}
                                             liked={isMyFavorite(product._id)}
                                             clickableAgain={clickableAgain}
@@ -163,7 +174,7 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                     <div className='grid grid-cols-2 gap-1'>
                                         {
                                             completed.map((order, idx) =>
-                                                <div key={idx} className='w-full rounded-xl border-4 p-5 border-stone-400'>
+                                                <div key={idx} className='w-full bg-[#ffffff64]  dark:text-[#fff]  rounded-xl shadow-lg shadow-Light_shadow p-5'>
                                                     <p className='text-right mb-4'>Order #{order._id}</p>
                                                     <hr className='border-gray-700' />
                                                     <div>
@@ -182,6 +193,7 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                                     </div>
                                                     <div className='mt-8'>
                                                         <p>Payment Method : {order.transactionType} </p>
+                                                    
                                                     </div>
                                                 </div>)
                                         }
@@ -191,10 +203,11 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                     className={openTab === 4 ? "block" : "hidden"}
                                     id="link3"
                                 >
+                        {/* To Receive Tab       */}
                                     <div className='grid grid-cols-2 gap-1'>
                                         {
                                             toReceive.map((order, idx) =>
-                                                <div key={idx} className='relative w-full rounded-xl border-4 p-5 border-stone-400'>
+                                                <div key={idx} className='relative bg-[#ffffff64]  dark:text-[#fff] w-full rounded-xl shadow-lg shadow-Light_shadow p-5'>
                                                     <p className='text-right mb-4'>Order #{order._id}</p>
                                                     <hr className='border-gray-700' />
                                                     <div>
@@ -214,9 +227,7 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                                     <div className='mt-8'>
                                                         <p>Payment Method : {order.transactionType} </p>
                                                     </div>
-
-                                                    <button
-                                                        onClick={async () => {
+                                                    <button  onClick={async () => {
                                                             //const { _id, orderStatus  } = req.body
                                                             const update = await API.post("/updateOrder", {
                                                                 _id: order._id,
@@ -224,9 +235,11 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                                             })
                                                             setHadUpdate(!hadUpdate)
                                                         }}
-                                                        className={`rounded-lg bg-rose-600 text-gray-100 flex justify-evenly items-center w-1/2 mx-auto mt-8 p-2`}>
-                                                        <p className="text-sm">Cancel Order</p>
-                                                    </button>
+                                                    
+                                                            className="w-full bg-light_del_btn dark:bg-dark_del_btn p-1 justify-center items-center flex md:p-2 rounded-md">
+                                                            <p className=' text-[#ececec] mr-2  hover:text-[#Fff] '> Cancel Order </p>
+                                                            <FaTrashAlt className="text-neutral-50 text-[#fff]" /> 
+                                                        </button>
                                                 </div>)
                                         }
                                     </div>
@@ -235,10 +248,10 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                     className={openTab === 5 ? "block" : "hidden"}
                                     id="link3"
                                 >
-                                    <div className='grid grid-cols-2 gap-1'>
+                                    <div className='grid grid-cols-2 gap-2'>
                                         {
                                             cancelled.map((order, idx) =>
-                                                <div key={idx} className='w-full rounded-xl border-4 p-5 border-stone-400'>
+                                                <div key={idx} className='w-full bg-[#ffffff9c] dark:text-[#fff] rounded-xl shadow-lg shadow-Light_shadow p-5'>
                                                     <p className='text-right mb-4'>Order #{order._id}</p>
                                                     <hr className='border-gray-700' />
                                                     <div>
@@ -255,11 +268,19 @@ const Tabs = ({ openTab, setOpenTab, products, onAdd, addFavorite, removeFavorit
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className='mt-8'>
+                                                    <div className='mt-8 flex justify-between items-center  '>
                                                         <p>Payment Method : {order.transactionType} </p>
+                                                        <button
+                                                            onClick={()=>{
+                                                                    deleteCancelOrder(order._id)
+                                                            }} 
+                                                            className=" bg-light_del_btn dark:bg-dark_del_btn p-1 justify-center items-center flex md:p-2 rounded-md">
+                                                            <p className=' text-[#ececec] mr-2  hover:text-[#Fff] hover:font-semibold '> Delete </p>
+                                                            <FaTrashAlt className="text-neutral-50 text-[#fff]" /> 
+                                                        </button>
                                                     </div>
-                                                    
-                                                   
+
+
                                                 </div>)
                                         }
                                     </div>

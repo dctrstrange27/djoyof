@@ -19,13 +19,10 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2, setC
 
     return (
         <>
-            <div key={cartItems} className="parent relative h-auto border-[1px border-pink-500 w-full flex flex-col justify-center md:flex-row xl:py-10 px-0 py-0 items-center">
+            <div key={cartItems} className="parent relative h-auto border-[1px border-pink-500 w-full flex flex-col justify-center md:flex-row  px-0 py-0 items-center">
                 <div
-                    className="left w-full h-full bg-gren-500 px-5 py-4 flex flex-col md:gap-5 gap-3 text-sm font-nsans">
-                    <img
-                        src={require("../../img/checkout_tag.png")}
-                        className="h-[33px] w-[144px]"
-                    ></img>
+                    className="left w-full h-full bg-gren-500 px-5 py-4 flex flex-col md:gap-5 gap-3 dark:text-[#fff] text-sm font-nsans">
+                  
                     <h1 className="font-bold tracking-wide">PAYMENT METHOD</h1>
                     <div className="COD flex justify-between">
                         <p>Cash on Delivery</p>
@@ -84,17 +81,17 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2, setC
                         <p className="text-sm">Place Order</p>
                     </button>
                 </div>
-                <div className="px-5 py-4 w-full h-full border-[1px bg-gra-500">
+                <div className="px-5 py-4 w-full h-full border-[1px bg-gra-500 dark:text-[#fff]">
                     <div className="flex justify-between border-b-[1px py-2">
                         <h1>Current Items</h1>
-                        <BsBoxSeam className="h-6 w-7 text-[#088074]"></BsBoxSeam>
+                        <BsBoxSeam className="h-6 w-7 hover:text-[#19978a] text-[#088074]"></BsBoxSeam>
                     </div>
                     <div className="flex items-center justify-between border-[1px">
 
                     </div>
                     {newCartItems.map((x, index) => (
-                        <div className="border-[1px mt-2 border-green-400">
-                            <div className='relative parent grid grid-cols-7 bg-[#0f0f11d2]  gap-4 border-[1px py-2 items-center'>
+                        <div key={index} className="border-[1px mt-2 border-green-400">
+                            <div className='relative parent grid grid-cols-7 bg-[#ffffff9c] dark:bg-[#0f0f11d2] gap-4 border-[1px py-2 items-center'>
                                 <div className='relative border-[1px h-[5vh] max-w-[5rem] w-[3rem]'>
                                     <img src={x.image} className="absolute  border-[1px  inset-y-1 inset-x-0"></img>
                                 </div>
@@ -108,7 +105,7 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2, setC
                                 <div className='relative  border-[1px h-full w-full'>
                                     <div onClick={() => deleteNewCartItems(x)} className='absolute flex inset-y-0 inset-x-2 border-[1px justify-center max-w-[3rem] min-w-[2.2rem] items-center'>
                                         <div className='rounded px-2 py-2.5 overflow-hidden  bg-[#CD434C] relative hover:bg-gradient-to-r hover:from-[#CD434C] hover:to-[#f36b74] hover:ring-2 hover:ring-offset-0 hover:ring-[#CD434C] transition-all ease-out duration-300'>
-                                            <RiDeleteBin6Line className='w-4 h-4 text-white'></RiDeleteBin6Line>
+                                            <RiDeleteBin6Line className='w-4 h-4 text-[#fff] dark:[#]'></RiDeleteBin6Line>
                                         </div>
 
                                     </div>
@@ -119,7 +116,6 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2, setC
                     <div className="flex justify-center border-b-[1px py-3">
                         <button onClick={() => {
                             deleteOrder()
-                            console.log(newCartItems)
                         }} className="border-[1px rounded-lg bg-[#b8505c] flex justify-evenly items-center w-52 p-2">
                             <p className="text-sm">Delete order</p>
                             <MdDeleteSweep className="h-6 w-7 text-[#e8ecec]"></MdDeleteSweep>

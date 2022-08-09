@@ -4,16 +4,14 @@ import Cart from '../cart/Cart';
 import { useEffect } from 'react';
 import { useState } from 'react';
 const Content = ({proof,onPlaceOrder,setShow,proofView,check,setCheck,check2,setCheck2,deleteNewCartItems,deleteOrder, getAllCarts,newCartItems,setOnConfirm, onRemoveAll, openTab, products, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain, cartItems,showProofModal,onRemove,onDecrease,onIncrease }) => {
-
-  return (
+  
+return (
     <>
-      <div className=" border-pink-700 w-full flex flex-col border-[1px px-5  justify-center 
+      <div className=" border-pink-700 flex flex-col px-5  
                         items-center min-h-screen overflow-x-hidden scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-black
-                           md:w-[700px] md:max-w-[700px]
+                           min-w-[500px] 
                            lg:w-[860px] lg:max-w-[900px]
-                           xl:w-[1100px] xl:max-w-[1200px]
-                      
-                      ">
+                           xl:w-[1100px] xl:max-w-[1200px] ">
         <Tabs
           openTab={openTab}
           products={products}
@@ -48,11 +46,8 @@ const Content = ({proof,onPlaceOrder,setShow,proofView,check,setCheck,check2,set
           setShow={setShow}
           >
         </Cart>
-       
       </div>
-
     </>
-
   )
 }
 

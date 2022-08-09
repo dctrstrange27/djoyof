@@ -29,40 +29,32 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
   return (
     <>
       <div className="flex w-full border-[1px mt-4 pb-20 flex-wrap justify-center">
-        <div className="flex flex-col border-[1px border-red-500 px-2 w-full ">
+        <div className="flex flex-col border-[1px border-red-500 px-2 w-full text-Light_normal ">
           {/* tab  */}
-          <ul className="flex mb-0 list-none overflow-hidden overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
+          <ul className="flex mb-0 text-[15px] list-none overflow-hidden overflow-y-hidden flex-wrap space-x-5 pt-3 pb-4 flex-row"
             role="tablist">
-            <li className="w-[90px] -mb-px mr-2 text-sm  last:mr-0 text-center items-center flex max-h-10 rounded-xl bg-[#24262B]">
-              <a
-                className={
-                  "duration-200 font-bold  tracking-[0.1em] font-NunitoSans  px-3 py-3 " +
-                  (checkTab === 1
-                    ? "text-[#F29A4B]"
-                    : "text-white -600 bg-transparent")
-                }
-                onClick={(e) => {
+            <li onClick={(e) => {
                   e.preventDefault();
                   setCheckTab(1);
-                }}
+                  console.log(checkTab)
+                }} 
                 data-toggle="tab"
                 href="#link2"
-                role="tablist"
+                role="tablist" 
+                className={"w-[90px] border-[1px -mb-px mr-2 last:mr-0 text-center items-center ease-linear duration-[1ms] dark:hover:text-[#fb9a46] flex max-h-10 rounded-xl dark:text-[#F29A4B] text-[#F29A4B]" + (checkTab === 1 ? "dark:text-[#F29A4B] text-[#F29A4B]" : " dark:text-[#d2d2d2] text-Light_normal dark: -600 bg-transparent")}>
+              <a className = "duration-200 font-bold tracking-[0.1em] font-NunitoSans  px-3 py-3"
+              
               >
                 Cart
               </a>
               <div className="flex justify-center items-center ">
-                <ImCart className="w-4 h-4 text-[#F29A4B]" />
+                <ImCart className="w-4 h-4" />
               </div>
             </li>
-            <li className="-mb-px mr-2 last:mr-0 text-center text-sm items-center flex max-h-10 rounded-xl bg-[#24262B]">
+            <li className={"-mb-px mr-2 last:mr-0 text-center items-center  ease-linear  duration-[1ms] dark:hover:text-[#fb9a46] flex max-h-10 rounded-xl bg" + (checkTab === 2 ? "dark:text-[#F29A4B] text-[#F29A4B]" : " dark:text-[#d2d2d2] text-Light_normal dark: -600 bg-transparent")}>
               <a
                 className={
-                  " duration-200 font-bold  tracking-[0.1em] font-NunitoSans  px-3 py-3 " +
-                  (checkTab === 2
-                    ? "text-[#F29A4B]"
-                    : "text-white -600 bg-transparent")
-                }
+                  " duration-200 font-bold  tracking-[0.1em] font-NunitoSans px-3 py-3 "}
                 onClick={(e) => {
                   e.preventDefault();
                   setCheckTab(2);
@@ -74,15 +66,15 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
                 Checkout
               </a>
               <div className="flex justify-center items-center ">
-                <GoCheck className="w-6 h-6 text-[#F29A4B]" />
+                <GoCheck className="w-6 h-6" />
               </div>
             </li>
           </ul>
-          <div className="bg-[#141517] border-[1px  shadow-lg shadow-[#00000069] border-[1px rounded-2xl md:rounded-2xl md:px-0 font-pop flex justify-center items-center text-white">
+          <div className=" bg-Tabs_bg border-[1px dark:bg-[#141517]   shadow-lg shadow-[#00000069] border-[1px rounded-2xl md:rounded-2xl md:px-0 font-pop flex justify-center items-center text-white">
             <div className="rounded-md md:px-5 py-3 flex-auto border-[1px">
               <div className={checkTab === 1 ? "block" : "hidden"} id="link1">
                 <div className="flex justify-between items-center border-b-[0.1rem] my-8">
-                  <p className="text-[15px] md:text-sm font-semibold py-2">Current Order</p>
+                  <p className="text-[15px] md:text-sm font-semibold dark:text-[#fff] py-2">Current Order</p>
                   <button
                     onClick={() => {
                       // kunwari lang to di pa final HAHA
@@ -103,8 +95,8 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
                 ) : (
                   <>
                     {/* fields */}
-                    <div className="cart text-xs font-nsans">
-                      <div className=" md:text-sm py-2 grid grid-cols-8 w-full justify-items-center text-center items-center">
+                    <div className="cart text-xs font-pop dark:text-[#fff]">
+                      <div className=" md:text-sm font-bold py-2 grid grid-cols-8 w-full  justify-items-center text-center items-center">
                         <div className="Items">Items</div>
                         <div className="name col-span-2">Name</div>
                         <div className="review">review</div>
@@ -114,12 +106,12 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
                       </div>
                       <div className="items">
                         {cartItems.map((i, idx) => (
-                          <div key={idx} className="grid mt-2 bg-[#101010] grid-cols-8 text-xs text-center items-center justify-items-center">
-                            <img src={i.image} className="bg-[#202020] h-auto min-w-10 w-12 max-w-12"></img>
+                          <div key={idx} className="grid mt-2 bg-product_lbl_bg dark:bg-[#0a0a0a62] font-light text-[#000] font-nsans dark:text-[#fff] grid-cols-8 text-sm text-center items-center justify-items-center">
+                            <img src={i.image} className=" bg-product_bg h-auto min-w-10 w-12 max-w-12"></img>
                             <h3 className="col-span-2">{i.product_name}</h3>
                             <p>review</p>
                             <div className="quantity flex col-span-2 gap-4">
-                              <button onClick={() => onDecrease(i)}>
+                              <button onClick={() => onDecrease(i)}>  
                                 <BiMinus className="col-span-1  h-auto w-3  md:h-6 md:w-[1rem] text-orange-600" />
                               </button>
                               <p>{i.product_qty}</p>
@@ -127,8 +119,8 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
                                 <IoAddSharp className="col-span-1 h-auto w-3 md:h-6 md:w-[1rem] text-orange-600" />
                               </button>
                             </div>
-                            <button onClick={() => onRemove(i)} className="bg-[#C90915] p-1  md:p-2 rounded-md">
-                              <FaTrashAlt className="text-neutral-50" />
+                            <button onClick={() => onRemove(i)} className="bg-light_del_btn dark:bg-dark_del_btn p-1  md:p-2 rounded-md">
+                              <FaTrashAlt className="text-neutral-50 text-[#fff]" />
                             </button>
                             <p>${i.product_price}</p>
                           </div>
@@ -159,8 +151,12 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
               </div>
               <div className={`relative border-[1px  ${checkTab === 2 ? "block" : "hidden"} `} id="link1">
 
-                <div className="w-full h-7 border-[1px flex justify-end">
-                  <BsFillBackspaceFill onClick={() => setCheckTab(1)} className=" h-7 w-7 right-2 inset-y-3  text-[#088074]"></BsFillBackspaceFill >
+                <div className="w-full h-7 border-[1px flex justify-between">
+                <img
+                        src={require("../../img/checkout_tag.png")}
+                        className="h-[33px] w-[144px]"
+                    ></img>
+                  <BsFillBackspaceFill onClick={() => setCheckTab(1)} className=" h-7 w-7 right-2 inset-y-3 hover:text-[#19978a] hover:h-8 hover-w-8 hover:-translate-y-1  text-[#088074]"></BsFillBackspaceFill >
                 </div>
 
                 <Checkout 

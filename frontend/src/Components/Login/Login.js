@@ -46,7 +46,7 @@ export const Login = () => {
   const [openTab, setOpenTab] = React.useState(1)
 
 
-  const [values, setValues] = React.useState({password: "", showPassword: false,});
+  const [values, setValues] = React.useState({ password: "", showPassword: false, });
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -62,62 +62,57 @@ export const Login = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center border-[3px border-pink-500 overflow-auto h-screen
+      <div className="flex justify-center items-center border-[3px bg-[#19191e] dark:bg-P_bg  border-pink-500 overflow-auto h-screen
                     
                      ">
         {/* first box */}
-        <div
-          className="  flex border-[0px px-4 lg:border-[1px] border-[#ed852b9a]  md:rounded-[4.5rem] border-[1px
+        <div className="  flex border-[1px lg:border-[.5px] border-[#ed852b75]  md:rounded-[4.5rem] border-[1px
                         bg-center bg-auto bg-no-repeat lg:bg-[#101010d6] flex-1 max-w-[90rem] mx-auto h-[47rem] max-h-[47rem] min-h-[30rem]
                         justify-center items-center lg:bg-none
                         relative
-                        "
-        >
+                        ">
           <img className="absolute invisible lg:visible inset-y-0 h-[46.5rem] border-[1px"
             src={require("../../img/loginbg.png")} >
           </img>
-          <img className="absolute invisible lg:visible left-20 "
+          <img className="absolute invisible lg:visible left-20"
             src={require("../../img/text.png")} >
           </img>
           {/* center sec */}
-          <div className="relative flex flex-1 h-[50vh max-w-lg flex-col w-full px-10 shadow-2xl shadow-[#00000069] bg-[#0f0f11] bg-opacity-[80%]  rounded-[3rem] border-[#ed852bd5] border-y-[.5px]
-                          
-            ">
-            <img alt="" src={require("../../img/logo.png")} className="h-auto w-[90px] md:max-w-[30%] self-center z-10 py-3 lg:w-[120px] lg:h-auto"></img>
-            <h1 className="w-fit self-center py-2 font-bold text-[#CBCBCB] text-[1rem]  tracking-[0.25rem]  z-10 lg:py-0">
-              SIGN IN TO DJOYOF
-            </h1>
-            <form className="flex flex-col border-[1px font-nsans text-sm lg:text-[0.8rem] border-green-500">
-              <div className="mb-4 py-2 z-10">
-                <label className="block mb-1  text-[#CBCBCB]  tracking-[0.1rem] z-10" for="email">Email</label>
+          <div className="relative flex flex-1 h-[50vh max-w-lg flex-col w-full  sm:px-5 shadow-2xl shadow-[#00000069] bg-[#0f0f11] bg-opacity-[80%]  
+                          rounded-[3rem] border-[#ed852bd5] md:border-y-[.5px] ">
+            <div className="border-t-[1px] sm:border-t-[0px] flex flex-col rounded-t-[3.5rem]">
+              <img alt="" src={require("../../img/logo.png")} className="h-auto w-[90px] md:max-w-[30%] self-center z-10 py-3 lg:w-[120px] lg:h-auto"></img>
+              <h1 className="w-fit self-center py-2 font-bold text-[#CBCBCB] text-sm md:text-[1rem]  tracking-[0.25rem]  z-10 lg:py-0">SIGN IN TO DJOYOF</h1>
+            </div>
+            {/* INPUT */}
+            <form className="flex flex-col border-[1px px-6 font-nsans text-[0.8rem] border-green-500">
+              <div className="py-2">
+                <label className="sm:block hidden text-[#CBCBCB] z-10" for="email">Email</label>
                 <input
+                  placeholder="Phone or Email"
                   id="email"
                   value={email_address}
                   onChange={(e) => setEmail(e.target.value)}
                   type="text"
                   name="email"
-                  className="text-[#CBCBCB]  py-2 px-3 w-full h-[37px] bg-[#1A1B1E] border-[#1A1B1E] focus:outline-none border  border-b-[#F29A4B] border-opacity-50"
-                />
+                  className="text-[#CBCBCB]  py-2 px-3 w-full h-[37px] bg-transparent sm:bg-[#1A1B1E] border-[#1A1B1E] focus:outline-none border border-b-[#F29A4B] border-opacity-50" />
+                 
               </div>
-              <div className="mb-4 z-10">
-                <label
-                  className="block mb-1  text-[#CBCBCB] tracking-[0.1rem]"
-                  for="password"
-                >
-                  Password
-                </label>
-              
+              <div className="">
+                <label className="sm:block hidden first-line:text-[#CBCBCB] tracking-[0.1rem]" for="password"> Password</label>
               </div>
-              
+
               <Input
-                inputProps={{ style: { color: "white", fontWeight:"normal", fontSize: "14px", fontFamily:"poppins", letterSpacing:"1.2px"} }}
-                className={`text-[white] py-2 px-3 w-full h-[37px] font-sm bg-[#1A1B1E] border-[#1A1B1E]  border  border-b-[#F29A4B] border-opacity-50 `}
+                placeholder="Password"
+                inputProps={{ style: { color: "#CBCBCB", fontWeight: "normal", fontSize: "12px", fontFamily: "poppins", letterSpacing: "1.2px" } }}
+                className={`py-2 px-3 w-full h-[37px] font-sm bg-transparent mt-5 sm:bg-[#1A1B1E] border-[#1A1B1E] border border-b-[#F29A4B] border-opacity-50 `}
                 type={values.showPassword ? "text" : "password"}
-             
-                onChange={(e) =>{
+
+                onChange={(e) => {
                   handlePasswordChange("password")
-                  setPassword(e.target.value)}
-                  
+                  setPassword(e.target.value)
+                }
+
                 }
                 value={password}
                 endAdornment={
@@ -125,15 +120,15 @@ export const Login = () => {
                     <IconButton
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
-                     
+
                     >
-                      {values.showPassword ? <Visibility className='h-4 w-4 text-white'  /> : <VisibilityOff className='h-4 w-4 text-[#868686] ' />}
+                      {values.showPassword ? <Visibility className='h-4 w-4 text-white' /> : <VisibilityOff className='h-4 w-4 text-[#868686] ' />}
                     </IconButton>
                   </InputAdornment>
-                }  
+                }
               />
 
-             
+
               <div className="mt-6 flex items-center justify-between">
                 <div className="flex items-center z-10">
                   <input
@@ -145,15 +140,15 @@ export const Login = () => {
                   />
                   <label
                     for="remember_me"
-                    className="ml-2 block text-sm lg:text-[0.90rem] leading-5 text-[#a3a3a3]"
+      className="ml-2 block text-sm font-bold lg:text-[0.90rem] leading-5 text-[#a3a3a3]"
                   >
                     {" "}
-                    Remember me{" "}
+                    Remember Me{" "}
                   </label>
                 </div>
-                <a href="/" className="text-sm lg:text-[0.90rem]  text-[#1CADFF] z-10">
+                <a href="/" className="text-sm lg:text-[0.90rem] font-bold  text-[#1CADFF] z-10">
                   {" "}
-                  Forgot your password?{" "}
+                  Forgot Password?{" "}
                 </a>
               </div>
               <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
@@ -169,15 +164,14 @@ export const Login = () => {
                     signIn()
                   }}
                   className={`${email_address.length === 0 && password.length === 0 && 'disabled'} 
-                     text-sm font-['Nunito Sans'] tracking-[0.1rem] w-30 px-4 py-1  bg-[#cc9361] self-center rounded-md font-semibold capitalize text-white hover:bg-[#F29A4B] focus:outline-none  transition`}
-                >
-                  Sign In
+                          text-white bg-[#d0722a] hover:bg-[#f98934] focus:ring-4 focus:outline-none focus:ring-blue-300 w-full
+                       font-bold rounded-sm text-sm text-[#fff] px-5 py-2 justify-center inline-flex items-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-800`}>
+                  Log In
                 </button>
               </div>
               <div className="text-center z-10 mt-1 pb-7">
                 <Link exact to="/Signup"
-                  className=" underline font-['Nunito Sans']  text-sm lg:text-[0.90rem]  text-[#CBCBCB]"
-                >
+                  className=" underline font-['Nunito Sans']  text-sm lg:text-[0.90rem]  text-[#CBCBCB]">
                   Sign up for an account
                 </Link>
               </div>

@@ -4,6 +4,7 @@ module.exports = {
     './pages/**/*.{html,js}',
 
   ],
+  darkMode: 'class',
   theme: {
     screens: {
       "sss": '360px',
@@ -15,6 +16,21 @@ module.exports = {
       '2xl': '1536px',
       '3xl': '1920px',
     },
+    colors:{
+        P_bg:"#f7f9fb",
+        Light_normal:'#383838',
+        Light_shadow:'#2626262c',
+        Dark_nav_bg:"#141518d3",
+        Light_nav_bg:"#e9e7e7",
+        Tabs_bg:"#d4d2d2",
+        Aside_icon:"#8a340b",
+        product_bg:"#f2f0eee6",
+        product_lbl_bg:"#fffafad3",
+        dark_del_btn:"#C90915",
+        light_del_btn:"#de5a63",
+        
+    },
+
     extend: {
         fontFamily:{
           dm_mono:  "'DM Mono', monospace",
