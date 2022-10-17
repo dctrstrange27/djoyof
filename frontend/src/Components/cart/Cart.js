@@ -70,7 +70,7 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
               </div>
             </li>
           </ul>
-          <div className=" bg-Tabs_bg border-[1px dark:bg-[#141517]   shadow-lg shadow-[#00000069] border-[1px rounded-2xl md:rounded-2xl md:px-0 font-pop flex justify-center items-center text-white">
+          <div className=" bg-Tabs_bg border-[1px dark:bg-[#242526e0]   shadow-lg shadow-[#00000069] border-[1px rounded-2xl md:rounded-2xl md:px-0 font-pop flex justify-center items-center text-white">
             <div className="rounded-md md:px-5 py-3 flex-auto border-[1px">
               <div className={checkTab === 1 ? "block" : "hidden"} id="link1">
                 <div className="flex justify-between items-center border-b-[0.1rem] my-8">
@@ -178,6 +178,7 @@ export const Cart = ({proof,onPlaceOrder,proofView,check,setCheck,check2,setChec
                     onRemove={onRemove} 
                     products={products} 
                     showProofModal={showProofModal}
+                    setCheckTab={setCheckTab}
                     ></Checkout>
 
               </div>

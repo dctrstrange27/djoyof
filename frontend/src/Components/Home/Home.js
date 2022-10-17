@@ -31,7 +31,7 @@ const [hide,setHide] = useState(false)
                        mx-auto border-green-500 justify-center flex
                       scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-black
                       ">
-          <div className="border-b-[1px border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-xl shadow-lg shadow-Light_shadow dark:shadow-[#00000054]   dark:bg-Dark_nav_bg fixed w-full z-30">
+          <div className="border-b-[1px border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-xl shadow-lg shadow-Light_shadow dark:shadow-[#00000054]   dark:bg-two fixed w-full z-30">
             <Samp hide={hide} setHide={setHide} userData={userData} togs={togs} setTogs={setTogs} />
           </div>
           <div className="flex absolute mt-16">

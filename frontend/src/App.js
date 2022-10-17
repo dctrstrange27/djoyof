@@ -2,7 +2,7 @@ import React from "react";
 import Home from "../src/Components/Home/Home";
 import Login from "../src/Components/Login/Login";
 import About from "./Components/About/About";
-import Signup from "./Components/Login/Signup";
+import Signup from "./Components/Signup/Signup";
 import DarkMode from "./Components/DarkMode/DarkMode";
 import NotFound from "./Components/error/NotFound";
 import Service from "./Components/Service/Service";
@@ -12,12 +12,14 @@ import Profile from "./Components/profile_setting/Profile";
 import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
 import Main from "./Components/Home/Main"
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react"
-import { v4 as uuid } from 'uuid';
-import { amIloggedIn, API, saveUser, signOut } from "../src/Utils";
+import { amIloggedIn, API, saveUser } from "../src/Utils";
+import { AiOutlineConsoleSql } from "react-icons/ai";
+import Signupconfig from "./Components/Signup/Signupconfig";
+import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
 
 
 function App() {
@@ -27,31 +29,35 @@ function App() {
         </Router>
     )
 }
-function SomeotherComponent() {
+const SomeotherComponent=()=> {
     let navigate = useNavigate();
     const [show, setShow] = useState(false);
-    const [userData, setUserData] = useState();
-    const [openTab, setOpenTab] = React.useState(1);
-    const [products, setProduct] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
-    const [favorites, setFavorites] = useState([]);
-    const [toggleNav, setToggleNav] = useState(false);
     const [clickableAgain, setClickableAgain] = useState(true);
     const [proof, setProofFile] = useState();
     const [proofView, setProofView] = useState();
-    const [currentItems, setCurrentITems] = useState();
     const [togs, setTogs] = useState(false);
     const [check, setCheck] = useState(false)
     const [check2, setCheck2] = useState(false)
+    const [showContinue, setShowCon] = useState(false)
+    //Data related
+    const [openTab, setOpenTab] = React.useState(1);
+    const [userData, setUserData] = useState();
+    const [userName, setUserName] = useState()
 
-    const computeCartTotal = ( cartItems ) => {
+    const [newCartItems, setNewCartItems] = useState([])
+    const [products, setProduct] = useState([])
+    
+    const [cartItems, setCartItems] = useState([])
+    const [favorites, setFavorites] = useState([])
+    const [cancelOrder, setCancelOrder] =useState([])
+  
+    const computeCartTotal = (cartItems) => {
         let total = 0.0
         cartItems.forEach((prod, idx) => {
             total += (prod.product_price * prod.product_qty)
         })
         console.log(total)
         return total
-        
     }
     
     const updateSetShow = () => {
@@ -73,10 +79,26 @@ function SomeotherComponent() {
         }
     };
 
-    const [onConfirm, setOnConfirm] = useState(1)
-    const [newCartItems, setNewCartItems] = useState([])
-    const [newOrders, setNewOrders] = useState([])
-    const unique_id = uuid();
+    const placeOrder = async () => {
+        try {
+            const response = await API.post("/placeOrder", {
+                email_address: userData.email_address,
+                orders: {
+                    customer_id: userData._id,
+                    customer_name: userData.customer_name,
+                    customer_address: userData.customer_address,
+                    contact_no: userData.contact_no,
+                    items: newCartItems,
+                    total: computeCartTotal(newCartItems),
+                    transactionType: check ? "COD" : "GCash"
+                }
+            })
+            loadUserData()
+            console.log(response.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const getAllCarts = () => {
         setNewCartItems([...cartItems])
@@ -121,6 +143,7 @@ function SomeotherComponent() {
 
         setCartItems(copy);
     };
+
     const isMyFavorite = (id) => {
         const arr = favorites.filter((prod) => id === prod);
         return arr.length > 0;
@@ -138,6 +161,7 @@ function SomeotherComponent() {
         setClickableAgain(true);
     };
 
+
     const removeFavorite = async (product_id) => {
         setClickableAgain(false);
         const favs = await API.post("/updateMyFavorites", {
@@ -149,71 +173,59 @@ function SomeotherComponent() {
         loadUserData();
         setClickableAgain(true);
     };
-
+    
     const loadUserData = async () => {
         const userData = amIloggedIn(navigate);
         const userNewInfo = await API.post("/getUserDetails", {
             _id: userData._id,
         });
+        localStorage.getItem("userData", JSON.stringify(userNewInfo))
+
         saveUser(userNewInfo);
         setUserData(userNewInfo.data.userData);
         setCartItems(userNewInfo.data.userData.cartItems);
         setNewCartItems(userNewInfo.data.userData.cartItems);
         setFavorites(userNewInfo.data.userData.favorites);
+        //setCancelOrder(userNewInfo.data.userData.cancelOrder)
     };
-
+   
+    //fetching Data from API 
     const loadProducts = async () => {
         try {
             const response = await API.get("/getAllProducts");
             setProduct(response.data.products);
-        } catch (e) {
           
+        } catch (e) {
+            console.log(e)
         }
     };
 
-    const placeOrder = async() => {
-        try {
-            
-            const response = await API.post("/placeOrder", {
-                email_address : userData.email_address,
-                orders : {
-                    customer_id : userData._id,
-                    customer_name : userData.customer_name,
-                    customer_address : userData.customer_address,
-                    contact_no : userData.contact_no,
-                    items : newCartItems,
-                    total : computeCartTotal(newCartItems),
-                    transactionType : check? "COD" : "GCash"
-                }
-            })
-            loadUserData()
-            console.log(response.data)
-        } catch (e) {
-           
-        }
-    }
 
     useEffect(() => {
         const updateCart = async () => {
             if (!userData) return;
-            await API.post("/updateCart", { _id: userData._id, cartItems });
-            const userNewInfo = await API.post("/getUserDetails", {
-                _id: userData._id,
-            });
-            saveUser(userNewInfo);
+            await API.post("/updateCart", {
+                 _id: userData._id,
+                 cartItems
+                 });
+                 const userNewInfo = await API.post("/getUserDetails", {
+                    _id: userData._id,
+                });
+                saveUser(userNewInfo);
         };
+      
         updateCart();
     }, [cartItems]);
 
     useEffect(() => {
+        //  getAllUsers();
         loadUserData();
         loadProducts();
     }, [navigate]);
-
     return (
         <>
-            <div className="dark:bg-[#18181d] duration-500 bg-P_bg overflow-hidden invert-0">
-
+            <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
+           
                 <Routes>
                     <Route path="/" element={
                         <Home
@@ -242,7 +254,6 @@ function SomeotherComponent() {
                                 deleteOrder={deleteOrder}
                                 newCartItems={newCartItems}
                                 getAllCarts={getAllCarts}
-                                setOnConfirm={setOnConfirm}
                                 openTab={openTab}
                                 products={products}
                                 setOpenTab={setOpenTab}
@@ -261,14 +272,23 @@ function SomeotherComponent() {
                             />} />
                         <Route path="Service" element={<Service />} />
                         <Route path="Contact" element={<Contact />} />
-                        <Route path="Help" element={<Help />} />
+                        <Route path="Help" element={<Help />} />    
                         <Route path="Profile" element={<Profile />} />
                         <Route path="Settings" element={<Settings />} />
                         <Route path="Orders" element={<Orders />} />
                         <Route element={<NotFound />} />
                     </Route>
                     <Route path="Login" element={<Login />} />
-                    <Route path="Signup" element={<Signup />} />
+                    <Route path="recoverAccount" element={<ForgotConfig />} />
+                    <Route path="Signup" element={
+                        <Signupconfig
+                        userName={userName}
+                        setUserName={setUserName}
+                        userData={userData}
+                        showContinue={showContinue}
+                        setShowCon={setShowCon}
+                        />} />
+                     {/* <Route path="loading" element={<Loading />}  />  */}
                     <Route path="DarkMode" element={<DarkMode />} />
                 </Routes>
 

@@ -9,10 +9,14 @@ const userSchema = mongoose.Schema({
   profile_picture : { type: String, default : 'https://cdn.discordapp.com/attachments/955281529481883729/960149662831087626/morty.png'},
   cartItems: {type: [], default: []},
   orders : {type : [], default : []},
-  favorites : {type : [], default : []} // objectId's of products
+  favorites : {type : [], default : []},
+  cancelOrder : {type : [], default : []} // objectId's of products
 });
+
 userSchema.methods.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
+
+
 module.exports = mongoose.model("users", userSchema);
 

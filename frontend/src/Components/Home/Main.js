@@ -1,9 +1,11 @@
 import React from 'react'
 import Tabs from '../tabs/Tabs'
 import Cart from '../cart/Cart';
-import { useEffect } from 'react';
-import { useState } from 'react';
-const Content = ({proof,onPlaceOrder,setShow,proofView,check,setCheck,check2,setCheck2,deleteNewCartItems,deleteOrder, getAllCarts,newCartItems,setOnConfirm, onRemoveAll, openTab, products, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain, cartItems,showProofModal,onRemove,onDecrease,onIncrease }) => {
+
+const Main = ({proof,onPlaceOrder,setShow,proofView,check,setCheck,check2,setCheck2,
+  deleteNewCartItems,deleteOrder, getAllCarts,newCartItems,setOnConfirm, onRemoveAll, openTab,
+   products, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFavorite, clickableAgain,
+  cartItems,showProofModal,onRemove,onDecrease,onIncrease }) => {
   
 return (
     <>
@@ -51,4 +53,4 @@ return (
   )
 }
 
-export default Content
+export default Main

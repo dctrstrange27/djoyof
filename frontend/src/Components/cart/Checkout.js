@@ -5,7 +5,10 @@ import CheckDetails from "./CheckDetails";
 import { BsBoxSeam } from "react-icons/bs"
 import { MdDeleteSweep } from 'react-icons/md'
 import { RiDeleteBin6Line } from 'react-icons/ri'
-function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2, setCheck2, shippingFee, totalPay, TotalPayment, deleteOrder, deleteNewCartItems, newCartItems, cartItems, products, showProofModal, onRemove }) {
+function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
+                   setCheck2, shippingFee, totalPay, TotalPayment, deleteOrder, 
+                   deleteNewCartItems, newCartItems, cartItems, products, 
+                   showProofModal, onRemove,setCheckTab }) {
 
     const isDisabled = ( ) => {
         if(!cartItems) return true
@@ -75,13 +78,16 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2, setC
                         <p className="w-18 px-2 py-1 h-7 text-xs border-[1px]">{TotalPayment} php</p>
                     </div>
 
-                    <button onClick={() => { onPlaceOrder() }}
+                    <button onClick={() => { 
+                        onPlaceOrder()
+                        setCheckTab(1)
+                        }}
                         disabled={isDisabled()}
                         className={`${isDisabled()? 'bg-[#896751]' : 'bg-[#ff9853]'} border-[1px rounded-lg  text-gray-800 font-bold flex justify-evenly items-center w-1/2 mx-auto mt-8 p-2`}>
                         <p className="text-sm">Place Order</p>
                     </button>
                 </div>
-                <div className="px-5 py-4 w-full h-full border-[1px bg-gra-500 dark:text-[#fff]">
+                <div className="px-5 py-4 w-full h-full border-[1px] border-[#fff] bg-gra-500 dark:text-[#fff]">
                     <div className="flex justify-between border-b-[1px py-2">
                         <h1>Current Items</h1>
                         <BsBoxSeam className="h-6 w-7 hover:text-[#19978a] text-[#088074]"></BsBoxSeam>
