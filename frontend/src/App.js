@@ -1,6 +1,6 @@
 import React from "react";
-import Home from "../src/Components/Home/Home";
-import Login from "../src/Components/Login/Login";
+import Home from "./Components/Home/Home";
+import Login from "./Components/Login/Login";
 import About from "./Components/About/About";
 import Signup from "./Components/Signup/Signup";
 import DarkMode from "./Components/DarkMode/DarkMode";
@@ -16,11 +16,11 @@ import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react"
-import { amIloggedIn, API, saveUser } from "../src/Utils";
+import { amIloggedIn, API, saveUser } from "./Utils";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
-
+import { loadProducts } from "./Utils";
 
 function App() {
     return (
@@ -39,6 +39,7 @@ const SomeotherComponent=()=> {
     const [check, setCheck] = useState(false)
     const [check2, setCheck2] = useState(false)
     const [showContinue, setShowCon] = useState(false)
+    
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
     const [userData, setUserData] = useState();
@@ -78,27 +79,6 @@ const SomeotherComponent=()=> {
             setCartItems([...cartItems, { ...product, product_qty: 1 }]);
         }
     };
-
-    const placeOrder = async () => {
-        try {
-            const response = await API.post("/placeOrder", {
-                email_address: userData.email_address,
-                orders: {
-                    customer_id: userData._id,
-                    customer_name: userData.customer_name,
-                    customer_address: userData.customer_address,
-                    contact_no: userData.contact_no,
-                    items: newCartItems,
-                    total: computeCartTotal(newCartItems),
-                    transactionType: check ? "COD" : "GCash"
-                }
-            })
-            loadUserData()
-            console.log(response.data)
-        } catch (e) {
-            console.log(e)
-        }
-    }
 
     const getAllCarts = () => {
         setNewCartItems([...cartItems])
@@ -149,31 +129,50 @@ const SomeotherComponent=()=> {
         return arr.length > 0;
     };
 
-    const addFavorite = async (product_id) => {
-        setClickableAgain(false);
-        const update = await API.post("/updateMyFavorites", {
-            mode: 0,
-            _id: userData._id,
-            product_id,
-        });
-        loadProducts();
-        loadUserData();
-        setClickableAgain(true);
-    };
+    // const addFavorite = async (product_id) => {
+    //     setClickableAgain(false);
+    //     const update = await API.post("/updateMyFavorites", {
+    //         mode: 0,
+    //         _id: userData._id,
+    //         product_id,
+    //     });
+    //     loadProducts();
+    //     loadUserData();
+    //     setClickableAgain(true);
+    // };
 
 
-    const removeFavorite = async (product_id) => {
-        setClickableAgain(false);
-        const favs = await API.post("/updateMyFavorites", {
-            mode: -1,
-            _id: userData._id,
-            product_id,
-        });
-        loadProducts();
-        loadUserData();
-        setClickableAgain(true);
-    };
+    // const removeFavorite = async (product_id) => {
+    //     setClickableAgain(false);
+    //     const favs = await API.post("/updateMyFavorites", {
+    //         mode: -1,
+    //         _id: userData._id,
+    //         product_id,
+    //     });
+    //     loadProducts();
+    //     loadUserData();
+    //     setClickableAgain(true);
+    // };
     
+    const placeOrder = async () => {
+        try {
+            const response = await API.post("/place_order", {
+                email_address: userData.email_address,
+                orders: {
+                    customer_name: userData.customer_name,
+                    customer_address: userData.customer_address,
+                    contact_no: userData.contact_no,
+                    items: newCartItems,
+                    total: computeCartTotal(newCartItems),
+                    transactionType: check ? "COD" : "GCash"
+                }
+            })
+            loadUserData()
+            console.log(response.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
     const loadUserData = async () => {
         const userData = amIloggedIn(navigate);
         const userNewInfo = await API.post("/getUserDetails", {
@@ -185,43 +184,15 @@ const SomeotherComponent=()=> {
         setUserData(userNewInfo.data.userData);
         setCartItems(userNewInfo.data.userData.cartItems);
         setNewCartItems(userNewInfo.data.userData.cartItems);
-        setFavorites(userNewInfo.data.userData.favorites);
-        //setCancelOrder(userNewInfo.data.userData.cancelOrder)
+        setFavorites(userNewInfo.data.userData.favorites); 
     };
-   
-    //fetching Data from API 
-    const loadProducts = async () => {
-        try {
-            const response = await API.get("/getAllProducts");
-            setProduct(response.data.products);
-          
-        } catch (e) {
-            console.log(e)
-        }
-    };
-
-
-    useEffect(() => {
-        const updateCart = async () => {
-            if (!userData) return;
-            await API.post("/updateCart", {
-                 _id: userData._id,
-                 cartItems
-                 });
-                 const userNewInfo = await API.post("/getUserDetails", {
-                    _id: userData._id,
-                });
-                saveUser(userNewInfo);
-        };
-      
-        updateCart();
-    }, [cartItems]);
+    
 
     useEffect(() => {
         //  getAllUsers();
         loadUserData();
-        loadProducts();
-    }, [navigate]);
+      
+    }, [check2]);
     return (
         <>
             <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
@@ -258,8 +229,8 @@ const SomeotherComponent=()=> {
                                 products={products}
                                 setOpenTab={setOpenTab}
                                 onAdd={onAdd}
-                                addFavorite={addFavorite}
-                                removeFavorite={removeFavorite}
+                                // addFavorite={addFavorite}
+                                // removeFavorite={removeFavorite}
                                 isMyFavorite={isMyFavorite}
                                 clickableAgain={clickableAgain}
                                 onDecrease={decreaseQty}

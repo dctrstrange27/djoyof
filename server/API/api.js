@@ -6,7 +6,8 @@ const bcrypt = require("bcrypt-nodejs");
 const bcryptjs = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const users = require("../models/users");
-const Orders = require("../models/orders")
+const Orders = require("../models/orders");
+const { updateOne } = require("../models/orders");
 let ObjectId = require("mongoose").Types.ObjectId;
 
 
@@ -207,6 +208,9 @@ function SendCancelOrder(userEmail, items, userName, DateNow,orderId) {
     return res.status(401).json({ message: "order Success" });
 }
 
+
+
+
 router.post("/placeOrder", async (req, res) => {
     try {
         const { orders, email_address } = req.body
@@ -228,15 +232,19 @@ router.post("/placeOrder", async (req, res) => {
             total
         */
         if (!orders) return res.status(400).json({ message: "No orders specified" })
-        const customer_id = new ObjectId(orders.customer_id)
+        
+        const customer_id = new ObjectId(orders._id)
         const placedOrder = await Orders.create({ ...orders, customer_id })
 
         // add the order id to user information & delete all cart items
+        
         const updateCustomer = await users.updateOne({
             _id: new ObjectId(orders.customer_id)
         }, {
-            $push : { orders: new ObjectId(placedOrder._id) }, 
-            $set : { cartItems: [] }
+            $push :{ orders: new ObjectId(placedOrder._id) }, 
+            $set : { cartItems: [] },
+         //   $push: {to_receive_order: new ObjectId(placedOrder._id)},
+          
         })
 
         SendConfirmOrders(email_address, placedOrder._id, placedOrder.items, placedOrder.total, orders.customer_name, new Date(), new Date() + 3)
@@ -247,8 +255,39 @@ router.post("/placeOrder", async (req, res) => {
 })
 
 
+router.post('/place_order', async(req,res)=>{
+        const {orders, email_address} = req.body
+        try {   
+            if (!orders) return res.status(400).json({ message: "No orders specified" })
+        
+        // create Orders
+        
+        const order_id = new ObjectId(orders._id)
+        const placeOrder = await Orders.create({...orders,order_id})
 
+         await users.updateOne({$push:{orders: new ObjectId(placeOrder._id)},$set : { cartItems: [] }, })
+         await users.updateOne({$push:{to_receive_order: new ObjectId(placeOrder._id)},})
+        // SendConfirmOrders(email_address, placedOrder._id, placedOrder.items, placedOrder.total, orders.customer_name, new Date(), new Date() + 3)
+        res.status(200).json({ message: "Order Placed 👌" ,orders})
+        } catch (error) {
+            console.log(error)
+        }
+})
 
+router.post("/clearObj", async(req,res)=>{
+    const id = req.body
+    const users = await User.find({id})
+    try {
+        await User.updateOne(
+            //{ $set:{to_receive_order:[]}},
+            { $set:{orders:[]}},
+           // { $set:{cancel_order:[]}}
+            )
+    } catch (error) {
+        console.log(error)
+    }
+    res.status(200).json({users})
+})
 
 
 

@@ -6,7 +6,7 @@ import { ImCart } from "react-icons/im";
 import { signOut } from "../../Utils";
 import { Link } from 'react-router-dom';
 import UseDarkMode from '../DarkMode/UseDarkMode'
-import Middle from '../DarkMode/Middle';
+import Middle from '../DarkMode/Middle.js';
 
 function Aside({ togs, setTogs, resetToggle }) {
   const [toggleNav, setToggleNav] = useState(false);

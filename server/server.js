@@ -26,8 +26,8 @@ server.use(passport.session ());
 
 
 server.use('/api',require('./API/api'))
-server.use('/user',require('./Routers/userRouter'))
-
+server.use('/api/user',require('./Routers/userRouter'))
+server.use('/api/order', require('./Routers/orderRouter'))
 
 
 server.listen(PORT,(err)=>{

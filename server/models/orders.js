@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
   
 const orderSchema= mongoose.Schema({
-  customer_id:{type:String, required:true},
   customer_name:{type:String, required:true},
   customer_address:{type:String,required:true},
   contact_no:{type:Number, required:true},

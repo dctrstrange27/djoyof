@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdCheckBox } from "react-icons/md";
 import { BsFillBackspaceFill } from "react-icons/bs";
-import CheckDetails from "./CheckDetails";
+import CheckDetails from "./CheckDetails.js";
 import { BsBoxSeam } from "react-icons/bs"
 import { MdDeleteSweep } from 'react-icons/md'
 import { RiDeleteBin6Line } from 'react-icons/ri'

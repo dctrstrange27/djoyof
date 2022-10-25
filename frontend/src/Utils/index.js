@@ -65,4 +65,5 @@ export const rememberMe = (email_address,password) => {
 export const getRemembered = () => { return JSON.parse(localStorage.getItem('remembered')) }
 
 export const API = axios.create({ baseURL : 'http://localhost:4000/api' })
-export const userAPI = axios.create({ baseURL : 'http://localhost:4000/user' })
+export const userAPI = axios.create({ baseURL : 'http://localhost:4000/api/user' })
+export const orderAPI = axios.create({ baseURL : 'http://localhost:4000/api/order' })

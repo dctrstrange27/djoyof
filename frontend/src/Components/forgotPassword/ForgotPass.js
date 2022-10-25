@@ -9,9 +9,9 @@ import {BsEyeSlash} from 'react-icons/bs'
 import { userAPI,getUser } from '../../Utils'
 import {AiOutlineLoading} from 'react-icons/ai'
 
-const ForgotPass = ({show,setShow,loading,setLoading}) => {
+const ForgotPass = ({show,setShow,loading,setLoading,email_address,setEmail}) => {
  
-  const [email_address, setEmail] = useState("");
+  
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false)
   const [error, setError] = useState('')
@@ -31,8 +31,6 @@ const ForgotPass = ({show,setShow,loading,setLoading}) => {
       setLoading(false)
     }
   }
-
-
   return (
     <>
       <div className="flex justify-center items-center border-[3px bg-[#19191e]  border-pink-500 overflow-auto h-screen

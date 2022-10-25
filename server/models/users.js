@@ -10,7 +10,10 @@ const userSchema = mongoose.Schema({
   cartItems: {type: [], default: []},
   orders : {type : [], default : []},
   favorites : {type : [], default : []},
-  cancelOrder : {type : [], default : []} // objectId's of products
+  to_receive_order : {type : [], default : []},
+  completed_order : {type : [], default : []},
+  cancel_order : {type : [], default : []},
+  // objectId's of products
 });
 
 userSchema.methods.generateHash = function (password) {

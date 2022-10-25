@@ -1,16 +1,10 @@
 
 const aHandler = require('express-async-handler')
+const orders = require('../models/orders')
+const { find } = require('../models/orders')
 const Orders = require('../models/orders')
 const User = require('../models/users')
 
-
-
-// const deleteAllCancelled = aHandler( async (req, res) => {
-//     const {_id} = req.body
-
-//     const   
-
-// })
 
 const deleteCancelled = aHandler( async (req, res) => {
     const { _id, user_id } = req.body
@@ -36,27 +30,14 @@ const deleteCancelled = aHandler( async (req, res) => {
     })
 })
 
-const getMyOrders = aHandler( async (req, res) => {
-    try {
-        const { _id, orderStatus } = req.body
-        const listOfMyOrders = await Orders.find({ 
-            customer_id: _id,
-             orderStatus 
-            })
-        res.status(200).json({
-            orders: listOfMyOrders
-        })
-    } catch (e) {
-        ehandler(e)
-    }
+
+const getAllOrders = aHandler(async(req,res)=>{
+    //await Orders.deleteMany()
+    res.json({orders: await Orders.find({})})
 })
 
 
-
-
 module.exports={
-    getMyOrders,
-    // deleteAllCancelled,
+    getAllOrders,
     deleteCancelled,
-    getMyOrders
 }
