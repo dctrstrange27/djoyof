@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { API, userAPI, saveUser, rememberMe, getRemembered } from "../../Utils";
+import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai"
 import IconButton from "@material-ui/core/IconButton";
@@ -12,9 +12,13 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 import Input from "@material-ui/core/Input";
 import { Link } from "react-router-dom";
 import { MdOutlineAlternateEmail } from 'react-icons/md'
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_Decode from 'jwt-decode'
+import Profile from "../profile_setting/Profile";
 
 
-export const Login = () => {
+
+export const Login = ({ setLogin, login, setUserData,userData, user, setUser, useGoogle, setUseGoogle,useLocal, setUseLocal }) => {
   const [email_address, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false)
@@ -22,48 +26,53 @@ export const Login = () => {
   const [error, setError] = useState('')
   const [blank, setblank] = useState(false)
   const [visible, setVisible] = useState(false)
-  
-  let navigate = useNavigate();
+  const [google, letGoogle] = useState(false)
 
+
+  let navigate = useNavigate();
+  let googleAccountCredentials = ""
+
+ 
   const signIn = async () => {
     setLoading(true)
     try {
+      console.log("use Local", useLocal)
       setError('')
+      setLogin(!login)
+      setUseLocal(true)
       const response = await userAPI.post("/login", { email_address, password });
       saveUser(response);
+      setUserData(response)
       if (remember) rememberMe(email_address, password)
-      navigate("/main");
+      navigate("/main"); 
+      
     } catch (e) {
       console.log(e);
-      if (e.response.data) setError(e.response.data.error_message)
-      else setError("Sorry but we can't reach the server")
+       setError("Sorry but we can't reach the server")
       setLoading(false)
     }
   };
 
+  const createGoogleAccount = async(info)=>{
+      try {
+          const res = await userGoogleAPI.post("/createGoogleAccount",{email_address:info.email,customer_name:info.name,picture:info.picture,verified:info.email_verified,
+          })
+          setUseGoogle(true);saveUser(res);navigate('/main');
+      } catch (error) {console.log(error)}
+  }
+
+
   useEffect(() => {
     const remembered = getRemembered()
-    if (remembered) {
-      setEmail(remembered.email_address)
-      setPassword(remembered.password)
+    if (remembered) {  setEmail(remembered.email_address); setPassword(remembered.password)
     }
-  }, [])
+  }, []
+  )
   const [openTab, setOpenTab] = React.useState(1)
   const [values, setValues] = React.useState({ password: "", showPassword: false, });
 
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-  const handlePasswordChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
   return (
     <>
-
       <div className="flex justify-center items-center border-[3px bg-[#19191e]  border-pink-500 overflow-auto h-screen
                     
                      ">
@@ -108,14 +117,13 @@ export const Login = () => {
                 {visible ? (
                   <BsEye onClick={() => {
                     setVisible(!visible)
-                    console.log(visible)
                   }}
                     className={` w-7 h-4 right-2 top-[2.3rem] scale-105 text-[#fa9136d5] absolute `} />
 
                 ) : (
                   <BsEyeSlash onClick={() => {
                     setVisible(!visible)
-                    console.log(visible)
+                 
                   }}
                     className={` w-7 h-4 right-2 top-[2.3rem] scale-105 text-[#aaa7a7] absolute `} />)}
                 <input className="flex component-preview p-4 items-center justify-center gap-2 h-[30px] text-[#fff] w-full text-sm focus:outline-none  leading-2 focus:border-[#c83737]
@@ -127,7 +135,21 @@ export const Login = () => {
                   onChange={(e) => setPassword(e.target.value)} />
 
               </div>
-
+              <div className="w-full border-[1px m-2 flex justify-end">
+                <GoogleLogin theme="filled_black" size="medium"
+                  onSuccess={credentialResponse => {
+                     googleAccountCredentials = jwt_Decode(credentialResponse.credential)
+                    //  console.log(googleAccountCredentials)
+                    createGoogleAccount(googleAccountCredentials)
+                    // loginGoogleAccount()
+                    // console.log("use Google account", useGoogle)
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                />;
+              </div>
+              {/* <button className="bg-[#fff]" onClick={() => { loginWithGoogle() }}>sign in with google</button> */}
               <div className="mt-6 flex items-center justify-between">
                 <div className="flex items-center z-10">
                   <input
@@ -151,13 +173,6 @@ export const Login = () => {
                 <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 text-[#fff] animate-spin ${loading ? 'block' : 'hidden'}`} />
                 <p className={`text-center text-xs text-gray-600  ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
                 <p className="text-sm text-[#fa5644] text-center">{error}</p>
-
-
-
-
-
-
-
               </div>
               <div className="py-3 lg:py-[20px] flex items-center justify-center z-10">
                 <button

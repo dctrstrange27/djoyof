@@ -8,17 +8,14 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const orders = require('../models/orders');
 const { find, prependListener } = require('../models/users');
-
-
+const googleUsers = require('../models/googleUsers')
 
 
 //get all uSer
 const getUsers = aHandler(async (req, res) => {
     try {
         const users = await User.find({})
-        res.status(200).json({
-            users,
-        })
+        res.status(200).json({users})
     } catch (error) {
         ehandler(error)
     }
@@ -138,6 +135,27 @@ const getUserDetails = aHandler(async (req, res) => {
         ehandler(e, res);
     }
 })
+
+const getGoogleUserDetails = aHandler(async (req, res) => {
+    try {
+        const { _id } = req.body;
+        if (!_id)
+            return res
+                .status(401)
+                .json({ description: "Missing payload, please provide user id" });
+        const userData = await googleUsers.findOne({ _id });
+        if (!userData)
+            return res
+                .status(401)
+                .json({ description: "User's Id is not Existing!" });
+
+        return res.status(200).json({ userData });
+    } catch (e) {
+        ehandler(e, res);
+    }
+})
+
+
 var Vcode = ""
 
 const confirmCode = aHandler(async(req,res)=>{
@@ -155,6 +173,7 @@ const changePass = aHandler(async (req, res) => {
     const { email_address, newPassword, confirmPass,} = req.body
 
     const doesExist = await User.findOne({email_address})
+
 
     if (!doesExist) {
         return res.status(404).json({message:"You can't proceed to changing password, This User's doesn't Exist!!"})
@@ -176,8 +195,8 @@ const changePass = aHandler(async (req, res) => {
 function between(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
-const sendCode = aHandler(async (req, res) => {
-    const { email_address, password} = req.body
+const sendCode = aHandler(async (req, res,next) => {
+    const { email_address} = req.body
 
     fd = between(0, 10).toString();
     sd = between(0, 10).toString();
@@ -185,10 +204,9 @@ const sendCode = aHandler(async (req, res) => {
     pd = between(0, 10).toString();
     Vcode = `${fd}${sd}${td}${pd}`;
 
+    if(!email_address) return res.status(400).json({message:"Missing PayLoad!"})
     const doesExist = await User.findOne({email_address})
     if(!doesExist) return res.status(404).json({message: "user not found"})
-    if(!password) return res.status(404).json({message: "Missing Password!"})
-    if((await bcrypt.compare(password, doesExist.password))){
         try {
             var email = nodemailer.createTransport({
                 service: "gmail",
@@ -213,12 +231,47 @@ const sendCode = aHandler(async (req, res) => {
             })
         } catch (error) {
             res.status(400).json({error})
-        }
-    }else{
-        res.status(400).json({message:"Incorrect password!!"})
-    }
- 
+        } 
 })
+
+
+const resendCode = aHandler(async(req,res)=>{
+    fd = between(0, 10).toString();
+    sd = between(0, 10).toString();
+    td = between(0, 10).toString();
+    pd = between(0, 10).toString();
+    Vcode = `${fd}${sd}${td}${pd}`;
+
+    const { email_address} = req.body
+
+    try {
+        var email = nodemailer.createTransport({
+            service: "gmail",
+            auth:{
+                user: "bakingdjoyof@gmail.com",
+                pass: "yjaynxxkaaiamysz",
+            },
+        })
+        var mailOptions = {
+            from: "bakingdjoyof@gmail.com",
+            to: `${email_address}`,
+            subject:'Reset Password',
+            text: Vcode
+        }
+
+        email.sendMail(mailOptions, (err, info)=>{
+                if(err){
+                    console.log(err)
+                }else{
+                    res.status(200).json({message: "Successfully sent a Code! 👍 👍" })
+                }
+        })
+    } catch (error) {
+        res.status(400).json({error})
+    } 
+})
+
+
 
 const cancelOrder = aHandler(async(req,res)=>{
     const order = await orders.findById(req.params.id)
@@ -241,7 +294,6 @@ const cancelledOrders = aHandler(async(req,res)=>{
     return res.status(200).json({cancelled: order.cancel_order})
 })
 
-
 const deletCancelled = aHandler(async(req,res)=>{  
     const id = req.params.id
 
@@ -256,6 +308,54 @@ const deletCancelled = aHandler(async(req,res)=>{
 })
 
 
+const createGoogleAccount = aHandler(async(req,res)=>{
+   
+    const {email_address,customer_name,picture,verified} = req.body
+    const doesExist = await googleUsers.findOne({email_address})
+
+
+    if(doesExist) {
+        return res.status(200).json({userData:doesExist})
+    }
+    else{
+        try {
+            const newUser = await googleUsers.create({
+                email_address: email_address,
+                customer_name: customer_name,
+                profile_picture:picture,
+                verified:verified,
+            })        
+            return res.status(200).json({userData: newUser})
+        } catch (error) {
+            console.log(error)        
+        }
+    }
+
+})
+
+const getGoogleAccounts =async(req,res)=>{
+    res.status(200).json({googleUser: await googleUsers.find({})})
+}
+
+const loginGoogleAccount =aHandler(async(req,res)=>{
+    const {email_address} = req.body
+
+    try {
+        const doesExist = await googleUsers.findOne({email_address})
+        if(!doesExist) return res.status(404).json({message:"User's not Found!"})
+        return res.status(404).json({user:doesExist})
+        
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+
+
+
+
+
 const generateJWT = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' })
 }
@@ -264,6 +364,7 @@ module.exports = {
     login,
     signup,
     getUserDetails,
+    getGoogleUserDetails,
     changePass,
     sendCode,
     confirmCode,
@@ -272,4 +373,8 @@ module.exports = {
     loadOrders,
     cancelledOrders,
     deletCancelled,
+    resendCode,
+    createGoogleAccount,
+    getGoogleAccounts,
+    loginGoogleAccount,
 }

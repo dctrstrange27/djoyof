@@ -3,13 +3,18 @@ import React from "react";
 import Aside from "../nav/Aside";
 import SendProof from "../Modal/SendProof";
 import { Outlet } from "react-router-dom";
-import Samp from "../nav/MainNav";
+import MainNav from "../nav/MainNav";
+import SignoutPortal from "../Login/SignoutPortal";
 
-
-const Home = ({updateSetShow,show,setShow,userData,setProofFile,proofView,setProofView,togs,setTogs,}) => {
+const Home = ({updateSetShow,show,setShow,userData,setProofFile,proofView,setProofView,togs,setTogs,setUseGoogle,setUseLocal,signout,setSignout}) => {
 const [hide,setHide] = useState(false)
-  return (
+ 
+
+
+return (
     <>
+      <SignoutPortal signout={signout} setSignout={setSignout}></SignoutPortal>
+     <div className="border-[#03b10f border-[1px]">
       {show && (
         <div
           onClick={() => { setShow(false) }}
@@ -25,14 +30,12 @@ const [hide,setHide] = useState(false)
           </div>
         </div>
       )}
-    
-      {userData && (
-        <div className="relative ss:w-full h-screen border-[2px overflow-x-hidden  
+      {userData && <div className="relative ss:w-full h-screen border-[2px overflow-x-hidden  
                        mx-auto border-green-500 justify-center flex
                       scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-black
                       ">
           <div className="border-b-[1px border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-xl shadow-lg shadow-Light_shadow dark:shadow-[#00000054]   dark:bg-two fixed w-full z-30">
-            <Samp hide={hide} setHide={setHide} userData={userData} togs={togs} setTogs={setTogs} />
+            <MainNav setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
           </div>
           <div className="flex absolute mt-16">
             <div className="relative  border-r-0 md:border-r-[1px] dark:border-[#ffffff48] border-[#0c0c0ca7] md:border-[3px">
@@ -40,10 +43,11 @@ const [hide,setHide] = useState(false)
             </div>
             <Outlet/>
           </div>
-        </div>
-
-      )}
+        </div> }  
+    </div>
+    
+    
     </>
-  );
+  )
 };
 export default Home;

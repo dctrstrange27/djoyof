@@ -108,13 +108,12 @@ const Tabs = ({ openTab, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFav
                                         product={product}
                                         onAfddFav={addFavorite}
                                         onRemoveFav={removeFavorite}
-                                        liked={isMyFavorite(product._id)}
+                                      //  liked={isMyFavorite(product._id)}
                                         clickableAgain={clickableAgain}
                                     ></Product>
                                 ))
                                 }
                             </div>
-
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                                 <p>Favorites Items..</p>
                             </div>
@@ -161,7 +160,6 @@ const Tabs = ({ openTab, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFav
                                         <AiOutlineClear className="text-neutral-50 text-[#fff]" />
                                     </button>
                                 </div>
-
                                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
                                     <Cancelled openTab={openTab}/>
                                 </div>

@@ -2,7 +2,6 @@ import React from "react";
 import Home from "./Components/Home/Home";
 import Login from "./Components/Login/Login";
 import About from "./Components/About/About";
-import Signup from "./Components/Signup/Signup";
 import DarkMode from "./Components/DarkMode/DarkMode";
 import NotFound from "./Components/error/NotFound";
 import Service from "./Components/Service/Service";
@@ -11,25 +10,23 @@ import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
 import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
+import Cart from "./Components/profile_setting/Cart";
 import Main from "./Components/Home/Main"
 import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react"
-import { amIloggedIn, API, saveUser } from "./Utils";
-import { AiOutlineConsoleSql } from "react-icons/ai";
+import { useState } from "react"
 import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
-import { loadProducts } from "./Utils";
 
 function App() {
     return (
         <Router>
-            <SomeotherComponent />
+            <MainApp />
         </Router>
     )
 }
-const SomeotherComponent=()=> {
+const MainApp=()=> {
     let navigate = useNavigate();
     const [show, setShow] = useState(false);
     const [clickableAgain, setClickableAgain] = useState(true);
@@ -42,164 +39,25 @@ const SomeotherComponent=()=> {
     
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState([]);
     const [userName, setUserName] = useState()
-
-    const [newCartItems, setNewCartItems] = useState([])
-    const [products, setProduct] = useState([])
-    
-    const [cartItems, setCartItems] = useState([])
-    const [favorites, setFavorites] = useState([])
-    const [cancelOrder, setCancelOrder] =useState([])
-  
-    const computeCartTotal = (cartItems) => {
-        let total = 0.0
-        cartItems.forEach((prod, idx) => {
-            total += (prod.product_price * prod.product_qty)
-        })
-        console.log(total)
-        return total
-    }
-    
+    const [login, setLogin] = useState(false)
+    const [useGoogle, setUseGoogle] = useState(false)
+    const [useLocal, setUseLocal] = useState(false)
     const updateSetShow = () => {
         setShow(false)
     };
-    const onAdd = (product) => {
-        const exist = cartItems.find((x) => {
-            return x._id === product._id;
-        });
-        if (exist) {
-            setCartItems([...cartItems.filter((i) => i._id !== exist._id),
-            {
-                ...exist,
-                product_qty: exist.product_qty + 1,
-            }
-                ,]);
-        } else {
-            setCartItems([...cartItems, { ...product, product_qty: 1 }]);
-        }
-    };
 
-    const getAllCarts = () => {
-        setNewCartItems([...cartItems])
-    }
-    const deleteOrder = () => {
-        setNewCartItems([]);
-    }
-    const deleteNewCartItems = (item) => {
-        setNewCartItems(newCartItems.filter((i) => i._id !== item._id))
-    }
-    const removeAllCartItems = () => {
-        setCartItems([]);
-    };
-    const removeItemFromCart = (item) => {
-        setCartItems(cartItems.filter((i) => i._id !== item._id));
-    };
-    const increateQty = (item) => {
-        var idx = -1;
-        let copy = [...cartItems];
-
-        copy.find((val, i) => {
-            if (val._id === item._id) idx = i;
-            return val._id === item._id;
-        });
-        copy[idx].product_qty += 1;
-        setCartItems(copy);
-    };
-    const decreaseQty = (item) => {
-        var idx = -1;
-
-        let copy = [...cartItems];
-
-        copy.find((val, i) => {
-            if (val._id === item._id) idx = i;
-            return val._id === item._id;
-        });
-
-        copy[idx].product_qty -= 1;
-
-        if (copy[idx].product_qty === 0)
-            copy = copy.filter((i) => i._id !== item._id);
-
-        setCartItems(copy);
-    };
-
-    const isMyFavorite = (id) => {
-        const arr = favorites.filter((prod) => id === prod);
-        return arr.length > 0;
-    };
-
-    // const addFavorite = async (product_id) => {
-    //     setClickableAgain(false);
-    //     const update = await API.post("/updateMyFavorites", {
-    //         mode: 0,
-    //         _id: userData._id,
-    //         product_id,
-    //     });
-    //     loadProducts();
-    //     loadUserData();
-    //     setClickableAgain(true);
-    // };
+    const [user, setUser] = useState([])
+    const [signout, setSignout] = useState(false)
 
 
-    // const removeFavorite = async (product_id) => {
-    //     setClickableAgain(false);
-    //     const favs = await API.post("/updateMyFavorites", {
-    //         mode: -1,
-    //         _id: userData._id,
-    //         product_id,
-    //     });
-    //     loadProducts();
-    //     loadUserData();
-    //     setClickableAgain(true);
-    // };
-    
-    const placeOrder = async () => {
-        try {
-            const response = await API.post("/place_order", {
-                email_address: userData.email_address,
-                orders: {
-                    customer_name: userData.customer_name,
-                    customer_address: userData.customer_address,
-                    contact_no: userData.contact_no,
-                    items: newCartItems,
-                    total: computeCartTotal(newCartItems),
-                    transactionType: check ? "COD" : "GCash"
-                }
-            })
-            loadUserData()
-            console.log(response.data)
-        } catch (e) {
-            console.log(e)
-        }
-    }
-    const loadUserData = async () => {
-        const userData = amIloggedIn(navigate);
-        const userNewInfo = await API.post("/getUserDetails", {
-            _id: userData._id,
-        });
-        localStorage.getItem("userData", JSON.stringify(userNewInfo))
-
-        saveUser(userNewInfo);
-        setUserData(userNewInfo.data.userData);
-        setCartItems(userNewInfo.data.userData.cartItems);
-        setNewCartItems(userNewInfo.data.userData.cartItems);
-        setFavorites(userNewInfo.data.userData.favorites); 
-    };
-    
-
-    useEffect(() => {
-        //  getAllUsers();
-        loadUserData();
-      
-    }, [check2]);
     return (
         <>
             <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
            
                 <Routes>
-                    <Route path="/" element={
-                        <Home
+                    <Route path="/" element={ <Home
                             updateSetShow={updateSetShow}
                             setProofFile={setProofFile}
                             proofView={proofView}
@@ -209,6 +67,10 @@ const SomeotherComponent=()=> {
                             userData={userData}
                             togs={togs}
                             setTogs={setTogs}
+                            setUseGoogle={setUseGoogle}
+                            setUseLocal={setUseLocal}
+                            signout={signout}
+                            setSignout={setSignout}
                         />}>
                         <Route path="djoyof" element={<Home />} />
                         <Route path="About" element={<About />} />
@@ -217,26 +79,15 @@ const SomeotherComponent=()=> {
                                 check={check}
                                 proof={proof}
                                 setCheck={setCheck}
-                                onPlaceOrder={placeOrder}
                                 check2={check2}
                                 setCheck2={setCheck2}
-                                deleteNewCartItems={deleteNewCartItems}
-                                onRemove={removeItemFromCart}
-                                deleteOrder={deleteOrder}
-                                newCartItems={newCartItems}
-                                getAllCarts={getAllCarts}
                                 openTab={openTab}
-                                products={products}
-                                setOpenTab={setOpenTab}
-                                onAdd={onAdd}
-                                // addFavorite={addFavorite}
-                                // removeFavorite={removeFavorite}
-                                isMyFavorite={isMyFavorite}
+                                setOpenTab={setOpenTab} 
                                 clickableAgain={clickableAgain}
-                                onDecrease={decreaseQty}
-                                onIncrease={increateQty}
-                                cartItems={cartItems}
-                                onRemoveAll={removeAllCartItems}
+                                userData={userData}
+                                useLocal={useLocal}
+                                useGoogle={useGoogle}
+                                setUseGoogle={setUseGoogle}
                                 showProofModal={() => {
                                     setShow(true);
                                 }}
@@ -247,9 +98,24 @@ const SomeotherComponent=()=> {
                         <Route path="Profile" element={<Profile />} />
                         <Route path="Settings" element={<Settings />} />
                         <Route path="Orders" element={<Orders />} />
+                        <Route path="Cart" element={<Cart />} />
+                        <Route path="Cart/Profile" element={<Profile />} />
+
                         <Route element={<NotFound />} />
                     </Route>
-                    <Route path="Login" element={<Login />} />
+                    <Route path="Login" element={<Login
+                           setLogin={setLogin}
+                           setUserData={setUserData}
+                           userData={userData}
+                           login={login}
+                           user={user}
+                           setUser={setUser}
+                           useGoogle={useGoogle}
+                           setUseGoogle={setUseGoogle}
+                           setUseLocal={setUseLocal}
+                           useLocal={useLocal}
+                          />} />
+
                     <Route path="recoverAccount" element={<ForgotConfig />} />
                     <Route path="Signup" element={
                         <Signupconfig
@@ -262,7 +128,6 @@ const SomeotherComponent=()=> {
                      {/* <Route path="loading" element={<Loading />}  />  */}
                     <Route path="DarkMode" element={<DarkMode />} />
                 </Routes>
-
                 <Outlet />
             </div>
         </>

@@ -9,22 +9,20 @@ import {BsEyeSlash} from 'react-icons/bs'
 import { userAPI,getUser } from '../../Utils'
 import {AiOutlineLoading} from 'react-icons/ai'
 
-const ForgotPass = ({show,setShow,loading,setLoading,email_address,setEmail}) => {
- 
-  
-  const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false)
+    
+const ForgotPass = ({show,setShow,loading,setLoading,email_address,setEmail,time,setTime,setStartTime,startTime}) => { 
   const [error, setError] = useState('')
-  const [blank, setblank] = useState(false)
-  const [visible, setVisible] = useState(false)
- 
+
 
   const sendCode =async()=>{
     setLoading(true)
     try {
-       await userAPI.post("/sendCode", {email_address,password})
+       await userAPI.post("/sendCode", {email_address})
        setShow(true)
        setError('')
+       setStartTime(true)
+       setTime(40)
+       console.log(startTime)   
     } catch (e) {
       console.log(e)
       if (e.response.data) setError(e.response.data.message)
@@ -71,34 +69,7 @@ const ForgotPass = ({show,setShow,loading,setLoading,email_address,setEmail}) =>
                   />
                   
               </div>
-              <div className="border-[1px border-[#fff relative ">
-                <label className="sm:block hidden mb-1 font-nsans tracking-normal text-[#fff]">Password </label>
-                <RiLockPasswordLine className="w-7 h-5 text-[#fff] top-8 absolute " />
-                {visible ? (
-                  <BsEye onClick={() => {
-                    setVisible(!visible)
-                    console.log(visible)
-                  }}
-                    className={` w-7 h-4 right-2 top-[2.3rem] scale-105 text-[#fa9136d5] absolute `} />
-
-                ) : (
-                  <BsEyeSlash onClick={() => {
-                    setVisible(!visible)
-                    console.log(visible)
-                  }}
-                    className={` w-7 h-4 right-2 top-[2.3rem] scale-105 text-[#aaa7a7] absolute `} />)}
-                <input className="flex component-preview p-4 items-center justify-center gap-2 h-[30px] text-[#fff] w-full text-sm focus:outline-none  leading-2 focus:border-[#c83737]
-                                                   dark:border-gray-600 focus:ring  dark:focus:ring-[#c85e378d] my-2 pl-7 rounded-lg border-0 bg-[#ffffff1c]
-                                                    transition duration-200 "
-                  type={`${visible ? "text" : "password"}`}
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)} />
-
-              </div>
-
-       
-            
+    
                 <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 text-[#fff] animate-spin ${loading ? "visible":"invisible"}`} />
                 <p className="text-sm text-[#fa5644] text-center">{error}</p>
 

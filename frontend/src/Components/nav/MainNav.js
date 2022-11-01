@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IoHome } from "react-icons/io5"
 import { MdHomeRepairService } from 'react-icons/md'
 import { BsInfoCircleFill } from 'react-icons/bs'
@@ -10,23 +10,38 @@ import { IoSettings } from 'react-icons/io5'
 import { BsBoxSeam } from "react-icons/bs"
 import { CgProfile } from 'react-icons/cg'
 import { IoIosHelpCircle } from 'react-icons/io'
-import { useState, useReducer } from 'react'
+import { useState } from 'react'
 import { signOut } from "../../Utils";
 import UseDarkMode from '../DarkMode/UseDarkMode'
 import { BsSun } from 'react-icons/bs'
 import { BsFillMoonStarsFill } from 'react-icons/bs'
-import { MdCancel } from "react-icons/md"
+import {BsFillCartFill} from 'react-icons/bs'
 import Nav from './Nav'
+import { getUser } from '../../Utils'
 
 
-const Samp = ({ userData, togs, setTogs, hide, setHide }) => {
+
+const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSignout,signout}) => {
+    
+    let navigate = useNavigate()
+
+    const signOutAccount=()=>{
+        setSignout(!signout)
+        console.log(signout)
+        setUseLocal(false)
+        setUseGoogle(false)
+    }
+
     function resetHide() {
         setHide(false)
+       
     }
     const [checkNav, setCheckNav] = useState(1)
     const [colorTheme, setTheme] = UseDarkMode()
     const [switchLabel, setSwitchLabel] = useState(false)
     const [label, setLable] = useState("dark")
+    const [name,setName] = useState(getUser())
+
 
     const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
 
@@ -44,9 +59,10 @@ const Samp = ({ userData, togs, setTogs, hide, setHide }) => {
         { id: 4, name: "Contact Us", nav: "Contact" },
         { id: 5, name: "Help", nav: "Help" },
     ]
+   
     return (
         <>
-            <div className='relative max-w-[90rem]  border-green-500 border-[1px h-16 mx-auto min-w-sm z-40  duration-500'>
+            <div className='relative max-w-[90rem] border-green-500 border-[1px  h-16 mx-auto min-w-sm z-40  duration-500'>
                 {/* this is for mobile view */}
                 <div className='absolute font-medium font-nsans first:text-[1.5rem] tracking-wide inset-y-0 left-7 md:left-10   border-[1px flex gap-5 items-center justify-between h-16'>
                     <div className=' tracking-wide inset-y-6 mr-10 hidden lg:block'>
@@ -65,8 +81,7 @@ const Samp = ({ userData, togs, setTogs, hide, setHide }) => {
                             key={index}
                             setCheckNav={setCheckNav}
                             checkNav={checkNav}
-                            Icon={icon[index]}
-                        >
+                            Icon={icon[index]}>
                         </Nav>
                     ))
                     }
@@ -89,27 +104,20 @@ const Samp = ({ userData, togs, setTogs, hide, setHide }) => {
                         </div>
                     </div>
                     <div className='flex justify-center items-center'>
-                        <h1 className={` px-4 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
-                            {userData.customer_name}
-                        </h1>
-
-                        <img src={require("../../img/profile.png")}
-                            onClick={() => {
-                                setHide(!hide)
-
-                            }}
-                            className={`w-8 h-8 rounded-full duration-200 ease-in-out`}>
-
-                        </img>
+                        <Link to='Cart' className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
+                        <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-105'/>
+                        </Link>
+                    
+                        <img src={getUser().profile_picture}onClick={() => {setHide(!hide) }}className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>
                     </div>
 
                     {/* profile */}
-                    <div className={`absolute flex flex-col bg-white5/50 dark:bg-two/70 dark:shadow-lg shadow-lg shadow-Light_shadow dark:shadow-[#000000a9] rounded-xl gap-3 border-[1px left-4 top-20 w-36 px-3 py-5 
+                    <div className={`absolute flex flex-col bg-white5/50 dark:bg-two/70 dark:shadow-lg shadow-lg shadow-Light_shadow dark:shadow-[#000000a9] rounded-xl gap-3 border-[1px left-4 top-20 w-40 px-3 py-5 
                                      ${!hide && 'hidden'}  `}>
                         <Link to='Profile' onClick={() => { resetHide() }}>
-                            <div className='flex items-center gap-2  text-Light_normal duration-200 ease-linear dark:text-[#c7c5c5] hover:bg-zinc-200/20 hover:rounded-lg py-1 hover:text-zinc-100'>
-                                <CgProfile className=' w-5 h-5 inset-y-0' />
-                                <h1 className='duration-200 ease-linear'>Profile</h1>
+                            <div className='flex items-center gap-2 text-Light_normal duration-200 ease-linear dark:text-[#c7c5c5] hover:bg-zinc-200/20 hover:rounded-lg py-1 hover:text-zinc-100'>
+                            <img src={getUser().profile_picture}className={`w-8 h-8 border-[1px] rounded-full duration-200 ease-in-out hover:scale-105`}></img>
+                                <h1 className='duration-200 ease-linear'>  {name?.customer_name}</h1>
                             </div>
                         </Link>
                         <Link to='Settings' onClick={() => { resetHide() }}>
@@ -124,18 +132,17 @@ const Samp = ({ userData, togs, setTogs, hide, setHide }) => {
                                 <h1 className='duration-200 ease-linear'>Orders</h1>
                             </div>
                         </Link>
-                        <Link to='Login' onClick={() => { resetHide() }}>
-                            <div className='flex text-Light_normal dark:text-[#c7c5c5]  gap-2 hover:bg-zinc-200/20 hover:rounded-lg py-1 hover:text-zinc-100'>
-                                <VscSignIn onClick={() => {
-                                    signOut()
-                                }} className="w-5 h-5" />
+                     
+                        <div onClick={() => {signOutAccount()}}>
+                            <div className='flex text-Light_normal dark:text-[#c7c5c5] border-[1px  gap-2 hover:bg-zinc-200/20 hover:rounded-lg py-1 hover:text-zinc-100'>
+                                <VscSignIn className="w-5 h-5" />
                                 <h1 className=' duration-200 ease-linear'>Log out</h1>
                             </div>
-                        </Link>
+                        </div>
                     </div>
                 </div>
             </div>
         </>
     )
 }
-export default Samp
+export default MainNav

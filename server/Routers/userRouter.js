@@ -13,6 +13,12 @@ const {
     loadOrders,
     cancelledOrders,
     deletCancelled,
+    resendCode,
+    accounWithGoogle,
+    createGoogleAccount,
+    getGoogleUserDetails,
+    getGoogleAccounts,
+    loginGoogleAccount,
 } = require('../controller/userController')
 
 router.route('/login').post(login)
@@ -27,5 +33,9 @@ router.route('/cancelOrder/:id').post(cancelOrder)
 router.route('/loadOrders').post(loadOrders)
 router.route('/cancelled').post(cancelledOrders)
 router.route('/deleteCancelled/:id').post(deletCancelled)
-
+router.route('/resendCode').post(resendCode)
+router.route('/createGoogleAccount').post(createGoogleAccount)
+router.route('/getGoogleUserDetails').post(getGoogleUserDetails)
+router.route('/getGoogleAccounts').get(getGoogleAccounts)
+router.route('/loginGoogleAccount').post(loginGoogleAccount)
 module.exports =  router

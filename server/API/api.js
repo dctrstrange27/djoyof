@@ -8,6 +8,7 @@ const nodemailer = require("nodemailer");
 const users = require("../models/users");
 const Orders = require("../models/orders");
 const { updateOne } = require("../models/orders");
+const googleUsers = require("../models/googleUsers");
 let ObjectId = require("mongoose").Types.ObjectId;
 
 
@@ -33,8 +34,6 @@ const ehandler = (e, res) => {
 router.get("/", (req, res) => {
     res.send("From API router");
 });
-
-
 
 function SendConfirmOrders(userEmail, orderId, items, totalprice, userName, DateNow, DateArrived) {
     var mail = nodemailer.createTransport({
@@ -232,12 +231,9 @@ router.post("/placeOrder", async (req, res) => {
             total
         */
         if (!orders) return res.status(400).json({ message: "No orders specified" })
-        
         const customer_id = new ObjectId(orders._id)
         const placedOrder = await Orders.create({ ...orders, customer_id })
-
         // add the order id to user information & delete all cart items
-        
         const updateCustomer = await users.updateOne({
             _id: new ObjectId(orders.customer_id)
         }, {
@@ -261,7 +257,6 @@ router.post('/place_order', async(req,res)=>{
             if (!orders) return res.status(400).json({ message: "No orders specified" })
         
         // create Orders
-        
         const order_id = new ObjectId(orders._id)
         const placeOrder = await Orders.create({...orders,order_id})
 
@@ -376,19 +371,20 @@ router.post("/createUsrPostman", async (req, res) => {
 })
 
 // user actions
-router.post("/getUserDetails", async (req, res) => {
-    try {
-        const { _id } = req.body;
-        if (!_id)
-            return res
-                .status(401)
-                .json({ description: "Missing payload, please probide user id" });
-        const userData = await User.findOne({ _id });
-        return res.status(200).json({ userData });
-    } catch (e) {
-        ehandler(e, res);
-    }
-});
+// router.post("/getUserDetails", async (req, res) => {
+//     try {
+//         const { _id } = req.body;
+//         if (!_id)
+//             return res
+//                 .status(401)
+
+//                 .json({ description: "Missing payload, please probide user id" });
+//         const userData = await User.findOne({ _id });
+//         return res.status(200).json({ userData });
+//     } catch (e) {
+//         ehandler(e, res);
+//     }
+// });
 
 router.post("/updateMyFavorites", async (req, res) => {
     try {
@@ -472,5 +468,20 @@ router.post("/updateOrder", async(req,res)=>{
         ehandler(e)
     }
 })
+
+router.post("/deleteGoogleAccount", async (req, res) => {
+    const {id} = req.body
+    try {
+        const user =  await googleUsers.findOne({id})
+        user.remove()
+        res.status(200).json({deleted: user})
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+
+
 
 module.exports = router;

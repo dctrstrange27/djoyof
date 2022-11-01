@@ -5,10 +5,10 @@ import CheckDetails from "./CheckDetails.js";
 import { BsBoxSeam } from "react-icons/bs"
 import { MdDeleteSweep } from 'react-icons/md'
 import { RiDeleteBin6Line } from 'react-icons/ri'
-function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
-                   setCheck2, shippingFee, totalPay, TotalPayment, deleteOrder, 
-                   deleteNewCartItems, newCartItems, cartItems, products, 
-                   showProofModal, onRemove,setCheckTab }) {
+import {API} from '../../Utils'
+function Checkout({proof, onPlaceOrder,check,setCheck,check2,
+                   setCheck2,TotalPayment, cartItems,
+                   showProofModal, userData,setCheckTab,loadUserData,confirmCart,setConfirmCart }) {
 
     const isDisabled = ( ) => {
         if(!cartItems) return true
@@ -18,6 +18,39 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
         if(check2)
             if(!proof) return true
         return false
+    }
+    const delConOrders=(id)=>{
+        setConfirmCart(confirmCart.filter(x => x._id !== id))
+    }
+    const deleteOrder=()=>{
+        setConfirmCart([])
+    }
+    const shippingFee = 30;
+    
+    const cartTotal=()=>{
+        let total = 0;
+        confirmCart.map((cart =>{ total += cart.product_qty * cart.product_price}))
+        return total
+    }
+    const totalPayment=()=>(cartTotal() + shippingFee)
+    const placeOrder = async () => {
+        try {
+            const response = await API.post("/place_order", {
+                email_address: userData.email_address,
+                orders: {
+                    customer_name: userData.customer_name,
+                    customer_address: userData.customer_address,
+                    contact_no: userData.contact_no,
+                    items: confirmCart,
+                    total: totalPayment(),
+                    transactionType: check ? "COD" : "GCash"
+                }
+            })
+            loadUserData()
+            console.log(response.data)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
@@ -37,7 +70,6 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
                                 setCheck(true)
                                 setCheck2(false)
                             }}
-
                             className=" h-4 w-4 border border-gray-300 rounded-sm bg-white "
                         />
 
@@ -67,7 +99,7 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
                     </div>
                     <div className="Order-item flex justify-between">
                         <p>Order Total Items: </p>
-                        <p className="w-18 px-2 py-1 h-7 text-xs border-[1px] ">{totalPay} php</p>
+                        <p className="w-18 px-2 py-1 h-7 text-xs border-[1px] ">{cartTotal()} php</p>
                     </div>
                     <div className="Total-payment flex justify-between">
                         <p>ShippinFee:  </p>
@@ -75,11 +107,11 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
                     </div>
                     <div className="Total-payment flex justify-between">
                         <p>Total Payment: </p>
-                        <p className="w-18 px-2 py-1 h-7 text-xs border-[1px]">{TotalPayment} php</p>
+                        <p className="w-18 px-2 py-1 h-7 text-xs border-[1px]">{totalPayment()} php</p>
                     </div>
 
                     <button onClick={() => { 
-                        onPlaceOrder()
+                        placeOrder()
                         setCheckTab(1)
                         }}
                         disabled={isDisabled()}
@@ -95,13 +127,13 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
                     <div className="flex items-center justify-between border-[1px">
 
                     </div>
-                    {newCartItems.map((x, index) => (
+                    {confirmCart.map((x, index) => (
                         <div key={index} className="border-[1px mt-2 border-green-400">
                             <div className='relative parent grid grid-cols-7 bg-[#ffffff9c] dark:bg-[#0f0f11d2] gap-4 border-[1px py-2 items-center'>
                                 <div className='relative border-[1px h-[5vh] max-w-[5rem] w-[3rem]'>
                                     <img src={x.image} className="absolute  border-[1px  inset-y-1 inset-x-0"></img>
                                 </div>
-                                {/* <img src={console.log(cartItems)} className="h-12 w-12"></img> */}
+                               
                                 <div className='col-span-3'>
                                     <h1 className=' col-span-3 text-[.8rem]'>{x.product_name}</h1>
                                     <p className='text-[.6rem]'>{x.qty}</p>
@@ -109,7 +141,7 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
                                 <p className='text-[.8rem]'> {x.product_qty} </p>
                                 <p className='text-[.8rem]'> {x.product_price} </p>
                                 <div className='relative  border-[1px h-full w-full'>
-                                    <div onClick={() => deleteNewCartItems(x)} className='absolute flex inset-y-0 inset-x-2 border-[1px justify-center max-w-[3rem] min-w-[2.2rem] items-center'>
+                                    <div onClick={() => delConOrders(x._id)} className='absolute flex inset-y-0 inset-x-2 border-[1px justify-center max-w-[3rem] min-w-[2.2rem] items-center'>
                                         <div className='rounded px-2 py-2.5 overflow-hidden  bg-[#CD434C] relative hover:bg-gradient-to-r hover:from-[#CD434C] hover:to-[#f36b74] hover:ring-2 hover:ring-offset-0 hover:ring-[#CD434C] transition-all ease-out duration-300'>
                                             <RiDeleteBin6Line className='w-4 h-4 text-[#fff] dark:[#]'></RiDeleteBin6Line>
                                         </div>
@@ -119,6 +151,8 @@ function Checkout({proof, onPlaceOrder, proofView, check, setCheck, check2,
                             </div>
                         </div>
                     ))}
+
+
                     <div className="flex justify-center border-b-[1px py-3">
                         <button onClick={() => {
                             deleteOrder()
