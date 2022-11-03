@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { googleUserAPI,userAPI,API,saveUser,amIloggedIn, userGoogleAPI, getUser } from '../../Utils';
 
 const Main = ({proof,setShow,proofView,check,setCheck,check2,setCheck2,setOnConfirm, onRemoveAll, openTab, products, setOpenTab, addFavorite, removeFavorite, isMyFavorite, clickableAgain,
-              showProofModal,useGoogle,setUseGoogle ,useLocal
+              showProofModal,useGoogle,setUseGoogle ,useLocal ,cartItems,setCartItems
 
             }) => {
   
   
-  const [cartItems,setCartItems] = useState([])
+  
   const [userData,setUserData] = useState([])
   const [favorites,setFavorites] = useState([])
   const [cartTotal,setCartTotal] =useState()

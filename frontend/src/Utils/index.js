@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useState } from 'react'
 
 export const saveUser = (response) => {
     localStorage.setItem('userData', JSON.stringify(response.data.userData))
@@ -29,6 +30,10 @@ export const rememberMe = (email_address,password) => {
         email_address, password
     }))
 }
+
+
+
+
 export const getRemembered = () => { return JSON.parse(localStorage.getItem('remembered')) }
 
 export const API = axios.create({ baseURL : 'http://localhost:4000/api' })

@@ -21,9 +21,10 @@ import { getUser } from '../../Utils'
 
 
 
-const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSignout,signout}) => {
+const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSignout,signout, setCurrentTab}) => {
     
     let navigate = useNavigate()
+   
 
     const signOutAccount=()=>{
         setSignout(!signout)
@@ -41,6 +42,8 @@ const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSigno
     const [switchLabel, setSwitchLabel] = useState(false)
     const [label, setLable] = useState("dark")
     const [name,setName] = useState(getUser())
+ 
+
 
 
     const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
@@ -104,13 +107,12 @@ const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSigno
                         </div>
                     </div>
                     <div className='flex justify-center items-center'>
-                        <Link to='Cart' className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
+                        <Link to='profile-cart' onClick={()=>{ setCurrentTab(0)}} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
                         <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-105'/>
                         </Link>
                     
                         <img src={getUser().profile_picture}onClick={() => {setHide(!hide) }}className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>
                     </div>
-
                     {/* profile */}
                     <div className={`absolute flex flex-col bg-white5/50 dark:bg-two/70 dark:shadow-lg shadow-lg shadow-Light_shadow dark:shadow-[#000000a9] rounded-xl gap-3 border-[1px left-4 top-20 w-40 px-3 py-5 
                                      ${!hide && 'hidden'}  `}>

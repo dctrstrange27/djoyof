@@ -10,7 +10,9 @@ import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
 import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
-import Cart from "./Components/profile_setting/Cart";
+// import Cart from "./Components/cart/Cart";
+import Profile_cart from "./Components/profile-cart/Profile_cart";
+import Cart from "./Components/profile-cart/Cart";
 import Main from "./Components/Home/Main"
 import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -44,6 +46,11 @@ const MainApp=()=> {
     const [login, setLogin] = useState(false)
     const [useGoogle, setUseGoogle] = useState(false)
     const [useLocal, setUseLocal] = useState(false)
+    const [currentTab, setCurrentTab] = useState()
+    const [cartItems,setCartItems] = useState([])
+  
+
+
     const updateSetShow = () => {
         setShow(false)
     };
@@ -71,11 +78,14 @@ const MainApp=()=> {
                             setUseLocal={setUseLocal}
                             signout={signout}
                             setSignout={setSignout}
+                            currentTab={currentTab} setCurrentTab={setCurrentTab}
                         />}>
                         <Route path="djoyof" element={<Home />} />
                         <Route path="About" element={<About />} />
                         <Route path="Main" element={
                             <Main
+                                cartItems={cartItems}
+                                setCartItems={setCartItems}
                                 check={check}
                                 proof={proof}
                                 setCheck={setCheck}
@@ -98,11 +108,20 @@ const MainApp=()=> {
                         <Route path="Profile" element={<Profile />} />
                         <Route path="Settings" element={<Settings />} />
                         <Route path="Orders" element={<Orders />} />
-                        <Route path="Cart" element={<Cart />} />
-                        <Route path="Cart/Profile" element={<Profile />} />
-
+                        {/* <Route path="Cart" element={<Cart />} /> */}
+                        <Route path="cart" element={<Cart />} />
+                        <Route path="profile-cart"
+                             element={<Profile_cart  
+                             currentTab={currentTab} 
+                             setCurrentTab={setCurrentTab}
+                             cartItems={cartItems}
+                             setCartItems={setCartItems}
+                             />} />
+                        <Route path="Cart/profile-cart" element={<Cart />} />
+                        <Route path="profile-cart/Profile" element={<Profile />} />
                         <Route element={<NotFound />} />
                     </Route>
+                    
                     <Route path="Login" element={<Login
                            setLogin={setLogin}
                            setUserData={setUserData}
@@ -115,7 +134,6 @@ const MainApp=()=> {
                            setUseLocal={setUseLocal}
                            useLocal={useLocal}
                           />} />
-
                     <Route path="recoverAccount" element={<ForgotConfig />} />
                     <Route path="Signup" element={
                         <Signupconfig

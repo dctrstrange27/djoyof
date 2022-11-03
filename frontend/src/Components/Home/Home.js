@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import MainNav from "../nav/MainNav";
 import SignoutPortal from "../Login/SignoutPortal";
 
-const Home = ({updateSetShow,show,setShow,userData,setProofFile,proofView,setProofView,togs,setTogs,setUseGoogle,setUseLocal,signout,setSignout}) => {
+const Home = ({updateSetShow,show,setShow,userData,setProofFile,proofView,setProofView,togs,setTogs,setUseGoogle,setUseLocal,signout,setSignout,   currentTab, setCurrentTab}) => {
 const [hide,setHide] = useState(false)
  
 
@@ -35,7 +35,7 @@ return (
                       scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-black
                       ">
           <div className="border-b-[1px border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-xl shadow-lg shadow-Light_shadow dark:shadow-[#00000054]   dark:bg-two fixed w-full z-30">
-            <MainNav setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
+            <MainNav    currentTab={currentTab} setCurrentTab={setCurrentTab} setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
           </div>
           <div className="flex absolute mt-16">
             <div className="relative  border-r-0 md:border-r-[1px] dark:border-[#ffffff48] border-[#0c0c0ca7] md:border-[3px">
