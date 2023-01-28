@@ -59,13 +59,15 @@ module.exports = {
           dm_mono:  "'DM Mono', monospace",
           pop:"'Poppins', sans-serif",
           nuni: "'Nunito', sans-serif",
-          nsans:"'Nunito Sans', sans-serif"
+          nsans:"'Nunito Sans', sans-serif",
+          mulish:"'Mulish', sans-serif"
         },
         backgroundImage: {
           'dark-text-logo': "url('./img/dark-text-logo.png')",
           'light-text-logo': "url('./img/light-text-logo.png')",
           'light-tab-bg': "url('./img/light-tab-bg.png')",
           'dark-tab-bg': "url('./img/dark-tab-bg.png')",
+          'home-pic': "url('./img/picture.jpg')",
         }
         
       },

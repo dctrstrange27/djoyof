@@ -3,7 +3,6 @@ import ForgotPortal from './ForgotPortal'
 import ForgotPass from './ForgotPass'
 import ChangePassPortal from './ChangePassPortal'
 import { GiConsoleController } from 'react-icons/gi'
-import { useEffect } from 'react'
 const ForgotConfig = () => {
 
   const [show, setShow] = useState(false)

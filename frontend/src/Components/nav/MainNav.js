@@ -42,9 +42,6 @@ const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSigno
     const [switchLabel, setSwitchLabel] = useState(false)
     const [label, setLable] = useState("dark")
     const [name,setName] = useState(getUser())
- 
-
-
 
     const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
 
@@ -57,12 +54,14 @@ const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSigno
     ]
     const Navs = [
         { id: 1, name: "Home", nav: "Main" },
-        { id: 2, name: "Service", nav: "Service" },
-        { id: 3, name: "About", nav: "About" },
+        { id: 2, name: "Products", nav: "Products" },
+        { id: 3, name: "Service", nav: "About" },
         { id: 4, name: "Contact Us", nav: "Contact" },
         { id: 5, name: "Help", nav: "Help" },
     ]
-   
+    
+
+
     return (
         <>
             <div className='relative max-w-[90rem] border-green-500 border-[1px  h-16 mx-auto min-w-sm z-40  duration-500'>
@@ -108,7 +107,7 @@ const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSigno
                     </div>
                     <div className='flex justify-center items-center'>
                         <Link to='profile-cart' onClick={()=>{ setCurrentTab(0)}} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
-                        <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-105'/>
+                        <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-110'/>
                         </Link>
                     
                         <img src={getUser().profile_picture}onClick={() => {setHide(!hide) }}className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>

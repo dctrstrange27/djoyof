@@ -76,7 +76,7 @@ export const Signup = ({ showContinue,setShowCon,userData,setUserName}) => {
                             <p className="text-justify font-pop text-[12px] text-[#CFCFCF]   sm:text-sm tracking-wide">
                                 DJOYOFBAKING is founded by Ms. Dimple Cuevas.
                                 <br></br>
-                                <br></br>
+                                    <br></br>
                                 DJOYOFBAKING is a small sole proprietorship business which cater and promotes fresh baked home local and international breads.
                                 <br></br>
                                 <br></br>
@@ -198,8 +198,6 @@ export const Signup = ({ showContinue,setShowCon,userData,setUserName}) => {
                                         </Link>
                                     </div>
                                 </div>
-
-                              
                             </div>
                         </div>
                     </div>

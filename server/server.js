@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 
 require("./config/database").connect();
 
-const { PORT } = process.env || 6000
+const { PORT } = process.env
 
 const cors = require('cors')
 

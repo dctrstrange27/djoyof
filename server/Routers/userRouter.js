@@ -19,6 +19,7 @@ const {
     getGoogleUserDetails,
     getGoogleAccounts,
     loginGoogleAccount,
+    loginAccount,
 } = require('../controller/userController')
 
 router.route('/login').post(login)
@@ -38,4 +39,5 @@ router.route('/createGoogleAccount').post(createGoogleAccount)
 router.route('/getGoogleUserDetails').post(getGoogleUserDetails)
 router.route('/getGoogleAccounts').get(getGoogleAccounts)
 router.route('/loginGoogleAccount').post(loginGoogleAccount)
+router.route('/loginAccount').post(loginAccount)
 module.exports =  router

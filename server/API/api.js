@@ -9,15 +9,13 @@ const users = require("../models/users");
 const Orders = require("../models/orders");
 const { updateOne } = require("../models/orders");
 const googleUsers = require("../models/googleUsers");
+const e = require("express");
 let ObjectId = require("mongoose").Types.ObjectId;
-
-
 
 //global variable
 let Vcode = " ";
 let email = " ";
 //--------------
-
 
 //user controller
 
@@ -283,9 +281,6 @@ router.post("/clearObj", async(req,res)=>{
     }
     res.status(200).json({users})
 })
-
-
-
 //Crud for admin
 router.post("/newProduct", async (req, res) => {
     const { product_name, product_price, image, description } = req.body;
@@ -353,7 +348,6 @@ router.post("/deleteProduct", async (req, res) => {
 router.get("/getAllProducts", async (req, res) => {
     try {
         const products = await Product.find({});
-
         res.status(200).json({
             products,
         });
@@ -385,14 +379,9 @@ router.post("/createUsrPostman", async (req, res) => {
 //         ehandler(e, res);
 //     }
 // });
-
 router.post("/updateMyFavorites", async (req, res) => {
     try {
-        // 0 - Add
-        // -1 - Remove
-        // 1 - Get all favorites
         const { favorites, mode, product_id, _id } = req.body;
-
         if (mode === 0) {
             const updateUser = await User.updateOne({ _id: new ObjectId(_id) }, { $push: { favorites: new ObjectId(product_id) } })
             const updateProduct = await Product.updateOne({ _id: product_id }, { $inc: { total_likes: 1 } })
@@ -407,7 +396,6 @@ router.post("/updateMyFavorites", async (req, res) => {
             const updateProduct = await Product.updateOne({ _id: product_id }, { $inc: { total_likes: -1 } })
             return res.status(200).json({ message: "Removed 👌" })
         }
-
         res.status(400).json({
             description: "No mode provided, 1 add, -1 remove, 1 get all",
         });
@@ -416,33 +404,43 @@ router.post("/updateMyFavorites", async (req, res) => {
     }
 });
 
-router.post("/updateCart", async (req, res) => {
+router.post("/addToCart", async (req, res) => {
     try {
-        const { _id, cartItems } = req.body;
-
-        if (!(_id, cartItems))
-            return res.status(401).json({ description: "Missing payloads" });
-
-        const update = await User.updateOne(
-            { _id },
-            {
-                $set: {
-                    cartItems,
-                },
-            }
-        );
-
-        res.status(200).json({ message: "update, oks👌!" });
+        const { id, cartItems } = req.body;
+        if (!(id, cartItems))return res.status(401).json({ description: "Missing payloads" });
+        const cart = await User.updateOne({_id:id},{$set:{cartItems:cartItems}});
+        return res.status(200).json({cart});
     } catch (e) {
         ehandler(e, res);
     }
 });
 
+router.post("/getAddToCart", async (req, res) => {
+        const {id} = req.body
+        const user = await User.findOne({_id:id})
+        try {
+            if(!id) res.status(400).json({message: "missing payloads!"})
+            if(user) res.status(200).json({cartItems: user.cartItems})
+        } catch (err) {
+            console.log(err)
+        }
+});
+
+router.post("/deleteCartItem", async(req, res)=>{  
+    const {id, userID} = req.body  
+    try {
+        if(!id) res.status(200).json({message:"Missing payloads!"})
+        const user = await User.updateOne({_id: userID},{$pull:{cartItems:{_id:id}}} )
+        if(user)return res.status(200).json({message:"deleted Succesfully!!"})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 router.post("/getMyOrders", async(req, res) => {
     try{
         const { _id, orderStatus } = req.body
         const listOfMyOrders = await Orders.find({ customer_id : _id, orderStatus })
-
         res.status(200).json({
             orders : listOfMyOrders
         })
@@ -453,13 +451,12 @@ router.post("/getMyOrders", async(req, res) => {
 
 router.post("/updateOrder", async(req,res)=>{
     try{
-        const { _id, orderStatus  } = req.body
+        const { _id, orderStatus } = req.body
         const updateOrderStatus = await Orders.updateOne( { _id }, { $set : {orderStatus} })
-    
+
         if( orderStatus === 0 ){ // ORDER AGAIN
             SendConfirmOrders()
         }else if( orderStatus === -1 ){ // CANCEL AN ORDER
-            
         }
         res.status(200).json({
             message : "Successfuly update order status"
@@ -480,8 +477,5 @@ router.post("/deleteGoogleAccount", async (req, res) => {
     }
 
 })
-
-
-
 
 module.exports = router;

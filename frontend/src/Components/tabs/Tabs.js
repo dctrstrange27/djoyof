@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import Product from '../product/Product';
+
 import { FaBreadSlice } from "react-icons/fa"
 import { BsFillSuitHeartFill } from "react-icons/bs"
 import { MdAutoAwesome, MdOutlineDownloadDone } from "react-icons/md"
@@ -100,20 +100,7 @@ const Tabs = ({ openTab, setOpenTab, onAdd, addFavorite, removeFavorite, isMyFav
                                     rounded-2xl rounded-tl-none bg-center bg-auto text-white bg-no-repeat dark:bg-two h-auto bg-light-tab-bg backdrop-blur-sm">
                         <div className="px-4 border-[1px z-[999] bg-[#ffffff58] dark:bg-[#ffffff00]  py-5 pb-[8vh] h-[40vh] overflow-scroll flex-auto scrollbar-none md:max-h-[50vh]  md:rounded-lg "><div className="text-sm">
                             {/** Products Container */}
-                            <div className={`grid  ${openTab !== 1 && "hidden"} grid grid-cols-1 md:grid-cols-1 sm:gap-0 lg:grid-cols-3 md:m-2 md:gap-1`} id="link2">
-                                {product.map((product) => (
-                                    <Product
-                                        key={product._id}
-                                        onAddCart={onAdd}
-                                        product={product}
-                                        onAfddFav={addFavorite}
-                                        onRemoveFav={removeFavorite}
-                                      //  liked={isMyFavorite(product._id)}
-                                        clickableAgain={clickableAgain}
-                                    ></Product>
-                                ))
-                                }
-                            </div>
+                        
                             <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                                 <p>Favorites Items..</p>
                             </div>

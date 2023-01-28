@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import UseDarkMode from './UseDarkMode'
 import { BsSun } from 'react-icons/bs'
 import { BsFillMoonStarsFill} from 'react-icons/bs'

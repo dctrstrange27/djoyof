@@ -16,7 +16,7 @@ const getAllProducts = aHandler(async(req,res)=>{
     }
 })
 
-const newProduct  = aHandler(async(req,res)=>{
+const newProduct = aHandler(async(req,res)=>{
     const {product_name,product_price,image,description} = req.body;
 
     if(!req.body){
@@ -29,7 +29,6 @@ const newProduct  = aHandler(async(req,res)=>{
         res.status(400)
         throw new Error('product Already Exists')
     }   
-
     const newProduct = await Product.create({
         product_name: `${product_name}`,
         product_price: `${product_price}`,
