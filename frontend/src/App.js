@@ -12,7 +12,7 @@ import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
 import { AiOutlineLoading } from 'react-icons/ai'
 import { ImSpinner10 } from 'react-icons/im'
-
+import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../src/Utils";
 import Contact from "./Components/ContactUs/Contact";
 import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
@@ -20,7 +20,6 @@ import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
 import Profile_cart from "./Components/profile-cart/Profile_cart";
 import Cart from "./Components/profile-cart/Cart";
-
 
 const Products = React.lazy(() => import('./Components/Products/Products'))
 const LazyMain = React.lazy(() => import('../src/Components/Home/Main'))
@@ -47,14 +46,80 @@ const MainApp = () => {
     const [userData, setUserData] = useState([]);
     const [userName, setUserName] = useState()
     const [login, setLogin] = useState(false)
-    const [useGoogle, setUseGoogle] = useState(false)
     const [useLocal, setUseLocal] = useState(false)
+    const [useGoogle, setUseGoogle] = useState(false)
     const [currentTab, setCurrentTab] = useState()
     const [cartItems, setCartItems] = useState([])
+    const [data, setData] = useState([]) 
 
+    
     const updateSetShow = () => {
         setShow(false)
-    };
+    }
+    const handleLogin = async(mod,data) =>{
+        // login existing user account 
+       if(mod == "login") {
+            const existingAccount = await userAPI.post("/login",{
+            email_address:data.email,
+            password:data.name,
+            }) 
+            setUserData(existingAccount)
+            saveUser(existingAccount)
+        }
+        if(mod == "loginGoogle") {
+            const existingAccount = await userAPI.post("/login",{
+                email_address:data.email,
+                password:data.name,
+                }) 
+                setUserData(existingAccount)
+                saveUser(existingAccount)
+        }
+        
+        //new Account
+       if(mod == "createAccount"){
+            const newAccount = await userAPI("/signup",{
+                email_address:data.email,
+                password:data.password, 
+                customer_name: data.customer_name,
+                address:data.address,
+                confirm_password:data.confirm_password,
+                contact_no:data.contact_no
+            })
+            setUserData(newAccount)
+            saveUser(newAccount) 
+       }
+       if(mod == "googleAccount"){
+        const googleAccount = await userAPI("/signup",{
+            email_address:data.email,
+            password:data.password, 
+            customer_name: data.customer_name,
+            address:data.address,
+            confirm_password:data.confirm_password,
+            contact_no:data.contact_no
+        })
+        setUserData(googleAccount)
+        saveUser(googleAccount) 
+   }
+
+
+
+
+
+
+ 
+
+      // if(mod == 0) return await userAPI.post("/") 
+
+    } 
+
+    const getUserdata = async(mode,email,password)=>{
+        
+    }
+
+
+
+
+
 
     const [user, setUser] = useState([])
     const [signout, setSignout] = useState(false)
@@ -142,6 +207,7 @@ const MainApp = () => {
                         setUserData={setUserData}
                         userData={userData}
                         login={login}
+                        handleLogin={handleLogin}
                         user={user}
                         setUser={setUser}
                         useGoogle={useGoogle}

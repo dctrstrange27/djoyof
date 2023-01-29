@@ -19,6 +19,7 @@ export const signOut = () => {
     localStorage.removeItem('userData')
 }
 
+
 export const amIloggedIn = (navigate) => {
     const loggedInUser = getUser()
     if(!loggedInUser) navigate('/login')
@@ -30,7 +31,7 @@ export const rememberMe = (email_address,password) => {
         email_address, password
     }))
 }
-
+    
 
 
 

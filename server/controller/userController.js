@@ -23,21 +23,20 @@ const getUsers = aHandler(async (req, res) => {
 
 // login existing user
 const login = aHandler(async (req, res) => {    
-    const {email, pass} = req.body
-    try {
-        const user = await User.findOne({email})
-        if(!user) return res.status(400).json({error_message: "User doesn't Exist!"})
 
-        if(!(await bcrypt.compare(pass, user.password)))
-            return res.status(403).json({error_message: "wrong credential"})
-        return res.json({userData: user})
-    } catch (e) {   
-        aHandler(e);
+    const { email_address, password } = req.body
+    if (!(email_address, password)) {
+        return res.status(403).json({ error_message: "Payload Missing, Please provide all required information 💨" })
     }
-
-
-
-
+    const doesExist = await User.findOne({ email_address })
+    if (!doesExist) {
+        return res.status(404).json({ error_message: "Opps Sorry ! User doesn't Exist 😓" })
+    }
+    if (doesExist && (await bcrypt.compare(password, doesExist.password))) {
+        return res.status(200).json({ userData: doesExist })
+    } else {
+        return res.status(400).json({ error_message: "Incorrect Password! 😫" })
+    }
 
 })
 const generateHash = password =>{
@@ -76,11 +75,10 @@ const signup = aHandler(async (req, res) => {
     }
 
     const hashPassword = await bcrypt.hash(password, (await bcrypt.genSalt(10)))
-
     if (password === confirm_password) {
         const newUser = await User.create({
             email_address: email_address,
-            customer_name: customer_name,
+            customer1_name: customer_name,
             password: hashPassword,
             confirm_password: confirm_password,
             customer_address: address,
@@ -226,16 +224,13 @@ const sendCode = aHandler(async (req, res, next) => {
     }
 })
 
-
 const resendCode = aHandler(async (req, res) => {
     fd = between(0, 10).toString();
     sd = between(0, 10).toString();
     td = between(0, 10).toString();
     pd = between(0, 10).toString();
     Vcode = `${fd}${sd}${td}${pd}`;
-
     const { email_address } = req.body
-
     try {
         var email = nodemailer.createTransport({
             service: "gmail",
@@ -336,19 +331,17 @@ const generateJWT = (id) => {
 // merge login, signup and auto google login
 
 const loginAccount = async (req, res) => {
-    // const {mod ,email, pass, } = req.body
+     const {mod,email,pass} = req.body
+    try {
+        //login existing account
+        if(mod == 1) {
+            return login()
+        }
+        res.status(400).json({message: "Bad request!!"})
 
-    // try {
-    //     if(mode == 1) {
-       
-    //     }
-
-    // } catch (error) {
-    //     console.log(error)
-    // }
-
-
-
+    } catch (error) {
+        console.log(error)
+    }
 
 }
 

@@ -11,7 +11,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import jwt_Decode from 'jwt-decode'
 
 
-export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, setUseLocal }) => {
+export const Login = ({ setLogin,handleLogin, login, setUserData, setUseGoogle,useLocal, setUseLocal }) => {
   const [email_address, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false)
@@ -20,32 +20,34 @@ export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, set
   const [visible, setVisible] = useState(false)
   const [gData,setggleData] = useState([])
 
-  console.log(gData.email)
+ 
 
   let navigate = useNavigate();
   let googleAccountCredentials = ""
 
   const signIn = async () => {
+    const mod = 1
+    console.log(mod)
     setLoading(true)
     try {
       console.log("use Local", useLocal)
       setError('')
       setLogin(!login)
       setUseLocal(true)
-      const response = await userAPI.post("/login", { email_address, password });
+      const response = await handleLogin(mod,email_address,password)
       console.log(response)
       saveUser(response);
       setUserData(response)
       if (remember) rememberMe(email_address, password)
       navigate("/djoyof"); 
-      
+
     } catch (e) {
       console.log(e);
        setError(e.response.data.error_message);
       setLoading(false)
     }
   };
-  
+
   const createGoogleAccount = async(info)=>{
       try {
           const res = await userGoogleAPI.post("/createGoogleAccount",
@@ -102,10 +104,7 @@ export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, set
                   name="password"
                   value={email_address}
                   onChange={(e) => setEmail(e.target.value)} />
-
               </div>
-
-
               <div className="border-[1px border-[#fff relative ">
                 <label className="sm:block hidden mb-1 font-nsans tracking-normal text-[#fff]"> Password </label>
                 <RiLockPasswordLine className="w-7 h-5 text-[#fff] top-8 absolute " />
@@ -114,11 +113,9 @@ export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, set
                     setVisible(!visible)
                   }}
                     className={` w-7 h-4 right-2 top-[2.3rem] scale-105 text-[#fa9136d5] absolute `} />
-
                 ) : (
                   <BsEyeSlash onClick={() => {
                     setVisible(!visible)
-                 
                   }}
                     className={` w-7 h-4 right-2 top-[2.3rem] scale-105 text-[#aaa7a7] absolute `} />)}
                 <input className="flex component-preview p-4 items-center justify-center gap-2 h-[30px] text-[#fff] w-full text-sm focus:outline-none  leading-2 focus:border-[#c83737]
@@ -128,7 +125,6 @@ export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, set
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)} />
-
               </div>
               <div className="w-full border-[1px m-2 flex justify-end">
                 <GoogleLogin theme= "filled_black" size="medium"
@@ -150,7 +146,7 @@ export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, set
                     id="remember_me"
                     type="checkbox"
                     value={remember}
-                    onChange={(e) => { setRemember(e.target.value) }}
+                    onChange={(e) => { setRemember(e.target.value)}}
                     className="border border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
                   />
                   <label className="ml-2 block text-sm font-bold lg:text-[0.90rem]  leading-5 text-[#a3a3a3]">
@@ -165,8 +161,8 @@ export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, set
               </div>
               <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
                 <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 text-[#fff] animate-spin ${loading ? 'block' : 'hidden'}`} />
-                <p className={`text-center text-xs text-gray-600  ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
-                <p className="text-sm text-[#fa5644] text-center">{error}</p>
+                <p className={`text-center text-xs text-[#fff] ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
+                <p className={`text-sm text-[#fff] ${loading ? "bg-transparent" : "bg-[#e65353ec]"}rounded-sm p-2 mt-4 text-center`}>{error}</p>
               </div>
               <div className="py-3 lg:py-[20px] flex items-center justify-center z-10">
                 <button
@@ -188,7 +184,6 @@ export const Login = ({ setLogin, login, setUserData, setUseGoogle,useLocal, set
                 </Link>
               </div>
             </form>
-
           </div>
           <img className="absolute invisible lg:visible lg:right-16 lg:bottom-0 h-full lg:h-70 lg:w-auto"
             src={require("../../img/foot.png")} >
