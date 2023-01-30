@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useInsertionEffect } from "react";
 import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading } from "react-icons/ai"
@@ -10,8 +10,7 @@ import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_Decode from 'jwt-decode'
 
-
-export const Login = ({ setLogin,handleLogin, login, setUserData, setUseGoogle,useLocal, setUseLocal }) => {
+export const Login = ({ setLogin,handleLogin, data, setData,login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
   const [email_address, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false)
@@ -19,12 +18,22 @@ export const Login = ({ setLogin,handleLogin, login, setUserData, setUseGoogle,u
   const [error, setError] = useState('')
   const [visible, setVisible] = useState(false)
   const [gData,setggleData] = useState([])
+  const [handle, setHandle] = useState(false)
 
- 
+
+  // useEffect(()=>{
+  //   setData([...data,email_address,password])
+  //   console.log(data)
+  // },[])
 
   let navigate = useNavigate();
   let googleAccountCredentials = ""
 
+  const loginUser =async() => {
+    setData({...data,email_address:email_address, password:password})
+    handleLogin(1,data)
+  }
+  
   const signIn = async () => {
     const mod = 1
     console.log(mod)
@@ -169,7 +178,9 @@ export const Login = ({ setLogin,handleLogin, login, setUserData, setUseGoogle,u
                   // disabled={email_address.length === 0 || password.length === 0 || loading}
                   onClick={(e) => {
                     e.preventDefault()
-                    signIn()
+                    setHandle(!handle)
+                    loginUser()
+                    //signIn()
                   }}
                   className={`
                           text-white bg-[#d0722a] hover:bg-[#f98934] focus:ring-4 focus:outline-none focus:ring-blue-300 w-full

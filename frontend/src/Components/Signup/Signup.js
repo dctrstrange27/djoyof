@@ -16,7 +16,8 @@ import { MdOutlineAlternateEmail } from 'react-icons/md'
 
 
 
-export const Signup = ({ showContinue,setShowCon,userData,setUserName}) => {
+
+export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,handleLogin,userData,setUserName}) => {
     const [openTab, setOpenTab] = React.useState(1)
     const [userInput, getUserInput] = React.useState([])
     const [email_address, setEmail] = useState("");
@@ -26,29 +27,40 @@ export const Signup = ({ showContinue,setShowCon,userData,setUserName}) => {
     const [contact_no, setcontact] = useState("");
     const [confirm_password, setconfirmpassword] = useState("")
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
     const [x, setX] = useState(false)
 
+
+    const getData = async()=>{
+        setData({...data,
+            email_address:email_address,
+            password: password,
+            customer_name:customer_name,
+            address:address,
+            contact_no: contact_no,
+            confirm_password:confirm_password})
+        handleLogin(0,data)
+    }
+
     let navigate = useNavigate();
-    const signUp = async () => {
-        setLoading(true)
-        try {
-            setError('')
-            const response = await userAPI.post("/signup", { email_address, password, customer_name, address, confirm_password, contact_no });
-            saveUser(response);
-            setShowCon(true)
-            setUserName(response.data.userData.customer_name)
-            navigate('/Signup')
-        } catch (e) {
-            console.log(e);
-            if (e.response.data) {
-                setError(e.response.data.error_message)
-                setX(true)
-            }
-            else setError("Sorry but we can't reach the server")
-            setLoading(false)
-        }
-    };
+    // const signUp = async () => {
+    //     setLoading(true)
+    //     try {
+    //         setError('')
+    //         const response = await userAPI.post("/signup", { email_address, password, customer_name, address, confirm_password, contact_no });
+    //         saveUser(response);
+    //         setShowCon(true)
+    //         setUserName(response.data.userData.customer_name)
+    //         navigate('/Signup'
+    //     } catch (e) {
+    //         console.log(e);
+    //         if (e.response.data) {
+    //             setError(e.response.data.error_message)
+    //             setX(true)
+    //         }
+    //         else setError("Sorry but we can't reach the server")
+    //         setLoading(false)
+    //     }
+    // };
     return (
         <>
             <div className="md:flex md:items-center border-[3px bg-[#19191e]  border-pink-500 overflow-auto h-screen scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-black">
@@ -182,7 +194,8 @@ export const Signup = ({ showContinue,setShowCon,userData,setUserName}) => {
                                         <button
                                             onClick={(e) => {
                                                 e.preventDefault()
-                                                signUp()
+                                                getData()
+                                               // signUp()
                                             }}
                                             className={`bg-[#a65a17] text-[#fff] font-bold tracking-wide w-full flex justify-center  duration-300 hover:scale-105 border-[1px min-w-20 hover:bg-orange-600 focus:ring-4 focus:outline-none 
                                              rounded-lg text-[15px] px-5 py-2.5  items-center `}

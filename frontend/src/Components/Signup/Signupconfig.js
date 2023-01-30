@@ -4,13 +4,14 @@ import ToLogin from "./ToLogin"
 import { useEffect, useState } from "react"
 
 
-const Signupconfig = ({showContinue,setShowCon,userName,setUserName,userData}) => {
-  const[load, setLoad] = useState(false)
+const Signupconfig = ({ showContinue, data,error,setError, setData, handleLogin, setShowCon, userName, setUserName, userData }) => {
+  const [load, setLoad] = useState(false)
 
- return (
+  return (
     <>
-    <Signup  showContinue={showContinue} userData={userData} userName={userName} setUserName={setUserName} setShowCon={setShowCon} />
-    <ToLogin showContinue={showContinue}  setShowCon={setShowCon} userName={userName}/>
+      <Signup data={data} setError={setError}
+        error={error} setData={setData} handleLogin={handleLogin} showContinue={showContinue} userData={userData} userName={userName} setUserName={setUserName} setShowCon={setShowCon} />
+      <ToLogin showContinue={showContinue} setShowCon={setShowCon} userName={userName} />
 
     </>
   )

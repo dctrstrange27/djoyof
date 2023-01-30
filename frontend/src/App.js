@@ -20,6 +20,7 @@ import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
 import Profile_cart from "./Components/profile-cart/Profile_cart";
 import Cart from "./Components/profile-cart/Cart";
+import { GiLogicGateNand } from "react-icons/gi";
 
 const Products = React.lazy(() => import('./Components/Products/Products'))
 const LazyMain = React.lazy(() => import('../src/Components/Home/Main'))
@@ -50,80 +51,85 @@ const MainApp = () => {
     const [useGoogle, setUseGoogle] = useState(false)
     const [currentTab, setCurrentTab] = useState()
     const [cartItems, setCartItems] = useState([])
-    const [data, setData] = useState([]) 
 
-    
+    //error
+    const [error, setError] = useState('')
+
+
+    const [data, setData] = useState([
+        {
+            password: "",
+            email_address: "",
+            customer_name: "",
+            address: "",
+            confirm_password: "",
+            contact_no: ""
+        }
+    ])
+
     const updateSetShow = () => {
         setShow(false)
     }
-    const handleLogin = async(mod,data) =>{
-        // login existing user account 
-       if(mod == "login") {
-            const existingAccount = await userAPI.post("/login",{
-            email_address:data.email,
-            password:data.name,
-            }) 
-            setUserData(existingAccount)
-            saveUser(existingAccount)
-        }
-        if(mod == "loginGoogle") {
-            const existingAccount = await userAPI.post("/login",{
-                email_address:data.email,
-                password:data.name,
-                }) 
+    const handleLogin = async (mod, data) => {
+        // login existing user account
+        console.log(data)
+        try {
+            if (mod == 1) {
+                const existingAccount = await userAPI.post("/login", {
+                    email_address: data.email_address,
+                    password: data.password,
+                })
                 setUserData(existingAccount)
                 saveUser(existingAccount)
+                //if (remember) rememberMe(email_address, password)
+                navigate("/djoyof");
+            }
+            if (mod == 2) {
+                const loginGoogle = await userAPI.post("/login", {
+                    email_address: data.email,
+                    password: data.name,
+                })
+                setUserData(loginGoogle)
+                saveUser(loginGoogle)
+            }
+            //new Account
+            if (mod == "createAccount") {
+                const newAccount = await userAPI("/signup", {
+                    password: data.password,
+                    email_address: data.email,
+                    customer_name: data.customer_name,
+                    address: data.address,
+                    confirm_password: data.confirm_password,
+                    contact_no: data.contact_no
+                })
+                setUserData(newAccount)
+                saveUser(newAccount)
+            }
+            if (mod == 0) {
+                console.log(userData)
+                const newUser = await userAPI("/signup", {
+                    email_address: data.email_address,
+                    customer_name: data.customer_name,
+                    password: data.password,
+                    address: data.address,
+                    confirm_password: data.confirm_password,
+                    contact_no: data.contact_no
+                })
+                saveUser(newUser);
+                setUserData(newUser);
+                setShowCon(true)
+                // setUserName(googleAccount.data.userData.customer_name)
+                navigate('/Signup')
+            }
+
+
+        } catch (error) {
+            console.log(error)
+           
         }
-        
-        //new Account
-       if(mod == "createAccount"){
-            const newAccount = await userAPI("/signup",{
-                email_address:data.email,
-                password:data.password, 
-                customer_name: data.customer_name,
-                address:data.address,
-                confirm_password:data.confirm_password,
-                contact_no:data.contact_no
-            })
-            setUserData(newAccount)
-            saveUser(newAccount) 
-       }
-       if(mod == "googleAccount"){
-        const googleAccount = await userAPI("/signup",{
-            email_address:data.email,
-            password:data.password, 
-            customer_name: data.customer_name,
-            address:data.address,
-            confirm_password:data.confirm_password,
-            contact_no:data.contact_no
-        })
-        setUserData(googleAccount)
-        saveUser(googleAccount) 
-   }
-
-
-
-
-
-
- 
-
-      // if(mod == 0) return await userAPI.post("/") 
-
-    } 
-
-    const getUserdata = async(mode,email,password)=>{
-        
     }
-
-
-
-
-
-
     const [user, setUser] = useState([])
     const [signout, setSignout] = useState(false)
-
     return (
         <>
             <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
@@ -207,6 +213,8 @@ const MainApp = () => {
                         setUserData={setUserData}
                         userData={userData}
                         login={login}
+                        data={data}
+                        setData={setData}
                         handleLogin={handleLogin}
                         user={user}
                         setUser={setUser}
@@ -218,6 +226,11 @@ const MainApp = () => {
                     <Route path="recoverAccount" element={<ForgotConfig />} />
                     <Route path="Signup" element={
                         <Signupconfig
+                            setError={setError}
+                            error={error}
+                            data={data}
+                            setData={setData}
+                            handleLogin={handleLogin}
                             userName={userName}
                             setUserName={setUserName}
                             userData={userData}
