@@ -55,12 +55,17 @@ const MainApp = () => {
     //error
     const [error, setError] = useState('')
 
-
+    const [loginForm, setLoginForm] = useState([
+        {
+            email:"",
+            password:"",
+        }
+    ])
     const [data, setData] = useState([
         {
+            email: "",
             password: "",
-            email_address: "",
-            customer_name: "",
+            name: "",
             address: "",
             confirm_password: "",
             contact_no: ""
@@ -70,19 +75,24 @@ const MainApp = () => {
     const updateSetShow = () => {
         setShow(false)
     }
+
     const handleLogin = async (mod, data) => {
         // login existing user account
-        console.log(data)
         try {
             if (mod == 1) {
-                const existingAccount = await userAPI.post("/login", {
-                    email_address: data.email_address,
-                    password: data.password,
-                })
-                setUserData(existingAccount)
-                saveUser(existingAccount)
-                //if (remember) rememberMe(email_address, password)
-                navigate("/djoyof");
+                try {
+                    const existingAccount = await userAPI.post("/login", {
+                        email_address: data.email,
+                        password: data.password,
+                    })
+                    setUserData(existingAccount)
+                    saveUser(existingAccount)
+                    //if (remember) rememberMe(email_address, password)
+                    navigate("/djoyof");
+                } catch (e) {
+                    console.log(e);
+                    setError(e.response.data.error_message);
+                }
             }
             if (mod == 2) {
                 const loginGoogle = await userAPI.post("/login", {
@@ -106,7 +116,6 @@ const MainApp = () => {
                 saveUser(newAccount)
             }
             if (mod == 0) {
-                console.log(userData)
                 const newUser = await userAPI("/signup", {
                     email_address: data.email_address,
                     customer_name: data.customer_name,
@@ -209,6 +218,10 @@ const MainApp = () => {
                         <Route element={<NotFound />} />
                     </Route>
                     <Route path="Login" element={<Login
+                        error={error}
+                        setError={setError}
+                        loginForm={loginForm}
+                        setLoginForm={setLoginForm}
                         setLogin={setLogin}
                         setUserData={setUserData}
                         userData={userData}

@@ -10,17 +10,21 @@ import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_Decode from 'jwt-decode'
 
-export const Login = ({ setLogin,handleLogin, data, setData,login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
-  const [email_address, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export const Login = ({ setLogin,handleLogin,loginForm,setLoginForm,error, setError,data, setData,login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
+ 
   const [remember, setRemember] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
   const [visible, setVisible] = useState(false)
   const [gData,setggleData] = useState([])
   const [handle, setHandle] = useState(false)
 
+  const {email, password} = loginForm
 
+  console.log(error)
+
+  const onChange=(e)=>{
+      setLoginForm((prev)=>({...prev,[e.target.name]:e.target.value}))
+  }
   // useEffect(()=>{
   //   setData([...data,email_address,password])
   //   console.log(data)
@@ -29,54 +33,63 @@ export const Login = ({ setLogin,handleLogin, data, setData,login, setUserData, 
   let navigate = useNavigate();
   let googleAccountCredentials = ""
 
-  const loginUser =async() => {
-    setData({...data,email_address:email_address, password:password})
-    handleLogin(1,data)
-  }
+  // const handleLog =(callback) => {
+             
+  //     console.log("First function");
+  //     callback()  
+  // }
+  // const loginUser=()=>{
   
-  const signIn = async () => {
-    const mod = 1
-    console.log(mod)
-    setLoading(true)
-    try {
-      console.log("use Local", useLocal)
-      setError('')
-      setLogin(!login)
-      setUseLocal(true)
-      const response = await handleLogin(mod,email_address,password)
-      console.log(response)
-      saveUser(response);
-      setUserData(response)
-      if (remember) rememberMe(email_address, password)
-      navigate("/djoyof"); 
+  //   console.log("Second function");
+  // }
 
-    } catch (e) {
-      console.log(e);
-       setError(e.response.data.error_message);
-      setLoading(false)
-    }
-  };
-
-  const createGoogleAccount = async(info)=>{
-      try {
-          const res = await userGoogleAPI.post("/createGoogleAccount",
-          {email_address:info.email,
-            customer_name:info.name,
-            picture:info.picture,
-            verified:info.email_verified,
-          })
-          setUseGoogle(true);saveUser(res);navigate('/djoyof');
-      } catch (error) {console.log(error)}
+  async function handleLog(){  
+    const res = await handleLogin(1,loginForm)
+    return res 
   }
+
+  // const signIn = async () => {
+  //   const mod = 1
+  //   console.log(mod)
+  //   setLoading(true)
+  //   try {
+  //     console.log("use Local", useLocal)
+  //     setError('')
+  //     setLogin(!login)
+  //     setUseLocal(true)
+  //     const response = await handleLogin(mod,email_address,password)
+  //     console.log(response)
+  //     saveUser(response);
+  //     setUserData(response)
+  //     if (remember) rememberMe(email_address, password)
+  //     navigate("/djoyof"); 
+
+  //   } catch (e) {
+  //     console.log(e);
+  //      setError(e.response.data.error_message);
+  //     setLoading(false)
+  //   }
+  // };
+
+  // const createGoogleAccount = async(info)=>{
+  //     try {
+  //         const res = await userGoogleAPI.post("/createGoogleAccount",
+  //         {email_address:info.email,
+  //           customer_name:info.name,
+  //           picture:info.picture,
+  //           verified:info.email_verified,
+  //         })
+  //         setUseGoogle(true);saveUser(res);navigate('/djoyof');
+  //     } catch (error) {console.log(error)}
+  // }
 
   useEffect(() => {
     const remembered = getRemembered()
-    if (remembered) { setEmail(remembered.email_address); setPassword(remembered.password)
-    }
+    if (remembered) { setLoginForm({...loginForm,email:email,password:password})}
   }, []
   )
-  const [openTab, setOpenTab] = React.useState(1)
-  const [values, setValues] = React.useState({ password: "", showPassword: false, });
+  // const [openTab, setOpenTab] = React.useState(1)
+  // const [values, setValues] = React.useState({ password: "", showPassword: false, });
 
   return (
     <>
@@ -110,9 +123,9 @@ export const Login = ({ setLogin,handleLogin, data, setData,login, setUserData, 
                                                    dark:border-gray-600 focus:ring  dark:focus:ring-[#c85e378d] my-2 pl-7 rounded-lg border-0 bg-[#ffffff1c]
                                                     transition duration-200 "
                   type="text"
-                  name="password"
-                  value={email_address}
-                  onChange={(e) => setEmail(e.target.value)} />
+                  name="email"
+                  value={email}
+                  onChange={onChange} />
               </div>
               <div className="border-[1px border-[#fff relative ">
                 <label className="sm:block hidden mb-1 font-nsans tracking-normal text-[#fff]"> Password </label>
@@ -133,14 +146,14 @@ export const Login = ({ setLogin,handleLogin, data, setData,login, setUserData, 
                   type={`${visible ? "text" : "password"}`}
                   name="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)} />
+                  onChange={onChange} />
               </div>
               <div className="w-full border-[1px m-2 flex justify-end">
                 <GoogleLogin theme= "filled_black" size="medium"
                   onSuccess={credentialResponse => {
                      googleAccountCredentials = jwt_Decode(credentialResponse.credential)
                     //  console.log(googleAccountCredentials)
-                    createGoogleAccount(googleAccountCredentials)
+                    // createGoogleAccount(googleAccountCredentials)
                     setggleData(googleAccountCredentials)
                   }}
                   onError={() => {
@@ -168,7 +181,7 @@ export const Login = ({ setLogin,handleLogin, data, setData,login, setUserData, 
                   Forgot Password?{""}
                 </Link>
               </div>
-              <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
+              <div className={`justify-center ${error.length > 0 ? 'block' : 'hidden'}`}>
                 <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 text-[#fff] animate-spin ${loading ? 'block' : 'hidden'}`} />
                 <p className={`text-center text-xs text-[#fff] ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
                 <p className={`text-sm text-[#fff] ${loading ? "bg-transparent" : "bg-[#e65353ec]"}rounded-sm p-2 mt-4 text-center`}>{error}</p>
@@ -179,7 +192,7 @@ export const Login = ({ setLogin,handleLogin, data, setData,login, setUserData, 
                   onClick={(e) => {
                     e.preventDefault()
                     setHandle(!handle)
-                    loginUser()
+                    handleLog()
                     //signIn()
                   }}
                   className={`

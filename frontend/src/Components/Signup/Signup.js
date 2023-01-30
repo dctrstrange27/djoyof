@@ -20,21 +20,21 @@ import { MdOutlineAlternateEmail } from 'react-icons/md'
 export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,handleLogin,userData,setUserName}) => {
     const [openTab, setOpenTab] = React.useState(1)
     const [userInput, getUserInput] = React.useState([])
-    const [email_address, setEmail] = useState("");
-    const [customer_name, setusername] = useState("");
-    const [address, setAddress] = useState("");
-    const [password, setPassword] = useState("");
-    const [contact_no, setcontact] = useState("");
-    const [confirm_password, setconfirmpassword] = useState("")
+   
     const [loading, setLoading] = useState(false)
     const [x, setX] = useState(false)
 
+    const {email,password,name,address,confirm_password,contact_no} = data
+
+    const onChange = (e) =>{
+        setData((prevState)=>({...prevState,[e.target.name]:e.target.value}))
+    }
 
     const getData = async()=>{
         setData({...data,
-            email_address:email_address,
+            email_address:email,
             password: password,
-            customer_name:customer_name,
+            customer_name:name,
             address:address,
             contact_no: contact_no,
             confirm_password:confirm_password})
@@ -115,8 +115,8 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                                     transition duration-200 "
                                             type="text"
                                             name="email"
-                                            value={email_address}
-                                            onChange={(e) => setEmail(e.target.value)}
+                                            value={email}
+                                            onChange={onChange}
                                         />
                                     </div>
                                     <div className="border-[1px border-[#fff relative ">
@@ -127,8 +127,8 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                                     transition duration-200 "
                                             type="text"
                                             name="username"
-                                            value={customer_name}
-                                            onChange={(e) => setusername(e.target.value)}
+                                            value={name}
+                                            onChange={onChange}
                                         />
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                         type="text"
                                         name="address"
                                         value={address}
-                                        onChange={(e) => setAddress(e.target.value)}
+                                        onChange={onChange}
                                     />
                                 </div>
                                 <div className="border-[1px border-[#fff relative ">
@@ -151,9 +151,9 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                                    dark:border-gray-600 focus:ring  dark:focus:ring-[#c85e378d] my-2 pl-7 rounded-lg border-0 bg-[#ffffff1c]
                                                     transition duration-200 "
                                         type="text"
-                                        name="username"
+                                        name="contact_no"
                                         value={contact_no}
-                                        onChange={(e) => setcontact(e.target.value)}
+                                        onChange={onChange}
                                     />
                                 </div>
                                 <div className="border-[1px border-[#fff relative ">
@@ -165,19 +165,19 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                         type="password"
                                         name="password"
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)} />
+                                        onChange={onChange} />
                                 
                                 </div>
                                 <div className="border-[1px border-[#fff relative ">
                                     <label className="sm:block hidden mb-1 font-nsans tracking-normal text-[#fff]"> Confirm </label>
-                                    <GiConfirmed className={` ${password === confirm_password && password.length !== 0 ? "text-[#52e952de] scale-105" :"text-[#fff]"} duration-150 ease-linear  w-7 h-5  top-8 absolute  `} />
+                                    {/* <GiConfirmed className={` ${password === confirm_password && password.length !== 0 ? "text-[#52e952de] scale-105" :"text-[#fff]"} duration-150 ease-linear  w-7 h-5  top-8 absolute  `} /> */}
                                     <input  className="flex component-preview p-4 items-center justify-center gap-2 h-[30px] text-[#fff] w-full text-sm focus:outline-none  leading-2 focus:border-[#c83737]
                                                    dark:border-gray-600 focus:ring  dark:focus:ring-[#c85e378d] my-2 pl-7 rounded-lg border-0 bg-[#ffffff1c]
                                                     transition duration-200 "
                                                     type="password"
-                                                    name="username"
+                                                    name="confirm_password"
                                                     value={confirm_password}
-                                                    onChange={(e) => setconfirmpassword(e.target.value)} />
+                                                    onChange={onChange} />
                                     
                                 </div>           
                                 <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
