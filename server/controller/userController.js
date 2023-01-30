@@ -46,7 +46,6 @@ const generateHash = password =>{
 
 const signup = aHandler(async (req, res) => {
     const { email_address, customer_name, password, confirm_password, address, contact_no, } = req.body;
-
     const doesExist = await User.findOne({ email_address })
 
     if (doesExist) {
@@ -78,7 +77,7 @@ const signup = aHandler(async (req, res) => {
     if (password === confirm_password) {
         const newUser = await User.create({
             email_address: email_address,
-            customer1_name: customer_name,
+            customer_name: customer_name,
             password: hashPassword,
             confirm_password: confirm_password,
             customer_address: address,

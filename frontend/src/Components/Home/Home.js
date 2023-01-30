@@ -7,11 +7,11 @@ import MainNav from "../nav/MainNav";
 import SignoutPortal from "../Login/SignoutPortal";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-const Home = ({ updateSetShow, show, setShow, userData, setProofFile, proofView, setProofView, togs, setTogs, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
+const Home = ({ updateSetShow, setError, loading, setLoading,show, setShow, userData, setProofFile, proofView, setProofView, togs, setTogs, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
   const [hide, setHide] = useState(false)
   return (
     <div className="relative flex flex-col">
-      <SignoutPortal signout={signout} setSignout={setSignout}></SignoutPortal>
+      <SignoutPortal setLoading={setLoading} signout={signout} setSignout={setSignout}></SignoutPortal>
       <div className="border-b-[1px fixed border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-xl shadow-lg shadow-Light_shadow dark:shadow-[#00000054] dark:bg-two  w-full z-30">
         <MainNav currentTab={currentTab} setCurrentTab={setCurrentTab} setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
       </div>

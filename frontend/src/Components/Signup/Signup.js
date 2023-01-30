@@ -17,30 +17,27 @@ import { MdOutlineAlternateEmail } from 'react-icons/md'
 
 
 
-export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,handleLogin,userData,setUserName}) => {
+export const Signup = ({ showContinue,setShowCon,setError,loading, setLoading,error,signupForm,setSignupForm,handleLogin,userData,setUserName}) => {
     const [openTab, setOpenTab] = React.useState(1)
     const [userInput, getUserInput] = React.useState([])
-   
-    const [loading, setLoading] = useState(false)
+    
+
+  
     const [x, setX] = useState(false)
 
-    const {email,password,name,address,confirm_password,contact_no} = data
+    const {email,password,name,address,confirm_password,contact_no} = signupForm
 
     const onChange = (e) =>{
-        setData((prevState)=>({...prevState,[e.target.name]:e.target.value}))
+        setSignupForm((prev)=>({...prev,[e.target.name]:e.target.value}))
     }
-
-    const getData = async()=>{
-        setData({...data,
-            email_address:email,
-            password: password,
-            customer_name:name,
-            address:address,
-            contact_no: contact_no,
-            confirm_password:confirm_password})
-        handleLogin(0,data)
+    console.log(signupForm)
+    const signup = async()=>{
+      console.log("hello")
+      setLoading(false)
+      handleLogin(0,signupForm)
+    
     }
-
+  
     let navigate = useNavigate();
     // const signUp = async () => {
     //     setLoading(true)
@@ -126,7 +123,7 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                                    dark:border-gray-600 focus:ring  dark:focus:ring-[#c85e378d] my-2 pl-7 rounded-lg border-0 bg-[#ffffff1c]
                                                     transition duration-200 "
                                             type="text"
-                                            name="username"
+                                            name="name"
                                             value={name}
                                             onChange={onChange}
                                         />
@@ -180,7 +177,7 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                                     onChange={onChange} />
                                     
                                 </div>           
-                                <div className={`justify-center ${loading || error.length > 0 ? 'block' : 'hidden'}`}>
+                                <div className={`justify-center ${loading ? 'block' : 'hidden'}`}>
                                     <AiOutlineLoading className={`my-2 mx-auto text-[#fff] w-5 h-5 text-orange-500 animate-spin ${loading ? 'block' : 'hidden'}`} />
                                     <p className={`text-center text-xs text-gray-600  text-[#fff] ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
                                     <div className="text-[15px] justify-center items-center ease-in duration-150 py-4  gap-4 rounded-sm bg-[#f72020b4] text-[#fff] flex my-4 text-rose-400 text-center">
@@ -194,8 +191,7 @@ export const Signup = ({ showContinue,setShowCon,setError,error,data,setData,han
                                         <button
                                             onClick={(e) => {
                                                 e.preventDefault()
-                                                getData()
-                                               // signUp()
+                                                 signup()
                                             }}
                                             className={`bg-[#a65a17] text-[#fff] font-bold tracking-wide w-full flex justify-center  duration-300 hover:scale-105 border-[1px min-w-20 hover:bg-orange-600 focus:ring-4 focus:outline-none 
                                              rounded-lg text-[15px] px-5 py-2.5  items-center `}

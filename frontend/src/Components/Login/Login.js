@@ -10,17 +10,16 @@ import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_Decode from 'jwt-decode'
 
-export const Login = ({ setLogin,handleLogin,loginForm,setLoginForm,error, setError,data, setData,login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
+export const Login = ({ setLogin,handleLogin,loginForm,setLoginForm,error, loading,setLoading,setError,data, setData,login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
  
   const [remember, setRemember] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [visible, setVisible] = useState(false)
   const [gData,setggleData] = useState([])
   const [handle, setHandle] = useState(false)
 
   const {email, password} = loginForm
 
-  console.log(error)
+  console.log(loading)
 
   const onChange=(e)=>{
       setLoginForm((prev)=>({...prev,[e.target.name]:e.target.value}))
@@ -44,6 +43,7 @@ export const Login = ({ setLogin,handleLogin,loginForm,setLoginForm,error, setEr
   // }
 
   async function handleLog(){  
+    setLoading(true)
     const res = await handleLogin(1,loginForm)
     return res 
   }
@@ -51,7 +51,7 @@ export const Login = ({ setLogin,handleLogin,loginForm,setLoginForm,error, setEr
   // const signIn = async () => {
   //   const mod = 1
   //   console.log(mod)
-  //   setLoading(true)
+  
   //   try {
   //     console.log("use Local", useLocal)
   //     setError('')
@@ -167,6 +167,7 @@ export const Login = ({ setLogin,handleLogin,loginForm,setLoginForm,error, setEr
                   <input
                     id="remember_me"
                     type="checkbox"
+                   
                     value={remember}
                     onChange={(e) => { setRemember(e.target.value)}}
                     className="border border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
@@ -177,14 +178,14 @@ export const Login = ({ setLogin,handleLogin,loginForm,setLoginForm,error, setEr
                   </label>
                 </div>
                 <Link to="/recoverAccount" className="text-sm lg:text-[0.90rem] font-bold  text-[#1CADFF] z-10">
-                  {" "}
+                  {" "} 
                   Forgot Password?{""}
                 </Link>
               </div>
               <div className={`justify-center ${error.length > 0 ? 'block' : 'hidden'}`}>
                 <AiOutlineLoading className={`my-2 mx-auto w-5 h-5 text-orange-500 text-[#fff] animate-spin ${loading ? 'block' : 'hidden'}`} />
                 <p className={`text-center text-xs text-[#fff] ${loading ? 'block' : 'hidden'}`}>Analyzing..</p>
-                <p className={`text-sm text-[#fff] ${loading ? "bg-transparent" : "bg-[#e65353ec]"}rounded-sm p-2 mt-4 text-center`}>{error}</p>
+                <p className={`text-sm text-[#fff] bg-[#cf2020ec] rounded-sm p-2 mt-4 text-center`}>{error}</p>
               </div>
               <div className="py-3 lg:py-[20px] flex items-center justify-center z-10">
                 <button

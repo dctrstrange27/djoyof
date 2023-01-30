@@ -54,14 +54,16 @@ const MainApp = () => {
 
     //error
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+
 
     const [loginForm, setLoginForm] = useState([
         {
-            email:"",
-            password:"",
+            email: "",
+            password: "",
         }
     ])
-    const [data, setData] = useState([
+    const [signupForm, setSignupForm] = useState([
         {
             email: "",
             password: "",
@@ -78,6 +80,7 @@ const MainApp = () => {
 
     const handleLogin = async (mod, data) => {
         // login existing user account
+      
         try {
             if (mod == 1) {
                 try {
@@ -89,11 +92,37 @@ const MainApp = () => {
                     saveUser(existingAccount)
                     //if (remember) rememberMe(email_address, password)
                     navigate("/djoyof");
+                    setError('')
                 } catch (e) {
-                    console.log(e);
+                    console.log(e.response.data.error_message);
                     setError(e.response.data.error_message);
+                    setLoading(false)
                 }
             }
+            if (mod == 0){
+                try {
+                    const newUser = await userAPI.post("/signup", {
+                        email_address: data.email,
+                        customer_name: data.name,
+                        password: data.password,
+                        confirm_password: data.confirm_password,
+                        address: data.address,
+                        contact_no: data.contact_no
+                    })
+                    console.log(newUser)
+                    saveUser(newUser);
+                    setUserData(newUser);
+                    setShowCon(true)
+                    // setUserName(googleAccount.data.userData.customer_name)
+                    navigate('/Signup')
+                    return
+                } catch (e) {
+                    console.log(e.response.data.error_message);
+                    setError(e.response.data.error_message);
+                  
+            }
+        }
+
             if (mod == 2) {
                 const loginGoogle = await userAPI.post("/login", {
                     email_address: data.email,
@@ -115,26 +144,10 @@ const MainApp = () => {
                 setUserData(newAccount)
                 saveUser(newAccount)
             }
-            if (mod == 0) {
-                const newUser = await userAPI("/signup", {
-                    email_address: data.email_address,
-                    customer_name: data.customer_name,
-                    password: data.password,
-                    address: data.address,
-                    confirm_password: data.confirm_password,
-                    contact_no: data.contact_no
-                })
-                saveUser(newUser);
-                setUserData(newUser);
-                setShowCon(true)
-                // setUserName(googleAccount.data.userData.customer_name)
-                navigate('/Signup')
-            }
-
 
         } catch (error) {
             console.log(error)
-           
+
         }
     }
     const [user, setUser] = useState([])
@@ -148,6 +161,8 @@ const MainApp = () => {
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
                             <Home
+                                setLoading={setLoading}
+                                loading={loading}
                                 updateSetShow={updateSetShow}
                                 setProofFile={setProofFile}
                                 proofView={proofView}
@@ -219,6 +234,8 @@ const MainApp = () => {
                     </Route>
                     <Route path="Login" element={<Login
                         error={error}
+                        loading={loading}
+                        setLoading={setLoading}
                         setError={setError}
                         loginForm={loginForm}
                         setLoginForm={setLoginForm}
@@ -226,8 +243,6 @@ const MainApp = () => {
                         setUserData={setUserData}
                         userData={userData}
                         login={login}
-                        data={data}
-                        setData={setData}
                         handleLogin={handleLogin}
                         user={user}
                         setUser={setUser}
@@ -239,10 +254,12 @@ const MainApp = () => {
                     <Route path="recoverAccount" element={<ForgotConfig />} />
                     <Route path="Signup" element={
                         <Signupconfig
+                            loading={loading}
+                            setLoading={setLoading}
                             setError={setError}
                             error={error}
-                            data={data}
-                            setData={setData}
+                            signupForm={signupForm}
+                            setSignupForm={setSignupForm}
                             handleLogin={handleLogin}
                             userName={userName}
                             setUserName={setUserName}
