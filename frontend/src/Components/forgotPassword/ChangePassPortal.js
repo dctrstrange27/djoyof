@@ -42,7 +42,7 @@ const ChangePassPortal = ({changePass,setChangePass,email}) => {
        {changePass && <div className="fixed border-[1px bg-[#4b4848e1] top-0 flex  justify-center items-center left-0 h-screen w-full  z-[9999]">
         <div className="bg-[#191616] rounded-lg w-[30%] min-w-[500px] max-w-[500px] relative h-[30rem]  flex justify-center">
           <div className="bg-[#fff/20 border-[#Fff]  border-[1px flex flex-col justify-center items-center gap-10 w-[70%]">
-            <CgCloseR  onClick={()=>{navigate('/login')}} className="absolute top-3 right-3 text-[#fff] w-5 h-5  duration-600 ease-out hover:scale-105  "/>
+            <CgCloseR  onClick={()=>{navigate('/Signin')}} className="absolute top-3 right-3 text-[#fff] w-5 h-5  duration-600 ease-out hover:scale-105  "/>
             <div className="items-center flex flex-col border-[1px gap-1">
               <h1 className="text-[#fff] text-[25px] font-semibold"> Change Your Password!  </h1>
        

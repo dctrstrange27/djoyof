@@ -14,6 +14,7 @@ const ToLogin = ({  setShowCon,showContinue,userName }) => {
   useEffect(() => {
     setShowCon(false)
   }, [])
+
   return (
     <>
       {showContinue && ( <div className="fixed border-[1px bg-[#4b4848b9] top-0 flex  justify-center items-center left-0 h-screen w-full  z-[9999]">

@@ -1,9 +1,7 @@
 import React from "react";
 import Login from "./Components/Login/Login";
 import About from "./Components/About/About";
-
 import NotFound from "./Components/error/NotFound";
-
 import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -68,19 +66,16 @@ const MainApp = () => {
             email: "",
             password: "",
             name: "",
-            address: "",
             confirm_password: "",
-            contact_no: ""
+         
         }
     ])
-
     const updateSetShow = () => {
         setShow(false)
     }
-
+     
     const handleLogin = async (mod, data) => {
         // login existing user account
-      
         try {
             if (mod == 1) {
                 try {
@@ -90,7 +85,6 @@ const MainApp = () => {
                     })
                     setUserData(existingAccount)
                     saveUser(existingAccount)
-                    //if (remember) rememberMe(email_address, password)
                     navigate("/djoyof");
                     setError('')
                 } catch (e) {
@@ -99,30 +93,26 @@ const MainApp = () => {
                     setLoading(false)
                 }
             }
-            if (mod == 0){
+            if (mod == 0) {
                 try {
                     const newUser = await userAPI.post("/signup", {
                         email_address: data.email,
                         customer_name: data.name,
                         password: data.password,
                         confirm_password: data.confirm_password,
-                        address: data.address,
-                        contact_no: data.contact_no
                     })
                     console.log(newUser)
                     saveUser(newUser);
                     setUserData(newUser);
                     setShowCon(true)
-                    // setUserName(googleAccount.data.userData.customer_name)
-                    navigate('/Signup')
+                    navigate('/Signin')
                     return
                 } catch (e) {
                     console.log(e.response.data.error_message);
-                    setError(e.response.data.error_message);
-                  
+                    setError(e.response.data.error_message)
+                    setLoading(false)
+                }
             }
-        }
-
             if (mod == 2) {
                 const loginGoogle = await userAPI.post("/login", {
                     email_address: data.email,
@@ -132,18 +122,7 @@ const MainApp = () => {
                 saveUser(loginGoogle)
             }
             //new Account
-            if (mod == "createAccount") {
-                const newAccount = await userAPI("/signup", {
-                    password: data.password,
-                    email_address: data.email,
-                    customer_name: data.customer_name,
-                    address: data.address,
-                    confirm_password: data.confirm_password,
-                    contact_no: data.contact_no
-                })
-                setUserData(newAccount)
-                saveUser(newAccount)
-            }
+           
 
         } catch (error) {
             console.log(error)
@@ -176,7 +155,8 @@ const MainApp = () => {
                                 setUseLocal={setUseLocal}
                                 signout={signout}
                                 setSignout={setSignout}
-                                currentTab={currentTab} setCurrentTab={setCurrentTab}
+                                currentTab={currentTab} 
+                                setCurrentTab={setCurrentTab}
                             />
                         </React.Suspense>
                     }>
@@ -252,8 +232,10 @@ const MainApp = () => {
                         useLocal={useLocal}
                     />} />
                     <Route path="recoverAccount" element={<ForgotConfig />} />
-                    <Route path="Signup" element={
+                    <Route path="Signin" element={
                         <Signupconfig
+                            loginForm={loginForm}
+                            setLoginForm={setLoginForm}
                             loading={loading}
                             setLoading={setLoading}
                             setError={setError}

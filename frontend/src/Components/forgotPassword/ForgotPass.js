@@ -88,7 +88,7 @@ const ForgotPass = ({show,setShow,loading,setLoading,email_address,setEmail,time
                 </button>      
               </div>
               <div className="text-center z-10 mt-1 pb-7 flex justify-center flex-col">
-                <Link to="/Signup"
+                <Link to="/Signin"
                   className=" underline font-['Nunito Sans']  text-sm lg:text-[0.90rem]  text-[#CBCBCB]">
                   Sign up for an account
                 </Link>

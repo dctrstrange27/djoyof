@@ -45,13 +45,12 @@ const generateHash = password =>{
 // signup user
 
 const signup = aHandler(async (req, res) => {
-    const { email_address, customer_name, password, confirm_password, address, contact_no, } = req.body;
+    const { email_address, customer_name, password, confirm_password} = req.body;
     const doesExist = await User.findOne({ email_address })
-
     if (doesExist) {
         return res.status(400).json({ error_message: "User already Taken! 😫" })
     }
-    if (!(email_address, customer_name, password, confirm_password, address, contact_no)) {
+    if (!(email_address, customer_name, password, confirm_password)) {
         return res.status(403).json({ error_message: "Please provide all required information " })
     }
     if (!email_address) {
@@ -60,17 +59,8 @@ const signup = aHandler(async (req, res) => {
     if (!customer_name) {
         return res.status(403).json({ error_message: "Missing name! " })
     }
-    if (!address) {
-        return res.status(403).json({ error_message: "Missing Address " })
-    }
     if (!password) {
         return res.status(403).json({ error_message: "Missing password! " })
-    }
-    if (!confirm_password) {
-        return res.status(403).json({ error_message: "Add confirm password! " })
-    }
-    if (!contact_no) {
-        return res.status(403).json({ error_message: "Missing contact no. " })
     }
 
     const hashPassword = await bcrypt.hash(password, (await bcrypt.genSalt(10)))
@@ -80,8 +70,6 @@ const signup = aHandler(async (req, res) => {
             customer_name: customer_name,
             password: hashPassword,
             confirm_password: confirm_password,
-            customer_address: address,
-            contact_no: contact_no
         })
         if (newUser) {
             return res.status(201)

@@ -60,14 +60,15 @@ module.exports = {
           pop:"'Poppins', sans-serif",
           nuni: "'Nunito', sans-serif",
           nsans:"'Nunito Sans', sans-serif",
-          mulish:"'Mulish', sans-serif"
+          mulish:"'Mulish', sans-serif",
+          pacifico: 'Pacifico',
         },
         backgroundImage: {
           'dark-text-logo': "url('./img/dark-text-logo.png')",
           'light-text-logo': "url('./img/light-text-logo.png')",
           'light-tab-bg': "url('./img/light-tab-bg.png')",
           'dark-tab-bg': "url('./img/dark-tab-bg.png')",
-          'home-pic': "url('./img/picture.jpg')",
+          'sigup-pic': "url('./img/picture.jpg')",
         }
         
       },

@@ -9,7 +9,7 @@ const SignoutPortal = ({ signout, setSignout ,setLoading}) => {
   function signOutAccount() {
     signOut()
     setSignout(false)
-    navigate('/login')
+    navigate('/Signin')
   }
 
   return (
