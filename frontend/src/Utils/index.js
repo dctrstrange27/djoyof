@@ -1,38 +1,29 @@
 import axios from 'axios'
+import { useState } from 'react'
 
 export const saveUser = (response) => {
-    /**
-     * Para naman to sa pag save ng data ng user na nag login
-     * ngayon
-     */
     localStorage.setItem('userData', JSON.stringify(response.data.userData))
-    // tapos return lang yung data nayun
     return response.data.userData
 }
 
 export const updateUser = (userData) => {
     localStorage.setItem('userData', userData)
-
-    // tapos return lang yung data nayun
     return userData
 }
 
 export const getUser = () => {
-    /**
-     * Para to sa pagkuha ng data ng user na naka logedin
-     */
     return JSON.parse(localStorage.getItem("userData"));
 }
 
-export const signOut = (navigate) => {
-    // delete lang ng userData which means matatanggal lang yun
+export const signOut = () => {
     localStorage.removeItem('userData')
 }
+
 
 export const amIloggedIn = (navigate) => {
     const loggedInUser = getUser()
     if(!loggedInUser) navigate('/login')
-    return loggedInUser // if meron, return yung data para magamit sa kung sino nag request
+    return loggedInUser 
 }
 
 export const rememberMe = (email_address,password) => {
@@ -40,7 +31,13 @@ export const rememberMe = (email_address,password) => {
         email_address, password
     }))
 }
+    
+
+
 
 export const getRemembered = () => { return JSON.parse(localStorage.getItem('remembered')) }
 
-export const API = axios.create({ baseURL : 'http://localhost:3001/api' })
+export const API = axios.create({ baseURL : 'http://localhost:4000/api' })
+export const userAPI = axios.create({ baseURL : 'http://localhost:4000/api/user' })
+export const orderAPI = axios.create({ baseURL : 'http://localhost:4000/api/order' })
+export const userGoogleAPI = axios.create({ baseURL : 'http://localhost:4000/api/user' })

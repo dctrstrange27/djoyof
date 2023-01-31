@@ -2,7 +2,7 @@ import React from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 function CheckDetails({deleteNewCartItems,newCartItems }) {
     return (
-        <div className='relative parent grid grid-cols-7 bg-[#0f0f11d2]  gap-4 border-[1px py-2 items-center'>
+        <div className='relative parent grid grid-cols-7 bg-[#0f0f11d2]  gap-4 border-[1px] border-[#fff] py-2 items-center'>
             <div className='relative border-[1px h-[5vh] max-w-[5rem] w-[3rem]'>
                 <img src={newCartItems.image} className="absolute  border-[1px  inset-y-1 inset-x-0"></img>
             </div>

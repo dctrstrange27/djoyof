@@ -1,274 +1,255 @@
 import React from "react";
-import Home from "../src/Components/Home/Home";
-import Login from "../src/Components/Login/Login";
+import Login from "./Components/Login/Login";
 import About from "./Components/About/About";
-import Signup from "./Components/Login/Signup";
 import NotFound from "./Components/error/NotFound";
-import Service from "./Components/Service/Service";
+import { Outlet } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react"
+import Signupconfig from "./Components/Signup/Signupconfig";
+import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
+import { AiOutlineLoading } from 'react-icons/ai'
+import { ImSpinner10 } from 'react-icons/im'
+import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../src/Utils";
 import Contact from "./Components/ContactUs/Contact";
 import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
 import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
-import Main from "./Components/Home/Main"
-import { Outlet, Link } from "react-router-dom";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react"
-import { v4 as uuid } from 'uuid';
-import { amIloggedIn, API, saveUser, signOut } from "../src/Utils";
+import Profile_cart from "./Components/profile-cart/Profile_cart";
+import Cart from "./Components/profile-cart/Cart";
+import { GiLogicGateNand } from "react-icons/gi";
 
-
+const Products = React.lazy(() => import('./Components/Products/Products'))
+const LazyMain = React.lazy(() => import('../src/Components/Home/Main'))
+const Home = React.lazy(() => import('../src/Components/Home/Home'))
 function App() {
     return (
         <Router>
-            <SomeotherComponent />
+            <MainApp />
         </Router>
     )
 }
-function SomeotherComponent() {
+const MainApp = () => {
     let navigate = useNavigate();
     const [show, setShow] = useState(false);
-    const [userData, setUserData] = useState();
-    const [openTab, setOpenTab] = React.useState(1);
-    const [products, setProduct] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
-    const [favorites, setFavorites] = useState([]);
-    const [toggleNav, setToggleNav] = useState(false);
     const [clickableAgain, setClickableAgain] = useState(true);
     const [proof, setProofFile] = useState();
     const [proofView, setProofView] = useState();
-    const [currentItems, setCurrentITems] = useState();
     const [togs, setTogs] = useState(false);
     const [check, setCheck] = useState(false)
     const [check2, setCheck2] = useState(false)
+    const [showContinue, setShowCon] = useState(false)
+    //Data related
+    const [openTab, setOpenTab] = React.useState(1);
+    const [userData, setUserData] = useState([]);
+    const [userName, setUserName] = useState()
+    const [login, setLogin] = useState(false)
+    const [useLocal, setUseLocal] = useState(false)
+    const [useGoogle, setUseGoogle] = useState(false)
+    const [currentTab, setCurrentTab] = useState()
+    const [cartItems, setCartItems] = useState([])
 
-    const computeCartTotal = ( cartItems ) => {
-        let total = 0.0
-        cartItems.forEach((prod, idx) => {
-            total += (prod.product_price * prod.product_qty)
-        })
+    //error
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
-        return total
-    }
 
+    const [loginForm, setLoginForm] = useState([
+        {
+            email: "",
+            password: "",
+        }
+    ])
+    const [signupForm, setSignupForm] = useState([
+        {
+            email: "",
+            password: "",
+            name: "",
+            confirm_password: "",
+         
+        }
+    ])
     const updateSetShow = () => {
         setShow(false)
-    };
-    const onAdd = (product) => {
-        const exist = cartItems.find((x) => {
-            return x._id === product._id;
-        });
-        if (exist) {
-            setCartItems([...cartItems.filter((i) => i._id !== exist._id),
-            {
-                ...exist,
-                product_qty: exist.product_qty + 1,
-            }
-                ,]);
-        } else {
-            setCartItems([...cartItems, { ...product, product_qty: 1 }]);
-        }
-    };
-
-    const [onConfirm, setOnConfirm] = useState(1)
-    const [newCartItems, setNewCartItems] = useState([])
-    const [newOrders, setNewOrders] = useState([])
-    const unique_id = uuid();
-
-    const getAllCarts = () => {
-        setNewCartItems([...cartItems])
     }
-    const deleteOrder = () => {
-        setNewCartItems([]);
-    }
-    const deleteNewCartItems = (item) => {
-        setNewCartItems(newCartItems.filter((i) => i._id !== item._id))
-    }
-    const removeAllCartItems = () => {
-        setCartItems([]);
-    };
-    const removeItemFromCart = (item) => {
-        setCartItems(cartItems.filter((i) => i._id !== item._id));
-    };
-    const increateQty = (item) => {
-        var idx = -1;
-        let copy = [...cartItems];
-
-        copy.find((val, i) => {
-            if (val._id === item._id) idx = i;
-            return val._id === item._id;
-        });
-        copy[idx].product_qty += 1;
-        setCartItems(copy);
-    };
-    const decreaseQty = (item) => {
-        var idx = -1;
-
-        let copy = [...cartItems];
-
-        copy.find((val, i) => {
-            if (val._id === item._id) idx = i;
-            return val._id === item._id;
-        });
-
-        copy[idx].product_qty -= 1;
-
-        if (copy[idx].product_qty === 0)
-            copy = copy.filter((i) => i._id !== item._id);
-
-        setCartItems(copy);
-    };
-    const isMyFavorite = (id) => {
-        const arr = favorites.filter((prod) => id === prod);
-        return arr.length > 0;
-    };
-
-    const addFavorite = async (product_id) => {
-        setClickableAgain(false);
-        const update = await API.post("/updateMyFavorites", {
-            mode: 0,
-            _id: userData._id,
-            product_id,
-        });
-        loadProducts();
-        loadUserData();
-        setClickableAgain(true);
-    };
-
-    const removeFavorite = async (product_id) => {
-        setClickableAgain(false);
-        const favs = await API.post("/updateMyFavorites", {
-            mode: -1,
-            _id: userData._id,
-            product_id,
-        });
-        loadProducts();
-        loadUserData();
-        setClickableAgain(true);
-    };
-
-    const loadUserData = async () => {
-        const userData = amIloggedIn(navigate);
-        const userNewInfo = await API.post("/getUserDetails", {
-            _id: userData._id,
-        });
-        saveUser(userNewInfo);
-        setUserData(userNewInfo.data.userData);
-        setCartItems(userNewInfo.data.userData.cartItems);
-        setNewCartItems(userNewInfo.data.userData.cartItems);
-        setFavorites(userNewInfo.data.userData.favorites);
-    };
-
-    const loadProducts = async () => {
+     
+    const handleLogin = async (mod, data) => {
+        // login existing user account
         try {
-            const response = await API.get("/getAllProducts");
-            setProduct(response.data.products);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    const placeOrder = async() => {
-        try {
-            
-            const response = await API.post("/placeOrder", {
-                email_address : userData.email_address,
-                orders : {
-                    customer_id : userData._id,
-                    customer_name : userData.customer_name,
-                    customer_address : userData.customer_address,
-                    contact_no : userData.contact_no,
-                    items : newCartItems,
-                    total : computeCartTotal(newCartItems),
-                    transactionType : check? "COD" : "GCash"
+            if (mod == 1) {
+                try {
+                    const existingAccount = await userAPI.post("/login", {
+                        email_address: data.email,
+                        password: data.password,
+                    })
+                    setUserData(existingAccount)
+                    saveUser(existingAccount)
+                    navigate("/djoyof");
+                    setError('')
+                } catch (e) {
+                    console.log(e.response.data.error_message);
+                    setError(e.response.data.error_message);
+                    setLoading(false)
                 }
-            })
-            loadUserData()
-            console.log(response.data)
-        } catch (e) {
-            console.log(e)
+            }
+            if (mod == 0) {
+                try {
+                    const newUser = await userAPI.post("/signup", {
+                        email_address: data.email,
+                        customer_name: data.name,
+                        password: data.password,
+                        confirm_password: data.confirm_password,
+                    })
+                    console.log(newUser)
+                    saveUser(newUser);
+                    setUserData(newUser);
+                    setShowCon(true)
+                    navigate('/Signin')
+                    return
+                } catch (e) {
+                    console.log(e.response.data.error_message);
+                    setError(e.response.data.error_message)
+                    setLoading(false)
+                }
+            }
+            if (mod == 2) {
+                const loginGoogle = await userAPI.post("/login", {
+                    email_address: data.email,
+                    password: data.name,
+                })
+                setUserData(loginGoogle)
+                saveUser(loginGoogle)
+            }
+            //new Account
+           
+
+        } catch (error) {
+            console.log(error)
+
         }
     }
-
-    useEffect(() => {
-        const updateCart = async () => {
-            if (!userData) return;
-            await API.post("/updateCart", { _id: userData._id, cartItems });
-            const userNewInfo = await API.post("/getUserDetails", {
-                _id: userData._id,
-            });
-            saveUser(userNewInfo);
-        };
-        updateCart();
-    }, [cartItems]);
-
-    useEffect(() => {
-        loadUserData();
-        loadProducts();
-    }, [navigate]);
-
+    const [user, setUser] = useState([])
+    const [signout, setSignout] = useState(false)
     return (
         <>
-            <div className="bg-[#18181d] overflow-hidden ">
-
+            <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
                 <Routes>
-                    <Route path="/" element={
-                        <Home
-                            updateSetShow={updateSetShow}
-                            setProofFile={setProofFile}
-                            proofView={proofView}
-                            setProofView={setProofView}
-                            show={show}
-                            setShow={setShow}
-                            userData={userData}
-                            togs={togs}
-                            setTogs={setTogs}
-                        />}>
-                        <Route path="djoyof" element={<Home />} />
-                        <Route path="About" element={<About />} />
+                    <Route path="/djoyof" element={
+                        <React.Suspense fallback={<div className={`w-full h-screen dark:bg-four flex justify-center items-center`}>
+                            <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
+                        </div>} >
+                            <Home
+                                setLoading={setLoading}
+                                loading={loading}
+                                updateSetShow={updateSetShow}
+                                setProofFile={setProofFile}
+                                proofView={proofView}
+                                setProofView={setProofView}
+                                show={show}
+                                setShow={setShow}
+                                userData={userData}
+                                togs={togs}
+                                setTogs={setTogs}
+                                setUseGoogle={setUseGoogle}
+                                setUseLocal={setUseLocal}
+                                signout={signout}
+                                setSignout={setSignout}
+                                currentTab={currentTab} 
+                                setCurrentTab={setCurrentTab}
+                            />
+                        </React.Suspense>
+                    }>
+                        <Route pathf="About" element={<About />} />
                         <Route path="Main" element={
-                            <Main
-                                check={check}
-                                proof={proof}
-                                setCheck={setCheck}
-                                onPlaceOrder={placeOrder}
-                                check2={check2}
-                                setCheck2={setCheck2}
-                                deleteNewCartItems={deleteNewCartItems}
-                                onRemove={removeItemFromCart}
-                                deleteOrder={deleteOrder}
-                                newCartItems={newCartItems}
-                                getAllCarts={getAllCarts}
-                                setOnConfirm={setOnConfirm}
-                                openTab={openTab}
-                                products={products}
-                                setOpenTab={setOpenTab}
-                                onAdd={onAdd}
-                                addFavorite={addFavorite}
-                                removeFavorite={removeFavorite}
-                                isMyFavorite={isMyFavorite}
-                                clickableAgain={clickableAgain}
-                                onDecrease={decreaseQty}
-                                onIncrease={increateQty}
-                                cartItems={cartItems}
-                                onRemoveAll={removeAllCartItems}
-                                showProofModal={() => {
-                                    setShow(true);
-                                }}
-                            />} />
-                        <Route path="Service" element={<Service />} />
+                            <React.Suspense fallback={
+                                <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
+                                    <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
+                                </div>
+                            }>
+                                <LazyMain
+                                    cartItems={cartItems}
+                                    setCartItems={setCartItems}
+                                    check={check}
+                                    proof={proof}
+                                    setCheck={setCheck}
+                                    check2={check2}
+                                    setCheck2={setCheck2}
+                                    openTab={openTab}
+                                    setOpenTab={setOpenTab}
+                                    clickableAgain={clickableAgain}
+                                    userData={userData}
+                                    useLocal={useLocal}
+                                    useGoogle={useGoogle}
+                                    setUseGoogle={setUseGoogle}
+                                    showProofModal={() => {
+                                        setShow(true);
+                                    }}
+                                />
+                            </React.Suspense>
+                        } />
+                        <Route path="Products" element={
+                            <React.Suspense fallback={<div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
+                                <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
+                            </div>}>
+                                <Products cartItems={cartItems} setCartItems={setCartItems} />
+                            </React.Suspense>
+                        } />
                         <Route path="Contact" element={<Contact />} />
                         <Route path="Help" element={<Help />} />
                         <Route path="Profile" element={<Profile />} />
                         <Route path="Settings" element={<Settings />} />
                         <Route path="Orders" element={<Orders />} />
+                        <Route path="cart" element={<Cart />} />
+                        <Route path="profile-cart"
+                            element={<Profile_cart
+                                currentTab={currentTab}
+                                setCurrentTab={setCurrentTab}
+                                cartItems={cartItems}
+                                setCartItems={setCartItems}
+                            />} />
+                        <Route path="Cart/profile-cart" element={<Cart />} />
+                        <Route path="profile-cart/Profile" element={<Profile />} />
                         <Route element={<NotFound />} />
                     </Route>
-                    <Route path="Login" element={<Login />} />
-                    <Route path="Signup" element={<Signup />} />
+                    <Route path="Login" element={<Login
+                        error={error}
+                        loading={loading}
+                        setLoading={setLoading}
+                        setError={setError}
+                        loginForm={loginForm}
+                        setLoginForm={setLoginForm}
+                        setLogin={setLogin}
+                        setUserData={setUserData}
+                        userData={userData}
+                        login={login}
+                        handleLogin={handleLogin}
+                        user={user}
+                        setUser={setUser}
+                        useGoogle={useGoogle}
+                        setUseGoogle={setUseGoogle}
+                        setUseLocal={setUseLocal}
+                        useLocal={useLocal}
+                    />} />
+                    <Route path="recoverAccount" element={<ForgotConfig />} />
+                    <Route path="Signin" element={
+                        <Signupconfig
+                            loginForm={loginForm}
+                            setLoginForm={setLoginForm}
+                            loading={loading}
+                            setLoading={setLoading}
+                            setError={setError}
+                            error={error}
+                            signupForm={signupForm}
+                            setSignupForm={setSignupForm}
+                            handleLogin={handleLogin}
+                            userName={userName}
+                            setUserName={setUserName}
+                            userData={userData}
+                            showContinue={showContinue}
+                            setShowCon={setShowCon}
+                        />} />
                 </Routes>
-
                 <Outlet />
             </div>
         </>

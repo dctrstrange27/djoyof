@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
   
-const orderSchema=mongoose.Schema({
-  customer_id:{type:String, required:true},
+const orderSchema= mongoose.Schema({
   customer_name:{type:String, required:true},
   customer_address:{type:String,required:true},
   contact_no:{type:Number, required:true},
@@ -18,4 +17,4 @@ const orderSchema=mongoose.Schema({
   date_dilivered:{type:Date, default: null}
 })
 
-module.exports=mongoose.model('Order',orderSchema)
+module.exports = mongoose.model('Order',orderSchema)

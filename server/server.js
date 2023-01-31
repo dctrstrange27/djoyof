@@ -6,11 +6,12 @@ const bodyParser=require('body-parser')
 const passport = require ('passport');
 const LocalStrategy = require ('passport-local').Strategy;
 const mongoose = require('mongoose')
+
 require("./config/database").connect();
 
 const { PORT } = process.env
 
-const cors=require('cors')
+const cors = require('cors')
 
 server.use(cors({origin:"*"}))
 server.use(express.json())
@@ -19,9 +20,14 @@ server.use (
   );
 server.use(cors())
 server.use(bodyParser.json())
-server.use (passport.initialize ());
-server.use (passport.session ());
-server.use('/api',require('./Router/api'))
+server.use(express.urlencoded({extended: false}))
+server.use(passport.initialize ());
+server.use(passport.session ());
+
+
+server.use('/api',require('./API/api'))
+server.use('/api/user',require('./Routers/userRouter'))
+server.use('/api/order', require('./Routers/orderRouter'))
 
 
 server.listen(PORT,(err)=>{
