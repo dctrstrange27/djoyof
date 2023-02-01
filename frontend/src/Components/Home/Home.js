@@ -7,7 +7,7 @@ import MainNav from "../nav/MainNav";
 import SignoutPortal from "../Login/SignoutPortal";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-const Home = ({ updateSetShow, setError, loading, setLoading,show, setShow, userData, setProofFile, proofView, setProofView, togs, setTogs, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
+const Home = ({ updateSetShow, setError, loading, setLoading, show, setShow, userData, setProofFile, proofView, setProofView, togs, setTogs, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
   const [hide, setHide] = useState(false)
   return (
     <div className="relative flex flex-col">
@@ -21,9 +21,7 @@ const Home = ({ updateSetShow, setError, loading, setLoading,show, setShow, user
                       ">
           <div className="flex flex-row absolute mt-16 border-[2px border-[#cf9e0d ">
             <div className="relative  border-r-0 md:border-r-[1px] dark:border-[#ffffff2c] border-[#4e4d4d5a] md:border-[3px">
-                <Aside togs={togs} setTogs={setTogs}></Aside>
-              </div>
-              <div>
+              <Aside togs={togs} setTogs={setTogs}></Aside>
             </div>
             <Outlet />
           </div>

@@ -13,13 +13,12 @@ import jwt_Decode from 'jwt-decode'
 import SignupError from "../error/SignupError";
 
 
-const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLogin}) => {
+const Signup = ({loading,showForm,setShowForm, setLoading, error, signupForm, setSignupForm, handleLogin}) => {
     
     const { email, password, name, confirm_password } = signupForm
 
     const onChange = (e) => {
         setSignupForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-
     }
     // console.log(loading)
     // console.log(signupForm)
@@ -81,9 +80,9 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                 {/* BUTTON */}
 
                 <div className="flex">
-                    <Link to='/login' className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
+                    <div onClick={()=> setShowForm(!showForm)} className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
                         Login
-                    </Link>
+                    </div>
                 </div>
                 <div className="flex flex-col border-[#fff w-full gap-2 justify-center">
                     <div className="flex justify-center items-center border-[1px w-full border-[#fc2020]">

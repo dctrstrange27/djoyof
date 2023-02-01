@@ -15,13 +15,11 @@ import { ImCart } from "react-icons/im"
 import { AiOutlineUserAdd } from "react-icons/ai"
 
 
-export const Login = ({ handleLogin, loginForm, setLoginForm, error, loading, setLoading, setError, data, setData, login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
-
-
+export const Login = ({ handleLogin,setShowForm,showForm, loginForm, setLoginForm, error, loading, setLoading, setError, data, setData, login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
 
   const { email, password } = loginForm
 
-  console.log(loading)
+  //console.log(loading)
 
   const onChange = (e) => {
     setLoginForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -126,9 +124,9 @@ export const Login = ({ handleLogin, loginForm, setLoginForm, error, loading, se
           <SignupError error={error} loading={loading} ></SignupError>
           {/* BUTTON */}
           <div className="flex">
-            <Link to='/login' className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
-              Login
-            </Link>
+            <div onClick={()=> setShowForm(!showForm)} className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
+              Signup
+            </div>
           </div>
           <div className="flex flex-col border-[#fff w-full gap-2 justify-center">
             <div className="flex justify-center items-center border-[1px w-full border-[#fc2020]">

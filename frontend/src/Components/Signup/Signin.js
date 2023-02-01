@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { API, saveUser, rememberMe, getRemembered, userAPI } from "../../Utils";
-import { Link, useHistory } from "react-router-dom";
-import { RiLockPasswordLine } from "react-icons/ri"
-import { GiConfirmed, GiConsoleController } from "react-icons/gi"
-import { ImCart } from "react-icons/im"
-import { AiOutlineUserAdd } from "react-icons/ai"
-import { GoSignIn } from "react-icons/go"
-import { useNavigate } from "react-router-dom";
-import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_Decode from 'jwt-decode'
 
+import { Link } from "react-router-dom";
+import { ImCart } from "react-icons/im"
 import Login from "../Login/Login";
 import Signup from "./Signup";
+import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
 export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
+
+    const [showForm, setShowForm] = useState(false)
+
+
 
     return (
         <>
@@ -44,7 +40,10 @@ export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading,
                         </div>
                     </div>
                     {/* Sign up Form */}
-                    <Signup
+                    {showForm ? (
+                        <Signup
+                        setShowForm={setShowForm}
+                        showForm={showForm}
                         setError={setError}
                         setLoginForm={setLoginForm}
                         loginForm={loginForm}
@@ -53,11 +52,13 @@ export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading,
                         error={error}
                         signupForm={signupForm}
                         setSignupForm={setSignupForm}
-                        handleLogin={handleLogin} 
+                        handleLogin={handleLogin}
                         userData={userData}
-                        >
+                    >
                     </Signup>
-                    {/* <Login
+                    ) : (<Login
+                        setShowForm={setShowForm}
+                        showForm={showForm}
                         error={error}
                         loading={loading}
                         setLoading={setLoading}
@@ -65,12 +66,17 @@ export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading,
                         loginForm={loginForm}
                         setLoginForm={setLoginForm}
                         userData={userData}
-                        handleLogin={handleLogin}
-                    ></Login> */}
+                        handleLogin={handleLogin}>
+                    </Login>)
+                    }
+
+
+
+                   
+
                 </div>
-
-
             </div>
+            <Outlet />
 
         </>
     );

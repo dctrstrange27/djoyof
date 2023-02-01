@@ -54,7 +54,7 @@ const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSigno
     const Navs = [
         { id: 1, name: "Home", nav: "Main" },
         { id: 2, name: "Products", nav: "Products" },
-        { id: 3, name: "Service", nav: "About" },
+        { id: 3, name: "Service", nav: "Service" },
         { id: 4, name: "Contact Us", nav: "Contact" },
         { id: 5, name: "Help", nav: "Help" },
     ]

@@ -61,7 +61,7 @@ const Main = ({ proof, setShow, proofView, check, setCheck, check2, setCheck2, s
 
   return (
     <>
-      <div className=" border-[1px flex flex-col px-9  items-center min-h-screen overflow-x-hidden scrollbar-thin
+      <div className=" border-[10px] flex flex-col px-9  items-center min-h-screen overflow-x-hidden scrollbar-thin
                            min-w-[500px] 
                            lg:w-[860px] lg:max-w-[900px]
                            xl:w-[1100px] xl:max-w-[1200px] ">

@@ -19,6 +19,7 @@ import Orders from "./Components/profile_setting/Orders";
 import Profile_cart from "./Components/profile-cart/Profile_cart";
 import Cart from "./Components/profile-cart/Cart";
 import { GiLogicGateNand } from "react-icons/gi";
+import Service from "./Components/Service/Service";
 
 const Products = React.lazy(() => import('./Components/Products/Products'))
 const LazyMain = React.lazy(() => import('../src/Components/Home/Main'))
@@ -69,7 +70,7 @@ const MainApp = () => {
             password: "",
             name: "",
             confirm_password: "",
-         
+
         }
     ])
     const updateSetShow = () => {
@@ -124,7 +125,7 @@ const MainApp = () => {
                 saveUser(loginGoogle)
             }
             //new Account
-        
+
         } catch (error) {
             console.log(error)
 
@@ -156,12 +157,11 @@ const MainApp = () => {
                                 setUseLocal={setUseLocal}
                                 signout={signout}
                                 setSignout={setSignout}
-                                currentTab={currentTab} 
+                                currentTab={currentTab}
                                 setCurrentTab={setCurrentTab}
                             />
                         </React.Suspense>
                     }>
-                        <Route pathf="About" element={<About />} />
                         <Route path="Main" element={
                             <React.Suspense fallback={
                                 <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
@@ -195,8 +195,9 @@ const MainApp = () => {
                             </div>}>
                                 <Products cartItems={cartItems} setCartItems={setCartItems} />
                             </React.Suspense>
-                        } />
+                        } /> 
                         <Route path="Contact" element={<Contact />} />
+                        <Route path="Service" element={<Service />} />
                         <Route path="Help" element={<Help />} />
                         <Route path="Profile" element={<Profile />} />
                         <Route path="Settings" element={<Settings />} />
@@ -213,26 +214,9 @@ const MainApp = () => {
                         <Route path="profile-cart/Profile" element={<Profile />} />
                         <Route element={<NotFound />} />
                     </Route>
-                    <Route path="Login" element={<Login
-                        error={error}
-                        loading={loading}
-                        setLoading={setLoading}
-                        setError={setError}
-                        loginForm={loginForm}
-                        setLoginForm={setLoginForm}
-                        setLogin={setLogin}
-                        setUserData={setUserData}
-                        userData={userData}
-                        login={login}
-                        handleLogin={handleLogin}
-                        user={user}
-                        setUser={setUser}
-                        useGoogle={useGoogle}
-                        setUseGoogle={setUseGoogle}
-                        setUseLocal={setUseLocal}
-                        useLocal={useLocal}
-                    />} />
+
                     <Route path="recoverAccount" element={<ForgotConfig />} />
+
                     <Route path="Signin" element={
                         <Signupconfig
                             loginForm={loginForm}
@@ -248,8 +232,10 @@ const MainApp = () => {
                             setUserName={setUserName}
                             userData={userData}
                             showContinue={showContinue}
-                            setShowCon={setShowCon}
-                        />} />
+                            setShowCon={setShowCon} />} >
+                        <Route path="login" element={<Login />} />
+                        <Route path="Signup" element={<Login />} />
+                    </Route>
                 </Routes>
                 <Outlet />
             </div>

@@ -19,12 +19,13 @@ const Cart = ({ cartItems, setCartItems }) => {
         setCartItems(cartItems.filter((x)=> x._id !== id ))
         console.log(res.data)
    }
-  
+
     const clearCart = (id) => {
         setCartItems([])
     }
+
     return (
-        <div className='mt-7'>
+        <div className='mt-7 border-[1px]'>
             <div className='flex gap-2 border-[1px justify-around m-auto py-3 w-[400px] md:w-[600px]'>
                     <div className='flex gap-2'>
                         <BsGrid1X2Fill className="w-5 h-5 " />
