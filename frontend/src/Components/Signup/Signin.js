@@ -10,16 +10,11 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_Decode from 'jwt-decode'
-import SignupError from "../error/SignupError";
+
 import Login from "../Login/Login";
 import Signup from "./Signup";
 
 export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
-   
-
- 
-
-  
 
     return (
         <>
@@ -55,7 +50,7 @@ export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading,
                         loginForm={loginForm}
                         loading={loading}
                         setLoading={setLoading}
-                        error={setLoading}
+                        error={error}
                         signupForm={signupForm}
                         setSignupForm={setSignupForm}
                         handleLogin={handleLogin} 

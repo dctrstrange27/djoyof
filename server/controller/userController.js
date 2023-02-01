@@ -3,13 +3,10 @@ const aHandler = require('express-async-handler')
 const ehandler = require('../middleWare/errorMiddleWare')
 const User = require('../models/users')
 const nodemailer = require("nodemailer");
-const e = require('express')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const orders = require('../models/orders');
-const { find, prependListener, findById } = require('../models/users');
 const googleUsers = require('../models/googleUsers')
-
 
 //get all uSer
 const getUsers = aHandler(async (req, res) => {
@@ -20,7 +17,6 @@ const getUsers = aHandler(async (req, res) => {
         ehandler(error)
     }
 })
-
 // login existing user
 const login = aHandler(async (req, res) => {    
 
@@ -37,13 +33,11 @@ const login = aHandler(async (req, res) => {
     } else {
         return res.status(400).json({ error_message: "Incorrect Password! 😫" })
     }
-
 })
 const generateHash = password =>{
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
   }
 // signup user
-
 const signup = aHandler(async (req, res) => {
     const { email_address, customer_name, password, confirm_password} = req.body;
     const doesExist = await User.findOne({ email_address })
@@ -62,7 +56,6 @@ const signup = aHandler(async (req, res) => {
     if (!password) {
         return res.status(403).json({ error_message: "Missing password! " })
     }
-
     const hashPassword = await bcrypt.hash(password, (await bcrypt.genSalt(10)))
     if (password === confirm_password) {
         const newUser = await User.create({
@@ -81,7 +74,6 @@ const signup = aHandler(async (req, res) => {
         return res.status(400).json({ error_message: "Password didn't match!!!  " })
     }
 })
-
 //delete users
 const deleteUser = aHandler(async (req, res) => {
     if (!req.params.id) res.status(400).json({ error: "Missing Payloads!" })
@@ -100,19 +92,18 @@ const deleteUser = aHandler(async (req, res) => {
 //     }
 // })
 //getting user data
-
 const getUserDetails = aHandler(async (req, res) => {
     try {
         const { _id } = req.body;
         if (!_id)
             return res
                 .status(401)
-                .json({ description: "Missing payload, please provide user id" });
+                .json({ error_message: "Missing payload, please provide user id" });
         const userData = await User.findOne({ _id });
         if (!userData)
             return res
                 .status(401)
-                .json({ description: "User's Id is not Existing!" });
+                .json({ error_message: "User's Id is not Existing!" });
 
         return res.status(200).json({ userData });
     } catch (e) {

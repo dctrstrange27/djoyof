@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useState } from 'react';
 import { API, saveUser, rememberMe, getRemembered, userAPI } from "../../Utils";
 import { Link, useHistory } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri"
@@ -19,12 +19,12 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
 
     const onChange = (e) => {
         setSignupForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    }
 
-    console.log(loading)
-    console.log(signupForm)
+    }
+    // console.log(loading)
+    // console.log(signupForm)
     const signup = async () => {
-        console.log("hello")
+        console.log("hello")//
         setLoading(true)
         handleLogin(0, signupForm)
     }
@@ -43,7 +43,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                         <input className="signup-input"
                             type="text"
                             name="email"
-                            value={email}
+                            value={signupForm.email}
                             onChange={onChange}
                         />
                     </div>
@@ -53,7 +53,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                         <input className="signup-input "
                             type="text"
                             name="name"
-                            value={name}
+                            value={signupForm.name}
                             onChange={onChange}
                         />
                     </div>
@@ -64,7 +64,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                     <input className="signup-input2  "
                         type="password"
                         name="password"
-                        value={password}
+                        value={signupForm.password}
                         onChange={onChange} />
                 </div>
                 <div className="border-[1px border-[#fff relative ">
@@ -73,7 +73,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                     <input className="signup-input2"
                         type="password"
                         name="confirm_password"
-                        value={confirm_password}
+                        value={signupForm.confirm_password}
                         onChange={onChange} />
                 </div>
                 <SignupError error={error} loading={loading} ></SignupError>
@@ -108,7 +108,6 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                                 googleAccountCredentials = jwt_Decode(credentialResponse.credential)
                                 //  console.log(googleAccountCredentials)
                                 // createGoogleAccount(googleAccountCredentials)
-
                             }}
                             onError={() => {
                                 console.log('Login Failed');

@@ -10,7 +10,7 @@ import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
 import { AiOutlineLoading } from 'react-icons/ai'
 import { ImSpinner10 } from 'react-icons/im'
-import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../src/Utils";
+import { API, userAPI, saveUser } from "../src/Utils";
 import Contact from "./Components/ContactUs/Contact";
 import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
@@ -40,6 +40,7 @@ const MainApp = () => {
     const [check, setCheck] = useState(false)
     const [check2, setCheck2] = useState(false)
     const [showContinue, setShowCon] = useState(false)
+
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
     const [userData, setUserData] = useState([]);
@@ -49,6 +50,7 @@ const MainApp = () => {
     const [useGoogle, setUseGoogle] = useState(false)
     const [currentTab, setCurrentTab] = useState()
     const [cartItems, setCartItems] = useState([])
+
 
     //error
     const [error, setError] = useState('')
@@ -73,7 +75,7 @@ const MainApp = () => {
     const updateSetShow = () => {
         setShow(false)
     }
-     
+
     const handleLogin = async (mod, data) => {
         // login existing user account
         try {
@@ -122,8 +124,7 @@ const MainApp = () => {
                 saveUser(loginGoogle)
             }
             //new Account
-           
-
+        
         } catch (error) {
             console.log(error)
 

@@ -12,7 +12,15 @@ export const updateUser = (userData) => {
 }
 
 export const getUser = () => {
-    return JSON.parse(localStorage.getItem("userData"));
+    try {
+        const data = JSON.parse(localStorage.getItem("userData"));
+        if(!data){
+            return false
+        }
+        return data
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export const signOut = () => {

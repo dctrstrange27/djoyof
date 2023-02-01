@@ -21,16 +21,20 @@ const Main = ({ proof, setShow, proofView, check, setCheck, check2, setCheck2, s
   const navigate = useNavigate()
 
   const loadUserData = async () => {
-    const userData = amIloggedIn(navigate);
-    const userInfo = await userAPI.post("/getUserDetails", {
-      _id: userData._id,
-    });
-    localStorage.getItem("userData", JSON.stringify(userInfo))
-
-    saveUser(userInfo);
-    setUserData(userInfo.data.userData);
-    setCartItems(userInfo.data.userData.cartItems);
-    setFavorites(userInfo.data.userData.favorites);
+      try {
+        const userData = amIloggedIn(navigate);
+        const userInfo = await userAPI.post("/getUserDetails", {
+          _id: userData._id,
+        });
+        localStorage.getItem("userData", JSON.stringify(userInfo))
+    
+        saveUser(userInfo);
+        setUserData(userInfo.data.userData);
+        setCartItems(userInfo.data.userData.cartItems);
+        setFavorites(userInfo.data.userData.favorites);
+      } catch (e) {
+        console.log(e.response.data.error_message);
+      }
   };
   const loadGoogleUserData = async () => {
     try {
@@ -54,7 +58,6 @@ const Main = ({ proof, setShow, proofView, check, setCheck, check2, setCheck2, s
   useEffect(() => {
     useGoogle && loadGoogleUserData()
   }, [useGoogle])
-
 
   return (
     <>
