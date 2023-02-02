@@ -1,27 +1,16 @@
-import React, { useState, useEffect, useInsertionEffect } from "react";
-import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../../Utils";
-
+import React, { useEffect } from "react";
+import { API, getRemembered, } from "../../Utils";
 import { RiLockPasswordLine } from 'react-icons/ri'
-import { Link } from "react-router-dom";
 import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_Decode from 'jwt-decode'
 import SignupError from "../error/SignupError";
-import { GiConfirmed, GiConsoleController } from "react-icons/gi"
 import { GoSignIn } from "react-icons/go"
-import { useNavigate } from "react-router-dom";
+import SignupGoogle from "../Signup/SignupGoogle";
 
-import { ImCart } from "react-icons/im"
-import { AiOutlineUserAdd } from "react-icons/ai"
-
-
-export const Login = ({ handleLogin, loginForm, setLoginForm, error, loading, setLoading, setError, data, setData, login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
-
-
+export const Login = ({ handleLogin, userData, setShowForm,showForm, loginForm, setLoginForm, error, loading, setLoading, setError, data, setData, login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
 
   const { email, password } = loginForm
 
-  console.log(loading)
+  //console.log(loading)
 
   const onChange = (e) => {
     setLoginForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -49,7 +38,6 @@ export const Login = ({ handleLogin, loginForm, setLoginForm, error, loading, se
     const res = await handleLogin(1,loginForm)
     return res 
   }
-
   // const signIn = async () => {
   //   const mod = 1
   //   console.log(mod)
@@ -111,7 +99,6 @@ export const Login = ({ handleLogin, loginForm, setLoginForm, error, loading, se
                 onChange={onChange}
               />
             </div>
-
           </div>
           <div className="border-[1px border-[#fff relative ">
             <label className="label"> Password </label>
@@ -126,9 +113,9 @@ export const Login = ({ handleLogin, loginForm, setLoginForm, error, loading, se
           <SignupError error={error} loading={loading} ></SignupError>
           {/* BUTTON */}
           <div className="flex">
-            <Link to='/login' className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
-              Login
-            </Link>
+            <div onClick={()=> setShowForm(!showForm)} className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
+              Signup
+            </div>
           </div>
           <div className="flex flex-col border-[#fff w-full gap-2 justify-center">
             <div className="flex justify-center items-center border-[1px w-full border-[#fc2020]">
@@ -148,17 +135,7 @@ export const Login = ({ handleLogin, loginForm, setLoginForm, error, loading, se
               <div className="border [.5px] border-b-[#969191a6]   w-full"></div>
             </div>
             <div className="flex justify-center">
-              <GoogleLogin theme="filled_black" size="large"
-                onSuccess={credentialResponse => {
-                  //    googleAccountCredentials = jwt_Decode(credentialResponse.credential)
-                  //  console.log(googleAccountCredentials)
-                  // createGoogleAccount(googleAccountCredentials)
-
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-              />
+            <SignupGoogle  userData={userData} setUserData={setUserData} setLoginForm={setLoginForm} loginForm={loginForm}></SignupGoogle>
             </div>
           </div>
         </div>

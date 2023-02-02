@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useState } from 'react';
 import { API, saveUser, rememberMe, getRemembered, userAPI } from "../../Utils";
 import { Link, useHistory } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri"
@@ -8,27 +8,25 @@ import { AiOutlineUserAdd } from "react-icons/ai"
 import { GoSignIn } from "react-icons/go"
 import { useNavigate } from "react-router-dom";
 import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_Decode from 'jwt-decode'
+import SignupGoogle from './SignupGoogle';
 import SignupError from "../error/SignupError";
 
 
-const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLogin}) => {
+const Signup = ({loading,showForm,setShowForm,setLoading,setUserData,userData, error, signupForm, setSignupForm, handleLogin}) => {
     
     const { email, password, name, confirm_password } = signupForm
 
     const onChange = (e) => {
         setSignupForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-
-    console.log(loading)
-    console.log(signupForm)
+    // console.log(loading)
+    // console.log(signupForm)
     const signup = async () => {
-        console.log("hello")
+        console.log("hello")//
         setLoading(true)
         handleLogin(0, signupForm)
     }
-    let googleAccountCredentials = ""
+ 
     let navigate = useNavigate();
     return (
         <div className="flex md:w-full flex-col px-10 md:gap-5 border-[#d90045] border-[1px md:px-20 justify-center focus:outline-none
@@ -43,7 +41,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                         <input className="signup-input"
                             type="text"
                             name="email"
-                            value={email}
+                            value={signupForm.email}
                             onChange={onChange}
                         />
                     </div>
@@ -53,7 +51,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                         <input className="signup-input "
                             type="text"
                             name="name"
-                            value={name}
+                            value={signupForm.name}
                             onChange={onChange}
                         />
                     </div>
@@ -64,7 +62,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                     <input className="signup-input2  "
                         type="password"
                         name="password"
-                        value={password}
+                        value={signupForm.password}
                         onChange={onChange} />
                 </div>
                 <div className="border-[1px border-[#fff relative ">
@@ -73,17 +71,16 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                     <input className="signup-input2"
                         type="password"
                         name="confirm_password"
-                        value={confirm_password}
+                        value={signupForm.confirm_password}
                         onChange={onChange} />
                 </div>
                 <SignupError error={error} loading={loading} ></SignupError>
 
                 {/* BUTTON */}
-
                 <div className="flex">
-                    <Link to='/login' className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
+                    <div onClick={()=> setShowForm(!showForm)} className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
                         Login
-                    </Link>
+                    </div>
                 </div>
                 <div className="flex flex-col border-[#fff w-full gap-2 justify-center">
                     <div className="flex justify-center items-center border-[1px w-full border-[#fc2020]">
@@ -103,17 +100,7 @@ const Signup = ({loading, setLoading, error, signupForm, setSignupForm, handleLo
                         <div className="border [.5px] border-b-[#969191a6]   w-full"></div>
                     </div>
                     <div className="flex justify-center">
-                        <GoogleLogin theme="filled_black" size="large"
-                            onSuccess={credentialResponse => {
-                                googleAccountCredentials = jwt_Decode(credentialResponse.credential)
-                                //  console.log(googleAccountCredentials)
-                                // createGoogleAccount(googleAccountCredentials)
-
-                            }}
-                            onError={() => {
-                                console.log('Login Failed');
-                            }}
-                        />
+                    <SignupGoogle userData={userData} setUserData={setUserData}></SignupGoogle>
                     </div>
                 </div>
             </div>

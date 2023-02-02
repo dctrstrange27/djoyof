@@ -1,30 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { API, saveUser, rememberMe, getRemembered, userAPI } from "../../Utils";
-import { Link, useHistory } from "react-router-dom";
-import { RiLockPasswordLine } from "react-icons/ri"
-import { GiConfirmed, GiConsoleController } from "react-icons/gi"
+
+import { Link } from "react-router-dom";
 import { ImCart } from "react-icons/im"
-import { AiOutlineUserAdd } from "react-icons/ai"
-import { GoSignIn } from "react-icons/go"
-import { useNavigate } from "react-router-dom";
-import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_Decode from 'jwt-decode'
-import SignupError from "../error/SignupError";
 import Login from "../Login/Login";
 import Signup from "./Signup";
+import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
-export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
-   
 
- 
+export const Signin = ({ setError,setUserData, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
 
-  
+    const [showForm, setShowForm] = useState(false)
 
     return (
         <>
-            <div className="flex justify-center bg-five items-center content-center h-screen flex-col w-full">
-                <div className="flex flex-col h-full  md:flex-row md:justify-evenly justify-center w-full  z-30 bg-four border-[#d90045] rounded-[2rem text-white
+            <div className="flex justify-center border-[#fff] border-[1px bg-five  items-center content-center h-screen flex-col w-full">
+                <div className="flex flex-col h-full  shadow-five shadow-xl  md:flex-row md:justify-evenly justify-center w-full  z-30 bg-four border-[#d90045] rounded-[2rem text-white
                                 w-full border-[1px xl:max-w-[70rem] md:max-h-[75%] md:min-h-[768px] min-w-[380px] ">
                     {/* left side */}
                     <div className="flex px-10 items-center md:hidden justify-center border-[1px">
@@ -49,33 +39,40 @@ export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading,
                         </div>
                     </div>
                     {/* Sign up Form */}
-                    <Signup
+                    {showForm ? (
+                        <Signup
+                        setShowForm={setShowForm}
+                        showForm={showForm}
                         setError={setError}
                         setLoginForm={setLoginForm}
                         loginForm={loginForm}
                         loading={loading}
                         setLoading={setLoading}
-                        error={setLoading}
+                        error={error}
                         signupForm={signupForm}
                         setSignupForm={setSignupForm}
-                        handleLogin={handleLogin} 
+                        handleLogin={handleLogin}
                         userData={userData}
-                        >
+                        setUserData={setUserData}
+                    >
                     </Signup>
-                    {/* <Login
+                    ) : (<Login
+                        userData={userData}
+                        setUserData={setUserData}
+                        setShowForm={setShowForm}
+                        showForm={showForm}
                         error={error}
                         loading={loading}
                         setLoading={setLoading}
                         setError={setError}
                         loginForm={loginForm}
                         setLoginForm={setLoginForm}
-                        userData={userData}
-                        handleLogin={handleLogin}
-                    ></Login> */}
+                        handleLogin={handleLogin}>
+                    </Login>)
+                    }
                 </div>
-
-
             </div>
+            <Outlet />
 
         </>
     );

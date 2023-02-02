@@ -1,6 +1,5 @@
 import React from "react";
 import Login from "./Components/Login/Login";
-import About from "./Components/About/About";
 import NotFound from "./Components/error/NotFound";
 import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -8,9 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react"
 import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
-import { AiOutlineLoading } from 'react-icons/ai'
 import { ImSpinner10 } from 'react-icons/im'
-import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../src/Utils";
+import { API, userAPI, saveUser } from "../src/Utils";
 import Contact from "./Components/ContactUs/Contact";
 import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
@@ -18,7 +16,7 @@ import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
 import Profile_cart from "./Components/profile-cart/Profile_cart";
 import Cart from "./Components/profile-cart/Cart";
-import { GiLogicGateNand } from "react-icons/gi";
+import Service from "./Components/Service/Service";
 
 const Products = React.lazy(() => import('./Components/Products/Products'))
 const LazyMain = React.lazy(() => import('../src/Components/Home/Main'))
@@ -40,11 +38,11 @@ const MainApp = () => {
     const [check, setCheck] = useState(false)
     const [check2, setCheck2] = useState(false)
     const [showContinue, setShowCon] = useState(false)
+
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
     const [userData, setUserData] = useState([]);
     const [userName, setUserName] = useState()
-    const [login, setLogin] = useState(false)
     const [useLocal, setUseLocal] = useState(false)
     const [useGoogle, setUseGoogle] = useState(false)
     const [currentTab, setCurrentTab] = useState()
@@ -53,7 +51,6 @@ const MainApp = () => {
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-
 
     const [loginForm, setLoginForm] = useState([
         {
@@ -67,13 +64,13 @@ const MainApp = () => {
             password: "",
             name: "",
             confirm_password: "",
-         
+
         }
     ])
     const updateSetShow = () => {
         setShow(false)
     }
-     
+
     const handleLogin = async (mod, data) => {
         // login existing user account
         try {
@@ -122,11 +119,9 @@ const MainApp = () => {
                 saveUser(loginGoogle)
             }
             //new Account
-           
 
         } catch (error) {
             console.log(error)
-
         }
     }
     const [user, setUser] = useState([])
@@ -155,12 +150,11 @@ const MainApp = () => {
                                 setUseLocal={setUseLocal}
                                 signout={signout}
                                 setSignout={setSignout}
-                                currentTab={currentTab} 
+                                currentTab={currentTab}
                                 setCurrentTab={setCurrentTab}
                             />
                         </React.Suspense>
                     }>
-                        <Route pathf="About" element={<About />} />
                         <Route path="Main" element={
                             <React.Suspense fallback={
                                 <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
@@ -194,8 +188,9 @@ const MainApp = () => {
                             </div>}>
                                 <Products cartItems={cartItems} setCartItems={setCartItems} />
                             </React.Suspense>
-                        } />
+                        } /> 
                         <Route path="Contact" element={<Contact />} />
+                        <Route path="Service" element={<Service />} />
                         <Route path="Help" element={<Help />} />
                         <Route path="Profile" element={<Profile />} />
                         <Route path="Settings" element={<Settings />} />
@@ -212,26 +207,9 @@ const MainApp = () => {
                         <Route path="profile-cart/Profile" element={<Profile />} />
                         <Route element={<NotFound />} />
                     </Route>
-                    <Route path="Login" element={<Login
-                        error={error}
-                        loading={loading}
-                        setLoading={setLoading}
-                        setError={setError}
-                        loginForm={loginForm}
-                        setLoginForm={setLoginForm}
-                        setLogin={setLogin}
-                        setUserData={setUserData}
-                        userData={userData}
-                        login={login}
-                        handleLogin={handleLogin}
-                        user={user}
-                        setUser={setUser}
-                        useGoogle={useGoogle}
-                        setUseGoogle={setUseGoogle}
-                        setUseLocal={setUseLocal}
-                        useLocal={useLocal}
-                    />} />
+
                     <Route path="recoverAccount" element={<ForgotConfig />} />
+
                     <Route path="Signin" element={
                         <Signupconfig
                             loginForm={loginForm}
@@ -246,9 +224,12 @@ const MainApp = () => {
                             userName={userName}
                             setUserName={setUserName}
                             userData={userData}
+                            setUserData={setUserData}
                             showContinue={showContinue}
-                            setShowCon={setShowCon}
-                        />} />
+                            setShowCon={setShowCon} />} >
+                        <Route path="login" element={<Login />} />
+                        <Route path="Signup" element={<Login />} />
+                    </Route>
                 </Routes>
                 <Outlet />
             </div>

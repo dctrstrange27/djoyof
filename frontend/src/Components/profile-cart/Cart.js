@@ -19,12 +19,13 @@ const Cart = ({ cartItems, setCartItems }) => {
         setCartItems(cartItems.filter((x)=> x._id !== id ))
         console.log(res.data)
    }
-  
+
     const clearCart = (id) => {
         setCartItems([])
     }
+
     return (
-        <div className='mt-7'>
+        <div className='mt-7 border-[1px'>
             <div className='flex gap-2 border-[1px justify-around m-auto py-3 w-[400px] md:w-[600px]'>
                     <div className='flex gap-2'>
                         <BsGrid1X2Fill className="w-5 h-5 " />
@@ -32,7 +33,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                     </div>
                     <h2>Total</h2>
             </div>
-            <div className={`border-[1px] h-auto font-nuni tracking-normal gap-2 grid grid-cols-1 ${cartItems.length == 0 ? "md:grid-cols-1":""} 
+            <div className={`border-[1px h-auto font-nuni tracking-normal gap-2 grid grid-cols-1 ${cartItems.length == 0 ? "md:grid-cols-1":""} 
                               m-auto w-[400px] md:w-[800px] md:grid-cols-2`}>
                 {cartItems.length !== 0 ? (
                     <>
@@ -59,7 +60,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                             </div>
                         ))}
                     </>) : (
-                    <div className='flex justify-center border-[1px]'>
+                    <div className='flex justify-center border-[1px'>
                         <h1 className='text-sm text-[#797676]'>No Cart To Show</h1>
                     </div>
                 )}
