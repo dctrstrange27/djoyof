@@ -6,16 +6,15 @@ import Signup from "./Signup";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
-export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
+
+export const Signin = ({ setError,setUserData, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
 
     const [showForm, setShowForm] = useState(false)
 
-
-
     return (
         <>
-            <div className="flex justify-center bg-five items-center content-center h-screen flex-col w-full">
-                <div className="flex flex-col h-full  md:flex-row md:justify-evenly justify-center w-full  z-30 bg-four border-[#d90045] rounded-[2rem text-white
+            <div className="flex justify-center border-[#fff] border-[1px bg-five  items-center content-center h-screen flex-col w-full">
+                <div className="flex flex-col h-full  shadow-five shadow-xl  md:flex-row md:justify-evenly justify-center w-full  z-30 bg-four border-[#d90045] rounded-[2rem text-white
                                 w-full border-[1px xl:max-w-[70rem] md:max-h-[75%] md:min-h-[768px] min-w-[380px] ">
                     {/* left side */}
                     <div className="flex px-10 items-center md:hidden justify-center border-[1px">
@@ -54,9 +53,12 @@ export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading,
                         setSignupForm={setSignupForm}
                         handleLogin={handleLogin}
                         userData={userData}
+                        setUserData={setUserData}
                     >
                     </Signup>
                     ) : (<Login
+                        userData={userData}
+                        setUserData={setUserData}
                         setShowForm={setShowForm}
                         showForm={showForm}
                         error={error}
@@ -65,15 +67,9 @@ export const Signin = ({ setError, setLoginForm, loginForm, loading, setLoading,
                         setError={setError}
                         loginForm={loginForm}
                         setLoginForm={setLoginForm}
-                        userData={userData}
                         handleLogin={handleLogin}>
                     </Login>)
                     }
-
-
-
-                   
-
                 </div>
             </div>
             <Outlet />

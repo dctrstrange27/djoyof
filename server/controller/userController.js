@@ -19,7 +19,6 @@ const getUsers = aHandler(async (req, res) => {
 })
 // login existing user
 const login = aHandler(async (req, res) => {    
-
     const { email_address, password } = req.body
     if (!(email_address, password)) {
         return res.status(403).json({ error_message: "Payload Missing, Please provide all required information 💨" })
@@ -269,14 +268,14 @@ const deletCancelled = aHandler(async (req, res) => {
 
 const createGoogleAccount = aHandler(async (req, res) => {
     const { email_address, customer_name, picture, verified } = req.body
-    const doesExist = await googleUsers.findOne({ email_address })
+    const doesExist = await User.findOne({ email_address })
 
     if (doesExist) {
         return res.status(200).json({ userData: doesExist })
     }
     else {
         try {
-            const newUser = await googleUsers.create({
+            const newUser = await User.create({
                 email_address: email_address,
                 customer_name: customer_name,
                 profile_picture: picture,

@@ -1,21 +1,12 @@
-import React, { useState, useEffect, useInsertionEffect } from "react";
-import { API, userAPI, saveUser, rememberMe, getRemembered, userGoogleAPI, getUser } from "../../Utils";
-
+import React, { useEffect } from "react";
+import { API, getRemembered, } from "../../Utils";
 import { RiLockPasswordLine } from 'react-icons/ri'
-import { Link } from "react-router-dom";
 import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_Decode from 'jwt-decode'
 import SignupError from "../error/SignupError";
-import { GiConfirmed, GiConsoleController } from "react-icons/gi"
 import { GoSignIn } from "react-icons/go"
-import { useNavigate } from "react-router-dom";
+import SignupGoogle from "../Signup/SignupGoogle";
 
-import { ImCart } from "react-icons/im"
-import { AiOutlineUserAdd } from "react-icons/ai"
-
-
-export const Login = ({ handleLogin,setShowForm,showForm, loginForm, setLoginForm, error, loading, setLoading, setError, data, setData, login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
+export const Login = ({ handleLogin, userData, setShowForm,showForm, loginForm, setLoginForm, error, loading, setLoading, setError, data, setData, login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
 
   const { email, password } = loginForm
 
@@ -47,7 +38,6 @@ export const Login = ({ handleLogin,setShowForm,showForm, loginForm, setLoginFor
     const res = await handleLogin(1,loginForm)
     return res 
   }
-
   // const signIn = async () => {
   //   const mod = 1
   //   console.log(mod)
@@ -109,7 +99,6 @@ export const Login = ({ handleLogin,setShowForm,showForm, loginForm, setLoginFor
                 onChange={onChange}
               />
             </div>
-
           </div>
           <div className="border-[1px border-[#fff relative ">
             <label className="label"> Password </label>
@@ -146,17 +135,7 @@ export const Login = ({ handleLogin,setShowForm,showForm, loginForm, setLoginFor
               <div className="border [.5px] border-b-[#969191a6]   w-full"></div>
             </div>
             <div className="flex justify-center">
-              <GoogleLogin theme="filled_black" size="large"
-                onSuccess={credentialResponse => {
-                  //    googleAccountCredentials = jwt_Decode(credentialResponse.credential)
-                  //  console.log(googleAccountCredentials)
-                  // createGoogleAccount(googleAccountCredentials)
-
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-              />
+            <SignupGoogle  userData={userData} setUserData={setUserData} setLoginForm={setLoginForm} loginForm={loginForm}></SignupGoogle>
             </div>
           </div>
         </div>

@@ -8,12 +8,11 @@ import { AiOutlineUserAdd } from "react-icons/ai"
 import { GoSignIn } from "react-icons/go"
 import { useNavigate } from "react-router-dom";
 import { MdOutlineAlternateEmail } from 'react-icons/md'
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_Decode from 'jwt-decode'
+import SignupGoogle from './SignupGoogle';
 import SignupError from "../error/SignupError";
 
 
-const Signup = ({loading,showForm,setShowForm, setLoading, error, signupForm, setSignupForm, handleLogin}) => {
+const Signup = ({loading,showForm,setShowForm,setLoading,setUserData,userData, error, signupForm, setSignupForm, handleLogin}) => {
     
     const { email, password, name, confirm_password } = signupForm
 
@@ -27,7 +26,7 @@ const Signup = ({loading,showForm,setShowForm, setLoading, error, signupForm, se
         setLoading(true)
         handleLogin(0, signupForm)
     }
-    let googleAccountCredentials = ""
+ 
     let navigate = useNavigate();
     return (
         <div className="flex md:w-full flex-col px-10 md:gap-5 border-[#d90045] border-[1px md:px-20 justify-center focus:outline-none
@@ -78,7 +77,6 @@ const Signup = ({loading,showForm,setShowForm, setLoading, error, signupForm, se
                 <SignupError error={error} loading={loading} ></SignupError>
 
                 {/* BUTTON */}
-
                 <div className="flex">
                     <div onClick={()=> setShowForm(!showForm)} className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
                         Login
@@ -102,16 +100,7 @@ const Signup = ({loading,showForm,setShowForm, setLoading, error, signupForm, se
                         <div className="border [.5px] border-b-[#969191a6]   w-full"></div>
                     </div>
                     <div className="flex justify-center">
-                        <GoogleLogin theme="filled_black" size="large"
-                            onSuccess={credentialResponse => {
-                                googleAccountCredentials = jwt_Decode(credentialResponse.credential)
-                                //  console.log(googleAccountCredentials)
-                                // createGoogleAccount(googleAccountCredentials)
-                            }}
-                            onError={() => {
-                                console.log('Login Failed');
-                            }}
-                        />
+                    <SignupGoogle userData={userData} setUserData={setUserData}></SignupGoogle>
                     </div>
                 </div>
             </div>

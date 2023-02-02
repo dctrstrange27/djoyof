@@ -1,6 +1,5 @@
 import React from "react";
 import Login from "./Components/Login/Login";
-import About from "./Components/About/About";
 import NotFound from "./Components/error/NotFound";
 import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -8,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react"
 import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
-import { AiOutlineLoading } from 'react-icons/ai'
 import { ImSpinner10 } from 'react-icons/im'
 import { API, userAPI, saveUser } from "../src/Utils";
 import Contact from "./Components/ContactUs/Contact";
@@ -18,7 +16,6 @@ import Settings from "./Components/profile_setting/Settings";
 import Orders from "./Components/profile_setting/Orders";
 import Profile_cart from "./Components/profile-cart/Profile_cart";
 import Cart from "./Components/profile-cart/Cart";
-import { GiLogicGateNand } from "react-icons/gi";
 import Service from "./Components/Service/Service";
 
 const Products = React.lazy(() => import('./Components/Products/Products'))
@@ -46,17 +43,14 @@ const MainApp = () => {
     const [openTab, setOpenTab] = React.useState(1);
     const [userData, setUserData] = useState([]);
     const [userName, setUserName] = useState()
-    const [login, setLogin] = useState(false)
     const [useLocal, setUseLocal] = useState(false)
     const [useGoogle, setUseGoogle] = useState(false)
     const [currentTab, setCurrentTab] = useState()
     const [cartItems, setCartItems] = useState([])
 
-
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-
 
     const [loginForm, setLoginForm] = useState([
         {
@@ -128,7 +122,6 @@ const MainApp = () => {
 
         } catch (error) {
             console.log(error)
-
         }
     }
     const [user, setUser] = useState([])
@@ -231,6 +224,7 @@ const MainApp = () => {
                             userName={userName}
                             setUserName={setUserName}
                             userData={userData}
+                            setUserData={setUserData}
                             showContinue={showContinue}
                             setShowCon={setShowCon} />} >
                         <Route path="login" element={<Login />} />
