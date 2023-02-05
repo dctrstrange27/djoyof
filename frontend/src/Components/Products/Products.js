@@ -8,13 +8,12 @@ function Products({ cartItems, setCartItems }) {
 
   //fetch data from server!!!
 
-
   useEffect(async () => {
     const res = await API.get("/getAllProducts")
     setProducts(res.data.products)
   }, [])
 
-  const addToCart =(carts) => {
+  const addToCart = async(carts) => {
     try {
       const exist = cartItems.find(x => x._id === carts._id)
       if (exist) {
@@ -25,15 +24,9 @@ function Products({ cartItems, setCartItems }) {
     } catch (e) {
       console.log(e.response.data)
     }
-   // handleAddToCart(cartItems)
+    await API.post("/addToCart", { id: getUser()._id, cartItems: cartItems })
   }
-  const handleAddToCart=async(cart)=>{
-    const result = await API.post("/addToCart", { id: getUser()._id, cartItems: cart })
-    console.log(result.data.user.cartItems)
-  }
-
-
-
+ 
   return (
     <>
       <div className='w-[70rem] h-auto grid md:grid-cols-2 lg:grid-cols-3 border-[1px p-16'>

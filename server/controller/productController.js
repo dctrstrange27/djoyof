@@ -49,10 +49,6 @@ const newProduct = aHandler(async(req,res)=>{
 })
 
 
-//front End Get Order
-
-
-
 // router.post("/getMyOrders", async(req, res) => {
 //     try{
 //         const { _id, orderStatus } = req.body

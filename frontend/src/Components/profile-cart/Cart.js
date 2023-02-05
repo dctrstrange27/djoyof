@@ -4,7 +4,7 @@ import { RiCloseFill } from 'react-icons/ri'
 import { BsGrid1X2Fill } from 'react-icons/bs'
 import { API, getUser } from '../../Utils'
 
-const Cart = ({ cartItems, setCartItems }) => {
+const Cart = ({ cartItems, setCartItems}) => {
 
     
 
@@ -12,8 +12,9 @@ const Cart = ({ cartItems, setCartItems }) => {
         const cart = await API.post('/getAddToCart',{id:getUser()._id})
         setCartItems(cart.data.cartItems) 
     }   
+
     useEffect(()=>{
-      //  getAddTocart()
+        getAddTocart()
     },[])
 
     const removeToCart = async(id) => {
