@@ -4,16 +4,19 @@ import { RiCloseFill } from 'react-icons/ri'
 import { BsGrid1X2Fill } from 'react-icons/bs'
 import { API, getUser } from '../../Utils'
 
-const Cart = ({ cartItems, setCartItems }) => {
+const Cart = ({ cartItems, setCartItems}) => {
 
-    console.log(getUser())
+    
+
     const getAddTocart=async()=>{
-        const cart =  await API.post('/getAddToCart',{id:getUser()._id})
+        const cart = await API.post('/getAddToCart',{id:getUser()._id})
         setCartItems(cart.data.cartItems) 
     }   
+
     useEffect(()=>{
         getAddTocart()
     },[])
+
     const removeToCart = async(id) => {
         const res = await API.post('/deleteCartItem',{id:id, userID:getUser()._id})
         setCartItems(cartItems.filter((x)=> x._id !== id ))
@@ -35,7 +38,7 @@ const Cart = ({ cartItems, setCartItems }) => {
             </div>
             <div className={`border-[1px h-auto font-nuni tracking-normal gap-2 grid grid-cols-1 ${cartItems.length == 0 ? "md:grid-cols-1":""} 
                               m-auto w-[400px] md:w-[800px] md:grid-cols-2`}>
-                {cartItems.length !== 0 ? (
+                {!cartItems.length !== 0 ? (
                     <>
                         {cartItems.map((item, idx) => (
                             <div key={idx} className='border-[1px relative '>

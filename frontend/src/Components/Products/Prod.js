@@ -22,7 +22,7 @@ const Prod = ({prod,addToCart}) => {
               <button 
                 onClick={()=>{
                     addToCart(prod)
-                    console.log(prod)
+                    //console.log(prod)
                 }}
                 className={"dark:bg-Ofive rounded-[5px] drop-shadow-lg bg-[#bb4b23eb] hover:bg-[#ff771d] text-[#fff] dark:text-[#ffffff] py-[3px] px-[8.8px]"}>
                 {" "}Add{" "}</button>

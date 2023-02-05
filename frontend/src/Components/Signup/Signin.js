@@ -10,17 +10,17 @@ import { useState } from "react";
 export const Signin = ({ setError,setUserData, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
 
     const [showForm, setShowForm] = useState(false)
-
+    
     return (
         <>
-            <div className="flex justify-center border-[#fff] border-[1px bg-five  items-center content-center h-screen flex-col w-full">
-                <div className="flex flex-col h-full  shadow-five shadow-xl  md:flex-row md:justify-evenly justify-center w-full  z-30 bg-four border-[#d90045] rounded-[2rem text-white
+            <div className="flex justify-center border-[#fff] border-[1px  bg-five  items-center content-center h-screen flex-col w-full">
+                <div className="flex flex-col h-full  shadow-five shadow-xl rounded-lg md:flex-row md:justify-evenly justify-center w-full  z-30 bg-four border-[#d90045] rounded-[2rem text-white
                                 w-full border-[1px xl:max-w-[70rem] md:max-h-[75%] md:min-h-[768px] min-w-[380px] ">
                     {/* left side */}
-                    <div className="flex px-10 items-center md:hidden justify-center border-[1px">
+                    <div className="flex px-10  items-center md:hidden justify-center border-[1px">
                         <img className="h-auto w-[90px]" src={require("../../img/logo.png")} ></img>
                     </div>
-                    <div className="md:w-full bg-[#101010] bg-blend-overlay bg-sigup-pic bg-cover py-5 hidden md:flex h-[50%] md:h-full border-[#65d900] border-[1px px-10 
+                    <div className="md:w-full rounded-l-lg bg-[#101010] bg-blend-overlay bg-sigup-pic bg-cover py-5 hidden md:flex h-[50%] md:h-full border-[#65d900] border-[1px px-10 
                                      flex-col justify-center gap-3 items-center">
                         <img className="h-auto w-62 my-10" src={require("../../img/logo.png")} ></img>
                         <div className="border-[1px w-full border-[#fff] md:space-y-3 ">
