@@ -403,8 +403,9 @@ router.post("/addToCart", async (req, res) => {
     try {
         const { id, cartItems } = req.body;
         if (!(id, cartItems))return res.status(401).json({ description: "Missing payloads" });
-        const cart = await User.updateOne({_id:id},{$set:{cartItems:cartItems}});
-        return res.status(200).json({cart});
+        const user =  await User.findOneAndUpdate(
+            {_id:id},{$set:{cartItems:cartItems},},{ returnOriginal: false });
+        return res.status(200).json({user});
     } catch (e) {
         ehandler(e, res);
     }

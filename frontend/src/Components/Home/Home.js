@@ -7,7 +7,7 @@ import MainNav from "../nav/MainNav";
 import SignoutPortal from "../Login/SignoutPortal";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-const Home = ({ updateSetShow, setError, loading, setLoading, show, setShow, userData, setProofFile, proofView, setProofView, togs, setTogs, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
+const Home = ({ setLoading,togs, setTogs, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
   const [hide, setHide] = useState(false)
   return (
     <div className="relative flex flex-col">

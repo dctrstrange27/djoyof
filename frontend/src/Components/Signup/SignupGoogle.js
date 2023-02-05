@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_Decode from 'jwt-decode'
 import { userAPI } from '../../Utils';
@@ -7,7 +7,24 @@ import { saveUser } from '../../Utils';
 const SignupGoogle = ({ loginForm, setLoginForm, userData,setUserData }) => {
 
   const navigate = useNavigate();
-  console.log(userData)
+  // console.log(userData)
+
+  // fetch("https://jsonplaceholder.typicode.com/posts")
+  //   .then(res => res.json())
+  //   .then(data => console.log(data))
+  //   .catch(e => console.error(e))
+
+  
+  // useEffect(()=>{
+  // const handleFetch = async()=>{
+  //   const dataFetched = await fetch('https://jsonplaceholder.typicode.com/posts')
+  //   const data =await dataFetched.json()
+  //   console.log(data)    
+  // }
+  // handleFetch()
+
+  // },[])
+
   const handleGoogleAcount = async (credGoogle) => {
       console.log(credGoogle.email_address)
       try {
@@ -24,7 +41,7 @@ const SignupGoogle = ({ loginForm, setLoginForm, userData,setUserData }) => {
       } catch (e) {
         console.log(e.response.data.error_message)
       }
-    //setError('')
+
   }
 
   return (

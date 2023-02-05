@@ -6,7 +6,6 @@ import { FaTrashAlt } from "react-icons/fa";
 import { ImCart } from "react-icons/im";
 import { GoCheck } from "react-icons/go";
 import { BsFillBackspaceFill } from 'react-icons/bs'
-import { API, getUser, saveUser } from "../../Utils";
 
 export const Cart = ({ proof,
   proofView,
@@ -32,6 +31,7 @@ export const Cart = ({ proof,
   const increateQty = (id) => {
     setCartItems(cartItems.map((cart) => cart._id === id ? { ...cart, product_qty: cart.product_qty + 1 } : cart))
   };
+  
   const decreaseQty = (id) => {
     const exist = cartItems.find(x => x._id == id)
     if (exist) {
