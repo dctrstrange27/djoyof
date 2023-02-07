@@ -10,7 +10,7 @@ import ReactLoading from 'react-loading';
 import {AiOutlineLoading} from 'react-icons/ai'
 import Footer from './Footer';
 
-const Main = ({ proof, setShow, proofView, check, setCheck, check2, setCheck2, setOnConfirm, onRemoveAll, openTab, products, setOpenTab, addFavorite, removeFavorite, isMyFavorite, clickableAgain,
+const Main = ({ proof,setShow, proofView, check, setCheck, check2, setCheck2, setOnConfirm, onRemoveAll, openTab, products, setOpenTab, addFavorite, removeFavorite, isMyFavorite, clickableAgain,
   showProofModal, useGoogle, setUseGoogle, useLocal, cartItems, setCartItems
 
 }) => {

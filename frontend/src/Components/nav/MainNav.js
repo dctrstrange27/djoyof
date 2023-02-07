@@ -19,10 +19,10 @@ import {BsFillCartFill} from 'react-icons/bs'
 import Nav from './Nav'
 import { getUser } from '../../Utils'
 
-const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSignout,signout, setCurrentTab}) => {
+const MainNav = ({togs,cartItems,  showNotif,setTogs, hide, setHide,setUseLocal,setUseGoogle,setSignout,signout, setCurrentTab}) => {
     
     let navigate = useNavigate()
-    
+  
     // console.log(getUser())
 
     const signOutAccount=()=>{
@@ -101,10 +101,11 @@ const MainNav = ({togs, setTogs, hide, setHide,setUseLocal,setUseGoogle,setSigno
                             {colorTheme === 'light' ? (<BsFillMoonStarsFill className='w-5 h-5 text-Ofive'></BsFillMoonStarsFill>) : (<BsSun className='w-5 h-5 duration-200 ease-linear text-Ofour'></BsSun>)}
                         </div>
                     </div>
-                    <div className='flex justify-center items-center'>
+                    <div className='flex justify-center border-[1px border-[#fff] items-center'>
                         <Link to='profile-cart' onClick={()=>{ setCurrentTab(0)}} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
                         <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-110'/>
                         </Link>
+                        <div className={` ${Object.keys(cartItems).length == 0 ? "invisible":"visible"}  absolute text-[#fff] rounded-full font-mulish hover:scale-110 text-sm w-5 h-auto text-center bg-[#c64646] -translate-y-5`}>{Object.keys(cartItems).length}</div>
                         <img src={`${getUser() ? getUser().profile_picture : ""}`}onClick={() => {setHide(!hide) }}className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>
                     </div>
                     {/* profile */}
