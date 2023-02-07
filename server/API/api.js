@@ -169,7 +169,7 @@ function SendConfirmOrders(userEmail, orderId, items, totalprice, userName, Date
     });
 }
 
-function SendCancelOrder(userEmail, items, userName, DateNow,orderId) {
+function SendCancelOrder(userEmail, items, userName, DateNow, orderId) {
     var mail = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -182,7 +182,7 @@ function SendCancelOrder(userEmail, items, userName, DateNow,orderId) {
         to: userEmail,
         subject: "DJOYOFBAKING",
         text: "Hello " + userName + "\n" + "Your Order has been cancelled \n Product ID: " + orderId
-            
+
         /*m
           Hello CustomerName
             Hello CustomerName Your Order has been cancelled shown below. Date Canccelled Date.now()
@@ -230,51 +230,51 @@ router.post("/placeOrder", async (req, res) => {
         const updateCustomer = await users.updateOne({
             _id: new ObjectId(orders.customer_id)
         }, {
-            $push :{ orders: new ObjectId(placedOrder._id) }, 
-            $set : { cartItems: [] },
-         //   $push: {to_receive_order: new ObjectId(placedOrder._id)},
-          
+            $push: { orders: new ObjectId(placedOrder._id) },
+            $set: { cartItems: [] },
+            //   $push: {to_receive_order: new ObjectId(placedOrder._id)},
+
         })
 
         SendConfirmOrders(email_address, placedOrder._id, placedOrder.items, placedOrder.total, orders.customer_name, new Date(), new Date() + 3)
-        res.status(200).json({ message: "Order Placed 👌" ,orders:placedOrder,cart:orders})
+        res.status(200).json({ message: "Order Placed 👌", orders: placedOrder, cart: orders })
     } catch (e) {
         ehandler(e)
     }
 })
 
 
-router.post('/place_order', async(req,res)=>{
-        const {orders, email_address} = req.body
-        try {   
-            if (!orders) return res.status(400).json({ message: "No orders specified" })
-        
+router.post('/place_order', async (req, res) => {
+    const { orders, email_address } = req.body
+    try {
+        if (!orders) return res.status(400).json({ message: "No orders specified" })
+
         // create Orders
         const order_id = new ObjectId(orders._id)
-        const placeOrder = await Orders.create({...orders,order_id})
+        const placeOrder = await Orders.create({ ...orders, order_id })
 
-         await users.updateOne({$push:{orders: new ObjectId(placeOrder._id)},$set : { cartItems: [] }, })
-         await users.updateOne({$push:{to_receive_order: new ObjectId(placeOrder._id)},})
+        await users.updateOne({ $push: { orders: new ObjectId(placeOrder._id) }, $set: { cartItems: [] }, })
+        await users.updateOne({ $push: { to_receive_order: new ObjectId(placeOrder._id) }, })
         // SendConfirmOrders(email_address, placedOrder._id, placedOrder.items, placedOrder.total, orders.customer_name, new Date(), new Date() + 3)
-        res.status(200).json({ message: "Order Placed 👌" ,orders})
-        } catch (error) {
-            console.log(error)
-        }
-})
-
-router.post("/clearObj", async(req,res)=>{
-    const id = req.body
-    const users = await User.find({id})
-    try {
-        await User.updateOne(
-            //{ $set:{to_receive_order:[]}},
-            { $set:{orders:[]}},
-           // { $set:{cancel_order:[]}}
-            )
+        res.status(200).json({ message: "Order Placed 👌", orders })
     } catch (error) {
         console.log(error)
     }
-    res.status(200).json({users})
+})
+
+router.post("/clearObj", async (req, res) => {
+    const id = req.body
+    const users = await User.find({ id })
+    try {
+        await User.updateOne(
+            //{ $set:{to_receive_order:[]}},
+            { $set: { orders: [] } },
+            // { $set:{cancel_order:[]}}
+        )
+    } catch (error) {
+        console.log(error)
+    }
+    res.status(200).json({ users })
 })
 //Crud for admin
 router.post("/newProduct", async (req, res) => {
@@ -401,73 +401,83 @@ router.post("/updateMyFavorites", async (req, res) => {
 
 router.post("/addToCart", async (req, res) => {
     try {
-        const { id, cartItems } = req.body;
-        if (!(id, cartItems))return res.status(401).json({ description: "Missing payloads" });
-        const user =  await User.findOneAndUpdate(
-            {_id:id},{$set:{cartItems:cartItems},},{ returnOriginal: false });
-        return res.status(200).json({user});
+        const { id, item, userID, name } = req.body;
+        if (!(id, item)) return res.status(401).json({ description: "Missing payloads" });
+        const findItem = await User.findOne({ _id: userID, "cartItems.product_name": name });
+        if (findItem) {
+            await User.updateOne(
+                { _id: userID, "cartItems.product_name": name },
+                { $inc: { "cartItems.$.product_qty": 1 }}
+            )
+            return res.status(200).json({ message: "item found & update!" });
+        } else {
+            await User.findOneAndUpdate(
+                { _id: userID }, { $push: { cartItems: item } }
+            )
+            return res.status(200).json({ message: "Added Item" });
+        }
     } catch (e) {
         ehandler(e, res);
     }
 });
 
 router.post("/getAddToCart", async (req, res) => {
-        const {id} = req.body
-        const user = await User.findOne({_id:id})
-        try {
-            if(!id) res.status(400).json({message: "missing payloads!"})
-            if(user) res.status(200).json({cartItems: user.cartItems})
-        } catch (err) {
-            console.log(err)
-        }
+    const { id } = req.body
+    const user = await User.findOne({ _id: id })
+    try {
+        if (!id) res.status(400).json({ message: "missing payloads!" })
+        if (user) res.status(200).json({ cartItems: user.cartItems })
+    } catch (err) {
+        console.log(err)
+    }
 });
 
-router.post("/deleteCartItem", async(req, res)=>{  
-    const {id, userID} = req.body  
+router.post("/deleteCartItem", async (req, res) => {
+    const { id, userID } = req.body
     try {
-        if(!id) res.status(200).json({message:"Missing payloads!"})
-        const user = await User.updateOne({_id: userID},{$pull:{cartItems:{_id:id}}} )
-        if(user)return res.status(200).json({message:"deleted Succesfully!!"})
+        if (!id) res.status(200).json({ message: "Missing payloads!" })
+        const user = await User.updateOne({ _id: userID }, { $pull: { cartItems: { _id: id } } })
+        if (user) return res.status(200).json({ message: "deleted Succesfully!!" })
     } catch (error) {
         console.log(error)
     }
 })
 
-router.post("/getMyOrders", async(req, res) => {
-    try{
+router.post("/getMyOrders", async (req, res) => {
+    try {
         const { _id, orderStatus } = req.body
-        const listOfMyOrders = await Orders.find({ customer_id : _id, orderStatus })
+        const listOfMyOrders = await Orders.find({ customer_id: _id, orderStatus })
         res.status(200).json({
-            orders : listOfMyOrders
+            orders: listOfMyOrders
         })
-    }catch(e){
+    } catch (e) {
         ehandler(e)
     }
 })
 
-router.post("/updateOrder", async(req,res)=>{
-    try{
+router.post("/updateOrder", async (req, res) => {
+    try {
         const { _id, orderStatus } = req.body
-        const updateOrderStatus = await Orders.updateOne( { _id }, { $set : {orderStatus} })
+        const updateOrderStatus = await Orders.updateOne({ _id }, { $set: { orderStatus } })
 
-        if( orderStatus === 0 ){ // ORDER AGAIN
+        if (orderStatus === 0) { // ORDER AGAIN
             SendConfirmOrders()
-        }else if( orderStatus === -1 ){ // CANCEL AN ORDER
+        } else if (orderStatus === -1) { // CANCEL AN ORDER
         }
         res.status(200).json({
-            message : "Successfuly update order status"
+            message: "Successfuly update order status"
         })
-    }catch(e){
+    } catch (e) {
         ehandler(e)
     }
 })
 
 router.post("/deleteGoogleAccount", async (req, res) => {
-    const {id} = req.body
+    const { id } = req.body
     try {
-        const user =  await googleUsers.findOne({id})
+        const user = await googleUsers.findOne({ id })
         user.remove()
-        res.status(200).json({deleted: user})
+        res.status(200).json({ deleted: user })
     } catch (error) {
         console.log(error)
     }

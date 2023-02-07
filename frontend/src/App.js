@@ -51,22 +51,22 @@ const MainApp = () => {
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-
     const [loginForm, setLoginForm] = useState([
         {
             email: "",
             password: "",
         }
     ])
+
     const [signupForm, setSignupForm] = useState([
         {
             email: "",
             password: "",
             name: "",
             confirm_password: "",
-
         }
     ])
+    
     const updateSetShow = () => {
         setShow(false)
     }
@@ -98,7 +98,7 @@ const MainApp = () => {
                         password: data.password,
                         confirm_password: data.confirm_password,
                     })
-                    console.log(newUser)
+                    console.log(newUser);
                     saveUser(newUser);
                     setUserData(newUser);
                     setShowCon(true)

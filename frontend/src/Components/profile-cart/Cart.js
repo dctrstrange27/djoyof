@@ -6,8 +6,6 @@ import { API, getUser } from '../../Utils'
 
 const Cart = ({ cartItems, setCartItems}) => {
 
-    
-
     const getAddTocart=async()=>{
         const cart = await API.post('/getAddToCart',{id:getUser()._id})
         setCartItems(cart.data.cartItems) 
@@ -22,11 +20,10 @@ const Cart = ({ cartItems, setCartItems}) => {
         setCartItems(cartItems.filter((x)=> x._id !== id ))
         console.log(res.data)
    }
-
     const clearCart = (id) => {
         setCartItems([])
     }
-
+    
     return (
         <div className='mt-7 border-[1px'>
             <div className='flex gap-2 border-[1px justify-around m-auto py-3 w-[400px] md:w-[600px]'>
