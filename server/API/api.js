@@ -202,7 +202,6 @@ function SendCancelOrder(userEmail, items, userName, DateNow, orderId) {
     return res.status(401).json({ message: "order Success" });
 }
 
-
 router.post("/placeOrder", async (req, res) => {
     try {
         const { orders, email_address } = req.body
@@ -235,7 +234,6 @@ router.post("/placeOrder", async (req, res) => {
             //   $push: {to_receive_order: new ObjectId(placedOrder._id)},
 
         })
-
         SendConfirmOrders(email_address, placedOrder._id, placedOrder.items, placedOrder.total, orders.customer_name, new Date(), new Date() + 3)
         res.status(200).json({ message: "Order Placed 👌", orders: placedOrder, cart: orders })
     } catch (e) {
@@ -414,7 +412,7 @@ router.post("/addToCart", async (req, res) => {
             await User.findOneAndUpdate(
                 { _id: userID }, { $push: { cartItems: item } }
             )
-            return res.status(200).json({ message: "Added Item" });
+            return res.status(200).json({ message: "Added Item 👍👍" });
         }
     } catch (e) {
         ehandler(e, res);

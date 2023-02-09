@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaHeart } from "react-icons/fa"
 
-const Prod = ({prod,addToCart,showNotif,setShowNotif}) => {
+const Prod = ({prod,addToCart,setShowNotif}) => {
   return (
     <>  
       <div className="relative border-[1px flex dark:text-[#fff] text-xs justify-center py-7">

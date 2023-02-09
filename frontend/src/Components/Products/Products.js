@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { API, getUser, saveUser } from '../../Utils'
 import Prod from './Prod'
 
-function Products({ cartItems, showNotif,setShowNotif,setCartItems }) {
+function Products({ cartItems,setCartItems,setShowNotif }) {
 
   const [products, setProducts] = useState([])
 
   //fetch data from server!!!
-
   useEffect(async () => {
     const res = await API.get("/getAllProducts")
     setProducts(res.data.products)
@@ -15,7 +14,7 @@ function Products({ cartItems, showNotif,setShowNotif,setCartItems }) {
 
   const addToCart = async(cart) => {
     cart.product_qty = 1                                                                                    
-    console.log(cart.product_name,cart._id)
+//    console.log(cart.product_name,cart._id)
     try {
       const cartItems = await API.post("/addToCart", {
           id: cart._id,
@@ -23,7 +22,7 @@ function Products({ cartItems, showNotif,setShowNotif,setCartItems }) {
           userID: getUser()._id,
           name:cart.product_name
         })
-        console.log(cartItems.data)
+        console.log(cartItems.data.message)
     } catch (e) {
       console.log(e)
     }
@@ -33,7 +32,7 @@ function Products({ cartItems, showNotif,setShowNotif,setCartItems }) {
       <div className='w-[70rem] h-auto grid md:grid-cols-2 lg:grid-cols-3 border-[1px p-16'>
         {
           products.map(((prod, idx) => (
-            <Prod key={idx} prod={prod} showNotif={showNotif} setShowNotif={setShowNotif} addToCart={addToCart} />
+            <Prod key={idx} prod={prod}  setShowNotif={setShowNotif} addToCart={addToCart} />
           )))
         }
       </div>
