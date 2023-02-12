@@ -202,7 +202,6 @@ function SendCancelOrder(userEmail, items, userName, DateNow, orderId) {
     return res.status(401).json({ message: "order Success" });
 }
 
-
 router.post("/placeOrder", async (req, res) => {
     try {
         const { orders, email_address } = req.body
@@ -235,7 +234,6 @@ router.post("/placeOrder", async (req, res) => {
             //   $push: {to_receive_order: new ObjectId(placedOrder._id)},
 
         })
-
         SendConfirmOrders(email_address, placedOrder._id, placedOrder.items, placedOrder.total, orders.customer_name, new Date(), new Date() + 3)
         res.status(200).json({ message: "Order Placed 👌", orders: placedOrder, cart: orders })
     } catch (e) {
@@ -414,7 +412,7 @@ router.post("/addToCart", async (req, res) => {
             await User.findOneAndUpdate(
                 { _id: userID }, { $push: { cartItems: item } }
             )
-            return res.status(200).json({ message: "Added Item" });
+            return res.status(200).json({ message: "Added Item 👍👍" });
         }
     } catch (e) {
         ehandler(e, res);
@@ -442,6 +440,32 @@ router.post("/deleteCartItem", async (req, res) => {
         console.log(error)
     }
 })
+
+router.post("/updateCartItem",async(req,res)=>{
+    const {id,mod,name} = req.body
+    try {   
+      if(mod == 1 ){
+        const user = await User.findOneAndUpdate(
+            { _id: id, "cartItems.product_name": name },
+            { $inc: { "cartItems.$.product_qty": 1 }}
+        )
+        return res.status(200).json({message:"Item Increment"});
+      }
+      if(mod == 0 ){
+        const user =  await User.findOneAndUpdate(
+            { _id: id, "cartItems.product_name": name },
+            { $inc: { "cartItems.$.product_qty": -1 }}
+        )
+        return res.status(200).json({message:"Item decrement"});
+       
+      }
+    } catch (e) {
+          ehandler(e)
+    }
+
+})
+
+
 
 router.post("/getMyOrders", async (req, res) => {
     try {
@@ -471,7 +495,6 @@ router.post("/updateOrder", async (req, res) => {
         ehandler(e)
     }
 })
-
 router.post("/deleteGoogleAccount", async (req, res) => {
     const { id } = req.body
     try {
@@ -483,5 +506,10 @@ router.post("/deleteGoogleAccount", async (req, res) => {
     }
 
 })
+
+
+
+
+
 
 module.exports = router;

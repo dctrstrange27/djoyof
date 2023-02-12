@@ -38,6 +38,9 @@ const MainApp = () => {
     const [check, setCheck] = useState(false)
     const [check2, setCheck2] = useState(false)
     const [showContinue, setShowCon] = useState(false)
+    const [signout, setSignout] = useState(false)
+    const [showNotif,setShowNotif] = useState(false)
+
 
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
@@ -66,10 +69,11 @@ const MainApp = () => {
             confirm_password: "",
         }
     ])
-    
     const updateSetShow = () => {
         setShow(false)
     }
+
+
 
     const handleLogin = async (mod, data) => {
         // login existing user account
@@ -119,13 +123,10 @@ const MainApp = () => {
                 saveUser(loginGoogle)
             }
             //new Account
-
         } catch (error) {
             console.log(error)
         }
-    }
-    const [user, setUser] = useState([])
-    const [signout, setSignout] = useState(false)
+    }   
     return (
         <>
             <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
@@ -134,7 +135,10 @@ const MainApp = () => {
                         <React.Suspense fallback={<div className={`w-full h-screen dark:bg-four flex justify-center items-center`}>
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
-                            <Home
+                            <Home    
+                                showNotif={showNotif}
+                                setShowNotif={setShowNotif}
+                                cartItems={cartItems}
                                 setLoading={setLoading}
                                 loading={loading}
                                 updateSetShow={updateSetShow}
@@ -186,7 +190,7 @@ const MainApp = () => {
                             <React.Suspense fallback={<div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                 <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
                             </div>}>
-                                <Products  cartItems={cartItems} setCartItems={setCartItems} />
+                                <Products setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
                             </React.Suspense>
                         } /> 
                         <Route path="Contact" element={<Contact />} />

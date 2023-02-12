@@ -7,13 +7,13 @@ import MainNav from "../nav/MainNav";
 import SignoutPortal from "../Login/SignoutPortal";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-const Home = ({ setLoading,togs, setTogs, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
+const Home = ({ setLoading,togs,showNotif,setShowNotif,setTogs,cartItems, setUseGoogle, setUseLocal, signout, setSignout, currentTab, setCurrentTab }) => {
   const [hide, setHide] = useState(false)
   return (
     <div className="relative flex flex-col">
       <SignoutPortal setLoading={setLoading} signout={signout} setSignout={setSignout}></SignoutPortal>
       <div className="border-b-[1px fixed border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-xl shadow-lg shadow-Light_shadow dark:shadow-[#00000054] dark:bg-two  w-full z-30">
-        <MainNav currentTab={currentTab} setCurrentTab={setCurrentTab} setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
+        <MainNav  showNotif={showNotif} setShowNotif={setShowNotif}  cartItems={cartItems} currentTab={currentTab} setCurrentTab={setCurrentTab} setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
       </div>
       <div className="border-[#03b10f] h-[screen] border-[5px">
         <div className="relative ss:w-full h-screen border-[20px border-[#fff]  mx-auto justify-center flex

@@ -23,10 +23,14 @@ export const getUser = () => {
     }
 }
 
+export const getCartLen=(cart)=>{
+    return Object.keys(cart).length
+}
+
+
 export const signOut = () => {
     localStorage.removeItem('userData')
 }
-
 
 export const amIloggedIn = (navigate) => {
     const loggedInUser = getUser()
@@ -41,11 +45,8 @@ export const rememberMe = (email_address,password) => {
 }
     
 
-
-
 export const getRemembered = () => { return JSON.parse(localStorage.getItem('remembered')) }
 
 export const API = axios.create({ baseURL : 'http://localhost:4000/api' })
 export const userAPI = axios.create({ baseURL : 'http://localhost:4000/api/user' })
 export const orderAPI = axios.create({ baseURL : 'http://localhost:4000/api/order' })
-export const userGoogleAPI = axios.create({ baseURL : 'http://localhost:4000/api/user' })

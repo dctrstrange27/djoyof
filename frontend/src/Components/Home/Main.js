@@ -10,7 +10,7 @@ import ReactLoading from 'react-loading';
 import {AiOutlineLoading} from 'react-icons/ai'
 import Footer from './Footer';
 
-const Main = ({ proof, setShow, proofView, check, setCheck, check2, setCheck2, setOnConfirm, onRemoveAll, openTab, products, setOpenTab, addFavorite, removeFavorite, isMyFavorite, clickableAgain,
+const Main = ({ proof,setShow, proofView, check, setCheck, check2, setCheck2, setOnConfirm, onRemoveAll, openTab, products, setOpenTab, addFavorite, removeFavorite, isMyFavorite, clickableAgain,
   showProofModal, useGoogle, setUseGoogle, useLocal, cartItems, setCartItems
 
 }) => {
@@ -43,7 +43,6 @@ const Main = ({ proof, setShow, proofView, check, setCheck, check2, setCheck2, s
                            min-w-[500px] 
                            lg:w-[860px] lg:max-w-[900px]
                            xl:w-[1100px] xl:max-w-[1200px] ">
-
         <div className="w-lg mt-10 border-[1px grid grid-cols-1 md:grid-cols-2 gap-5 ">
           <div className='flex flex-col justify-center gap-3 mr-5'>
             <h2 className="text-[#F29A4B] font-nsans text-2xl xl:text-[3rem] drop-shadow-lg italic font-extrabold lg:tracking-[.4rem] text-left w-[250px] lg:w-[340px] xl:w-[340px] border-[1px">DJOYOF</h2>
