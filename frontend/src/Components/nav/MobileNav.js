@@ -18,8 +18,7 @@ function MobileNav({Toggle,toggleNav,setToggleNav,toggleAside,setToggleAside}) {
             </h1>
             <GiHamburgerMenu
                 onClick={(e) => {
-                    e.stopPropagation();
-                   
+                    e.stopPropagation();     
                     setToggleNav(!toggleNav);
                 }}
                 className="block md:hidden w-5 h-5 text-[#D98743] hover:text-text-orange-500"

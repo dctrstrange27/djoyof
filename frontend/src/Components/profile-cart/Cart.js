@@ -3,7 +3,8 @@ import Item from './Item'
 import { RiCloseFill } from 'react-icons/ri'
 import { BsGrid1X2Fill } from 'react-icons/bs'
 import { API, getUser } from '../../Utils'
-
+import {IoMdArrowDropup} from 'react-icons/io'
+import {IoMdArrowDropdown} from 'react-icons/io'
 const Cart = ({ cartItems, setCartItems}) => {
 
     const getAddTocart=async()=>{
@@ -13,8 +14,22 @@ const Cart = ({ cartItems, setCartItems}) => {
 
     useEffect(()=>{
         getAddTocart()
-    },[])
+    },[])   
 
+    const handleUpdate = async(id,mod,name)=>{
+         if(mod == 1)setCartItems(cartItems.map((cart)=> cart._id == id ? {...cart, product_qty:cart.product_qty + 1}:cart ))
+         if(mod == 0)setCartItems(cartItems.map((cart)=> cart._id == id ? {...cart, product_qty:cart.product_qty - 1}:cart ))
+        try {
+            const res = await API.post('/updateCartItem',{
+                id:getUser()._id,
+                mod:mod,
+                name:name
+            })
+            console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const removeToCart = async(id) => {
         const res = await API.post('/deleteCartItem',{id:id, userID:getUser()._id})
         setCartItems(cartItems.filter((x)=> x._id !== id ))
@@ -53,9 +68,14 @@ const Cart = ({ cartItems, setCartItems}) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='absolute bottom-2 right-2 flex gap-2 text-[#fff]'>
+                                <div className='absolute bottom-2 border-[1px right-2 flex gap-2 text-[#fff]'>
+                                    <div className='flex flex-col h-auto border-[1px '>
+                                    <IoMdArrowDropup onClick={()=>{ handleUpdate(item._id,1,item.product_name)}} className='w-7 absolute hover:scale-125 hover:text-[#Fff] duration-50 ease-in -translate-y-2 text-[#cdcdcd]  border-[1px h-auto '></IoMdArrowDropup>
+                                    <IoMdArrowDropdown onClick={()=>{ handleUpdate(item._id,0,item.product_name)}} className='w-7 h-auto hover:scale-125 hover:text-[#Fff] duration-50 ease-in translate-y-2 text-[#cdcdcd]'></IoMdArrowDropdown>
+                                    </div>
                                     <p className=' bg-Oone px-1 rounded-md'>{item.product_qty}x</p>
-                                    <p className=' bg-Oone px-1 rounded-md'>view Products</p>
+                                
+                                    <p className=' bg-Oone px-1  transition delay-100 duration-100 ease-in-out hover:scale-105 rounded-md'>view Products</p>
                                 </div>
                             </div>
                         ))}

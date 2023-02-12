@@ -33,10 +33,10 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
     }
 
     function resetHide() {
-        setHide(false)
-       
+        setHide(false)  
     }
 
+    const [getCartL, setGetCartL] = useState()
     const [checkNav, setCheckNav] = useState(1)
     const [colorTheme, setTheme] = UseDarkMode()
     const [switchLabel, setSwitchLabel] = useState(false)
@@ -71,7 +71,6 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                         setCheckNav(1)
                         setTogs(!togs)
                       
-
                     }} to='Main' className={`md:hidden text-white text-sm flex  dark:hover:text-[#ec8f42] ${checkNav === 1 ? "dark:text-[#ec8f42]" : "dark:text-[#c7c5c5]"} `}>
                         <GiHamburgerMenu className='w-[1rem] translate-y-[1px] h-auto mr-2'></ GiHamburgerMenu>
                     </div>
@@ -104,14 +103,13 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                         </div>
                     </div>
                     <div className='flex justify-center border-[1px border-[#fff] items-center'>
-                        <Link to='profile-cart' onClick={()=>{   setShowNotif(false); setCurrentTab(0)}} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
+                        <Link to='profile-cart' onClick={()=>{ setShowNotif(false); setCurrentTab(0)}} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
                         <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-110'/>
                         </Link>
-                        {showNotif &&
-                            <div className={`transition delay-150 duration-300 ease-in-out absolute text-[#fff] rounded-full font-mulish hover:scale-110 text-sm w-5 h-auto text-center bg-[#e32a2a] -translate-y-5`}>{Object.keys(cartItems).length}</div>
+                        {Object.keys(cartItems).length >= 0 &&
+                            <div className={` ${Object.keys(cartItems).length == 0 ? 'invisible':"visible"} border-[1px] border-[#ffffff] absolute text-[#fff] rounded-full font-mulish text-sm w-6 flex 
+                                            justify-center items-center h-auto bg-[#e32a2a] -translate-x-1 -translate-y-3`}>{Object.keys(cartItems).length}</div>
                         }
-
-
                         <img src={`${getUser() ? getUser().profile_picture : ""}`}onClick={() => {setHide(!hide) }}className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>
                     </div>
                     {/* profile */}

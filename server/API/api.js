@@ -441,6 +441,32 @@ router.post("/deleteCartItem", async (req, res) => {
     }
 })
 
+router.post("/updateCartItem",async(req,res)=>{
+    const {id,mod,name} = req.body
+    try {   
+      if(mod == 1 ){
+        const user = await User.findOneAndUpdate(
+            { _id: id, "cartItems.product_name": name },
+            { $inc: { "cartItems.$.product_qty": 1 }}
+        )
+        return res.status(200).json({message:"Item Increment"});
+      }
+      if(mod == 0 ){
+        const user =  await User.findOneAndUpdate(
+            { _id: id, "cartItems.product_name": name },
+            { $inc: { "cartItems.$.product_qty": -1 }}
+        )
+        return res.status(200).json({message:"Item decrement"});
+       
+      }
+    } catch (e) {
+          ehandler(e)
+    }
+
+})
+
+
+
 router.post("/getMyOrders", async (req, res) => {
     try {
         const { _id, orderStatus } = req.body
@@ -480,5 +506,10 @@ router.post("/deleteGoogleAccount", async (req, res) => {
     }
 
 })
+
+
+
+
+
 
 module.exports = router;

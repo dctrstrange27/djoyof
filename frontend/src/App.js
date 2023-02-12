@@ -69,10 +69,11 @@ const MainApp = () => {
             confirm_password: "",
         }
     ])
-
     const updateSetShow = () => {
         setShow(false)
     }
+
+
 
     const handleLogin = async (mod, data) => {
         // login existing user account
@@ -122,14 +123,10 @@ const MainApp = () => {
                 saveUser(loginGoogle)
             }
             //new Account
-
         } catch (error) {
             console.log(error)
         }
-    }
-
-
-   
+    }   
     return (
         <>
             <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">

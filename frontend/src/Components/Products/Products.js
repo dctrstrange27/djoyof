@@ -11,7 +11,7 @@ function Products({ cartItems,setCartItems,setShowNotif }) {
     const res = await API.get("/getAllProducts")
     setProducts(res.data.products)
   }, [])
-
+  
   const addToCart = async(cart) => {
     cart.product_qty = 1                                                                                    
 //    console.log(cart.product_name,cart._id)
@@ -32,7 +32,7 @@ function Products({ cartItems,setCartItems,setShowNotif }) {
       <div className='w-[70rem] h-auto grid md:grid-cols-2 lg:grid-cols-3 border-[1px p-16'>
         {
           products.map(((prod, idx) => (
-            <Prod key={idx} prod={prod}  setShowNotif={setShowNotif} addToCart={addToCart} />
+            <Prod key={idx} prod={prod}  cartItems={cartItems} setShowNotif={setShowNotif} addToCart={addToCart} />
           )))
         }
       </div>

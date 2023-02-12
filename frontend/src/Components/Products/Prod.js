@@ -1,7 +1,8 @@
 import React from 'react'
 import { FaHeart } from "react-icons/fa"
+import { getCartLen } from '../../Utils'
 
-const Prod = ({prod,addToCart,setShowNotif}) => {
+const Prod = ({prod,cartItems,addToCart,setShowNotif}) => {
   return (
     <>  
       <div className="relative border-[1px flex dark:text-[#fff] text-xs justify-center py-7">
@@ -20,9 +21,9 @@ const Prod = ({prod,addToCart,setShowNotif}) => {
                 {prod.product_price} php{" "}
               </p>
               <button 
-                onClick={()=>{
+                onClick={async()=>{
                     addToCart(prod)
-                    setShowNotif(true)
+                    setShowNotif(true)  
                     //console.log(prod)
                 }}
                 className={"dark:bg-Ofive rounded-[5px] hover:scale-105 drop-shadow-lg bg-[#bb4b23eb] hover:bg-[#ff771d] text-[#fff] dark:text-[#ffffff] py-[3px] px-[8.8px]"}>
