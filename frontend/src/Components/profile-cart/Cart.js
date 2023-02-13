@@ -5,13 +5,14 @@ import { BsGrid1X2Fill } from 'react-icons/bs'
 import { API, getUser } from '../../Utils'
 import {IoMdArrowDropup} from 'react-icons/io'
 import {IoMdArrowDropdown} from 'react-icons/io'
+import {BsCart4} from 'react-icons/bs'
 const Cart = ({ cartItems, setCartItems}) => {
 
     const getAddTocart=async()=>{
         const cart = await API.post('/getAddToCart',{id:getUser()._id})
         setCartItems(cart.data.cartItems) 
     }   
-
+    
     useEffect(()=>{
         getAddTocart()
     },[])   
@@ -30,6 +31,7 @@ const Cart = ({ cartItems, setCartItems}) => {
             console.log(error)
         }
     }
+
     const removeToCart = async(id) => {
         const res = await API.post('/deleteCartItem',{id:id, userID:getUser()._id})
         setCartItems(cartItems.filter((x)=> x._id !== id ))
@@ -50,7 +52,7 @@ const Cart = ({ cartItems, setCartItems}) => {
             </div>
             <div className={`border-[1px h-auto font-nuni tracking-normal gap-2 grid grid-cols-1 ${cartItems.length == 0 ? "md:grid-cols-1":""} 
                               m-auto w-[400px] md:w-[800px] md:grid-cols-2`}>
-                {!cartItems.length !== 0 ? (
+                {cartItems.length !== 0 ? (
                     <>
                         {cartItems.map((item, idx) => (
                             <div key={idx} className='border-[1px relative '>
@@ -70,8 +72,8 @@ const Cart = ({ cartItems, setCartItems}) => {
                                 </div>
                                 <div className='absolute bottom-2 border-[1px right-2 flex gap-2 text-[#fff]'>
                                     <div className='flex flex-col h-auto border-[1px '>
-                                    <IoMdArrowDropup onClick={()=>{ handleUpdate(item._id,1,item.product_name)}} className='w-7 absolute hover:scale-125 hover:text-[#Fff] duration-50 ease-in -translate-y-2 text-[#cdcdcd]  border-[1px h-auto '></IoMdArrowDropup>
-                                    <IoMdArrowDropdown onClick={()=>{ handleUpdate(item._id,0,item.product_name)}} className='w-7 h-auto hover:scale-125 hover:text-[#Fff] duration-50 ease-in translate-y-2 text-[#cdcdcd]'></IoMdArrowDropdown>
+                                    <IoMdArrowDropup onClick={()=>{ handleUpdate(item._id,1,item.product_name)}} className='w-7 absolute hover:scale-125 hover:text-[#55a0f6] duration-50 ease-in -translate-y-2 text-[#4c9bf6]  border-[1px h-auto '></IoMdArrowDropup>
+                                    <IoMdArrowDropdown onClick={()=>{ handleUpdate(item._id,0,item.product_name)}} className='w-7 h-auto hover:scale-125 hover:text-[#55a0f6] duration-50 ease-in translate-y-2 text-[#4c9bf6] '></IoMdArrowDropdown>
                                     </div>
                                     <p className=' bg-Oone px-1 rounded-md'>{item.product_qty}x</p>
                                 
@@ -80,7 +82,8 @@ const Cart = ({ cartItems, setCartItems}) => {
                             </div>
                         ))}
                     </>) : (
-                    <div className='flex justify-center border-[1px'>
+                    <div className='flex flex-col py-20 justify-center border-[1px items-center gap-4'>
+                        <BsCart4 className=' w-24 h-auto text-[#bab6b6]'></BsCart4>
                         <h1 className='text-sm text-[#797676]'>No Cart To Show</h1>
                     </div>
                 )}
