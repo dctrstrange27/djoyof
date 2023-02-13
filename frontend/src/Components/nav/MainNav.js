@@ -43,6 +43,8 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
     const [label, setLable] = useState("dark")
     const [name,setName] = useState(getUser())
 
+    
+
     const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
 
     const icon = [
@@ -96,10 +98,11 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                             onClick={() => {
                                 setTheme(colorTheme)
                                 setSwitchLabel(!switchLabel)
-                                isSwitchOn()
+                               
+                          
                             }}
                         >
-                            {colorTheme === 'light' ? (<BsFillMoonStarsFill className='w-5 h-5 text-Ofive'></BsFillMoonStarsFill>) : (<BsSun className='w-5 h-5 duration-200 ease-linear text-Ofour'></BsSun>)}
+                            {colorTheme === 'dark' ? (<BsFillMoonStarsFill className='w-5 h-5 text-Ofive'></BsFillMoonStarsFill>) : (<BsSun className='w-5 h-5 duration-200 ease-linear text-Ofour'></BsSun>)}
                         </div>
                     </div>
                     <div className='flex justify-center border-[1px border-[#fff] items-center'>

@@ -6,16 +6,20 @@ import { API, getUser } from '../../Utils'
 import {IoMdArrowDropup} from 'react-icons/io'
 import {IoMdArrowDropdown} from 'react-icons/io'
 import {BsCart4} from 'react-icons/bs'
+import { toast } from 'react-toastify'
+
 const Cart = ({ cartItems, setCartItems}) => {
 
     const getAddTocart=async()=>{
         const cart = await API.post('/getAddToCart',{id:getUser()._id})
         setCartItems(cart.data.cartItems) 
     }   
-    
+    const [message,setMessage] = useState("")
     useEffect(()=>{
         getAddTocart()
     },[])   
+
+   
 
     const handleUpdate = async(id,mod,name)=>{
          if(mod == 1)setCartItems(cartItems.map((cart)=> cart._id == id ? {...cart, product_qty:cart.product_qty + 1}:cart ))
@@ -35,7 +39,17 @@ const Cart = ({ cartItems, setCartItems}) => {
     const removeToCart = async(id) => {
         const res = await API.post('/deleteCartItem',{id:id, userID:getUser()._id})
         setCartItems(cartItems.filter((x)=> x._id !== id ))
-        console.log(res.data)
+        setMessage(res.data)
+        toast.success("Item deleted!", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
    }
     const clearCart = (id) => {
         setCartItems([])
@@ -58,7 +72,7 @@ const Cart = ({ cartItems, setCartItems}) => {
                             <div key={idx} className='border-[1px relative '>
                                 <div className='flex flex-row gap-2 h-full border-[1px px-2 py-5 drop-shadow-md bg-[#ffffff] dark:bg-two '>
                                 <RiCloseFill onClick={() => {
-                                    removeToCart(item._id)
+                                    removeToCart(item._id)    
                                 }} className="w-5 h-5 absolute top-2 right-2 hover:scale-105 duration-200 " />
                                     <div><img className='w-[80px] h-auto' src={item.image} /></div>
                                     <div className='border-[1px'>
