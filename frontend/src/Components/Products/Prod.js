@@ -29,7 +29,6 @@ const Prod = ({prod,cartItems,addToCart,setShowNotif,message}) => {
               <button 
                 onClick={async()=>{
                     addToCart(prod)
-                    console.log(toastTheme)
                     setShowNotif(true)  
                     toast.success(message, {
                       position: "top-right",

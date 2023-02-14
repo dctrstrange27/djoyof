@@ -11,8 +11,8 @@ function Products({ cartItems, setCartCount, cartItemsCount,setCartItems, setSho
     setProducts(res.data.products)
   }, [])
 
-  const addToCart = async (cart) => {   
-    console.log(cartItems)
+  const addToCart = async (cart) => {    
+    cart.product_qty = 1   
     try {
       const cartItems = await API.post("/addToCart", {
         id: cart._id,
@@ -25,6 +25,7 @@ function Products({ cartItems, setCartCount, cartItemsCount,setCartItems, setSho
       console.log(e)
     }
   }
+  
   return (
     <>
       <div className='w-[70rem] h-auto grid md:grid-cols-2 lg:grid-cols-3 border-[1px p-16'>
