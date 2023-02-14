@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
   customer_name: { type: String, default: "" },
   contact_no: { type: String, default:"" },
   password: { type: String, default: "" },
-  verified: {type: Boolean, default: "" },
+  verified: {type: Boolean, default: false },
   profile_picture : { type: String, default : 'https://cdn.discordapp.com/attachments/955281529481883729/960149662831087626/morty.png'},
   cartItems: {type: [], default: []},
   orders : {type : [], default : []},
@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema({
   to_receive_order : {type : [], default : []},
   completed_order : {type : [], default : []},
   cancel_order : {type : [], default : []},
-  // objectId's of products
+  // objectId's of productss
 });
 
 userSchema.methods.generateHash = function (password) {
