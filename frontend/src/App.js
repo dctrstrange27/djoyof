@@ -50,6 +50,7 @@ const MainApp = () => {
     const [useGoogle, setUseGoogle] = useState(false)
     const [currentTab, setCurrentTab] = useState()
     const [cartItems, setCartItems] = useState([])
+    const [cartItemsCount, setCartCount] = useState(1)
 
     //error
     const [error, setError] = useState('')
@@ -190,7 +191,7 @@ const MainApp = () => {
                             <React.Suspense fallback={<div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                 <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
                             </div>}>
-                                <Products setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
+                                <Products setCartCount={setCartCount} cartItemsCount={cartItemsCount} setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
                             </React.Suspense>
                         } /> 
                         <Route path="Contact" element={<Contact />} />
@@ -202,7 +203,6 @@ const MainApp = () => {
                         <Route path="cart" element={<Cart  />} />
                         <Route path="profile-cart"
                             element={<Profile_cart
-                            
                                 currentTab={currentTab}
                                 setCurrentTab={setCurrentTab}
                                 cartItems={cartItems}

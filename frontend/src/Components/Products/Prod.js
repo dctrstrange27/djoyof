@@ -8,7 +8,7 @@ const Prod = ({prod,cartItems,addToCart,setShowNotif,message}) => {
 
   const [toastTheme,setToastTheme] = UseDarkMode()
 
-  const handleToastTheme =()=> toastTheme == "light" ? "dark":"light"
+    const handleToastTheme =()=> toastTheme == "light" ? "dark":"light"
   return (
     <>          
       <div className="relative border-[1px flex dark:text-[#fff] text-xs justify-center py-7">

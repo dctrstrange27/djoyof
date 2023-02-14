@@ -509,7 +509,6 @@ router.post("/updateCart", async (req, res) => {
                 },
             }
         );
-
         res.status(200).json({ message: "update, oks👌!" });
     } catch (e) {
         ehandler(e, res);

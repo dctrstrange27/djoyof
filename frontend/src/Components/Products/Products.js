@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { API, getUser, saveUser } from '../../Utils'
 import Prod from './Prod'
-function Products({ cartItems, setCartItems, setShowNotif }) {
+function Products({ cartItems, setCartCount, cartItemsCount,setCartItems, setShowNotif }) {
 
   const [products, setProducts] = useState([])
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("Added Item 👍👍")
   //fetch data from server!!!
   useEffect(async () => {
     const res = await API.get("/getAllProducts")
     setProducts(res.data.products)
   }, [])
 
-  // const toastMe = (message)=>{
-  //   toast(message,{ autoClose: 100 });                                                                               
-  // }
-
-  const addToCart = async (cart) => {
-    cart.product_qty = 1
-    //    console.log(cart.product_name,cart._id)
+  const addToCart = async (cart) => {   
+    console.log(cartItems)
     try {
       const cartItems = await API.post("/addToCart", {
         id: cart._id,

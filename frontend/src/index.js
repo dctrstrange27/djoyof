@@ -12,7 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId="473737215172-vvetfrobe1mvoc6d4t9ei8po9am1hllh.apps.googleusercontent.com">
       <App/>
-      <ToastContainer  />
+      <ToastContainer  limit={5} />
       </GoogleOAuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
