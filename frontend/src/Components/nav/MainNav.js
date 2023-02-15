@@ -55,7 +55,7 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
         IoIosHelpCircle,
     ]
     const Navs = [
-        { id: 1, name: "Home", nav: "Main" },
+        { id: 1, name: "Home", nav: "Home" },
         { id: 2, name: "Products", nav: "Products" },
         { id: 3, name: "Service", nav: "Service" },
         { id: 4, name: "Contact Us", nav: "Contact" },
@@ -73,7 +73,7 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                         setCheckNav(1)
                         setTogs(!togs)
                       
-                    }} to='Main' className={`md:hidden text-white text-sm flex  dark:hover:text-[#ec8f42] ${checkNav === 1 ? "dark:text-[#ec8f42]" : "dark:text-[#c7c5c5]"} `}>
+                    }} to='Home' className={`md:hidden text-white text-sm flex  dark:hover:text-[#ec8f42] ${checkNav === 1 ? "dark:text-[#ec8f42]" : "dark:text-[#c7c5c5]"} `}>
                         <GiHamburgerMenu className='w-[1rem] translate-y-[1px] h-auto mr-2'></ GiHamburgerMenu>
                     </div>
                     {Navs.map((nav, index) => (

@@ -4,12 +4,13 @@ import Prod from './Prod'
 function Products({ cartItems, setCartCount, cartItemsCount,setCartItems, setShowNotif }) {
 
   const [products, setProducts] = useState([])
-  const [message, setMessage] = useState("Added Item 👍👍")
+  const [message, setMessage] = useState("Added to Cart ")
   //fetch data from server!!!
   useEffect(async () => {
     const res = await API.get("/getAllProducts")
     setProducts(res.data.products)
   }, [])
+
 
   const addToCart = async (cart) => {    
     cart.product_qty = 1   
@@ -20,12 +21,13 @@ function Products({ cartItems, setCartCount, cartItemsCount,setCartItems, setSho
         userID: getUser()._id,
         name: cart.product_name
       })
-      setMessage(cartItems.data.message)
+      console.log(cartItems.data.cart)
+      setMessage("Added " + cartItems.data.cart)
     } catch (e) {
       console.log(e)
     }
   }
-  
+
   return (
     <>
       <div className='w-[70rem] h-auto grid md:grid-cols-2 lg:grid-cols-3 border-[1px p-16'>

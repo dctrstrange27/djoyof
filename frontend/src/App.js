@@ -19,8 +19,8 @@ import Cart from "./Components/profile-cart/Cart";
 import Service from "./Components/Service/Service";
 
 const Products = React.lazy(() => import('./Components/Products/Products'))
-const LazyMain = React.lazy(() => import('../src/Components/Home/Main'))
-const Home = React.lazy(() => import('../src/Components/Home/Home'))
+const Main = React.lazy(() => import('./Components/Home/Main'))
+const Home = React.lazy(() => import('./Components/Home/Home'))
 function App() {
     return (
         <Router>
@@ -73,7 +73,6 @@ const MainApp = () => {
     const updateSetShow = () => {
         setShow(false)
     }
-
 
 
     const handleLogin = async (mod, data) => {
@@ -132,11 +131,11 @@ const MainApp = () => {
         <>
             <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
                 <Routes>
-                    <Route path="/djoyof" element={
+                    <Route path="djoyof" element={
                         <React.Suspense fallback={<div className={`w-full h-screen dark:bg-four flex justify-center items-center`}>
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
-                            <Home    
+                            <Main    
                                 showNotif={showNotif}
                                 setShowNotif={setShowNotif}
                                 cartItems={cartItems}
@@ -160,13 +159,13 @@ const MainApp = () => {
                             />
                         </React.Suspense>
                     }>
-                        <Route path="Main" element={
+                        <Route path="Home" element={
                             <React.Suspense fallback={
                                 <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                     <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
                                 </div>
                             }>
-                                <LazyMain
+                                <Home
                                     cartItems={cartItems}
                                     setCartItems={setCartItems}
                                     check={check}

@@ -7,8 +7,6 @@ import UseDarkMode from '../DarkMode/UseDarkMode'
 const Prod = ({prod,cartItems,addToCart,setShowNotif,message}) => {
 
   const [toastTheme,setToastTheme] = UseDarkMode()
-
-    const handleToastTheme =()=> toastTheme == "light" ? "dark":"light"
   return (
     <>          
       <div className="relative border-[1px flex dark:text-[#fff] text-xs justify-center py-7">
@@ -38,12 +36,12 @@ const Prod = ({prod,cartItems,addToCart,setShowNotif,message}) => {
                       pauseOnHover: true,
                       draggable: true,
                       progress: undefined,
-                      theme: handleToastTheme(),
+                      theme:  toastTheme == "light" ? "dark":"light",
                       });
                     //console.log(prod)
                 }}
                 className={"dark:bg-Ofive rounded-[5px] hover:scale-105 drop-shadow-lg bg-[#bb4b23eb] hover:bg-[#ff771d] text-[#fff] dark:text-[#ffffff] py-[3px] px-[8.8px]"}>
-                {" "}Add{" "}</button>
+                {" "}Add to Cart{" "}</button>
             </div>
           </div>
           <div className="border-[1px mt-4 text-[.8rem] md:text-sm flex items-center justify-evenly">

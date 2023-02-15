@@ -38,7 +38,6 @@ const Cart = ({ cartItems, setCartItems }) => {
             console.log(error)
         }
     }
-
     const removeToCart = async (id) => {
         const res = await API.post('/deleteCartItem', { id: id, userID: getUser()._id })
         setCartItems(cartItems.filter((x) => x._id !== id))
@@ -57,7 +56,6 @@ const Cart = ({ cartItems, setCartItems }) => {
     const clearCart = (id) => {
         setCartItems([])
     }
-
     return (
         <div className='mt-7 border-[1px'>
             <div className='flex gap-2 border-[1px justify-around m-auto py-3 w-[400px] md:w-[600px]'>
@@ -93,7 +91,6 @@ const Cart = ({ cartItems, setCartItems }) => {
                                         <IoMdArrowDropdown onClick={() => { handleUpdate(item._id, 0, item.product_name) }} className='w-7 h-auto hover:scale-125 hover:text-[#55a0f6] duration-50 ease-in translate-y-2 text-[#4c9bf6] '></IoMdArrowDropdown>
                                     </div>
                                     <p className=' bg-Oone px-1 rounded-md'>{item.product_qty}x</p>
-
                                     <p className=' bg-Oone px-1  transition delay-100 duration-100 ease-in-out hover:scale-105 rounded-md'>view Products</p>
                                 </div>
                             </div>
