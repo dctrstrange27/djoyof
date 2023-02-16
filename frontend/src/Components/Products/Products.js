@@ -31,12 +31,12 @@ function Products({ cartItems, setCartCount, cartItemsCount, setCartItems, setSh
     }
   }
   return (
-    <div className='flex flex-col min-w-[475px] md:min-w-[768px] border-[1px]border-[#fff]'>
-      <div className="flex p-3 bg-four rounded-md mx-2 my-4">
-        <BiSearchAlt2 className="w-6 h-auto translate-x- text-[#6e6c6c]" />
+    <div className='flex flex-col min-w-[475px] md:min-w-[768px] lg:min-w-[1024px] xl:min-w-[1280px] border-[1px] border-[#fff]'>
+      <div className="flex p-3 bg-four rounded-lg mx-2 my-4 md:mx-8 lg:mx-16 border-[1px">
+        <BiSearchAlt2 className="w-6 h-auto text-[#6e6c6c]" />
         <input className="w-full px-2 bg-[#fff0] outline-none dark:text-[#fff]" type="text" placeholder='Search' />
       </div>
-      <div className='Products grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-[1px px-8 py-8'>
+      <div className='Products grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 border-[1px border-[#fff] px-8 py-8 md:pl-16 lg:px-16'>
         {
           products.map(((prod, idx) => (
             <Prod key={idx} message={message} prod={prod} cartItems={cartItems} setShowNotif={setShowNotif} addToCart={addToCart} />
