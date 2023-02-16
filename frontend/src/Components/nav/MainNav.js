@@ -63,7 +63,7 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
     ]
     return (
         <>
-            <div className='relative max-w-[90rem] border-green-500 border-[1px  h-16 mx-auto min-w-sm z-40  duration-500'>
+            <div className='relative max-w-[90rem] border-green-500 border-[1px h-16 mx-auto min-w-sm z-40  duration-500'>
                 {/* this is for mobile view */}
                 <div className='absolute font-medium font-nsans first:text-[1.5rem] tracking-wide inset-y-0 left-7 md:left-10   border-[1px flex gap-5 items-center justify-between h-16'>
                     <div className=' tracking-wide inset-y-6 mr-10 hidden lg:block'>

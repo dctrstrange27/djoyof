@@ -8,7 +8,7 @@ import { useState } from "react"
 import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
 import { ImSpinner10 } from 'react-icons/im'
-import { API, userAPI, saveUser } from "../src/Utils";
+import { userAPI, saveUser } from "../src/Utils";
 import Contact from "./Components/ContactUs/Contact";
 import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
@@ -41,7 +41,6 @@ const MainApp = () => {
     const [signout, setSignout] = useState(false)
     const [showNotif,setShowNotif] = useState(false)
 
-
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
     const [userData, setUserData] = useState([]);
@@ -73,7 +72,6 @@ const MainApp = () => {
     const updateSetShow = () => {
         setShow(false)
     }
-
 
     const handleLogin = async (mod, data) => {
         // login existing user account
@@ -157,8 +155,7 @@ const MainApp = () => {
                                 currentTab={currentTab}
                                 setCurrentTab={setCurrentTab}
                             />
-                        </React.Suspense>
-                    }>
+                        </React.Suspense>}>
                         <Route path="Home" element={
                             <React.Suspense fallback={
                                 <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
@@ -184,8 +181,7 @@ const MainApp = () => {
                                         setShow(true);
                                     }}
                                 />
-                            </React.Suspense>
-                        } />
+                            </React.Suspense>} />
                         <Route path="Products" element={
                             <React.Suspense fallback={<div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                 <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
@@ -211,9 +207,7 @@ const MainApp = () => {
                         <Route path="profile-cart/Profile" element={<Profile />} />
                         <Route element={<NotFound />} />
                     </Route>
-
                     <Route path="recoverAccount" element={<ForgotConfig />} />
-
                     <Route path="Signin" element={
                         <Signupconfig
                             loginForm={loginForm}
