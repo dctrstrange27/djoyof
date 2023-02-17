@@ -26,7 +26,6 @@ const SignupGoogle = ({ loginForm, setLoginForm, userData,setUserData }) => {
   // },[])
 
   const handleGoogleAcount = async (credGoogle) => {
-      console.log(credGoogle.email_address)
       try {
         const gCredentials = await userAPI.post("/createGoogleAccount", {
           email_address:credGoogle.email,
@@ -41,7 +40,6 @@ const SignupGoogle = ({ loginForm, setLoginForm, userData,setUserData }) => {
       } catch (e) {
         console.log(e.response.data.error_message)
       }
-
   }
 
   return (

@@ -19,7 +19,7 @@ import {BsFillCartFill} from 'react-icons/bs'
 import Nav from './Nav'
 import { getUser } from '../../Utils'
 
-const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,setUseLocal,setUseGoogle,setSignout,signout, setCurrentTab}) => {
+const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,setSignout,signout, setCurrentTab}) => {
     
     let navigate = useNavigate()
   
@@ -27,9 +27,6 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
 
     const signOutAccount=()=>{
         setSignout(!signout)
-        console.log(signout)
-        setUseLocal(false)
-        setUseGoogle(false)
     }
 
     function resetHide() {
@@ -98,8 +95,6 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                             onClick={() => {
                                 setTheme(colorTheme)
                                 setSwitchLabel(!switchLabel)
-                               
-                          
                             }}
                         >
                             {colorTheme === 'dark' ? (<BsFillMoonStarsFill className='w-5 h-5 text-Ofive'></BsFillMoonStarsFill>) : (<BsSun className='w-5 h-5 duration-200 ease-linear text-Ofour'></BsSun>)}

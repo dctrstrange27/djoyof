@@ -1,20 +1,35 @@
-import React, { useEffect, useState } from 'react'
+import React, { useDebugValue, useEffect, useState } from 'react'
 import { API, getUser } from '../../Utils'
 import Prod from './Prod'
-import { ImCart } from 'react-icons/im'
-import { Link } from 'react-router-dom';
 import { BiSearchAlt2 } from 'react-icons/bi'
-function Products({ cartItems, setCartCount, cartItemsCount, setCartItems, setShowNotif }) {
+import { lazy, Suspense } from 'react';
+const Item = lazy(()=> import('./Item'))
 
+ function useDebounceVal(value, time = 250){
+  const [debounce,setDebounce] = useState(value)
+
+  useEffect(()=>{
+    const timeout = setTimeout(()=>{
+      setDebounce(value);
+    },time)
+
+    return () =>{
+      clearTimeout(timeout);
+    }
+  },[value,time])
+  return debounce;
+ }
+
+
+function Products({ cartItems, setShowNotif }) {
   const [products, setProducts] = useState([])
   const [message, setMessage] = useState("Added to Cart ")
-  //fetch data from server!!!
-  useEffect(async () => {
-    const res = await API.get("/getAllProducts")
-    setProducts(res.data.products)
-  }, [])
+  const [search, setSearch] = useState()
+
+ // const debounce = useDebounceVal(search)
 
 
+  //fetch data from server!!! 
   const addToCart = async (cart) => {
     cart.product_qty = 1
     try {
@@ -26,24 +41,35 @@ function Products({ cartItems, setCartCount, cartItemsCount, setCartItems, setSh
       })
       console.log(cartItems.data.cart)
       setMessage("Added " + cartItems.data.cart)
-    } catch (e) {
+    } catch (e) { 
       console.log(e)
     }
   }
+ const handleSearchFilter=async(prod_name)=>{
+  const res = await API.get("/getAllProducts")
+    if(!prod_name){
+      setProducts(res.data.products)
+    }else{
+      const data = res.data.products
+      const filter = data.filter((prod)=> prod.product_name == prod_name)
+      setProducts(filter) 
+    }
+  }
+  useEffect(async()=>{
+    handleSearchFilter(search)
+  },[search])
+
   return (
-    <div className='flex flex-col min-w-[475px] md:min-w-[768px] lg:min-w-[1024px] xl:min-w-[1280px] border-[1px] border-[#fff]'>
+    <div className='flex flex-col min-w-[475px] md:min-w-[768px] lg:min-w-[1024px] xl:min-w-[1280px] border-[1px border-[#fff]'>
       <div className="flex p-3 bg-four rounded-lg mx-2 my-4 md:mx-8 lg:mx-16 border-[1px">
         <BiSearchAlt2 className="w-6 h-auto text-[#6e6c6c]" />
-        <input className="w-full px-2 bg-[#fff0] outline-none dark:text-[#fff]" type="text" placeholder='Search' />
+        <input className="w-full px-2 bg-[#fff0] outline-none dark:text-[#fff]" type="text" name="search" value={search} placeholder='Search' 
+          onChange={(e)=> setSearch(e.target.value)}
+        />
       </div>
-      <div className='Products grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 border-[1px border-[#fff] px-8 py-8 md:pl-16 lg:px-16'>
-        {
-          products.map(((prod, idx) => (
-            <Prod key={idx} message={message} prod={prod} cartItems={cartItems} setShowNotif={setShowNotif} addToCart={addToCart} />
-          )))
-        }
-
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Item message={message} products={products} cartItems={cartItems} setShowNotif={setShowNotif} addToCart={addToCart} />
+      </Suspense>
       {/* <div className=" border-[10px border-[#Fff] flex flex-col px-9  items-center min-h-screen overflow-x-hidden scrollbar-thin
                            min-w-[500px] 
                            lg:w-[860px] lg:max-w-[900px]
