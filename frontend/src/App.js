@@ -4,11 +4,11 @@ import NotFound from "./Components/error/NotFound";
 import { Outlet } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Signupconfig from "./Components/Signup/Signupconfig";
 import ForgotConfig from "./Components/forgotPassword/ForgotConfig";
 import { ImSpinner10 } from 'react-icons/im'
-import { API, userAPI, saveUser } from "../src/Utils";
+import { userAPI, saveUser, getUser } from "../src/Utils";
 import Contact from "./Components/ContactUs/Contact";
 import Help from "./Components/Help/Help";
 import Profile from "./Components/profile_setting/Profile";
@@ -17,10 +17,11 @@ import Orders from "./Components/profile_setting/Orders";
 import Profile_cart from "./Components/profile-cart/Profile_cart";
 import Cart from "./Components/profile-cart/Cart";
 import Service from "./Components/Service/Service";
+import { GiConsoleController } from "react-icons/gi";
 
 const Products = React.lazy(() => import('./Components/Products/Products'))
-const LazyMain = React.lazy(() => import('../src/Components/Home/Main'))
-const Home = React.lazy(() => import('../src/Components/Home/Home'))
+const Main = React.lazy(() => import('./Components/Home/Main'))
+const Home = React.lazy(() => import('./Components/Home/Home'))
 function App() {
     return (
         <Router>
@@ -39,8 +40,9 @@ const MainApp = () => {
     const [check2, setCheck2] = useState(false)
     const [showContinue, setShowCon] = useState(false)
     const [signout, setSignout] = useState(false)
-    const [showNotif,setShowNotif] = useState(false)
-
+    const [showNotif, setShowNotif] = useState(false)
+    const [hasUser, setHasUsers] = useState(false)
+    const [showForm, setShowForm] = useState(false)
 
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
@@ -51,7 +53,6 @@ const MainApp = () => {
     const [currentTab, setCurrentTab] = useState()
     const [cartItems, setCartItems] = useState([])
     const [cartItemsCount, setCartCount] = useState(1)
-
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
@@ -74,6 +75,9 @@ const MainApp = () => {
         setShow(false)
     }
 
+    const handleLoginUsers = () => {
+        setHasUsers(getUser())
+    }
 
 
     const handleLogin = async (mod, data) => {
@@ -127,16 +131,20 @@ const MainApp = () => {
         } catch (error) {
             console.log(error)
         }
-    }   
+    }
     return (
         <>
             <div className="dark:bg-five duration-500 bg-P_bg overflow-hidden invert-0">
                 <Routes>
-                    <Route path="/djoyof" element={
+                    <Route path="djoyof" element={
                         <React.Suspense fallback={<div className={`w-full h-screen dark:bg-four flex justify-center items-center`}>
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
-                            <Home    
+                            <Main
+                                handleLoginUsers={handleLoginUsers}
+                                showForm={showForm}
+                                setShowForm={setShowForm}
+                                hasUser={hasUser}
                                 showNotif={showNotif}
                                 setShowNotif={setShowNotif}
                                 cartItems={cartItems}
@@ -158,15 +166,14 @@ const MainApp = () => {
                                 currentTab={currentTab}
                                 setCurrentTab={setCurrentTab}
                             />
-                        </React.Suspense>
-                    }>
-                        <Route path="Main" element={
+                        </React.Suspense>}>
+                        <Route path="Home" element={
                             <React.Suspense fallback={
                                 <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                     <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
                                 </div>
                             }>
-                                <LazyMain
+                                <Home
                                     cartItems={cartItems}
                                     setCartItems={setCartItems}
                                     check={check}
@@ -185,22 +192,21 @@ const MainApp = () => {
                                         setShow(true);
                                     }}
                                 />
-                            </React.Suspense>
-                        } />
+                            </React.Suspense>} />
                         <Route path="Products" element={
                             <React.Suspense fallback={<div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                 <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
                             </div>}>
                                 <Products setCartCount={setCartCount} cartItemsCount={cartItemsCount} setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
                             </React.Suspense>
-                        } /> 
+                        } />
                         <Route path="Contact" element={<Contact />} />
                         <Route path="Service" element={<Service />} />
                         <Route path="Help" element={<Help />} />
                         <Route path="Profile" element={<Profile />} />
                         <Route path="Settings" element={<Settings />} />
                         <Route path="Orders" element={<Orders />} />
-                        <Route path="cart" element={<Cart  />} />
+                        <Route path="cart" element={<Cart />} />
                         <Route path="profile-cart"
                             element={<Profile_cart
                                 currentTab={currentTab}
@@ -212,11 +218,11 @@ const MainApp = () => {
                         <Route path="profile-cart/Profile" element={<Profile />} />
                         <Route element={<NotFound />} />
                     </Route>
-
                     <Route path="recoverAccount" element={<ForgotConfig />} />
-
                     <Route path="Signin" element={
                         <Signupconfig
+                            setShowForm={setShowForm}
+                            showForm={showForm}
                             loginForm={loginForm}
                             setLoginForm={setLoginForm}
                             loading={loading}

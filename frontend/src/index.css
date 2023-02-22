@@ -54,9 +54,16 @@ code {
     @apply w-6 h-5 text-[#fff] hidden md:block left-1 top-[2.5rem] absolute; 
   }
   .signup-button{
-    @apply bg-gradient-to-r bg-[#be5e3b] text-[#fff] font-bold tracking-wide w-full flex justify-center duration-300 
+    @apply bg-gradient-to-r  bg-[#d16741]  text-[#fff] font-bold tracking-wide w-full flex justify-center duration-300 
     rounded-lg text-[15px] px-5 py-2.5  items-center;
   }
+
+  .home-button{
+    @apply bg-gradient-to-r bg-[#be5e3b00] border-[1px] border-[#ffffff65] hover:border-[0px] hover:duration-100 text-[#fff] font-bold tracking-wide w-full flex justify-center duration-300 
+    rounded-lg text-[15px] px-5 py-2.5  items-center;
+  }
+
+
 }
 
 

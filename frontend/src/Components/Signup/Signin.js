@@ -7,9 +7,9 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
 
-export const Signin = ({ setError,setUserData, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
+export const Signin = ({ setError,setUserData, setShowForm, showForm, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
 
-    const [showForm, setShowForm] = useState(false)
+   
     
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useInsertionEffect, useState } from 'react'
 import Item from './Item'
 import { RiCloseFill } from 'react-icons/ri'
 import { BsGrid1X2Fill } from 'react-icons/bs'
@@ -18,14 +18,13 @@ const Cart = ({ cartItems, setCartItems }) => {
     useEffect(() => {
         getAddTocart()
     }, [])
+        
+    const [count, setCount] = useState(undefined)
 
-
-    const handleUpdate = async (id, mod, name) => {
-        const findItem = cartItems.filter((cart) => cart._id == id)        
-        findItem.map((cart) => {
-            const itemCount = cart.product_qty
-            if (itemCount == 1) removeToCart(id)
-        })
+    const handleUpdate = async (id, mod, name) => {   
+        const findItem = cartItems.filter((cart) => cart._id == id)       
+        setCount(findItem.map(cart => mod == 1 ? cart.product_qty + 1 : cart.product_qty - 1))    
+        if(count == 1) removeToCart(id)
         if (mod == 1) setCartItems(cartItems.map((cart) => cart._id == id ? { ...cart, product_qty: cart.product_qty + 1 } : cart))
         if (mod == 0) setCartItems(cartItems.map((cart) => cart._id == id ? { ...cart, product_qty: cart.product_qty - 1 } : cart))
         try {
@@ -34,12 +33,11 @@ const Cart = ({ cartItems, setCartItems }) => {
                 mod: mod,
                 name: name
             })
-            console.log(res.data)
+            // console.log(res.data)
         } catch (error) {
             console.log(error)
         }
     }
-
     const removeToCart = async (id) => {
         const res = await API.post('/deleteCartItem', { id: id, userID: getUser()._id })
         setCartItems(cartItems.filter((x) => x._id !== id))
@@ -58,7 +56,6 @@ const Cart = ({ cartItems, setCartItems }) => {
     const clearCart = (id) => {
         setCartItems([])
     }
-
     return (
         <div className='mt-7 border-[1px'>
             <div className='flex gap-2 border-[1px justify-around m-auto py-3 w-[400px] md:w-[600px]'>
@@ -68,16 +65,16 @@ const Cart = ({ cartItems, setCartItems }) => {
                 </div>
                 <h2>Total</h2>
             </div>
-            <div className={`border-[1px h-auto font-nuni tracking-normal gap-2 grid grid-cols-1 ${cartItems.length == 0 ? "md:grid-cols-1" : ""} 
+            <div className={`border-[1px h-auto transition duration-150 ease-out font-nuni tracking-normal gap-2 grid grid-cols-1 ${cartItems.length == 0 ? "md:grid-cols-1" : ""} 
                               m-auto w-[400px] md:w-[800px] md:grid-cols-2`}>
                 {cartItems.length !== 0 ? (
                     <>
                         {cartItems.map((item, idx) => (
-                            <div key={idx} className='border-[1px relative '>
+                            <div key={idx} className='border-[1px relative transition duration-150 ease-out '>
                                 <div className='flex flex-row gap-2 h-full border-[1px px-2 py-5 drop-shadow-md bg-[#ffffff] dark:bg-two '>
                                     <RiCloseFill onClick={() => {
                                         removeToCart(item._id)
-                                    }} className="w-5 h-5 absolute top-2 right-2 hover:scale-105 duration-200 " />
+                                    }} className="w-5 h-5 absolute top-2 right-2   " />
                                     <div><img className='w-[80px] h-auto' src={item.image} /></div>
                                     <div className='border-[1px'>
                                         <h1 className='dark:text-[#FFF] text-[#3a3939]  text-md font-bold'>{item.product_name}</h1>
@@ -94,7 +91,6 @@ const Cart = ({ cartItems, setCartItems }) => {
                                         <IoMdArrowDropdown onClick={() => { handleUpdate(item._id, 0, item.product_name) }} className='w-7 h-auto hover:scale-125 hover:text-[#55a0f6] duration-50 ease-in translate-y-2 text-[#4c9bf6] '></IoMdArrowDropdown>
                                     </div>
                                     <p className=' bg-Oone px-1 rounded-md'>{item.product_qty}x</p>
-
                                     <p className=' bg-Oone px-1  transition delay-100 duration-100 ease-in-out hover:scale-105 rounded-md'>view Products</p>
                                 </div>
                             </div>

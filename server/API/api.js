@@ -407,12 +407,12 @@ router.post("/addToCart", async (req, res) => {
                 { _id: userID, "cartItems.product_name": name },
                 { $inc: { "cartItems.$.product_qty": 1 } }
             )
-            return res.status(200).json({ message: "item found & update!" });
+            return res.status(200).json({ cart: item.product_name });
         } else {
             await User.findOneAndUpdate(
                 { _id: userID }, { $push: { cartItems: item } }
             )
-            return res.status(200).json({ message: "Added Item 👍👍" });
+            return res.status(200).json({ cart: item.product_name });
         }
     } catch (e) {
         ehandler(e, res);
