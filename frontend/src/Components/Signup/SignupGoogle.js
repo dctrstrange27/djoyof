@@ -4,7 +4,7 @@ import jwt_Decode from 'jwt-decode'
 import { userAPI } from '../../Utils';
 import { useNavigate } from 'react-router-dom';
 import { saveUser } from '../../Utils';
-const SignupGoogle = ({ loginForm, setLoginForm, userData,setUserData }) => {
+const SignupGoogle = ({setUserData }) => {
 
   const navigate = useNavigate();
   // console.log(userData)
@@ -22,7 +22,6 @@ const SignupGoogle = ({ loginForm, setLoginForm, userData,setUserData }) => {
   //   console.log(data)    
   // }
   // handleFetch()
-
   // },[])
 
   const handleGoogleAcount = async (credGoogle) => {
@@ -38,7 +37,7 @@ const SignupGoogle = ({ loginForm, setLoginForm, userData,setUserData }) => {
         navigate("/djoyof");
 
       } catch (e) {
-        console.log(e.response.data.error_message)
+        console.log(e)
       }
   }
 

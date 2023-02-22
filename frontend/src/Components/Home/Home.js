@@ -21,7 +21,7 @@ const Home = () => {
               <br></br>
               The DJOYOFBAKING bakery is located at Blk 12 Lot 39 Birmingham Village Brgy Pulo Cabuyao Laguna.</p>
               <div className="flex justify-center items-center mt-5">
-                                <Link to='/login' className="bg-orange-700 ease-in-out border-[#F29A4B] duration-300 hover:scale-105 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 border-[1px] 
+                                <Link to='/Signin' className="bg-orange-700 ease-in-out border-[#F29A4B] duration-300 hover:scale-105 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 border-[1px] 
                                 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-800 ">
                                     <ImCart className="h-4 w-4 mr-3  dark:text-[#CFCFCF]"></ImCart>
                                     <button type="submit" className={`px-2  w-ful text-two dark:text-[#fff] rounded-md py-2`}>ORDER NOW </button>
@@ -29,11 +29,11 @@ const Home = () => {
                             </div>
           </div>
           <div className=''>
-            <img src={require("../../img/picture.jpg")} className='w-lg rounded-xl h-auto shadow-xl shadow-[#3433335d]'></img>
+            <img src={require("../../img/picture.jpg")} className='w-lg rounded-xl h-auto dark:shadow-lg shadow-lg shadow-Light_shadow dark:shadow-[#191818c1]'></img>
           </div>
         </div>
       </div>
-      <div className=" border-[10px border-[#Fff] flex flex-col px-9  items-center min-h-screen overflow-x-hidden scrollbar-thin
+      {/* <div className=" border-[10px border-[#Fff] flex flex-col px-9  items-center min-h-screen overflow-x-hidden scrollbar-thin
                            min-w-[500px] 
                            lg:w-[860px] lg:max-w-[900px]
                            xl:w-[1100px] xl:max-w-[1200px] ">
@@ -61,7 +61,7 @@ const Home = () => {
             <img src={require("../../img/picture.jpg")} className='w-lg rounded-xl h-auto shadow-xl shadow-[#3433335d]'></img>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

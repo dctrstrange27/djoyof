@@ -23,11 +23,6 @@ export const getUser = () => {
     }
 }
 
-export const getCartLen=(cart)=>{
-    return Object.keys(cart).length
-}
-
-
 export const signOut = () => {
     localStorage.removeItem('userData')
 }

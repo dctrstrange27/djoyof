@@ -6,80 +6,25 @@ import SignupError from "../error/SignupError";
 import { GoSignIn } from "react-icons/go"
 import SignupGoogle from "../Signup/SignupGoogle";
 
-export const Login = ({ handleLogin, userData, setShowForm,showForm, loginForm, setLoginForm, error, loading, setLoading, setError, data, setData, login, setUserData, setUseGoogle, useLocal, setUseLocal }) => {
+export const Login = ({ handleLogin, userData, setShowForm,showForm, loginForm, setLoginForm, error, loading, setLoading, setUserData }) => {
 
   const { email, password } = loginForm
-
-  //console.log(loading)
 
   const onChange = (e) => {
     setLoginForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
-  // useEffect(()=>{
-  //   setData([...data,email_address,password])
-  //   console.log(data)
-  // },[])
-
-  // let navigate = useNavigate();
-  // let googleAccountCredentials = ""
-
-  // // const handleLog =(callback) => {
-
-  // //     console.log("First function");
-  // //     callback()  
-  // // }
-  // // const loginUser=()=>{
-
-  // //   console.log("Second function");
-  // // }
 
   async function handleLog(){  
     setLoading(true)
     const res = await handleLogin(1,loginForm)
     return res 
   }
-  // const signIn = async () => {
-  //   const mod = 1
-  //   console.log(mod)
-
-  //   try {
-  //     console.log("use Local", useLocal)
-  //     setError('')
-  //     setLogin(!login)
-  //     setUseLocal(true)
-  //     const response = await handleLogin(mod,email_address,password)
-  //     console.log(response)
-  //     saveUser(response);
-  //     setUserData(response)
-  //     if (remember) rememberMe(email_address, password)
-  //     navigate("/djoyof"); 
-
-  //   } catch (e) {
-  //     console.log(e);
-  //      setError(e.response.data.error_message);
-  //     setLoading(false)
-  //   }
-  // };
-
-  // const createGoogleAccount = async(info)=>{
-  //     try {
-  //         const res = await userGoogleAPI.post("/createGoogleAccount",
-  //         {email_address:info.email,
-  //           customer_name:info.name,
-  //           picture:info.picture,
-  //           verified:info.email_verified,
-  //         })
-  //         setUseGoogle(true);saveUser(res);navigate('/djoyof');
-  //     } catch (error) {console.log(error)}
-  // }
 
   useEffect(() => {
     const remembered = getRemembered()
     if (remembered) { setLoginForm({ ...loginForm, email: email, password: password }) }
   }, []
   )
-  // const [openTab, setOpenTab] = React.useState(1)
-  // const [values, setValues] = React.useState({ password: "", showPassword: false, });
 
   return (
     <>

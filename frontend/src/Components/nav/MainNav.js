@@ -15,22 +15,20 @@ import { signOut } from "../../Utils";
 import UseDarkMode from '../DarkMode/UseDarkMode'
 import { BsSun } from 'react-icons/bs'
 import { BsFillMoonStarsFill } from 'react-icons/bs'
-import {BsFillCartFill} from 'react-icons/bs'
+import { BsFillCartFill } from 'react-icons/bs'
 import Nav from './Nav'
 import { getUser } from '../../Utils'
 
-const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,setSignout,signout, setCurrentTab}) => {
-    
-    let navigate = useNavigate()
-  
-    // console.log(getUser())
+const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, hide, setHide, setSignout, signout, setCurrentTab }) => {
 
-    const signOutAccount=()=>{
+    let navigate = useNavigate()
+
+    const signOutAccount = () => {
         setSignout(!signout)
     }
 
     function resetHide() {
-        setHide(false)  
+        setHide(false)
     }
 
     const [getCartL, setGetCartL] = useState()
@@ -38,11 +36,9 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
     const [colorTheme, setTheme] = UseDarkMode()
     const [switchLabel, setSwitchLabel] = useState(false)
     const [label, setLable] = useState("dark")
-    const [name,setName] = useState(getUser())
+    const [name, setName] = useState(getUser())
 
-    
-
-    const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
+   // const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
 
     const icon = [
         IoHome,
@@ -69,7 +65,7 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                     <div onClick={(e) => {
                         setCheckNav(1)
                         setTogs(!togs)
-                      
+
                     }} to='Home' className={`md:hidden text-white text-sm flex  dark:hover:text-[#ec8f42] ${checkNav === 1 ? "dark:text-[#ec8f42]" : "dark:text-[#c7c5c5]"} `}>
                         <GiHamburgerMenu className='w-[1rem] translate-y-[1px] h-auto mr-2'></ GiHamburgerMenu>
                     </div>
@@ -100,22 +96,27 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                             {colorTheme === 'dark' ? (<BsFillMoonStarsFill className='w-5 h-5 text-Ofive'></BsFillMoonStarsFill>) : (<BsSun className='w-5 h-5 duration-200 ease-linear text-Ofour'></BsSun>)}
                         </div>
                     </div>
-                    <div className='flex justify-center border-[1px border-[#fff] items-center'>
-                        <Link to='profile-cart' onClick={()=>{ setShowNotif(false); setCurrentTab(0)}} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
-                        <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-110'/>
+                    {hasUser ? (<div className='flex justify-center border-[1px] border-[#fff] items-center'>
+                        <Link to='profile-cart' onClick={() => { setShowNotif(false); setCurrentTab(0) }} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
+                            <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-110' />
                         </Link>
                         {Object.keys(cartItems).length >= 0 &&
-                            <div className={` ${Object.keys(cartItems).length == 0 ? 'invisible':"visible"} border-[1px] border-[#ffffff] absolute text-[#fff] rounded-full font-mulish text-sm w-6 flex 
+                            <div className={` ${Object.keys(cartItems).length == 0 ? 'invisible' : "visible"} border-[1px] border-[#ffffff] absolute text-[#fff] rounded-full font-mulish text-sm w-6 flex 
                                             justify-center items-center h-auto bg-[#e32a2a] -translate-x-1 -translate-y-3`}>{Object.keys(cartItems).length}</div>
                         }
-                        <img src={`${getUser() ? getUser().profile_picture : ""}`}onClick={() => {setHide(!hide) }}className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>
-                    </div>
+                        <img src={`${getUser() ? getUser().profile_picture : ""}`} onClick={() => { setHide(!hide) }} className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>
+                    </div>) : (
+                        <div className='flex justify-center border-[1px px-2 py-2 gap-2 items-center'>
+                            <button onClick={(e) => { setShowForm(false); navigate("/Signin") }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] min-w-20 focus:ring-4 focus:outline-none ">Login</button>
+                            <button onClick={(e) => { navigate("/Signin");setShowForm(true) }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] min-w-20 focus:ring-4 focus:outline-none ">Signup</button>
+                        </div>
+                    )}
                     {/* profile */}
                     <div className={`absolute flex flex-col bg-white5/50 dark:bg-two/70 dark:shadow-lg shadow-lg shadow-Light_shadow dark:shadow-[#000000a9] rounded-xl gap-3 border-[1px left-4 top-20 w-40 px-3 py-5 
                                      ${!hide && 'hidden'}  `}>
                         <Link to='Profile' onClick={() => { resetHide() }}>
                             <div className='flex items-center gap-2 text-Light_normal duration-200 ease-linear dark:text-[#c7c5c5] hover:bg-zinc-200/20 hover:rounded-lg py-1 hover:text-zinc-100'>
-                            <img src={getUser().profile_picture}className={`w-8 h-8 border-[1px] rounded-full duration-200 ease-in-out hover:scale-105`}></img>
+                                <img src={getUser().profile_picture} className={`w-8 h-8 border-[1px] rounded-full duration-200 ease-in-out hover:scale-105`}></img>
                                 <h1 className='duration-200 ease-linear'>  {name?.customer_name}</h1>
                             </div>
                         </Link>
@@ -131,8 +132,8 @@ const MainNav = ({togs,cartItems,showNotif,setShowNotif,setTogs, hide, setHide,s
                                 <h1 className='duration-200 ease-linear'>Orders</h1>
                             </div>
                         </Link>
-                     
-                        <div onClick={() => {signOutAccount()}}>
+
+                        <div onClick={() => { signOutAccount() }}>
                             <div className='flex text-Light_normal dark:text-[#c7c5c5] border-[1px  gap-2 hover:bg-zinc-200/20 hover:rounded-lg py-1 hover:text-zinc-100'>
                                 <VscSignIn className="w-5 h-5" />
                                 <h1 className=' duration-200 ease-linear'>Log out</h1>
