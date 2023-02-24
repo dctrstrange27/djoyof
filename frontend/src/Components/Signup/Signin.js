@@ -7,10 +7,12 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
 
-export const Signin = ({ setError,setUserData, setShowForm, showForm, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
+export const Signin = ({ setError, setUserData,setShowForm, showForm, setLoginForm,
+                         loginForm, loading, setLoading, error, signupForm, setSignupForm,
+                         handleLogin, userData,
+                         showContinue,setShowCon,hideError,setHideError,
+                        }) => {
 
-   
-    
     return (
         <>
             <div className="flex justify-center border-[#fff] border-[1px  bg-five  items-center content-center h-screen flex-col w-full">
@@ -41,35 +43,43 @@ export const Signin = ({ setError,setUserData, setShowForm, showForm, setLoginFo
                     {/* Sign up Form */}
                     {showForm ? (
                         <Signup
-                        setShowForm={setShowForm}
-                        showForm={showForm}
-                        setError={setError}
-                        setLoginForm={setLoginForm}
-                        loginForm={loginForm}
-                        loading={loading}
-                        setLoading={setLoading}
-                        error={error}
-                        signupForm={signupForm}
-                        setSignupForm={setSignupForm}
-                        handleLogin={handleLogin}
-                        userData={userData}
-                        setUserData={setUserData}
-                    >
-                    </Signup>
-                    ) : (<Login
-                        userData={userData}
-                        setUserData={setUserData}
-                        setShowForm={setShowForm}
-                        showForm={showForm}
-                        error={error}
-                        loading={loading}
-                        setLoading={setLoading}
-                        setError={setError}
-                        loginForm={loginForm}
-                        setLoginForm={setLoginForm}
-                        handleLogin={handleLogin}>
-                    </Login>)
+                            setShowForm={setShowForm}
+                            showForm={showForm}
+                            setError={setError}
+                            setLoginForm={setLoginForm}
+                            loginForm={loginForm}
+                            loading={loading}
+                            setLoading={setLoading}
+                            error={error}
+                            signupForm={signupForm}
+                            setSignupForm={setSignupForm}
+                            handleLogin={handleLogin}
+                            userData={userData}
+                            setUserData={setUserData}
+                            showContinue={showContinue} 
+                            setShowCon={setShowCon} 
+                            hideError={hideError}
+                            setHideError={setHideError} 
+                            >
+                        </Signup>
+                    ) : (
+                        <Login
+                            userData={userData}
+                            setUserData={setUserData}
+                            setShowForm={setShowForm}
+                            showForm={showForm}
+                            error={error}
+                            loading={loading}
+                            setLoading={setLoading}
+                            loginForm={loginForm}
+                            setLoginForm={setLoginForm}
+                            handleLogin={handleLogin}
+                            setError={setError}
+                        >
+                        </Login>
+                    )
                     }
+                    
                 </div>
             </div>
             <Outlet />

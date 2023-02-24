@@ -12,8 +12,11 @@ import SignupGoogle from './SignupGoogle';
 import SignupError from "../error/SignupError";
 
 
-const Signup = ({loading,showForm,setShowForm,setLoading,setUserData,userData, error, signupForm, setSignupForm, handleLogin}) => {
-    
+const Signup = ({ loading, showForm, setShowForm, setLoading, setUserData, userData, 
+                  error, signupForm, setSignupForm, handleLogin, setHideError,
+                  hideError
+                }) => {
+
     const { email, password, name, confirm_password } = signupForm
 
     const onChange = (e) => {
@@ -24,16 +27,24 @@ const Signup = ({loading,showForm,setShowForm,setLoading,setUserData,userData, e
     const signup = async () => {
         console.log("hello")//
         setLoading(true)
-        handleLogin(0, signupForm)
+      const user = await handleLogin(0, signupForm)
+       if(user){
+        setSignupForm({
+            email: '',
+            password: '',
+            name: '',
+            confirm_password: '',
+        });
+       }
+
     }
- 
     let navigate = useNavigate();
     return (
         <div className="flex md:w-full flex-col px-10 md:gap-5 border-[#d90045] border-[1px md:px-20 justify-center focus:outline-none
         items-center">
             {/* input */}
-            <div className="w-full  border-[#fff text-sm gap-2 py-4 flex flex-col">
-                <h1 className="font-pacifico text-3xl my-4 text-[#fff] tracking-widest" >Sign-up</h1>
+            <div className="w-full  border-[#fff  max-w-md text-sm gap-2 py-4 flex flex-col">
+                <h1 className="font-pacifico text-3xl border-[1p] my-4 text-[#fff] tracking-widest" >Sign-up</h1>
                 <div className="flex flex-col border-[1px justify-evenly border-[#fff gap-2">
                     <div className=" relative ">
                         <label className="label"> Email</label>
@@ -74,11 +85,11 @@ const Signup = ({loading,showForm,setShowForm,setLoading,setUserData,userData, e
                         value={signupForm.confirm_password}
                         onChange={onChange} />
                 </div>
-                <SignupError error={error} loading={loading} ></SignupError>
+                {!hideError && <SignupError error={error} loading={loading} ></SignupError>}
 
                 {/* BUTTON */}
                 <div className="flex">
-                    <div onClick={()=> setShowForm(!showForm)} className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
+                    <div onClick={() => setShowForm(!showForm)} className="text-[#227be2] font-mulish tracking-wide hover:scale-105 font-bold">
                         Login
                     </div>
                 </div>
@@ -100,7 +111,7 @@ const Signup = ({loading,showForm,setShowForm,setLoading,setUserData,userData, e
                         <div className="border [.5px] border-b-[#969191a6]   w-full"></div>
                     </div>
                     <div className="flex justify-center">
-                    <SignupGoogle userData={userData} setUserData={setUserData}></SignupGoogle>
+                        <SignupGoogle userData={userData} setUserData={setUserData}></SignupGoogle>
                     </div>
                 </div>
             </div>

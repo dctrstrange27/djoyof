@@ -31,6 +31,7 @@ function App() {
 }
 const MainApp = () => {
     let navigate = useNavigate();
+
     const [show, setShow] = useState(false);
     const [clickableAgain, setClickableAgain] = useState(true);
     const [proof, setProofFile] = useState();
@@ -56,12 +57,7 @@ const MainApp = () => {
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const [loginForm, setLoginForm] = useState([
-        {
-            email: "",
-            password: "",
-        }
-    ])
+
 
     const [signupForm, setSignupForm] = useState([
         {
@@ -79,7 +75,6 @@ const MainApp = () => {
         setHasUsers(getUser())
     }
 
-
     const handleLogin = async (mod, data) => {
         // login existing user account
         try {
@@ -93,6 +88,7 @@ const MainApp = () => {
                     saveUser(existingAccount)
                     navigate("/djoyof");
                     setError('')
+                    return true
                 } catch (e) {
                     console.log(e.response.data.error_message);
                     setError(e.response.data.error_message);
@@ -111,8 +107,9 @@ const MainApp = () => {
                     saveUser(newUser);
                     setUserData(newUser);
                     setShowCon(true)
+                    setUserName(newUser.data.userData.customer_name)
                     navigate('/Signin')
-                    return
+                    return true
                 } catch (e) {
                     console.log(e.response.data.error_message);
                     setError(e.response.data.error_message)
@@ -141,15 +138,20 @@ const MainApp = () => {
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
                             <Main
-                                handleLoginUsers={handleLoginUsers}
-                                showForm={showForm}
+                                setHasUsers={setHasUsers}
+                                setUserData={setUserData}
                                 setShowForm={setShowForm}
+                                error={error}
+                                showForm={showForm}
+                                loading={loading}
+                                handleLogin={handleLogin}
+                                setError={setError}
+                                setLoading={setLoading}
+                                handleLoginUsers={handleLoginUsers}
                                 hasUser={hasUser}
                                 showNotif={showNotif}
                                 setShowNotif={setShowNotif}
                                 cartItems={cartItems}
-                                setLoading={setLoading}
-                                loading={loading}
                                 updateSetShow={updateSetShow}
                                 setProofFile={setProofFile}
                                 proofView={proofView}
@@ -171,8 +173,7 @@ const MainApp = () => {
                             <React.Suspense fallback={
                                 <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                     <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
-                                </div>
-                            }>
+                                </div>}>
                                 <Home
                                     cartItems={cartItems}
                                     setCartItems={setCartItems}
@@ -223,8 +224,6 @@ const MainApp = () => {
                         <Signupconfig
                             setShowForm={setShowForm}
                             showForm={showForm}
-                            loginForm={loginForm}
-                            setLoginForm={setLoginForm}
                             loading={loading}
                             setLoading={setLoading}
                             setError={setError}

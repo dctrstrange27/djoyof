@@ -3,7 +3,10 @@ import Signin from "./Signin"
 import ToLogin from "./ToLogin"
 import { useEffect, useState } from "react"
 
-const Signupconfig = ({ showContinue,setShowForm,showForm, setUserData,signupForm, loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData, handleLogin, setShowCon, userName, setUserName, userData }) => {
+const Signupconfig = ({ showContinue,setShowCon,setShowForm,showForm, setUserData,signupForm, loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData, handleLogin, userName, setUserName, userData }) => {
+  
+  const [hideError, setHideError] = useState(false)
+ 
   return (
     <>
       <Signin
@@ -19,12 +22,14 @@ const Signupconfig = ({ showContinue,setShowForm,showForm, setUserData,signupFor
         error={error} 
         setSignupForm={setSignupForm} 
         handleLogin={handleLogin} 
-        showContinue={showContinue} 
         userData={userData} 
         userName={userName} 
-        setUserName={setUserName} 
-        setShowCon={setShowCon} />
-      <ToLogin showContinue={showContinue} setShowCon={setShowCon} userName={userName} />
+        showContinue={showContinue} 
+        setShowCon={setShowCon} 
+        hideError={hideError}
+        setHideError={setHideError}
+        />
+      <ToLogin showContinue={showContinue} setHideError={setHideError} setShowCon={setShowCon} userName={userName} />
 
     </>
   )

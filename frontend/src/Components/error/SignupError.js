@@ -3,7 +3,7 @@ import { AiOutlineLoading } from "react-icons/ai"
 import {VscError} from "react-icons/vsc"
 
 const SignupError = ({ error, loading }) => {
-
+  
   return (
     <>
       <div className={`justify-center ${error.length > 0 ? 'block' : 'hidden'}`}>
