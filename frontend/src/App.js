@@ -88,7 +88,7 @@ const MainApp = () => {
                     })
                     setUserData(existingAccount)
                     saveUser(existingAccount)
-                    navigate("/djoyof");
+                    navigate("/djoyof/Home");
                     setError('')
                     return true
                 } catch (e) {

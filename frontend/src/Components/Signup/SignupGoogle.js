@@ -35,7 +35,7 @@ const SignupGoogle = ({setUserData,hasUserLog}) => {
         setUserData(gCredentials)
         saveUser(gCredentials)
         hasUserLog() 
-        navigate("/djoyof");
+        navigate("/djoyof/Home");
 
       } catch (e) {
         console.log(e)
