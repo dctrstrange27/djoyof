@@ -31,11 +31,9 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
         setHide(false)
     }
 
-    const [getCartL, setGetCartL] = useState()
     const [checkNav, setCheckNav] = useState(1)
     const [colorTheme, setTheme] = UseDarkMode()
     const [switchLabel, setSwitchLabel] = useState(false)
-    const [label, setLable] = useState("dark")
     const [name, setName] = useState(getUser())
 
    // const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
@@ -84,6 +82,7 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
                                   after:content-[''] after:absolute  after:ease-in-out after:duration-200 after:h-[1px]
                                   dark:after:bg-[#f97f2ec2] after:bg-[#f97f2e] after:right-0 after:bottom-0 
                                   ${hide ? "after:w-[90%]" : "after:w-[30%]"}
+                                  ${hasUser ? "" : "after:w-[0%]"}
                               `}>
                     <div className='relative'>
                         <div className={` after:content-[''] after:absolute  after:ease-in-out after:duration-200 after:h-[20px]
@@ -91,8 +90,7 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
                             onClick={() => {
                                 setTheme(colorTheme)
                                 setSwitchLabel(!switchLabel)
-                            }}
-                        >
+                            }}>
                             {colorTheme === 'dark' ? (<BsFillMoonStarsFill className='w-5 h-5 text-Ofive'></BsFillMoonStarsFill>) : (<BsSun className='w-5 h-5 duration-200 ease-linear text-Ofour'></BsSun>)}
                         </div>
                     </div>

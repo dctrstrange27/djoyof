@@ -7,7 +7,11 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
 
-export const Signin = ({ setError, setUserData, setShowForm, showForm, setLoginForm, loginForm, loading, setLoading, error, signupForm, setSignupForm, handleLogin, userData }) => {
+export const Signin = ({ setError, setUserData,setShowForm, showForm, setLoginForm,
+                         loginForm, loading, setLoading, error, signupForm, setSignupForm,
+                         handleLogin, userData,
+                         showContinue,setShowCon,hideError,setHideError,
+                        }) => {
 
     return (
         <>
@@ -51,7 +55,12 @@ export const Signin = ({ setError, setUserData, setShowForm, showForm, setLoginF
                             setSignupForm={setSignupForm}
                             handleLogin={handleLogin}
                             userData={userData}
-                            setUserData={setUserData}>
+                            setUserData={setUserData}
+                            showContinue={showContinue} 
+                            setShowCon={setShowCon} 
+                            hideError={hideError}
+                            setHideError={setHideError} 
+                            >
                         </Signup>
                     ) : (
                         <Login
@@ -65,11 +74,12 @@ export const Signin = ({ setError, setUserData, setShowForm, showForm, setLoginF
                             loginForm={loginForm}
                             setLoginForm={setLoginForm}
                             handleLogin={handleLogin}
+                            setError={setError}
                         >
-
                         </Login>
                     )
                     }
+                    
                 </div>
             </div>
             <Outlet />

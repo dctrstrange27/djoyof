@@ -4,6 +4,9 @@ import ToLogin from "./ToLogin"
 import { useEffect, useState } from "react"
 
 const Signupconfig = ({ showContinue,setShowCon,setShowForm,showForm, setUserData,signupForm, loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData, handleLogin, userName, setUserName, userData }) => {
+  
+  const [hideError, setHideError] = useState(false)
+ 
   return (
     <>
       <Signin
@@ -23,9 +26,10 @@ const Signupconfig = ({ showContinue,setShowCon,setShowForm,showForm, setUserDat
         userName={userName} 
         showContinue={showContinue} 
         setShowCon={setShowCon} 
-        
+        hideError={hideError}
+        setHideError={setHideError}
         />
-      <ToLogin showContinue={showContinue} setShowCon={setShowCon} userName={userName} />
+      <ToLogin showContinue={showContinue} setHideError={setHideError} setShowCon={setShowCon} userName={userName} />
 
     </>
   )

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { RiCloseFill } from 'react-icons/ri'
 
-const ToLogin = ({ setShowCon, showContinue, userName }) => {
+const ToLogin = ({ setShowCon, showContinue,setHideError, userName }) => {
   const [done, setDone] = useState(true)
   setTimeout(() => {
     setDone(false)
@@ -22,7 +22,7 @@ const ToLogin = ({ setShowCon, showContinue, userName }) => {
                          md:max-w-xl md:max-h-[80vh]   
                          lg:max-w-2xl    
                        ">
-          <RiCloseFill onClick={() => { setShowCon(false) }}
+          <RiCloseFill onClick={() => { setShowCon(false); setHideError(true) }}
             className='dark:text-[#fff] text-[#fff] absolute w-5 h-5 right-3 top-3 first-letter duration-100 ease-in-out hover:scale-150
                         md:right-5 md:top-5
                 ' />

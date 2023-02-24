@@ -44,6 +44,9 @@ const MainApp = () => {
     const [showNotif, setShowNotif] = useState(false)
     const [hasUser, setHasUsers] = useState(false)
     const [showForm, setShowForm] = useState(false)
+    
+
+
 
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
@@ -57,7 +60,7 @@ const MainApp = () => {
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
- 
+    
 
     const [signupForm, setSignupForm] = useState([
         {

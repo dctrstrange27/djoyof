@@ -6,7 +6,8 @@ import SignupError from "../error/SignupError";
 import { GoSignIn } from "react-icons/go"
 import SignupGoogle from "../Signup/SignupGoogle";
 
-export const Login = ({ handleLogin, userData, setShowForm, showForm, error, loading, setLoading, setUserData }) => {
+export const Login = ({ handleLogin, userData, setShowForm, showForm, error, loading, setLoading, 
+                        setUserData,setError }) => {
 
   const [loginForm, setLoginForm] = useState([
     {
@@ -23,13 +24,18 @@ export const Login = ({ handleLogin, userData, setShowForm, showForm, error, loa
   const handleLog = async () => {
     setLoading(true)
     const user =  await handleLogin(1, loginForm)
-    if(user) setLoginForm({
-      email: '',
-      password: '',
-    });
+    if(user){
+      setLoginForm({
+        email: '',
+        password: '',
+      });
+      setError("")
+    } 
+    
   }
 
   useEffectOnce(() => {
+    setError("")
     console.log(loginForm)
     const remembered = getRemembered()
     if (remembered) {
@@ -45,7 +51,7 @@ export const Login = ({ handleLogin, userData, setShowForm, showForm, error, loa
     <>
       <div className="flex md:w-full flex-col px-10 md:gap-5 border-[#d90045] border-[1px md:px-20 justify-center focus:outline-none items-center">
         {/* input */}
-        <div className="w-full  border-[#fff text-sm gap-2 py-4 flex flex-col">
+        <div className="w-full  border-[#fff] border-[1px max-w-md text-sm gap-2 py-4 flex flex-col">
           <h1 className="font-pacifico text-3xl my-4 text-[#fff] tracking-widest" >Log-in</h1>
           <div className="flex flex-col border-[1px justify-evenly border-[#fff gap-2">
             <div className=" relative ">
