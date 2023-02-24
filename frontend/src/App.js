@@ -59,6 +59,8 @@ const MainApp = () => {
     const [loading, setLoading] = useState(false)
 
 
+    const hasUserLog=()=>{setHasUsers(!hasUser)}
+
     const [signupForm, setSignupForm] = useState([
         {
             email: "",
@@ -138,6 +140,7 @@ const MainApp = () => {
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
                             <Main
+                                hasUserLog={hasUserLog}
                                 setHasUsers={setHasUsers}
                                 setUserData={setUserData}
                                 setShowForm={setShowForm}
@@ -222,6 +225,7 @@ const MainApp = () => {
                     <Route path="recoverAccount" element={<ForgotConfig />} />
                     <Route path="Signin" element={
                         <Signupconfig
+                            hasUserLog={hasUserLog}
                             setShowForm={setShowForm}
                             showForm={showForm}
                             loading={loading}
@@ -237,8 +241,7 @@ const MainApp = () => {
                             setUserData={setUserData}
                             showContinue={showContinue}
                             setShowCon={setShowCon} />} >
-                        <Route path="login" element={<Login />} />
-                        <Route path="Signup" element={<Login />} />
+                       
                     </Route>
                 </Routes>
                 <Outlet />

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import LoginBody from "./LoginBody";
 
-export const Login = ({ handleLogin, userData, setShowForm, showForm, error, loading, setLoading,
+export const Login = ({ handleLogin, hasUserLog, userData, setShowForm, showForm, error, loading, setLoading,
   setUserData, setError }) => {
   
   return (
@@ -12,6 +12,7 @@ export const Login = ({ handleLogin, userData, setShowForm, showForm, error, loa
        <h1 className="font-pacifico text-3xl my-4 text-[#fff] tracking-widest" >Log-in</h1>
         {/* input */}
         <LoginBody
+        hasUserLog={hasUserLog}
           handleLogin={handleLogin}
           setError={setError}
           setLoading={setLoading}

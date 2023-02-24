@@ -14,7 +14,7 @@ import SignupError from "../error/SignupError";
 
 const Signup = ({ loading, showForm, setShowForm, setLoading, setUserData, userData, 
                   error, signupForm, setSignupForm, handleLogin, setHideError,
-                  hideError
+                  hideError,hasUserLog,
                 }) => {
 
     const { email, password, name, confirm_password } = signupForm
@@ -111,7 +111,7 @@ const Signup = ({ loading, showForm, setShowForm, setLoading, setUserData, userD
                         <div className="border [.5px] border-b-[#969191a6]   w-full"></div>
                     </div>
                     <div className="flex justify-center">
-                        <SignupGoogle userData={userData} setUserData={setUserData}></SignupGoogle>
+                        <SignupGoogle userData={userData}  hasUserLog={hasUserLog} setUserData={setUserData}></SignupGoogle>
                     </div>
                 </div>
             </div>

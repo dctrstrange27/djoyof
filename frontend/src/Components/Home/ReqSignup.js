@@ -17,8 +17,7 @@ const ReqSignup = ({
     setLoading,
     handleLoginUsers,
     hasUser,
-    setHasUsers,
-
+    hasUserLog,
     }) => {
 
     useEffect(()=>{
@@ -26,7 +25,7 @@ const ReqSignup = ({
         console.log(hasUser)
     },[])
 
-    const hasUserLog=()=>{setHasUsers(!hasUser)}
+   
 
     const [showContinue, setShowCon] = useState(true)
     return (
