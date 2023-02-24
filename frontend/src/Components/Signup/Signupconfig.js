@@ -3,13 +3,14 @@ import Signin from "./Signin"
 import ToLogin from "./ToLogin"
 import { useEffect, useState } from "react"
 
-const Signupconfig = ({ showContinue,setShowCon,setShowForm,showForm, setUserData,signupForm, loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData, handleLogin, userName, setUserName, userData }) => {
+const Signupconfig = ({  hasUserLog,showContinue,setShowCon,setShowForm,showForm, setUserData,signupForm, loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData, handleLogin, userName, setUserName, userData }) => {
   
   const [hideError, setHideError] = useState(false)
  
   return (
     <>
       <Signin
+        hasUserLog={hasUserLog}
         setShowForm={setShowForm}
         showForm={showForm}
         setUserData={setUserData}

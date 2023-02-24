@@ -16,6 +16,7 @@ const Main = ({ setLoading, togs,handleLoginUsers, hasUser, showForm, setShowFor
                 setError,
                 userData,
                 setHasUsers,
+                hasUserLog,
               }) => {
   const [hide, setHide] = useState(false)
   
@@ -29,7 +30,8 @@ const Main = ({ setLoading, togs,handleLoginUsers, hasUser, showForm, setShowFor
     <div className="relative flex flex-col">
       <SignoutPortal setLoading={setLoading} signout={signout} setSignout={setSignout}></SignoutPortal>
       <ReqSignup  
-                         setHasUsers={setHasUsers}
+                        hasUserLog={hasUserLog}
+                        setHasUsers={setHasUsers}
                         handleLoginUsers={handleLoginUsers}
                         userData={userData} 
                         setUserData={setUserData}

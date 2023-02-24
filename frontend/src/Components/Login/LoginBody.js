@@ -18,6 +18,7 @@ const LoginBody = ({
     setLoading,
     hasUserLog,
 }) => {
+  
     const [loginForm, setLoginForm] = useState([
         {
           email: "example@example.com",
@@ -33,6 +34,7 @@ const LoginBody = ({
       const handleLog = async () => {
         setLoading(true)
         const user = await handleLogin(1, loginForm)
+        hasUserLog()
         if (user) {
           setLoginForm({
             email: '',
