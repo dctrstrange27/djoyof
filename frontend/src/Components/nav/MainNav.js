@@ -96,7 +96,7 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
                             {colorTheme === 'dark' ? (<BsFillMoonStarsFill className='w-5 h-5 text-Ofive'></BsFillMoonStarsFill>) : (<BsSun className='w-5 h-5 duration-200 ease-linear text-Ofour'></BsSun>)}
                         </div>
                     </div>
-                    {hasUser ? (<div className='flex justify-center border-[1px] border-[#fff] items-center'>
+                    {hasUser ? (<div className='flex justify-center border-[1px border-[#fff] items-center'>
                         <Link to='profile-cart' onClick={() => { setShowNotif(false); setCurrentTab(0) }} className={` px-6 pointer text-Light_normal dark:text-[#c7c5c5] hover:text-zinc-100 uppercase font-semibold tracking-wider font-pops `}>
                             <BsFillCartFill className=' w-5 h-5 text-Ofour dark:text-Ofive hover:scale-110' />
                         </Link>
@@ -107,8 +107,8 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
                         <img src={`${getUser() ? getUser().profile_picture : ""}`} onClick={() => { setHide(!hide) }} className={`w-8 h-8 rounded-full duration-200 ease-in-out`}></img>
                     </div>) : (
                         <div className='flex justify-center border-[1px px-2 py-2 gap-2 items-center'>
-                            <button onClick={(e) => { setShowForm(false); navigate("/Signin") }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] min-w-20 focus:ring-4 focus:outline-none ">Login</button>
-                            <button onClick={(e) => { navigate("/Signin");setShowForm(true) }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] min-w-20 focus:ring-4 focus:outline-none ">Signup</button>
+                            <button onClick={(e) => { setShowForm(false); navigate("/Signin") }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] hover:text-[#ffff] min-w-20 focus:ring-4 focus:outline-none ">Login</button>
+                            <button onClick={(e) => { navigate("/Signin");setShowForm(true) }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] hover:text-[#ffff] min-w-20 focus:ring-4 focus:outline-none ">Signup</button>
                         </div>
                     )}
                     {/* profile */}

@@ -2,14 +2,13 @@ import { Link } from "react-router-dom"
 
 import { useEffect, useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
+import { RiCloseFill } from 'react-icons/ri'
 
-
-const ToLogin = ({  setShowCon,showContinue,userName }) => {  
-  const [done,setDone] = useState(true)
-  
-  setTimeout(()=>{
-      setDone(false)
-  },[3000])
+const ToLogin = ({ setShowCon, showContinue, userName }) => {
+  const [done, setDone] = useState(true)
+  setTimeout(() => {
+    setDone(false)
+  }, [3000])
 
   useEffect(() => {
     setShowCon(false)
@@ -17,20 +16,28 @@ const ToLogin = ({  setShowCon,showContinue,userName }) => {
 
   return (
     <>
-      {showContinue && ( <div className="fixed border-[1px bg-[#4b4848b9] top-0 flex  justify-center items-center left-0 h-screen w-full  z-[9999]">
-        <div className="bg-[#191616b7] rounded-lg w-96 h-60 flex justify-center">
-          <div className="bg-[#fff/20 flex flex-col justify-center items-center gap-5 w-[80%]">
-            <div className="items-center flex flex-col">
-              <h1 className="text-[#fff] font-semibold">Hi {userName} welcome to DJOYOF</h1>
-              <h3 className="text-[#fff] font-semibold">Continue to Explore...</h3>
+      {showContinue && (<div className="fixed bg-[#4b4848b9] top-0 flex
+                        justify-center items-center left-0 h-screen w-full z-[9999]">
+        <div className="bg-[#191616e4] relative border-[1px] border-[#fff md:rounded-3xl w-full h-full py-12 flex px-12 justify-center transition-all delay-200 duration-300 ease-in-out
+                         md:max-w-xl md:max-h-[80vh]   
+                         lg:max-w-2xl    
+                       ">
+          <RiCloseFill onClick={() => { setShowCon(false) }}
+            className='dark:text-[#fff] text-[#fff] absolute w-5 h-5 right-3 top-3 first-letter duration-100 ease-in-out hover:scale-150
+                        md:right-5 md:top-5
+                ' />
+          <div className="bg-[#fff/20 flex flex-col justify-center items-center gap-5">
+            <div className="items-center flex flex-col gap-4 justify-center text-center">
+
+              <img className=" rounded-xl min-w-[200px] max-w-[400px]  w-auto" src={require("../../img/welcome.png")} />
+              <h1 className="text-[#fff]  font-tilt text-xl">Hey! {userName} Welcome</h1>
+              <h3 className="text-[#c4c0c0] font-pop font-semibold">Rise to the occasion with Djoyof Baking's artisanal breads!</h3>
             </div>
-            <div className="flex gap-16">
-              <Link to='/djoyof' className='text-white bg-[#ff7900] text-[#fff] font-bold duration-300 hover:scale-105 border-[1px min-w-20 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300
-                                 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-800'>
-                yes</Link>
-              <Link to='/login' className='text-white bg-[#ff7900] text-[#fff] duration-300 hover:scale-105 border-[1px min-w-20 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-blue-300
-                                font-bold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-800'>
-                no..</Link>
+            <div className="flex flex-col w-full gap-3">
+              <Link to='/djoyof' className='w-full font-tilt h-12 signup-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] min-w-20 focus:ring-4 focus:outline-none '>
+                GET STARTED</Link>
+              <Link to='/Signin' onClick={() => { setShowCon(false) }} className='w-full font-tilt signup-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] min-w-20 focus:ring-4 focus:outline-none '>
+                LOG IN</Link>
             </div>
           </div>
 
@@ -42,4 +49,4 @@ const ToLogin = ({  setShowCon,showContinue,userName }) => {
   )
 }
 
-export default ToLogin
+export default ToLogin  

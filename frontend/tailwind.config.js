@@ -62,6 +62,7 @@ module.exports = {
           nsans:"'Nunito Sans', sans-serif",
           mulish:"'Mulish', sans-serif",
           pacifico: 'Pacifico',
+          tilt: 'Tilt Warp',
         },
         backgroundImage: {
           'dark-text-logo': "url('./img/dark-text-logo.png')",

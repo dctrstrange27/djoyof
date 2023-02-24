@@ -3,7 +3,7 @@ import Signin from "./Signin"
 import ToLogin from "./ToLogin"
 import { useEffect, useState } from "react"
 
-const Signupconfig = ({ showContinue,setShowForm,showForm, setUserData,signupForm, loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData, handleLogin, setShowCon, userName, setUserName, userData }) => {
+const Signupconfig = ({ showContinue,setShowCon,setShowForm,showForm, setUserData,signupForm, loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData, handleLogin, userName, setUserName, userData }) => {
   return (
     <>
       <Signin
@@ -19,11 +19,12 @@ const Signupconfig = ({ showContinue,setShowForm,showForm, setUserData,signupFor
         error={error} 
         setSignupForm={setSignupForm} 
         handleLogin={handleLogin} 
-        showContinue={showContinue} 
         userData={userData} 
         userName={userName} 
-        setUserName={setUserName} 
-        setShowCon={setShowCon} />
+        showContinue={showContinue} 
+        setShowCon={setShowCon} 
+        
+        />
       <ToLogin showContinue={showContinue} setShowCon={setShowCon} userName={userName} />
 
     </>

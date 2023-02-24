@@ -27,6 +27,9 @@ function Products({ cartItems, setShowNotif }) {
   const [message, setMessage] = useState("Added to Cart ")
   const [search, setSearch] = useState("")
   
+
+ 
+
   //const debounce = useDebounceVal(search)
   //fetch data from server!!! 
   const addToCart = async (cart) => {
@@ -56,7 +59,7 @@ function Products({ cartItems, setShowNotif }) {
   }
   useEffect(async()=>{
     handleSearchFilter(search)
-    console.log(search)
+    // console.log(search)
   },[search])
 
   return (

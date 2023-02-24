@@ -31,6 +31,7 @@ function App() {
 }
 const MainApp = () => {
     let navigate = useNavigate();
+    
     const [show, setShow] = useState(false);
     const [clickableAgain, setClickableAgain] = useState(true);
     const [proof, setProofFile] = useState();
@@ -56,12 +57,7 @@ const MainApp = () => {
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const [loginForm, setLoginForm] = useState([
-        {
-            email: "",
-            password: "",
-        }
-    ])
+ 
 
     const [signupForm, setSignupForm] = useState([
         {
@@ -79,7 +75,6 @@ const MainApp = () => {
         setHasUsers(getUser())
     }
 
-
     const handleLogin = async (mod, data) => {
         // login existing user account
         try {
@@ -93,6 +88,7 @@ const MainApp = () => {
                     saveUser(existingAccount)
                     navigate("/djoyof");
                     setError('')
+                    return true
                 } catch (e) {
                     console.log(e.response.data.error_message);
                     setError(e.response.data.error_message);
@@ -111,8 +107,9 @@ const MainApp = () => {
                     saveUser(newUser);
                     setUserData(newUser);
                     setShowCon(true)
+                    setUserName(newUser.data.userData.customer_name)
                     navigate('/Signin')
-                    return
+                    return true
                 } catch (e) {
                     console.log(e.response.data.error_message);
                     setError(e.response.data.error_message)
@@ -223,8 +220,6 @@ const MainApp = () => {
                         <Signupconfig
                             setShowForm={setShowForm}
                             showForm={showForm}
-                            loginForm={loginForm}
-                            setLoginForm={setLoginForm}
                             loading={loading}
                             setLoading={setLoading}
                             setError={setError}
