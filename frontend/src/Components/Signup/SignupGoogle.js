@@ -4,7 +4,7 @@ import jwt_Decode from 'jwt-decode'
 import { userAPI } from '../../Utils';
 import { useNavigate } from 'react-router-dom';
 import { saveUser } from '../../Utils';
-const SignupGoogle = ({setUserData }) => {
+const SignupGoogle = ({setUserData,hasUserLog, }) => {
 
   const navigate = useNavigate();
   // console.log(userData)
@@ -34,6 +34,7 @@ const SignupGoogle = ({setUserData }) => {
         })
         setUserData(gCredentials)
         saveUser(gCredentials)
+        hasUserLog() 
         navigate("/djoyof");
 
       } catch (e) {

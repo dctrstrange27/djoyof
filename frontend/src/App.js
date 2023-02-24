@@ -31,7 +31,7 @@ function App() {
 }
 const MainApp = () => {
     let navigate = useNavigate();
-    
+
     const [show, setShow] = useState(false);
     const [clickableAgain, setClickableAgain] = useState(true);
     const [proof, setProofFile] = useState();
@@ -44,9 +44,6 @@ const MainApp = () => {
     const [showNotif, setShowNotif] = useState(false)
     const [hasUser, setHasUsers] = useState(false)
     const [showForm, setShowForm] = useState(false)
-    
-
-
 
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
@@ -60,7 +57,7 @@ const MainApp = () => {
     //error
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    
+
 
     const [signupForm, setSignupForm] = useState([
         {
@@ -141,15 +138,20 @@ const MainApp = () => {
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
                             <Main
-                                handleLoginUsers={handleLoginUsers}
-                                showForm={showForm}
+                                setHasUsers={setHasUsers}
+                                setUserData={setUserData}
                                 setShowForm={setShowForm}
+                                error={error}
+                                showForm={showForm}
+                                loading={loading}
+                                handleLogin={handleLogin}
+                                setError={setError}
+                                setLoading={setLoading}
+                                handleLoginUsers={handleLoginUsers}
                                 hasUser={hasUser}
                                 showNotif={showNotif}
                                 setShowNotif={setShowNotif}
                                 cartItems={cartItems}
-                                setLoading={setLoading}
-                                loading={loading}
                                 updateSetShow={updateSetShow}
                                 setProofFile={setProofFile}
                                 proofView={proofView}
@@ -171,8 +173,7 @@ const MainApp = () => {
                             <React.Suspense fallback={
                                 <div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                     <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
-                                </div>
-                            }>
+                                </div>}>
                                 <Home
                                     cartItems={cartItems}
                                     setCartItems={setCartItems}
