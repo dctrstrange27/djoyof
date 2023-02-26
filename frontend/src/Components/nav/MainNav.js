@@ -19,7 +19,7 @@ import { BsFillCartFill } from 'react-icons/bs'
 import Nav from './Nav'
 import { getUser } from '../../Utils'
 
-const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, hide, setHide, setSignout, signout, setCurrentTab }) => {
+const MainNav = ({ togs, cartItems, hasUser, setShowForm, setShowNotif, setTogs, hide, setHide, setSignout, signout, setCurrentTab }) => {
 
     let navigate = useNavigate()
 
@@ -36,8 +36,8 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
     const [switchLabel, setSwitchLabel] = useState(false)
     const [name, setName] = useState(getUser())
 
-   // const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
-
+    // const isSwitchOn = () => { switchLabel ? setLable("Dark") : setLable("Light") }
+    
     const icon = [
         IoHome,
         MdHomeRepairService,
@@ -52,6 +52,7 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
         { id: 4, name: "Contact Us", nav: "Contact" },
         { id: 5, name: "Help", nav: "Help" },
     ]
+
     return (
         <>
             <div className='relative max-w-[90rem] border-green-500 border-[1px h-16 mx-auto min-w-sm z-40  duration-500'>
@@ -106,7 +107,7 @@ const MainNav = ({ togs,cartItems,hasUser, setShowForm,  setShowNotif, setTogs, 
                     </div>) : (
                         <div className='flex justify-center border-[1px px-2 py-2 gap-2 items-center'>
                             <button onClick={(e) => { setShowForm(false); navigate("/Signin") }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] hover:text-[#ffff] min-w-20 focus:ring-4 focus:outline-none ">Login</button>
-                            <button onClick={(e) => { navigate("/Signin");setShowForm(true) }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] hover:text-[#ffff] min-w-20 focus:ring-4 focus:outline-none ">Signup</button>
+                            <button onClick={(e) => { navigate("/Signin"); setShowForm(true) }} className=" home-button hover:scale-105 hover:from-[#d0253c] hover:to-[#be5e3b] hover:text-[#ffff] min-w-20 focus:ring-4 focus:outline-none ">Signup</button>
                         </div>
                     )}
                     {/* profile */}

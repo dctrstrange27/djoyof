@@ -5,10 +5,6 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { RiCloseFill } from 'react-icons/ri'
 
 const ToLogin = ({ setShowCon, showContinue,setHideError, userName }) => {
-  const [done, setDone] = useState(true)
-  setTimeout(() => {
-    setDone(false)
-  }, [3000])
 
   useEffect(() => {
     setShowCon(false)

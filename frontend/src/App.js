@@ -44,6 +44,8 @@ const MainApp = () => {
     const [showNotif, setShowNotif] = useState(false)
     const [hasUser, setHasUsers] = useState(false)
     const [showForm, setShowForm] = useState(false)
+    const [showReqForm, setShowReqForm] = useState(false)
+
 
     //Data related
     const [openTab, setOpenTab] = React.useState(1);
@@ -140,6 +142,8 @@ const MainApp = () => {
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
                             <Main
+                                showReqForm={showReqForm}
+                                setShowReqForm={setShowReqForm}
                                 hasUserLog={hasUserLog}
                                 setHasUsers={setHasUsers}
                                 setUserData={setUserData}
