@@ -4,14 +4,13 @@ import { ImCart } from "react-icons/im"
 import Login from "../Login/Login";
 import Signup from "./Signup";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import SignupGoogle from './SignupGoogle';
 
-
-export const Signin = ({ setError, setUserData,setShowForm, showForm, setLoginForm,
-                         loginForm, loading, setLoading, error, signupForm, setSignupForm,
-                         handleLogin, userData,
-                         showContinue,setShowCon,hideError,setHideError,hasUserLog
-                        }) => {
+export const Signin = ({ setError, setUserData, setShowForm, showForm, setLoginForm,
+    loginForm, loading, setLoading, error, signupForm, setSignupForm,
+    handleLogin, userData,
+    showContinue, setShowCon, hideError, setHideError, hasUserLog
+}) => {
 
     return (
         <>
@@ -41,49 +40,37 @@ export const Signin = ({ setError, setUserData,setShowForm, showForm, setLoginFo
                         </div>
                     </div>
                     {/* Sign up Form */}
+                    <div className="w-full flex flex-col justify-center">
                     {showForm ? (
                         <Signup
-                           
                             hasUserLog={hasUserLog}
                             setShowForm={setShowForm}
                             showForm={showForm}
                             setError={setError}
-                            setLoginForm={setLoginForm}
-                            loginForm={loginForm}
                             loading={loading}
                             setLoading={setLoading}
-                            error={error}
-                            signupForm={signupForm}
-                            setSignupForm={setSignupForm}
+                            error={error}                          
                             handleLogin={handleLogin}
-                            userData={userData}
-                            setUserData={setUserData}
-                            showContinue={showContinue} 
-                            setShowCon={setShowCon} 
+                            showContinue={showContinue}
+                            setShowCon={setShowCon}
                             hideError={hideError}
-                            setHideError={setHideError} 
-                            >
+                            setHideError={setHideError}
+                        >
                         </Signup>
                     ) : (
                         <Login
-
                             hasUserLog={hasUserLog}
-                            userData={userData}
-                            setUserData={setUserData}
                             setShowForm={setShowForm}
-                            showForm={showForm}
                             error={error}
-                            loading={loading}
-                            setLoading={setLoading}
-                            loginForm={loginForm}
-                            setLoginForm={setLoginForm}
                             handleLogin={handleLogin}
-                            setError={setError}
-                        >
+                            setError={setError}>
                         </Login>
                     )
                     }
-                    
+                    <div className="flex justify-center">
+                        <SignupGoogle handleLogin={handleLogin} ></SignupGoogle>
+                    </div>
+                    </div>
                 </div>
             </div>
             <Outlet />

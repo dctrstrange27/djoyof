@@ -3,21 +3,15 @@ import { RiCloseFill } from 'react-icons/ri'
 import LoginBody from '../Login/LoginBody'
 
 const ReqSignup = ({
-    userData,
-    setUserData,
     setShowForm,
     error,
     showForm,
-    loading,
     handleLogin,
     setError,
-    setLoading,
     handleLoginUsers,
-    hasUser,
     hasUserLog,
     showReqForm,
     setShowReqForm,
-    handleShowReqForm,
 }) => {
 
     useEffect(() => {
@@ -39,18 +33,12 @@ const ReqSignup = ({
                             <h3 className='dark:text-[#fff]'>To view this product in detail, please Signup or Login.</h3>
                             <LoginBody
                                 showReqForm={showReqForm}
-                                setShowReqForm={setShowReqForm}
-                                handleShowReqForm={handleShowReqForm}
                                 hasUserLog={hasUserLog}
-                                userData={userData}
-                                setUserData={setUserData}
                                 setShowForm={setShowForm}
                                 error={error}
                                 showForm={showForm}
-                                loading={loading}
                                 handleLogin={handleLogin}
                                 setError={setError}
-                                setLoading={setLoading}
                             />
                         </div>
                     </div>

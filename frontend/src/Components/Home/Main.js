@@ -32,22 +32,15 @@ const Main = ({ setLoading, togs, handleLoginUsers, hasUser, showForm, setShowFo
     <div className="relative flex flex-col">
       <SignoutPortal setLoading={setLoading} signout={signout} setSignout={setSignout}></SignoutPortal>
       <ReqSignup
-        handleShowReqForm={handleShowReqForm}
         showReqForm={showReqForm}
         setShowReqForm={setShowReqForm}
         hasUserLog={hasUserLog}
-        setHasUsers={setHasUsers}
         handleLoginUsers={handleLoginUsers}
-        userData={userData}
-        setUserData={setUserData}
-        setShowForm={setShowForm}
         error={error}
         showForm={showForm}
-        loading={loading}
         handleLogin={handleLogin}
         setError={setError}
-        hasUser={hasUser}
-        setLoading={setLoading} />
+        />
       <div className="border-b-[1px fixed border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-lg shadow-lg shadow-Light_shadow dark:shadow-[#13121277] dark:bg-two  w-full z-30">
         <MainNav hasUser={hasUser} showForm={showForm} setShowForm={setShowForm} showNotif={showNotif} setShowNotif={setShowNotif} cartItems={cartItems} currentTab={currentTab} setCurrentTab={setCurrentTab} setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
       </div>

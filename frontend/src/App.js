@@ -65,15 +65,7 @@ const MainApp = () => {
     const handleShowReqForm=()=>{setShowReqForm(false)}
 
 
-    const [signupForm, setSignupForm] = useState([
-        {
-            email: "",
-            password: "",
-            name: "",
-            confirm_password: "",
-        }
-    ])
-
+ 
     const updateSetShow = () => {
         setShow(false)
     }
@@ -84,7 +76,7 @@ const MainApp = () => {
 
     const handleLogin = async (mod, data) => {
         // login existing user account
-        console.log(showReqForm)
+     
         try {
             if (mod == 1) {
                 try {
@@ -95,13 +87,11 @@ const MainApp = () => {
                     setUserData(existingAccount)
                     saveUser(existingAccount)
                     handleLoginUsers()
-                   
                     setError('')
+                    handleShowReqForm()
                     navigate("/djoyof/Home");
-                    setShowReqForm(!showReqForm)
                     return true
                 } catch (e) {
-                    console.log(e.response.data.error_message);
                     setError(e.response.data.error_message);
                     setLoading(false)
                 }
@@ -114,7 +104,6 @@ const MainApp = () => {
                         password: data.password,
                         confirm_password: data.confirm_password,
                     })
-                    console.log(newUser);
                     saveUser(newUser);
                     setUserData(newUser);
                     setShowCon(true)
@@ -125,7 +114,6 @@ const MainApp = () => {
                     navigate('/Signin')
                     return true
                 } catch (e) {
-                    console.log(e.response.data.error_message);
                     setError(e.response.data.error_message)
                     setLoading(false)
                 }
@@ -137,7 +125,6 @@ const MainApp = () => {
                     picture:data.picture,
                     verified:data.email_verified
                   })
-                  console.log(gCredentials)
                   setUserData(gCredentials)
                   saveUser(gCredentials)
                   hasUserLog() 
@@ -255,8 +242,7 @@ const MainApp = () => {
                             setLoading={setLoading}
                             setError={setError}
                             error={error}
-                            signupForm={signupForm}
-                            setSignupForm={setSignupForm}
+                          
                             handleLogin={handleLogin}
                             userName={userName}
                             setUserName={setUserName}

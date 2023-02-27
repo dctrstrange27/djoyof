@@ -3,32 +3,26 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import SignupError from "../error/SignupError";
 import { GoSignIn } from "react-icons/go"
-import SignupGoogle from "../Signup/SignupGoogle";
 import { useEffect, useState } from "react";
 import { API, getRemembered, } from "../../Utils";
 const LoginBody = ({
-  setUserData,
   setShowForm,
   error,
   showForm,
   loading,
   handleLogin,
   setError,
-  setLoading,
   hasUserLog,
-  handleShowReqForm,
-  showReqForm,
-  setShowReqForm
 }) => {
   const [loginForm, setLoginForm] = useState([
     {
-      email: "",
-      password: "",
+      email: " ",
+      password: " ",
     }
   ])
 
+  console.log(loginForm[0][0])
   const handleLog = async () => {
-    setLoading(true)
     const user = await handleLogin(1, loginForm)
     hasUserLog()
 
@@ -40,11 +34,16 @@ const LoginBody = ({
       setError("")
     }
   }
+  
   useEffect(() => {
     setError("")
+    setLoginForm({
+      email: ' ',
+      password: ' ',
+    });
     const remembered = getRemembered()
     if (remembered) {
-      setLoginForm(() => ({ ...loginForm, email: loginForm[0][0], password: loginForm[0][1] }))
+      setLoginForm(() => ({ ...loginForm, email: loginForm.email, password: loginForm.password }))
     }
   }, []);
 
@@ -61,7 +60,7 @@ const LoginBody = ({
             <input className="signup-input"
               type="text"
               name="email"
-              value={loginForm[0][0]}
+              value={loginForm.email  || ''}
               onChange={onChange}
             />
           </div>
@@ -72,7 +71,7 @@ const LoginBody = ({
           <input className="signup-input2  "
             type="password"
             name="password"
-            value={loginForm[0][1]}
+            value={loginForm.password  || ''}
             onChange={onChange}
           />
         </div>
@@ -100,9 +99,7 @@ const LoginBody = ({
             <p className="text-[#e5e7e9] py-3 font-mulish tracking-wide mx-10 hover:scale-105 font-bold">or</p>
             <div className="border [.5px] border-b-[#969191a6] w-full"></div>
           </div>
-          <div className="flex justify-center">
-            <SignupGoogle handleLogin={handleLogin} hasUserLog={hasUserLog} setUserData={setUserData} setLoginForm={setLoginForm} loginForm={loginForm}></SignupGoogle>
-          </div>
+       
         </div>
       </div>
 

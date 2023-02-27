@@ -4,8 +4,8 @@ import ToLogin from "./ToLogin"
 import { useEffect, useState } from "react"
 
 const Signupconfig = ({ 
-   hasUserLog,showContinue,setShowCon,setShowForm,showForm, setUserData,signupForm, 
-   loginForm, setLoginForm, loading, setLoading, setSignupForm, error, setError, setData,
+   hasUserLog,showContinue,setShowCon,setShowForm,showForm, setUserData, 
+   loginForm, setLoginForm, loading, setLoading, error, setError, setData,
    handleLogin, userName, setUserName, userData, 
   }) => {
 
@@ -23,10 +23,8 @@ const Signupconfig = ({
         loginForm={loginForm}
         setLoginForm={setLoginForm}
         setLoading={setLoading}
-        signupForm={signupForm} 
         setError={setError}
         error={error} 
-        setSignupForm={setSignupForm} 
         handleLogin={handleLogin} 
         userData={userData} 
         userName={userName} 
