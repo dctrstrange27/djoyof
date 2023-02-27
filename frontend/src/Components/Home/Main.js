@@ -19,19 +19,20 @@ const Main = ({ setLoading, togs, handleLoginUsers, hasUser, showForm, setShowFo
   hasUserLog,
   showReqForm,
   setShowReqForm,
+  handleShowReqForm
 }) => {
   const [hide, setHide] = useState(false)
 
   useEffect(() => {
     handleLoginUsers()
-    console.log(hasUser)
+ 
   }, [])
-
 
   return (
     <div className="relative flex flex-col">
       <SignoutPortal setLoading={setLoading} signout={signout} setSignout={setSignout}></SignoutPortal>
       <ReqSignup
+        handleShowReqForm={handleShowReqForm}
         showReqForm={showReqForm}
         setShowReqForm={setShowReqForm}
         hasUserLog={hasUserLog}

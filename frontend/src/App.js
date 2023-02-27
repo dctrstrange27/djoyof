@@ -61,7 +61,9 @@ const MainApp = () => {
     const [loading, setLoading] = useState(false)
 
 
-    const hasUserLog=()=>{setHasUsers(!hasUser)}
+    const hasUserLog=()=>{setHasUsers(true)}
+    const handleShowReqForm=()=>{setShowReqForm(false)}
+
 
     const [signupForm, setSignupForm] = useState([
         {
@@ -71,6 +73,7 @@ const MainApp = () => {
             confirm_password: "",
         }
     ])
+
     const updateSetShow = () => {
         setShow(false)
     }
@@ -81,6 +84,7 @@ const MainApp = () => {
 
     const handleLogin = async (mod, data) => {
         // login existing user account
+        console.log(showReqForm)
         try {
             if (mod == 1) {
                 try {
@@ -90,8 +94,11 @@ const MainApp = () => {
                     })
                     setUserData(existingAccount)
                     saveUser(existingAccount)
-                    navigate("/djoyof/Home");
+                    handleLoginUsers()
+                   
                     setError('')
+                    navigate("/djoyof/Home");
+                    setShowReqForm(!showReqForm)
                     return true
                 } catch (e) {
                     console.log(e.response.data.error_message);
@@ -112,6 +119,9 @@ const MainApp = () => {
                     setUserData(newUser);
                     setShowCon(true)
                     setUserName(newUser.data.userData.customer_name)
+                 
+                    handleLoginUsers()
+                    handleShowReqForm()
                     navigate('/Signin')
                     return true
                 } catch (e) {
@@ -121,12 +131,18 @@ const MainApp = () => {
                 }
             }
             if (mod == 2) {
-                const loginGoogle = await userAPI.post("/login", {
-                    email_address: data.email,
-                    password: data.name,
-                })
-                setUserData(loginGoogle)
-                saveUser(loginGoogle)
+                const gCredentials = await userAPI.post("/createGoogleAccount", {
+                    email_address:data.email,
+                    customer_name:data.name,
+                    picture:data.picture,
+                    verified:data.email_verified
+                  })
+                  console.log(gCredentials)
+                  setUserData(gCredentials)
+                  saveUser(gCredentials)
+                  hasUserLog() 
+                  handleShowReqForm()
+                  navigate("/djoyof/Home");
             }
             //new Account
         } catch (error) {
@@ -142,6 +158,7 @@ const MainApp = () => {
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
                             <Main
+                                handleShowReqForm={handleShowReqForm}
                                 showReqForm={showReqForm}
                                 setShowReqForm={setShowReqForm}
                                 hasUserLog={hasUserLog}
@@ -205,7 +222,7 @@ const MainApp = () => {
                             <React.Suspense fallback={<div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                 <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
                             </div>}>
-                                <Products setCartCount={setCartCount} cartItemsCount={cartItemsCount} setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
+                                <Products hasUser={hasUser}   showReqForm={showReqForm} setShowReqForm={setShowReqForm} setCartCount={setCartCount} cartItemsCount={cartItemsCount} setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
                             </React.Suspense>
                         } />
                         <Route path="Contact" element={<Contact />} />
@@ -228,7 +245,9 @@ const MainApp = () => {
                     </Route>
                     <Route path="recoverAccount" element={<ForgotConfig />} />
                     <Route path="Signin" element={
-                        <Signupconfig
+                        <Signupconfig 
+                            showReqForm={showReqForm} 
+                            setShowReqForm={setShowReqForm}
                             hasUserLog={hasUserLog}
                             setShowForm={setShowForm}
                             showForm={showForm}

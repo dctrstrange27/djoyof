@@ -10,7 +10,7 @@ import { useState } from "react";
 export const Signin = ({ setError, setUserData,setShowForm, showForm, setLoginForm,
                          loginForm, loading, setLoading, error, signupForm, setSignupForm,
                          handleLogin, userData,
-                         showContinue,setShowCon,hideError,setHideError,hasUserLog,
+                         showContinue,setShowCon,hideError,setHideError,hasUserLog
                         }) => {
 
     return (
@@ -43,6 +43,7 @@ export const Signin = ({ setError, setUserData,setShowForm, showForm, setLoginFo
                     {/* Sign up Form */}
                     {showForm ? (
                         <Signup
+                           
                             hasUserLog={hasUserLog}
                             setShowForm={setShowForm}
                             showForm={showForm}
@@ -65,7 +66,8 @@ export const Signin = ({ setError, setUserData,setShowForm, showForm, setLoginFo
                         </Signup>
                     ) : (
                         <Login
-                             hasUserLog={hasUserLog}
+
+                            hasUserLog={hasUserLog}
                             userData={userData}
                             setUserData={setUserData}
                             setShowForm={setShowForm}

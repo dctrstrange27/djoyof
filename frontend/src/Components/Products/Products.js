@@ -3,12 +3,15 @@ import { API, getUser } from '../../Utils'
 import Prod from './Prod'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { lazy, Suspense } from 'react';
+import {toast} from 'react-toastify'
+import UseDarkMode from '../DarkMode/UseDarkMode';
+
+
 const Item = lazy(()=> import('./Item'))
 
- function useDebounceVal(value, time = 250){
-  
-  const [debounce,setDebounce] = useState(value)
 
+ function useDebounceVal(value, time = 250){
+  const [debounce,setDebounce] = useState(value)
   useEffect(()=>{
     const timeout = setTimeout(()=>{
       setDebounce(value);
@@ -21,18 +24,23 @@ const Item = lazy(()=> import('./Item'))
   return debounce;
  }
 
-function Products({ cartItems, setShowNotif }) {
+function Products({ cartItems, setShowNotif,hasUser,showReqForm,setShowReqForm }) {
 
   const [products, setProducts] = useState([])
   const [message, setMessage] = useState("Added to Cart ")
   const [search, setSearch] = useState("")
   
-
+  const [toastTheme,setToastTheme] = UseDarkMode()
  
 
   //const debounce = useDebounceVal(search)
   //fetch data from server!!! 
   const addToCart = async (cart) => {
+   
+    if(!hasUser){
+      setShowReqForm(!showReqForm)
+      return
+    }
     cart.product_qty = 1
     try {
       const cartItems = await API.post("/addToCart", {
@@ -41,8 +49,17 @@ function Products({ cartItems, setShowNotif }) {
         userID: getUser()._id,
         name: cart.product_name
       })
-      console.log(cartItems.data.cart)
       setMessage("Added " + cartItems.data.cart)
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme:  toastTheme == "light" ? "dark":"light",
+        });
     } catch (e) { 
       console.log(e)
     }
@@ -57,9 +74,9 @@ function Products({ cartItems, setShowNotif }) {
       setProducts(filter) 
     }
   }
+  
   useEffect(async()=>{
     handleSearchFilter(search)
-    // console.log(search)
   },[search])
 
   return (

@@ -4,7 +4,7 @@ import jwt_Decode from 'jwt-decode'
 import { userAPI } from '../../Utils';
 import { useNavigate } from 'react-router-dom';
 import { saveUser } from '../../Utils';
-const SignupGoogle = ({setUserData,hasUserLog}) => {
+const SignupGoogle = ({handleLogin,}) => {
 
   const navigate = useNavigate();
   // console.log(userData)
@@ -24,19 +24,10 @@ const SignupGoogle = ({setUserData,hasUserLog}) => {
   // handleFetch()
   // },[])
 
+
   const handleGoogleAcount = async (credGoogle) => {
       try {
-        const gCredentials = await userAPI.post("/createGoogleAccount", {
-          email_address:credGoogle.email,
-          customer_name:credGoogle.name,
-          picture:credGoogle.picture,
-          verified:credGoogle.email_verified
-        })
-        setUserData(gCredentials)
-        saveUser(gCredentials)
-        hasUserLog() 
-        navigate("/djoyof/Home");
-
+      handleLogin(2,credGoogle)
       } catch (e) {
         console.log(e)
       }
@@ -49,7 +40,7 @@ const SignupGoogle = ({setUserData,hasUserLog}) => {
           const gAcountCredentials = jwt_Decode(credentialResponse.credential)
              handleGoogleAcount(gAcountCredentials)
              //console.log(gAcountCredentials)
-          // createGoogleAccount(googleAccountCredentials)
+           // createGoogleAccount(googleAccountCredentials)
         }}
         onError={() => {
           console.log('Login Failed');
