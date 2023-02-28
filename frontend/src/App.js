@@ -61,11 +61,11 @@ const MainApp = () => {
     const [loading, setLoading] = useState(false)
 
 
-    const hasUserLog=()=>{setHasUsers(true)}
-    const handleShowReqForm=()=>{setShowReqForm(false)}
+    const hasUserLog = () => { setHasUsers(true) }
+    const handleShowReqForm = () => { setShowReqForm(false) }
 
 
- 
+
     const updateSetShow = () => {
         setShow(false)
     }
@@ -76,7 +76,6 @@ const MainApp = () => {
 
     const handleLogin = async (mod, data) => {
         // login existing user account
-     
         try {
             if (mod == 1) {
                 try {
@@ -108,7 +107,7 @@ const MainApp = () => {
                     setUserData(newUser);
                     setShowCon(true)
                     setUserName(newUser.data.userData.customer_name)
-                 
+
                     handleLoginUsers()
                     handleShowReqForm()
                     navigate('/Signin')
@@ -120,16 +119,16 @@ const MainApp = () => {
             }
             if (mod == 2) {
                 const gCredentials = await userAPI.post("/createGoogleAccount", {
-                    email_address:data.email,
-                    customer_name:data.name,
-                    picture:data.picture,
-                    verified:data.email_verified
-                  })
-                  setUserData(gCredentials)
-                  saveUser(gCredentials)
-                  hasUserLog() 
-                  handleShowReqForm()
-                  navigate("/djoyof/Home");
+                    email_address: data.email,
+                    customer_name: data.name,
+                    picture: data.picture,
+                    verified: data.email_verified
+                })
+                setUserData(gCredentials)
+                saveUser(gCredentials)
+                hasUserLog()
+                handleShowReqForm()
+                navigate("/djoyof/Home");
             }
             //new Account
         } catch (error) {
@@ -145,15 +144,17 @@ const MainApp = () => {
                             <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin  bg-transparent" ></ImSpinner10>
                         </div>} >
                             <Main
+                                showContinue={showContinue}
+                                setShowCon={setShowCon}
+                                showForm={showForm}
+                                setShowForm={setShowForm}
                                 handleShowReqForm={handleShowReqForm}
                                 showReqForm={showReqForm}
                                 setShowReqForm={setShowReqForm}
                                 hasUserLog={hasUserLog}
                                 setHasUsers={setHasUsers}
                                 setUserData={setUserData}
-                                setShowForm={setShowForm}
                                 error={error}
-                                showForm={showForm}
                                 loading={loading}
                                 handleLogin={handleLogin}
                                 setError={setError}
@@ -209,7 +210,7 @@ const MainApp = () => {
                             <React.Suspense fallback={<div className={`w-[70rem] h-screen dark:bg-four border-[1px flex justify-center items-center`}>
                                 <ImSpinner10 className="text-Ofive w-8 h-auto animate-spin " ></ImSpinner10>
                             </div>}>
-                                <Products hasUser={hasUser}   showReqForm={showReqForm} setShowReqForm={setShowReqForm} setCartCount={setCartCount} cartItemsCount={cartItemsCount} setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
+                                <Products hasUser={hasUser} showReqForm={showReqForm} setShowReqForm={setShowReqForm} setCartCount={setCartCount} cartItemsCount={cartItemsCount} setShowNotif={setShowNotif} cartItems={cartItems} setCartItems={setCartItems} />
                             </React.Suspense>
                         } />
                         <Route path="Contact" element={<Contact />} />
@@ -232,17 +233,16 @@ const MainApp = () => {
                     </Route>
                     <Route path="recoverAccount" element={<ForgotConfig />} />
                     <Route path="Signin" element={
-                        <Signupconfig 
-                            showReqForm={showReqForm} 
-                            setShowReqForm={setShowReqForm}
-                            hasUserLog={hasUserLog}
+                        <Signupconfig
                             setShowForm={setShowForm}
                             showForm={showForm}
+                            showReqForm={showReqForm}
+                            setShowReqForm={setShowReqForm}
+                            hasUserLog={hasUserLog}
                             loading={loading}
                             setLoading={setLoading}
                             setError={setError}
                             error={error}
-                          
                             handleLogin={handleLogin}
                             userName={userName}
                             setUserName={setUserName}
@@ -250,7 +250,7 @@ const MainApp = () => {
                             setUserData={setUserData}
                             showContinue={showContinue}
                             setShowCon={setShowCon} />} >
-                       
+
                     </Route>
                 </Routes>
                 <Outlet />

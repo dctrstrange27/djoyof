@@ -9,38 +9,39 @@ import ReqSignup from "./ReqSignup";
 const Main = ({ setLoading, togs, handleLoginUsers, hasUser, showForm, setShowForm, showNotif,
   setShowNotif, setTogs, cartItems, setUseGoogle, setUseLocal, signout,
   setSignout, currentTab, setCurrentTab,
-  setUserData,
   error,
-  loading,
   handleLogin,
   setError,
-  userData,
-  setHasUsers,
   hasUserLog,
   showReqForm,
   setShowReqForm,
-  handleShowReqForm
+  showContinue,
+  setShowCon,
 }) => {
   const [hide, setHide] = useState(false)
 
   useEffect(() => {
     handleLoginUsers()
- 
+
   }, [])
 
   return (
     <div className="relative flex flex-col">
       <SignoutPortal setLoading={setLoading} signout={signout} setSignout={setSignout}></SignoutPortal>
       <ReqSignup
+        setLoading={setLoading}
+        showContinue={showContinue}
+        setShowCon={setShowCon}
+        showForm={showForm}
+        setShowForm={setShowForm}
         showReqForm={showReqForm}
         setShowReqForm={setShowReqForm}
         hasUserLog={hasUserLog}
         handleLoginUsers={handleLoginUsers}
         error={error}
-        showForm={showForm}
         handleLogin={handleLogin}
         setError={setError}
-        />
+      />
       <div className="border-b-[1px fixed border-[#7a7a7a75] bg-[#ffffffd4] dark:shadow-lg shadow-lg shadow-Light_shadow dark:shadow-[#13121277] dark:bg-two  w-full z-30">
         <MainNav hasUser={hasUser} showForm={showForm} setShowForm={setShowForm} showNotif={showNotif} setShowNotif={setShowNotif} cartItems={cartItems} currentTab={currentTab} setCurrentTab={setCurrentTab} setUseGoogle={setUseGoogle} signout={signout} setSignout={setSignout} setUseLocal={setUseLocal} hide={hide} setHide={setHide} togs={togs} setTogs={setTogs} />
       </div>

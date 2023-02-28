@@ -5,11 +5,21 @@ import Login from "../Login/Login";
 import Signup from "./Signup";
 import { Outlet } from "react-router-dom";
 import SignupGoogle from './SignupGoogle';
+import SigninForm from "../SigninForm/SigninForm";
 
-export const Signin = ({ setError, setUserData, setShowForm, showForm, setLoginForm,
-    loginForm, loading, setLoading, error, signupForm, setSignupForm,
-    handleLogin, userData,
-    showContinue, setShowCon, hideError, setHideError, hasUserLog
+export const Signin = ({
+    setShowForm,
+    showForm,
+    loading,
+    setLoading,
+    error,
+    handleLogin,
+    showContinue,
+    setShowCon,
+    hideError,
+    setHideError,
+    hasUserLog,
+    setError,
 }) => {
 
     return (
@@ -40,36 +50,24 @@ export const Signin = ({ setError, setUserData, setShowForm, showForm, setLoginF
                         </div>
                     </div>
                     {/* Sign up Form */}
-                    <div className="w-full flex flex-col justify-center">
-                    {showForm ? (
-                        <Signup
+                    <div className="w-full flex flex-col items-center justify-center">
+                           <SigninForm 
                             hasUserLog={hasUserLog}
                             setShowForm={setShowForm}
                             showForm={showForm}
                             setError={setError}
                             loading={loading}
                             setLoading={setLoading}
-                            error={error}                          
+                            error={error}
                             handleLogin={handleLogin}
                             showContinue={showContinue}
                             setShowCon={setShowCon}
                             hideError={hideError}
                             setHideError={setHideError}
-                        >
-                        </Signup>
-                    ) : (
-                        <Login
-                            hasUserLog={hasUserLog}
-                            setShowForm={setShowForm}
-                            error={error}
-                            handleLogin={handleLogin}
-                            setError={setError}>
-                        </Login>
-                    )
-                    }
-                    <div className="flex justify-center">
-                        <SignupGoogle handleLogin={handleLogin} ></SignupGoogle>
-                    </div>
+                           />
+                        <div className="flex justify-center">
+                            <SignupGoogle handleLogin={handleLogin} ></SignupGoogle>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import { API, getRemembered, } from "../../Utils";
 const LoginBody = ({
   setShowForm,
-  error,
   showForm,
+  error,
   loading,
   handleLogin,
   setError,
@@ -20,8 +20,7 @@ const LoginBody = ({
       password: " ",
     }
   ])
-
-  console.log(loginForm[0][0])
+  console.log(showForm)
   const handleLog = async () => {
     const user = await handleLogin(1, loginForm)
     hasUserLog()

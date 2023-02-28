@@ -15,8 +15,8 @@ const Signup = ({
     }) => {
 
     return (
-        <div className="flex md:w-full flex-col px-10 md:gap-5 border-[#d90045] border-[1px] md:px-20">
-        <h1 className="font-pacifico text-3xl my-4 text-[#fff] tracking-widest" >Sign-up</h1>
+        <div className="flex justify-center items-center flex-col w-[80%] md:gap-5 border-[#d90045] border-[1px ">
+        <h1 className="font-pacifico text-start w-full text-3xl my-4 text-[#fff] tracking-widest" >Sign-up</h1>
         {/* input */}
         <SignupBody
           loading={loading}
